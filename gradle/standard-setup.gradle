@@ -1,0 +1,8 @@
+apply from: "gradle/dependencies.gradle"
+apply from: "gradle/sonarqube.gradle"
+apply from: "gradle/lint.gradle"
+apply from: "gradle/spotless.gradle"
+apply from: "gradle/jacoco.gradle"
+
+// This turns off jacocoTestReport and enables codeCoverageReport
+apply from: "gradle/java-conventions.gradle"

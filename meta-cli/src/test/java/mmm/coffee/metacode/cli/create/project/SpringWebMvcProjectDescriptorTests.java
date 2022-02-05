@@ -1,0 +1,121 @@
+/*
+ * Copyright 2020 Jon Caulfield
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package mmm.coffee.metacode.cli.create.project;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.google.common.truth.Truth.assertThat;
+
+/**
+ * Unit tests
+ */
+public class SpringWebMvcProjectDescriptorTests {
+
+    private static final String BASEPATH = "/petstore";
+    private static final String BASEPKG = "io.acme.petstore";
+    private static final String APPNAME = "petstore";
+    private static final String GROUPID = "io.acme.petstore";
+    private static Set<WebMvcIntegration> FEATURES = new HashSet<>();
+
+    @BeforeEach
+    public void setUp() {
+        FEATURES.clear();
+        FEATURES.add(WebMvcIntegration.POSTGRES);
+        FEATURES.add(WebMvcIntegration.TESTCONTAINERS);
+    }
+
+    /**
+     * A simple exercise of the SpringWebMvcProjectDescriptor api
+     */
+    @Test
+    void shouldBuildWellFormedObject() {
+        var descriptor = SpringWebMvcProjectDescriptor.builder()
+                .applicationName(APPNAME)
+                .basePackage(BASEPKG)
+                .basePath(BASEPATH)
+                .groupId(GROUPID)
+                .build();
+
+        descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES);
+        descriptor.getIntegrations().add(WebMvcIntegration.TESTCONTAINERS);
+
+        assertThat(descriptor.getApplicationName()).isEqualTo(APPNAME);
+        assertThat(descriptor.getBasePackage()).isEqualTo(BASEPKG);
+        assertThat(descriptor.getBasePath()).isEqualTo(BASEPATH);
+        assertThat(descriptor.getGroupId()).isEqualTo(GROUPID);
+        assertThat(descriptor.getIntegrations()).containsExactlyElementsIn(FEATURES);
+
+        assertThat(descriptor.toString()).isNotEmpty();
+        assertThat(descriptor.canEqual(null)).isFalse();
+        assertThat(descriptor.equals(null)).isFalse();
+        assertThat(descriptor.equals(descriptor)).isTrue();
+        assertThat(descriptor.hashCode()).isEqualTo(descriptor.hashCode());
+    }
+
+    @Test
+    void shouldAllowAddingIntegrationsAfterBuildIsCalled() {
+        var descriptor = SpringWebMvcProjectDescriptor.builder()
+                .applicationName(APPNAME)
+                .basePackage(BASEPKG)
+                .basePath(BASEPATH)
+                .groupId(GROUPID)
+                .build();
+
+        descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES);
+        descriptor.getIntegrations().add(WebMvcIntegration.TESTCONTAINERS);
+        
+        assertThat(descriptor.getIntegrations().size()).isEqualTo(2);
+        assertThat(descriptor.getIntegrations()).containsExactly(WebMvcIntegration.POSTGRES, WebMvcIntegration.TESTCONTAINERS);
+    }
+    @Test
+    void shouldAddIntegrationsDuringBuildPhase() {
+        var descriptor = SpringWebMvcProjectDescriptor.builder()
+                .applicationName(APPNAME)
+                .basePackage(BASEPKG)
+                .basePath(BASEPATH)
+                .groupId(GROUPID)
+                .integrations(FEATURES)
+                .build();
+        
+        assertThat(descriptor.getIntegrations().size()).isEqualTo(2);
+        assertThat(descriptor.getIntegrations()).containsExactly(WebMvcIntegration.POSTGRES, WebMvcIntegration.TESTCONTAINERS);
+    }
+
+    /*
+     * This test only increases code coverage
+     */
+    @Test
+    @Tag("coverage")
+    void testToString() {
+        var descriptor = SpringWebMvcProjectDescriptor.builder().build();
+        assertThat(descriptor.toString()).isNotEmpty();
+    }
+
+    /*
+     * This test only increases code coverage
+     */
+    @Test
+    @Tag("coverage")
+    void testBuilderToString() {
+        var descriptor = SpringWebMvcProjectDescriptor.builder().toString();
+        assertThat(descriptor.toString()).isNotEmpty();
+    }
+}

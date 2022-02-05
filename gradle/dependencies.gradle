@@ -1,0 +1,55 @@
+ext {
+    versions = [
+            assertJ:            '3.20.2',
+            commonsBeanUtils:   '1.9.4',
+            commonsConfig:      '2.7',
+            commonsIo:          '2.11.0',
+            commonsLang3:       '3.12.0',
+            commonsText:        '1.9',
+            freemarker:         '2.3.31',
+            guava:              '31.0.1-jre',
+            guice:              '5.1.0',
+            jmustache:          '1.15',
+            junit:              '5.8.2',
+            log4j:              '2.14.0',
+            lombok:             '1.18.22',
+            mockito:            '4.3.1',
+            picocli:            '4.6.2',
+            slf4jApi:           '1.7.30',
+            slf4jLog4j:         '1.1.7.30',
+            snakeYaml:          '1.30',
+            systemRules:        '1.19.0',
+            systemLambda:       '1.2.0',
+            truth:              '1.1.3'
+    ]
+    libs = [
+            assertJ                     : "org.assertj:assertj-core:$versions.assertJ",
+            commonsBeanUtils            : "commons-beanutils:commons-beanutils:$versions.commonsBeanUtils",
+            commonsConfig               : "org.apache.commons:commons-configuration2:$versions.commonsConfig",
+            commonsIo                   : "commons-io:commons-io:$versions.commonsIo",
+            commonsLang3                : "org.apache.commons:commons-lang3:$versions.commonsLang3",
+            commonsText                 : "org.apache.commons:commons-text:$versions.commonsText",
+            freemarker                  : "org.freemarker:freemarker:$versions.freemarker",
+            guava                       : "com.google.guava:guava:$versions.guava",
+            guice                       : "com.google.inject:guice:$versions.guice",
+            jmustache                   : "com.samskivert:jmustache:$versions.jmustache",
+            junitBillOfMaterial         : "org.junit:junit-bom:$versions.junit",
+            junitJupiter                : "org.junit.jupiter:junit-jupiter:$versions.junit",
+            junitPlatformRunner         : "org.junit.platform:junit-platform-runner",
+            
+            // See https://stefanbirkner.github.io/system-rules/
+            junitSystemRules            : "com.github.stefanbirkner:system-rules:$versions.systemRules",
+
+            log4j                       : "org.apache.logging:log4j:log4j-core:$versions.log4j",
+            lombok                      : "org.projectlombok:lombok:$versions.lombok",
+            mockito                     : "org.mockito:mockito-core:$versions.mockito",
+            picocli                     : "info.picocli:picocli:$versions.picocli",
+            picocliCodeGen              : "info.picocli:picocli-codegen:$versions.picocli",
+            slf4jApi                    : "org.slf4j:slf4j-api:$versions.slf4jApi",
+            slf4jLog4j                  : "org.slf4j:slf4j-log4j12:$versions.slf4jLog4J",
+            snakeYaml                   : "org.yaml:snakeyaml:$versions.snakeYaml",
+            systemLambda                : "com.github.stefanbirkner:system-lambda:$versions.systemLambda",
+            truth                       : "com.google.truth:truth:$versions.truth"
+    ]
+}
+

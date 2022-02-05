@@ -1,0 +1,59 @@
+// --------------------------------------------------------------------------------
+// Jacoco and Sonarqube configuration
+//
+// References:
+// https://discuss.gradle.org/t/merge-jacoco-coverage-reports-for-multiproject-setups/12100/5
+// https://stackoverflow.com/questions/41429841/cross-module-code-coverage-with-jacoco-and-gradle-multi-module-project#49176779
+// https://docs.gradle.org/current/samples/sample_jvm_multi_project_with_code_coverage.html
+// --------------------------------------------------------------------------------
+
+// See https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    // with JvmTestSuite plugin, this is now an unknown property
+    // dependsOn integrationTest
+    reports {
+        xml.enabled(true)   // sonarqube needs xml format
+        html.enabled(true)  // for our local viewing pleasure
+    }
+}
+
+// The classes we do not want reported in code coverage.
+def ignoredClasses =
+        '**/*Exception.java,' +
+        '**/*Tests.java,**/*Test.java,' +
+        '**/*IT.java,' +
+        '**/*Application.java,' +
+        '**/test/**.java'
+
+sonarqube {
+    properties {
+        property 'sonar.sourceEncoding', 'UTF-8'
+        property 'sonar.projectName', rootProject.name
+
+        // Exclude: exceptions, tests, configurations, the main application class, and classes auto-completed by Lombok
+        property 'sonar.coverage.exclusions',  ignoredClasses
+        
+        // Todo: point these at each
+        // property 'sonar.coverage.jacoco.xmlReportPaths', allTestCoverageFile
+        property 'sonar.java.coveragePlugin', "jacoco"
+
+        // What Sonarqube uses to assign blame
+        property 'sonar.scm.provider', 'git' 
+
+        // Turning off SCM since I don't need blame assigned 
+        property 'sonar.scm.disabled', 'True'
+    }
+}
+
+//tasks.withType(SonarqubeTask).configureEach {
+//    dependsOn(project.tasks.named("aggregateJacocoTestReport"))
+//}
+
+tasks['sonarqube'].dependsOn test
+// tasks['sonarqube'].dependsOn integrationTest

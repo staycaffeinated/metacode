@@ -1,0 +1,8 @@
+
+rootProject.name='metacode'
+
+include 'meta-cli'
+include 'meta-common'
+include 'meta-generator-factory'
+include 'meta-spring-generator'
+include 'meta-annotations'

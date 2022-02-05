@@ -1,0 +1,37 @@
+
+apply from: "../gradle/java-conventions.gradle"
+
+// --------------------------------------------------------------
+// Dependencies
+// --------------------------------------------------------------
+dependencies {
+    implementation project (path: ':meta-common' )
+    implementation libs.guice
+
+    // Why is this needed here?? IDE blunder??
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+
+    // this dependency is needed for integration testing
+    // testImplementation project (path: ':meta-spring-generator')
+
+    testImplementation ( platform(libs.junitBillOfMaterial) )
+    testImplementation ( libs.junitJupiter )
+    testImplementation ( libs.junitSystemRules )
+    testImplementation ( libs.truth )
+    testImplementation ( libs.commonsBeanUtils )
+    testImplementation ( libs.mockito )
+    testImplementation ( libs.systemLambda )
+
+    // this dependency is needed for integration testing
+//    integrationTestImplementation project (path: ':zen-spring-generator')
+//    integrationTestImplementation project (path: ':zen-generator-factory')
+//    integrationTestImplementation project (path: ':zen-core')
+//
+//    integrationTestImplementation ( platform(libs.junitBillOfMaterial) )
+//    integrationTestImplementation ( libs.junitJupiter )
+//    integrationTestImplementation ( libs.junitSystemRules )
+//    integrationTestImplementation ( libs.truth )
+//    integrationTestImplementation ( libs.commonsBeanUtils )
+//    integrationTestImplementation ( libs.mockito )
+}
+

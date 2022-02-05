@@ -1,0 +1,82 @@
+// from: https://docs.gradle.org/current/samples/sample_jvm_multi_project_with_code_coverage.html
+
+// Share sources folder with other projects for aggregated JaCoCo reports
+configurations.create('transitiveSourcesElements') {
+    visible = false
+    canBeResolved = false
+    canBeConsumed = true
+    extendsFrom(configurations.implementation)
+    attributes {
+        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+        attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.DOCUMENTATION))
+        attribute(DocsType.DOCS_TYPE_ATTRIBUTE, objects.named(DocsType, 'source-folders'))
+    }
+    sourceSets.main.java.srcDirs.forEach {
+        outgoing.artifact(it)
+    }
+}
+
+// Share the coverage data to be aggregated for the whole product
+configurations.create('coverageDataElements') {
+    visible = false
+    canBeResolved = false
+    canBeConsumed = true
+    extendsFrom(configurations.implementation)
+    attributes {
+        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+        attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.DOCUMENTATION))
+        attribute(DocsType.DOCS_TYPE_ATTRIBUTE, objects.named(DocsType, 'jacoco-coverage-data'))
+    }
+    // This will cause the test task to run if the coverage data is requested by the aggregation task
+    outgoing.artifact(tasks.named("test").map { task ->
+        task.extensions.getByType(JacocoTaskExtension).destinationFile
+    })
+}
+
+// This configuration creates an integrationTest source set, integration test
+// dependency configurations, and an integrationTest task.
+// From: https://tomgregory.com/gradle-integration-tests/#Setup_your_Gradle_project_for_integration_tests
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+        integrationTest(JvmTestSuite) {
+            sources {
+                java {
+                    srcDirs = [ 'src/integrationTest/java' ]
+                }
+            }
+            dependencies {
+                implementation project
+            }
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Ensure integration tests run when the 'check' task runs
+tasks.named('check') {
+    dependsOn(testing.suites.integrationTest)
+}
+// This is here because when this stanza is placed in jacoco.gradle,
+// this error occurs:
+// Could not get unknown property 'integrationTest' for TestSuite container of type org.gradle.api.internal.DefaultPolymorphicDomainObjectContainer.
+tasks.named('jacocoTestReport') {
+    dependsOn(testing.suites.integrationTest)
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    // tells sonarqube to scan for all .exec files, such as integrationTest.exec
+    getExecutionData().setFrom(fileTree(buildDir).include('jacoco/*.exec'))
+}

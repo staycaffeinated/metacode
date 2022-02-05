@@ -1,0 +1,21 @@
+// --------------------------------------------------------------
+// dependencies
+// --------------------------------------------------------------
+
+dependencies {
+    implementation project (path: ':meta-common' )
+    implementation project (path: ':meta-annotations')
+
+    implementation libs.commonsIo
+    implementation libs.commonsLang3
+    implementation libs.jmustache
+    implementation libs.freemarker
+    implementation libs.snakeYaml
+    implementation libs.guice
+
+    testImplementation(platform(libs.junitBillOfMaterial))
+    testImplementation(libs.junitJupiter)
+    testImplementation(libs.junitSystemRules)
+    testImplementation(libs.truth)
+    testImplementation(libs.mockito)
+}
