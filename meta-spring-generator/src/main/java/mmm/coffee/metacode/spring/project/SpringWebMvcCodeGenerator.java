@@ -16,7 +16,6 @@
 package mmm.coffee.metacode.spring.project;
 
 import lombok.NonNull;
-import mmm.coffee.metacode.annotations.SpringWebMvc;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 

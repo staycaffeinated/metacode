@@ -3,7 +3,7 @@ apply plugin: 'application'
 
 application {
     //mainClass.set("mmm.coffee.zen.cli.CodeZenApplication")
-    mainClassName = "mmm.coffee.metacode.cli.Main" // shadowJar needs this syntax
+    mainClassName = "mmm.coffee.metacode.cli.Application" // shadowJar needs this syntax
     applicationName = 'metacode'
 }
 

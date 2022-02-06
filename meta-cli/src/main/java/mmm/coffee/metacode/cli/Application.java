@@ -15,9 +15,13 @@
  */
 package mmm.coffee.metacode.cli;
 
+import com.google.inject.ConfigurationException;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import mmm.coffee.metacode.cli.create.CreateCommand;
 import mmm.coffee.metacode.cli.traits.CallTrait;
 import mmm.coffee.metacode.common.annotations.Generated;
+import mmm.coffee.metacode.spring.project.SpringCodeGeneratorModule;
 import picocli.AutoComplete.GenerateCompletion;
 import picocli.CommandLine;
 
@@ -41,14 +45,47 @@ public class Application implements CallTrait {
     private static int exitCode;
 
     /**
-     * Main
+     * Main entry
      * @param args command line args
      */
     public static void main(String[] args) {
-        exitCode = new CommandLine(new Application())
+        // Injector injector = Guice.createInjector(new SpringCodeGeneratorModule());
+        exitCode = new CommandLine(new Application(), new GuiceFactory())
                 .setUsageHelpAutoWidth(true) // take advantage of wide terminals when available
                 .execute(args);
     }
 
     public static int getExitCode() { return exitCode; }
+
+    /**
+     * The following classes configure Guice to use fake classes for testing
+     */
+    // From: https://picocli.info/#_guice_example
+    final static class GuiceFactory implements CommandLine.IFactory {
+        private final Injector injector = Guice.createInjector(new SpringCodeGeneratorModule());
+
+        @Override
+        public <K> K create(Class<K> aClass) throws Exception {
+            try {
+                return injector.getInstance(aClass);
+            }
+            catch (ConfigurationException e) {
+                return CommandLine.defaultFactory().create(aClass);
+            }
+        }
+    }
+
+//    final static class CodeGeneratorPluginModule extends AbstractModule {
+//        @Provides
+//        @SpringWebMvc
+//        ICodeGenerator provideSpringWebMvcGenerator() {
+//            return new FakeCodeGenerator();
+//        }
+//
+//        @Provides
+//        @SpringWebFlux
+//        ICodeGenerator providesSpringWebFluxGenerator() {
+//            return new FakeCodeGenerator();
+//        }
+//    }
 }

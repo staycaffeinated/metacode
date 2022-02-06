@@ -15,7 +15,6 @@
  */
 package mmm.coffee.metacode.cli.validation;
 
-import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 

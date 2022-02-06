@@ -17,7 +17,6 @@ package mmm.coffee.metacode.spring.project;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.name.Names;
 import mmm.coffee.metacode.annotations.SpringWebFlux;
 import mmm.coffee.metacode.annotations.SpringWebMvc;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
@@ -25,15 +24,17 @@ import mmm.coffee.metacode.common.generator.ICodeGenerator;
 /**
  * Module for SpringWebMvc Project generator
  */
-final class SpringCodeGeneratorModule extends AbstractModule {
+public final class SpringCodeGeneratorModule extends AbstractModule {
+    
+    @Provides
+    @SpringWebMvc
+    ICodeGenerator provideSpringWebMvcGenerator() {
+        return new SpringWebMvcCodeGenerator();
+    }
 
-    @Override
-    protected void configure() {
-        bind(ICodeGenerator.class)
-                .annotatedWith(SpringWebMvc.class)
-                        .to(SpringWebMvcCodeGenerator.class);
-        bind(ICodeGenerator.class)
-                .annotatedWith(SpringWebFlux.class)
-                .to(SpringWebFluxCodeGenerator.class);
+    @Provides
+    @SpringWebFlux
+    ICodeGenerator providesSpringWebFluxGenerator() {
+        return new SpringWebFluxCodeGenerator();
     }
 }

@@ -18,14 +18,15 @@ package mmm.coffee.metacode.cli.create;
 import com.google.inject.*;
 import mmm.coffee.metacode.annotations.SpringWebFlux;
 import mmm.coffee.metacode.annotations.SpringWebMvc;
+import mmm.coffee.metacode.cli.Application;
 import mmm.coffee.metacode.cli.ExitCodes;
 import mmm.coffee.metacode.cli.StringHelper;
-import mmm.coffee.metacode.cli.Application;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
+
 import static com.google.common.truth.Truth.assertThat;
 
 /**
