@@ -49,7 +49,6 @@ public class Application implements CallTrait {
      * @param args command line args
      */
     public static void main(String[] args) {
-        // Injector injector = Guice.createInjector(new SpringCodeGeneratorModule());
         exitCode = new CommandLine(new Application(), new GuiceFactory())
                 .setUsageHelpAutoWidth(true) // take advantage of wide terminals when available
                 .execute(args);
@@ -58,10 +57,11 @@ public class Application implements CallTrait {
     public static int getExitCode() { return exitCode; }
 
     /**
-     * The following classes configure Guice to use fake classes for testing
+     * The following class configures a factory to enable Guice
+     * From: https://picocli.info/#_guice_example
      */
-    // From: https://picocli.info/#_guice_example
     final static class GuiceFactory implements CommandLine.IFactory {
+        // We have to explicitly list our modules; they don't get auto-discovered
         private final Injector injector = Guice.createInjector(new SpringCodeGeneratorModule());
 
         @Override
@@ -74,18 +74,4 @@ public class Application implements CallTrait {
             }
         }
     }
-
-//    final static class CodeGeneratorPluginModule extends AbstractModule {
-//        @Provides
-//        @SpringWebMvc
-//        ICodeGenerator provideSpringWebMvcGenerator() {
-//            return new FakeCodeGenerator();
-//        }
-//
-//        @Provides
-//        @SpringWebFlux
-//        ICodeGenerator providesSpringWebFluxGenerator() {
-//            return new FakeCodeGenerator();
-//        }
-//    }
 }
