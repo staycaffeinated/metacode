@@ -17,7 +17,7 @@ package mmm.coffee.metacode.common.descriptor;
 
 import lombok.Builder;
 import lombok.Data;
-import mmm.coffee.metacode.common.annotations.Generated;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
  * RestEndpointDescriptor

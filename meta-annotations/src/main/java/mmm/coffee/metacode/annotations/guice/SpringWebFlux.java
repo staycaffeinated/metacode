@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.annotations;
+package mmm.coffee.metacode.annotations.guice;
 
-import com.google.inject.BindingAnnotation;
+import javax.inject.Qualifier;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import java.lang.annotation.Target;
-import java.lang.annotation.Retention;
-import javax.inject.Qualifier;
-
+/**
+ * This annotation is used to indicate to Guice that the annotated class
+ * implements a SpringWebFlux CodeGenerator
+ */
 @Qualifier
 @Target({ FIELD, PARAMETER, METHOD })
 @Retention(RUNTIME)
-public @interface SpringWebMvc {}
+public @interface SpringWebFlux {}
 

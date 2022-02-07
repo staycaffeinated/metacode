@@ -15,7 +15,7 @@
  */
 package mmm.coffee.metacode.cli.mixin;
 
-import mmm.coffee.metacode.common.annotations.Generated;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 import picocli.CommandLine;
 
 /**

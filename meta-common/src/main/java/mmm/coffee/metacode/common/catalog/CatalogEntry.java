@@ -16,7 +16,7 @@
 package mmm.coffee.metacode.common.catalog;
 
 import lombok.Data;
-import mmm.coffee.metacode.common.annotations.Generated;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
  * CatalogEntry

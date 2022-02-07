@@ -16,7 +16,7 @@
 package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
-import mmm.coffee.metacode.annotations.SpringWebMvc;
+import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.ExitCodes;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;

@@ -16,8 +16,8 @@
 package mmm.coffee.metacode.cli.create.endpoint;
 
 import com.google.inject.*;
-import mmm.coffee.metacode.annotations.SpringWebFlux;
-import mmm.coffee.metacode.annotations.SpringWebMvc;
+import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
+import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.Application;
 import mmm.coffee.metacode.cli.StringHelper;
 import mmm.coffee.metacode.common.descriptor.Descriptor;

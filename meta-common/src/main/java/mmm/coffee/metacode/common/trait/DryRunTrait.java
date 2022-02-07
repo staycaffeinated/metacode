@@ -5,7 +5,7 @@
  */
 package mmm.coffee.metacode.common.trait;
 
-import mmm.coffee.metacode.common.annotations.Generated;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
  * Stereotype for a specification. This is the mechanic

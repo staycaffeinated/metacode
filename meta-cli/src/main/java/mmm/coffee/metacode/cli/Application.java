@@ -20,7 +20,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import mmm.coffee.metacode.cli.create.CreateCommand;
 import mmm.coffee.metacode.cli.traits.CallTrait;
-import mmm.coffee.metacode.common.annotations.Generated;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.spring.project.SpringCodeGeneratorModule;
 import picocli.AutoComplete.GenerateCompletion;
 import picocli.CommandLine;

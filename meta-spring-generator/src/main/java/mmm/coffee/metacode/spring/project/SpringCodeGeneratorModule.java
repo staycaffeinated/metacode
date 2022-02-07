@@ -17,8 +17,8 @@ package mmm.coffee.metacode.spring.project;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import mmm.coffee.metacode.annotations.SpringWebFlux;
-import mmm.coffee.metacode.annotations.SpringWebMvc;
+import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
+import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 
 /**

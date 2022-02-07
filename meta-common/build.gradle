@@ -4,8 +4,9 @@
 // --------------------------------------------------------------
 
 dependencies {
-    annotationProcessor libs.lombok
-    compileOnly libs.lombok
+    implementation project (path: ':meta-annotations')
+    // annotationProcessor libs.lombok
+    // compileOnly libs.lombok
 
     implementation libs.commonsConfig
     implementation libs.commonsIo

@@ -20,6 +20,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +32,7 @@ import java.util.Set;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper=true)
-@mmm.coffee.metacode.common.annotations.Generated
+@Generated
 public class SpringWebMvcProjectDescriptor extends RestProjectDescriptorImpl {
     
     /*
