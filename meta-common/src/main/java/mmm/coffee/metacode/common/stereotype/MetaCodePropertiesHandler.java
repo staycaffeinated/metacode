@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
-
-import lombok.Builder;
-import lombok.Data;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
+package mmm.coffee.metacode.common.stereotype;
 
 /**
- * CatalogEntry
+ * Handles writing metacode.properties file and reading that
+ * same file.
  */
-@Data
-@Generated // exclude from code coverage
-public class CatalogEntry {
-    String template;
-    String destination;
-    String context;
-    String tags;
+public interface MetaCodePropertiesHandler {
+    // write the properties; need to change from Obj to POJO
+    void writeProperties(POJO properties);
+    POJO readProperties();
 }

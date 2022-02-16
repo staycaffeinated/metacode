@@ -13,20 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
+package mmm.coffee.metacode.common.trait;
 
-import lombok.Builder;
-import lombok.Data;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
+import java.util.List;
 
 /**
- * CatalogEntry
+ * Functional interface for collection items
  */
-@Data
-@Generated // exclude from code coverage
-public class CatalogEntry {
-    String template;
-    String destination;
-    String context;
-    String tags;
+public interface CollectTrait<T> {
+    List<T> collect();
 }

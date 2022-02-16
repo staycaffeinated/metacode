@@ -17,16 +17,15 @@ package mmm.coffee.metacode.common.generator;
 
 import com.google.inject.Inject;
 import lombok.NonNull;
-import mmm.coffee.metacode.common.catalog.TemplateCatalog;
+import mmm.coffee.metacode.annotations.guice.CatalogProvider;
+import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
-
-import javax.annotation.Nullable;
 
 /**
  * CodeGeneratorImpl
  */
 public class CodeGeneratorImpl implements ICodeGenerator {
-    private TemplateCatalog catalog;
+    private ICatalogReader catalog;
     private Descriptor descriptor;
 
     @Override
@@ -34,7 +33,7 @@ public class CodeGeneratorImpl implements ICodeGenerator {
         this.descriptor = descriptor;
     }
 
-    public void setCatalog(@NonNull TemplateCatalog catalog) {
+    public void setCatalog(@NonNull ICatalogReader catalog) {
         this.catalog = catalog;
     }
 
@@ -44,9 +43,37 @@ public class CodeGeneratorImpl implements ICodeGenerator {
     // writer.write(s);
 
     @Inject
-    public CodeGeneratorImpl(TemplateCatalog catalog) {
+    public CodeGeneratorImpl(@CatalogProvider ICatalogReader catalog) {
         this.catalog = catalog;
     }
 
-    public int generateCode() { return 0; }
+    public int generateCode() {
+        /*
+         TemplateCollector::collect() --
+           -- collectTemplates will have some hard-wired logic to apply
+           -- predicates/filtering of the global population of templates to
+           -- build a final list of only the templates to render.
+           -- from the command line args, we can determine which templates are needed.
+         var templateCollector = new TemplateCollector(String[] catalogFiles, Descriptor);
+         TemplateCollector::addCatalog(String catalogFile);
+
+         CodeGenerator generator = new SpringCodeGenerator(Descriptor<RestProject>,
+                                                        Collector<CatalogEntry>,
+                                                        Converter<?,?>,
+                                                        Resolver<DataModel>,
+                                                        TemplateWriter<?,?>)
+         generator.generate();
+         writeMetaCodeProperties();
+
+         int generate() {
+           dataModel = converter.convert(descriptor);
+           templateCollector.collect().stream().forEach( it -> {
+             String resolvedText = templateResolver.render(it.template(), dataModel);
+             templateWriter.writeOutput(fqp(it.destination(), dataModel), resolvedText);
+             }
+           }
+        */
+
+        return 0;
+    }
 }

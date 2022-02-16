@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
-
-import lombok.Builder;
-import lombok.Data;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
+package mmm.coffee.metacode.common.trait;
 
 /**
- * CatalogEntry
+ * Functional interface for a type converter.
+ * We'll use this to convert, say, a ProjectDescriptor into a SpringProjectContext,
+ * or an EndpointDescriptor into a SpringEndpointContext.
  */
-@Data
-@Generated // exclude from code coverage
-public class CatalogEntry {
-    String template;
-    String destination;
-    String context;
-    String tags;
+public interface ConvertTrait<FROM,TO> {
+    /**
+     * Converts an instance of class {@code FROM} into an instance of class {@code TO}.
+     * We let the implementer decide how to handle {@code nulls}
+     * @param fromType some instance to convert
+     * @return the transformed object
+     */
+    TO convert(FROM fromType);
 }
+

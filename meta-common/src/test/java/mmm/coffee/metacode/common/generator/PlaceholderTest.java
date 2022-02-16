@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Jon Caulfield
+ * Copyright 2022 Jon Caulfield
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
+package mmm.coffee.metacode.common.generator;
 
-import lombok.Builder;
-import lombok.Data;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
+import org.junit.jupiter.api.Test;
+
+import static com.google.common.truth.Truth.assertThat;
 
 /**
- * CatalogEntry
+ *
+ * Place-holder test to avoid empty package.
  */
-@Data
-@Generated // exclude from code coverage
-public class CatalogEntry {
-    String template;
-    String destination;
-    String context;
-    String tags;
+class PlaceholderTest {
+
+    @Test
+    void shouldPass() {
+        assertThat(true).isTrue();
+    }
 }

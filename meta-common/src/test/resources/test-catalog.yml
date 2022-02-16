@@ -1,0 +1,5 @@
+catalog:
+  - entry:
+      template: "/gradle/BuildDotGradle.ftl"
+      destination: "build.gradle"
+      context: "project"

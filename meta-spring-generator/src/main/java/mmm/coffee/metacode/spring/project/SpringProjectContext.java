@@ -13,19 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
+package mmm.coffee.metacode.spring.project;
 
-import java.util.List;
+import lombok.Builder;
+import lombok.Data;
 
 /**
- * TemplateCatalog is a collection of templates that are processed
- * to produce source code.
+ * This is the 'Model' object used by Freemarker to resolve template variables.
+ * Any variable that might be used in a project-related template must have a
+ * corresponding field within this POJO.
  */
-public interface TemplateCatalog {
-    /**
-     * Returns the list of templates of this catalog.
-     * A {@code CatalogEntry} defines the template source and
-     * the destination of the code emitted by the template.
-     */
-    List<CatalogEntry> getEntries();
+@Data
+@Builder
+public class SpringProjectContext {
+    private String applicationName;
+    private String basePath;
+    private String basePackage;
+    private boolean isWebFlux;
+    private boolean isWebMvc;
 }

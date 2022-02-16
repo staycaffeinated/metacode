@@ -5,8 +5,9 @@
 
 dependencies {
     implementation project (path: ':meta-annotations')
-    // annotationProcessor libs.lombok
-    // compileOnly libs.lombok
+
+    annotationProcessor libs.lombok
+    compileOnly libs.lombok
 
     implementation libs.commonsConfig
     implementation libs.commonsIo
@@ -16,6 +17,7 @@ dependencies {
     implementation libs.freemarker
     implementation libs.snakeYaml
     implementation libs.guice
+    implementation libs.guava
     
     testImplementation(platform(libs.junitBillOfMaterial))
     testImplementation(libs.junitJupiter)

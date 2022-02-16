@@ -13,17 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
-
-import java.util.Collections;
-import java.util.List;
+package mmm.coffee.metacode.common.stereotype;
 
 /**
- * Catalog
+ * Placeholder for generic POJO objects.
  */
-public class CatalogReader {
-
-    public List<CatalogEntry> readCatalog(String catalogName) {
-        return Collections.emptyList();
-    }
+public interface POJO {
 }

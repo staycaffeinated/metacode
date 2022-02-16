@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
-
-import lombok.Builder;
-import lombok.Data;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
+package mmm.coffee.metacode.common.trait;
 
 /**
- * CatalogEntry
+ * Functional interface for rendering content
  */
-@Data
-@Generated // exclude from code coverage
-public class CatalogEntry {
-    String template;
-    String destination;
-    String context;
-    String tags;
+public interface ResolveTrait<A,B,R> {
+    /**
+     * Transforms an input of type {@code A} into an output of type {code R},
+     * using {@code B} for context information
+     * @param theSource the template
+     * @param theContext
+     * @return the transformed content, as an instance of {@code R}.
+     */
+    R resolve (A theSource, B theContext);
 }

@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
-
-import lombok.Builder;
-import lombok.Data;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
+package mmm.coffee.metacode.common.trait;
 
 /**
- * CatalogEntry
+ * Functional interface for template resolution.
  */
-@Data
-@Generated // exclude from code coverage
-public class CatalogEntry {
-    String template;
-    String destination;
-    String context;
-    String tags;
+public interface TemplateRendererTrait<T> {
+    /**
+     * Renders a Template.
+     * @param templateClassPath the path to the template file (a freemarker FTL file, for example)
+     * @param dataModelObject The dataModel used by the Template instance to resolve variables.
+     *
+     * @return
+     */
+    String render(String templateClassPath, T dataModelObject);
 }

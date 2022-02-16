@@ -17,8 +17,10 @@ package mmm.coffee.metacode.spring.project;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import mmm.coffee.metacode.annotations.guice.CatalogProvider;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
+import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 
 /**
@@ -37,4 +39,9 @@ public final class SpringCodeGeneratorModule extends AbstractModule {
     ICodeGenerator providesSpringWebFluxGenerator() {
         return new SpringWebFluxCodeGenerator();
     }
+
+//    @Provides
+//    @CatalogProvider
+//    ICatalogReader providesSpringTemplateBundle() { return new SpringTemplateBundle(); }
+    
 }

@@ -13,11 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
+package mmm.coffee.metacode.annotations.guice;
+
+import javax.inject.Qualifier;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Provider of a TemplateCatalog.
+ * This annotation is used to indicate to Guice that the annotated class
+ * implements a template catalog. This annotation is used in a (guice) Module
+ * class to denote the method that returns a Catalog instance
  */
-public interface CatalogProvider {
-    TemplateCatalog getCatalog();
-}
+@Qualifier
+@Target({ FIELD, PARAMETER, METHOD })
+@Retention(RUNTIME)
+public @interface CatalogProvider {}

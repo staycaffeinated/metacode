@@ -15,24 +15,17 @@
  */
 package mmm.coffee.metacode.common.catalog;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
-import static com.google.common.truth.Truth.assertThat;
+import java.util.Set;
 
 /**
- * Unit test
+ * Denotes a collection of CatalogEntries, which are wrappers of templates.
  */
-class CatalogReaderTest {
-
-    /*
-     * this is placeholder until the CatalogReader is implemented
+public interface ICatalogReader {
+    /**
+     * Returns the list of templates of this catalog.
+     * A {@code CatalogEntry} defines the template source and
+     * the destination of the code emitted by the template.
      */
-    @Test
-    void testFiller() {
-        var reader = new CatalogReader();
-        List<CatalogEntry> entries = reader.readCatalog(null);
-        assertThat(entries.size()).isEqualTo(0);
-    }
+    public Set<CatalogEntry> getEntries();
 }

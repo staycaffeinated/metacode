@@ -13,20 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.catalog;
-
-import lombok.Builder;
-import lombok.Data;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
+package mmm.coffee.metacode.common.trait;
 
 /**
- * CatalogEntry
+ * Functional interface for writing output, using {@code writeOutput} as
+ * the method name to avoid confusion with the {@code write} method of {@code Writer} objects.
  */
-@Data
-@Generated // exclude from code coverage
-public class CatalogEntry {
-    String template;
-    String destination;
-    String context;
-    String tags;
+public interface WriteOutputTrait<A,B> {
+    void writeOutput(A a, B b);
 }
