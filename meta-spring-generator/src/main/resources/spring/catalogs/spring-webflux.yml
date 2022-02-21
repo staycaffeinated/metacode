@@ -1,0 +1,194 @@
+#
+# WHAT THE FIELDS MEAN
+#
+# Template paths are resource-path based
+# Destination paths are relative to the project.root directory.
+# The Context indicates both when the template is used and
+# what kind of data is passed to the template 'compiler' to resolve template variables.
+# At the moment, 2 kinds of contexts are supported: 'project' and 'endpoint' since,
+# from the command-line interface, there are two subcommands, 'create-project'
+# and 'create-endpoint'. Hence, templates in the 'project' context are used
+# when the 'create-project' command is invoked, and templates in 'endpoint' context
+# are used when the 'create-endpoint' command is invoked.
+#
+# The 'feature' attribute indicates that particular template is only applied
+# when the declared feature (i.e., library integration) was specified. For example,
+# some templates are only applicable when PostgreSQL support is wanted.  Features
+# come into play when the '-s' ('--suport') option is given on the command line.
+# For instance, ``rest-api create-project --package org.example --support postgres``
+#
+catalog:
+  #
+  # Project entries
+  #
+  - entry:
+      template: "/spring/webflux/main/Application.ftl"
+      destination: "src/main/java/{{basePackagePath}}/Application.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/advice/GlobalExceptionHandler.ftl"
+      destination: "src/main/java/{{basePackagePath}}/advice/GlobalExceptionHandler.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/exception/ResourceNotFoundException.ftl"
+      destination: "src/main/java/{{basePackagePath}}/exception/ResourceNotFoundException.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/exception/UnprocessableEntityException.ftl"
+      destination: "src/main/java/{{basePackagePath}}/exception/UnprocessableEntityException.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/common/Constants.ftl"
+      destination: "src/main/java/{{basePackagePath}}/common/Constants.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/common/ResourceIdentity.ftl"
+      destination: "src/main/java/{{basePackagePath}}/common/ResourceIdentity.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/config/WebFluxConfiguration.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/WebFluxConfiguration.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/math/SecureRandomSeries.ftl"
+      destination: "src/main/java/{{basePackagePath}}/math/SecureRandomSeries.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/stereotype/RestfulResource.ftl"
+      destination: "src/main/java/{{basePackagePath}}/stereotype/RestfulResource.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/validation/Alphabetic.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/Alphabetic.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/validation/AlphabeticValidation.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/AlphabeticValidation.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/validation/OnCreate.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/OnCreate.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/validation/OnUpdate.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/OnUpdate.java"
+      context: "project"
+  - entry:
+      template:  "/spring/webflux/main/endpoint-root/RootController.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/root/RootController.java"
+      context: "project"
+  - entry:
+      template:  "/spring/webflux/main/endpoint-root/RootService.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/root/RootService.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/main/resources/ApplicationDotProperties.ftl"
+      destination: "src/main/resources/application.properties"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/test/endpoint/root/RootControllerTest.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/root/RootControllerTest.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/test/endpoint/root/RootServiceTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/root/RootServiceTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/test/math/SecureRandomSeriesTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/math/SecureRandomSeriesTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/test/validation/AlphabeticValidationTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/validation/AlphabeticValidationTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/test/advice/GlobalExceptionHandlerTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/advice/GlobalExceptionHandlerTests.java"
+      context: "project"
+  #
+  # Endpoint entries
+  # 
+  - entry:
+      template: "/spring/webflux/main/config/DatabaseTableInitializer.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/{{entityName}}TableInitializer.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/EndpointConfig.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Config.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/Entity.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{ejbName}}.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/EntityBeanToResourceConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverter.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/EntityEvent.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Event.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/EntityResource.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{pojoName}}.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/Repository.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/ResourceToEntityBeanConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverter.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/RestController.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Controller.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/RestService.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Service.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/endpoint/EntityRoutes.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/integrationTest/main/endpoint/ControllerTest.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTest.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/integrationTest/main/endpoint/EntityGenerator.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Generator.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/resources/database/EntitySchema.ftl"
+      destination: "src/main/resources/database/{{lowerCaseEntityName}}-schema.sql"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/resources/database/EntityData.ftl"
+      destination: "src/main/resources/database/{{lowerCaseEntityName}}-data.sql"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/test/endpoint/ControllerTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/test/endpoint/FakeConversionService.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/FakeConversionService.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/test/endpoint/ServiceTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/test/endpoint/EntityEventTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EventTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/test/endpoint/BeanToResourceConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverterTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/test/endpoint/ResourceToBeanConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverterTests.java"
+      context: "endpoint"

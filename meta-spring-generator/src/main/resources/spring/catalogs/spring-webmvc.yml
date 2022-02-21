@@ -1,0 +1,195 @@
+#
+# WHAT THE FIELDS MEAN
+#
+# Template paths are resource-path based
+# Destination paths are relative to the project.root directory.
+# The Context indicates both when the template is used and
+# what kind of data is passed to the template 'compiler' to resolve template variables.
+# At the moment, 2 kinds of contexts are supported: 'project' and 'endpoint' since,
+# from the command-line interface, there are two subcommands, 'create-project'
+# and 'create-endpoint'. Hence, templates in the 'project' context are used
+# when the 'create-project' command is invoked, and templates in 'endpoint' context
+# are used when the 'create-endpoint' command is invoked.
+#
+# The 'feature' attribute indicates that particular template is only applied
+# when the declared feature (i.e., library integration) was specified. For example,
+# some templates are only applicable when PostgreSQL support is wanted.  Features
+# come into play when the '-s' ('--suport') option is given on the command line.
+# For instance, ``rest-api create-project --package org.example --support postgres``
+#
+catalog:
+  - entry:
+        template: "/spring/webmvc/main/Application.ftl"
+        destination: "src/main/java/{{basePackagePath}}/Application.java"
+        context: "project"
+  - entry:
+      template: "/spring/webmvc/main/advice/GlobalExceptionHandler.ftl"
+      destination: "src/main/java/{{basePackagePath}}/advice/GlobalExceptionHandler.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/exception/UnprocessableEntityException.ftl"
+      destination: "src/main/java/{{basePackagePath}}/advice/UnprocessableEntityException.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/common/Constants.ftl"
+      destination: "src/main/java/{{basePackagePath}}/common/Constants.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/config/DateTimeFormatConfiguration.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/DateTimeFormatConfiguration.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/config/ProblemConfiguration.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/ProblemConfiguration.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/config/WebMvcConfiguration.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/WebMvcConfiguration.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/filter/SecurityResponseHeadersFilter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/filter/SecurityResponseHeadersFilter.java"
+      context: "project"
+      feature: "security:headers"
+  - entry:
+      template: "/spring/webmvc/main/math/SecureRandomSeries.ftl"
+      destination: "src/main/java/{{basePackagePath}}/math/SecureRandomSeries.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/stereotype/RestfulResource.ftl"
+      destination: "src/main/java/{{basePackagePath}}/stereotype/RestfulResource.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/validation/Alphabetic.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/Alphabetic.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/validation/AlphabeticValidation.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/AlphabeticValidation.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/validation/OnCreate.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/OnCreate.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/validation/OnUpdate.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/OnUpdate.java"
+      context: "project"
+  - entry:
+      template:  "/spring/webmvc/main/endpoint-root/RootController.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/root/RootController.java"
+      context: "project"
+  - entry:
+      template:  "/spring/webmvc/main/endpoint-root/RootService.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/root/RootService.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/test/endpoint-root/RootControllerTest.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/root/RootControllerTest.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/test/advice/GlobalExceptionHandlerTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/advice/GlobalExceptionHandlerTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/integrationTest/endpoint-root/RootControllerIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/endpoint/root/RootControllerIT.java"
+      context:  "project"
+  - entry:
+      template: "/spring/webmvc/integrationTest/endpoint-root/RootExceptionHandlingIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/endpoint/root/RootExceptionHandlingIT.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/integrationTest/common/AbstractIntegrationTest.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/integrationTest/ApplicationIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/ApplicationIT.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/resources/ApplicationDotProperties.ftl"
+      destination: "src/main/resources/application.properties"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/test/resources/ApplicationTestDotYaml.ftl"
+      destination: "src/test/resources/application-test.yaml"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/resources/db/liquibase/db.changelog-master.ftl"
+      destination: "src/main/resources/db/changelog/db.changelog-master.yaml"
+      context: "project"
+      feature: "liquibase"
+  - entry:
+      template: "/spring/webmvc/main/resources/db/liquibase/db.changelog-001-create-schema.ftl"
+      destination: "src/main/resources/db.changelog/db.changelog-001-create-schema.yaml"
+      context: "project"
+      feature: "liquibase"
+  - entry:
+      template: "/spring/webmvc/test/math/SecureRandomSeriesTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/math/SecureRandomSeriesTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/test/validation/AlphabeticValidationTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/validation/AlphabeticValidationTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/Entity.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{ejbName}}.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/EntityBeanToResourceConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverter.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/EntityResource.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{pojoName}}.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/Repository.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/ResourceToEntityBeanConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverter.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/RestController.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Controller.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/RestService.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Service.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/endpoint/EntityRoutes.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/test/BeanToResourceConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverterTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/test/ControllerTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/test/FakeConversionService.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/FakeConversionService.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/test/ResourceToBeanConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverterTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/test/ServiceTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/integrationTest/ExceptionHandlingIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ExceptionHandlingIT.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/integrationTest/ControllerIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
+      context: "endpoint"

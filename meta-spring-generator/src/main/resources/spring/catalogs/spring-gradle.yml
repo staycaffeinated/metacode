@@ -1,0 +1,57 @@
+#
+# WHAT THE FIELDS MEAN
+#
+# Template paths are resource-path based
+# Destination paths are relative to the project.root directory.
+# The Context indicates both when the template is used and
+# what kind of data is passed to the template 'compiler' to resolve template variables.
+# At the moment, 2 kinds of contexts are supported: 'project' and 'endpoint' since,
+# from the command-line interface, there are two subcommands, 'create-project'
+# and 'create-endpoint'. Hence, templates in the 'project' context are used
+# when the 'create-project' command is invoked, and templates in 'endpoint' context
+# are used when the 'create-endpoint' command is invoked.
+#
+# The 'feature' attribute indicates that particular template is only applied
+# when the declared feature (i.e., library integration) was specified. For example,
+# some templates are only applicable when PostgreSQL support is wanted.  Features
+# come into play when the '-s' ('--suport') option is given on the command line.
+# For instance, ``rest-api create-project --package org.example --support postgres``
+#
+catalog:
+  - entry:
+      template: "/gradle/BuildDotGradle.ftl"
+      destination: "build.gradle"
+      context: "project"
+  - entry:
+      template: "/gradle/SettingsDotGradle.ftl"
+      destination: "settings.gradle"
+      context: "project"
+  - entry:
+      template: "/gradle/DependenciesDotGradle.ftl"
+      destination: "gradle/dependencies.gradle"
+      context: "project"
+  - entry:
+      template: "/gradle/DockerDotGradle.ftl"
+      destination: "gradle/docker.gradle"
+      context: "project"
+  - entry:
+      template: "/gradle/LintDotGradle.ftl"
+      destination: "gradle/lint.gradle"
+      context: "project"
+  - entry:
+      template: "/gradle/SonarqubeDotGradle.ftl"
+      destination: "gradle/sonarqube.gradle"
+      context: "project"
+  - entry:
+      template: "/gradle/SpotlessDotGradle.ftl"
+      destination: "gradle/spotless.gradle"
+      context: "project"
+  - entry:
+      template: "/gradle/GradleDotProperties.ftl"
+      destination: "gradle.properties"
+      context: "project"
+  - entry:
+      template: "/gradle/StandardSetupDotGradle.ftl"
+      destination: "gradle/standard-setup.gradle"
+      context: "project"
+
