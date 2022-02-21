@@ -15,17 +15,23 @@
  */
 package mmm.coffee.metacode.common.catalog;
 
+import lombok.NonNull;
+
 import java.util.List;
 import java.util.Set;
 
 /**
- * Denotes a collection of CatalogEntries, which are wrappers of templates.
+ * Stereotype for a Reader of catalog files. Catalog files in YAML format
+ * with defined fields. A catalog file contains a list of {@code CatalogEntry}'s.  
  */
 public interface ICatalogReader {
     /**
-     * Returns the list of templates of this catalog.
-     * A {@code CatalogEntry} defines the template source and
-     * the destination of the code emitted by the template.
+     * Reads the {@code CatalogEntry}'s from the YAML file found at {@code catalogResourcePath}.
+     * @param catalogResourcePath the resource path (classpath) to the yaml file to read.
+     *                            For example, "/spring/catalogs/common-stuff.yml" or
+     *                            "/spring/catalogs/spring-boot.yml"
+     * @return
+     * @throws java.io.IOException
      */
-    public Set<CatalogEntry> getEntries();
+    List<CatalogEntry> readCatalogFile(@NonNull String catalogResourcePath) throws java.io.IOException;
 }

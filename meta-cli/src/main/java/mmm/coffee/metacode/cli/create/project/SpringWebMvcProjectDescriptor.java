@@ -21,6 +21,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
+import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
 
 import java.util.HashSet;
 import java.util.Set;

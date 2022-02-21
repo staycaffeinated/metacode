@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.project;
-
-import lombok.Builder;
-import lombok.Data;
+package mmm.coffee.metacode.spring.constant;
 
 /**
- * This is the 'Model' object used by Freemarker to resolve template variables.
- * Any variable that might be used in a project-related template must have a
- * corresponding field within this POJO.
+ * Integrations supported by the spring-webmvc code generator
  */
-@Data
-@Builder
-public class SpringProjectContext {
-    private String applicationName;
-    private String basePath;
-    private String basePackage;
-    private boolean isWebFlux;
-    private boolean isWebMvc;
+public enum WebMvcIntegration {
+    POSTGRES ("postgres"),
+    LIQUIBASE ("liquibase"),
+    TESTCONTAINERS ("testcontainers")
+            ;
+
+    // This is the value an end-user enters on the command line.
+    private final String value;
+
+    WebMvcIntegration(String name) {
+        this.value = name;
+    }
+
+    @Override
+    public String toString() { return value; }
+
 }

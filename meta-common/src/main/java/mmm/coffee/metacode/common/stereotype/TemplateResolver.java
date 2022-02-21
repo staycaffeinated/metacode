@@ -15,6 +15,8 @@
  */
 package mmm.coffee.metacode.common.stereotype;
 
+import freemarker.template.Configuration;
+import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.trait.ResolveTrait;
 
@@ -24,6 +26,17 @@ import java.util.Map;
  * Resolves a template, which is to say: replaces tokens within the template with concrete values.
  */
 public class TemplateResolver implements ResolveTrait<CatalogEntry, Map<String,String>, String> {
+
+    private final Configuration configuration;
+
+    /**
+     * Constructor
+     * @param configuration the Freemarker Configuration used to load and render templates
+     */
+    public TemplateResolver(@NonNull Configuration configuration) {
+        this.configuration = configuration;
+    }
+
     /**
      * Transforms an input of type {@code A} into an output of type {code R},
      * using {@code B} for context information

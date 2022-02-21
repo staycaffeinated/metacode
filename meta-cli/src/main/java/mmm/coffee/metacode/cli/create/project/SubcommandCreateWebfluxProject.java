@@ -56,7 +56,7 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
     @Override public Integer call() {
         super.validateInputs();
 
-        int rc = codeGenerator.generateCode();
+        int rc = codeGenerator.generateCode(null);
 
         // Next step: build a ProjectDescriptor
         // Build CodeGenerator ( SpringWebFluxProjectGenerator (descriptor ) ).generate();

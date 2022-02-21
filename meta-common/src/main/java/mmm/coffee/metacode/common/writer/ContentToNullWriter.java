@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.generator;
+package mmm.coffee.metacode.common.writer;
 
-import lombok.NonNull;
-import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 
 /**
- * CodeGenerator
+ * Writes the content to a NullWriter (which writes to the
+ * famous /dev/null file).
  */
-public interface ICodeGenerator<T extends Descriptor> {
-    
-    /**
-     * Performs the code generation. Returns:
-     *      0 = success
-     *      1 = general error
-     * @return the exit code, with zero indicating success. 
-     */
-    int generateCode(T descriptor);
+public class ContentToNullWriter implements WriteOutputTrait {
+    @Override
+    public void writeOutput(String destination, String content) {
+        // empty by design
+    }
 }

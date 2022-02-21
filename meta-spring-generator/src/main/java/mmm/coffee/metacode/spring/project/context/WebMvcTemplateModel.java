@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.generator;
-
-import lombok.NonNull;
-import mmm.coffee.metacode.common.descriptor.Descriptor;
+package mmm.coffee.metacode.spring.project.context;
 
 /**
- * CodeGenerator
+ * TODO: Fill me in
  */
-public interface ICodeGenerator<T extends Descriptor> {
-    
-    /**
-     * Performs the code generation. Returns:
-     *      0 = success
-     *      1 = general error
-     * @return the exit code, with zero indicating success. 
-     */
-    int generateCode(T descriptor);
+
+import lombok.experimental.SuperBuilder;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
+
+@SuperBuilder
+@Generated // ignore code coverage for this class
+public class WebMvcTemplateModel extends RestProjectTemplateModel {
+    private boolean enableTestContainers;
+    private boolean enablePostgres;
+    private boolean enableLiquibase;
+
+    public boolean isWebMvc() { return true; }
 }

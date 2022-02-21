@@ -19,6 +19,6 @@ package mmm.coffee.metacode.common.trait;
  * Functional interface for writing output, using {@code writeOutput} as
  * the method name to avoid confusion with the {@code write} method of {@code Writer} objects.
  */
-public interface WriteOutputTrait<A,B> {
-    void writeOutput(A a, B b);
+public interface WriteOutputTrait {
+    void writeOutput(String fileName, String content);
 }

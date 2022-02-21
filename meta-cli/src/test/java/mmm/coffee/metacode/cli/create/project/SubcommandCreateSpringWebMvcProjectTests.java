@@ -140,22 +140,8 @@ class SubcommandCreateSpringWebMvcProjectTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator {
-
-            @Override
-            public void setDescriptor(Descriptor descriptor) {
-
-            }
-
-            /**
-             * Returns the exit code from the generator.
-             * 0 = success
-             * 1 = general error
-             *
-             * @return the exit code, with zero indicating success.
-             */
-            @Override
-            public int generateCode() {
+    public static class FakeCodeGenerator implements ICodeGenerator<Descriptor> {
+            public int generateCode(Descriptor descriptor) {
                 return 0;
             }
         }

@@ -1,10 +1,11 @@
 /*
  * Copyright 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring.project;
+package mmm.coffee.metacode.spring.project.converter;
 
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
+import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
 
 /**
  * Converts a RestProjectDescriptor (which wraps the command-line args into a POJO)
@@ -12,9 +13,9 @@ import mmm.coffee.metacode.common.trait.ConvertTrait;
  * Separate object types are used to obtain separation of concern between the command-line module
  * and the code-generation module.
  */
-public class DescriptorToContextConverter implements ConvertTrait<RestProjectDescriptor, SpringProjectContext> {
-    public SpringProjectContext convert(RestProjectDescriptor descriptor) {
-        var result = SpringProjectContext.builder()
+public class DescriptorToRestProjectTemplateModelConverter implements ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> {
+    public RestProjectTemplateModel convert(RestProjectDescriptor descriptor) {
+        var result = RestProjectTemplateModel.builder()
                 .applicationName(descriptor.getApplicationName())
                 .basePackage(descriptor.getBasePackage())
                 .basePath(descriptor.getBasePath())

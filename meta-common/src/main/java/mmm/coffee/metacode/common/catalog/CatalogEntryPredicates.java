@@ -27,9 +27,11 @@ public class CatalogEntryPredicates {
 
     /**
      * Returns {@code true} if the CatalogEntry is for a project artifact
+     * and contains no tags
      */
-    public static Predicate<CatalogEntry> isProjectArtifact() {
-        return p -> p.getContext() != null && p.getContext().contains("project");
+    public static Predicate<CatalogEntry> isCommonProjectArtifact() {
+        return p -> p.getContext() != null && p.getContext().contains("project")
+                && (p.getTags() == null || p.getTags().isBlank());
     }
 
     /**
@@ -52,6 +54,13 @@ public class CatalogEntryPredicates {
      */
     public static Predicate<CatalogEntry> hasTestContainerTag() {
         return p -> p.getTags() != null && p.getTags().contains("testcontainer");
+    }
+
+    /**
+     * Returns {@code true} if the CatalogEntry's tags includes {@code liquibase}
+     */
+    public static Predicate<CatalogEntry> hasLiquibaseTag() {
+        return p -> p.getTags() != null && p.getTags().contains("liquibase");
     }
 
     /**

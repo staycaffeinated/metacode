@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.project;
-
-import mmm.coffee.metacode.common.generator.ICodeGenerator;
+package mmm.coffee.metacode.spring.project.converter;
 
 /**
- * ISpringWebFluxProjectGenerator
+ * TODO: Fill me in
  */
-public interface ISpringWebFluxProjectGenerator extends ICodeGenerator {
+public class DescriptorToWebMvcContextTest {
 }

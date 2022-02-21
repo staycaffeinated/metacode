@@ -13,21 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.generator;
+package mmm.coffee.metacode.spring.project.generator;
 
-import lombok.NonNull;
-import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.generator.ICodeGenerator;
 
 /**
- * CodeGenerator
+ * ISpringWebMvcProjectGenerator
  */
-public interface ICodeGenerator<T extends Descriptor> {
-    
-    /**
-     * Performs the code generation. Returns:
-     *      0 = success
-     *      1 = general error
-     * @return the exit code, with zero indicating success. 
-     */
-    int generateCode(T descriptor);
+public interface ISpringWebMvcProjectGenerator extends ICodeGenerator {
 }

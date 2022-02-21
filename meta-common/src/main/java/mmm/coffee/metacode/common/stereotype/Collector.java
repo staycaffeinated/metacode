@@ -13,21 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.generator;
+package mmm.coffee.metacode.common.stereotype;
 
-import lombok.NonNull;
-import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.catalog.CatalogEntry;
+import mmm.coffee.metacode.common.trait.CollectTrait;
 
 /**
- * CodeGenerator
+ * Stereotype for Collectors of CatalogEntries
  */
-public interface ICodeGenerator<T extends Descriptor> {
-    
-    /**
-     * Performs the code generation. Returns:
-     *      0 = success
-     *      1 = general error
-     * @return the exit code, with zero indicating success. 
-     */
-    int generateCode(T descriptor);
+public interface Collector extends CollectTrait<CatalogEntry> {
 }

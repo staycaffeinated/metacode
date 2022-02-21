@@ -6,6 +6,9 @@ dependencies {
     implementation project (path: ':meta-common' )
     implementation project (path: ':meta-annotations')
 
+    annotationProcessor libs.lombok
+    compileOnly libs.lombok
+
     implementation libs.commonsIo
     implementation libs.commonsLang3
     implementation libs.jmustache

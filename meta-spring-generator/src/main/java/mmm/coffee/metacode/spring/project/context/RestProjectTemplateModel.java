@@ -13,27 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.descriptor;
+package mmm.coffee.metacode.spring.project.context;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Meta-data of a REST project. This object captures the
- * command-line arguments and is passed onto the CodeGenerator.
- * Anything the Code
+ * This is the 'Model' object used by Freemarker to resolve template variables.
+ * Any variable that might be used in a project-related template must have a
+ * corresponding field within this POJO.
  */
 @Data
-@Builder
-@Generated // exclude from code coverage reports
-public class RestProjectDescriptor implements Descriptor {
-    private String basePackage;
+@SuperBuilder
+@Generated // Ignore code coverage for this class
+public class RestProjectTemplateModel {
     private String applicationName;
     private String basePath;
-    @Builder.Default private List<String> integrations = new ArrayList<>();
+    private String basePackage;
+
+    private boolean isWebFlux;
+    private boolean isWebMvc;
 }

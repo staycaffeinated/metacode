@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
+import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

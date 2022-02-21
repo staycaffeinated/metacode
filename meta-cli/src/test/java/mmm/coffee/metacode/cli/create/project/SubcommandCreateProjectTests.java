@@ -21,9 +21,11 @@ import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.ExitCodes;
 import mmm.coffee.metacode.cli.StringHelper;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import picocli.CommandLine;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -36,6 +38,7 @@ class SubcommandCreateProjectTests {
     final SubcommandCreateProject createCommand = new SubcommandCreateProject();
     final CommandLine.IFactory myFactory = new GuiceFactory();
     final CommandLine commandLine = new CommandLine(createCommand, myFactory);
+    final RestProjectDescriptor mockDescriptor = Mockito.mock(RestProjectDescriptor.class);
 
     @BeforeEach
     public void setUp() {
@@ -104,22 +107,10 @@ class SubcommandCreateProjectTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator {
-
+    public static class FakeCodeGenerator implements ICodeGenerator<Descriptor> {
+        
         @Override
-        public void setDescriptor(Descriptor descriptor) {
-
-        }
-
-        /**
-         * Returns the exit code from the generator.
-         * 0 = success
-         * 1 = general error
-         *
-         * @return the exit code, with zero indicating success.
-         */
-        @Override
-        public int generateCode() {
+        public int generateCode(Descriptor descriptor) {
             return 0;
         }
     }

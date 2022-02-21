@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.writer;
+package mmm.coffee.metacode.annotations.guice;
 
-import lombok.NonNull;
+import javax.inject.Qualifier;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-import java.io.Writer;
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * For the most part, the IWriterFactory interface
- * enables creating FileWriters or NullWriters as needed.
+ * This annotation is used to indicate to Guice that the annotated class
+ * supplies a WriteOutputTrait implementation.
  */
-public interface IWriterFactory {
-    Writer createWriter(@NonNull String destinatonFile);
-}
+@Qualifier
+@Target({ FIELD, PARAMETER, METHOD })
+@Retention(RUNTIME)
+public @interface WriteOutputProvider {}

@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.ExitCodes;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
+import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
 import picocli.CommandLine;
 
 /**
@@ -76,12 +77,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
      */
     @Override public Integer call() {
         super.validateInputs();
-        IRestProjectDescriptor projectDescriptor = buildProjectDescriptor();
-
-        codeGenerator.generateCode();
-
-        // Build a CodeGenerator - execute ( projectDescriptor )
-        return ExitCodes.OK;
+        return codeGenerator.generateCode(buildProjectDescriptor());
     }
 
     /**

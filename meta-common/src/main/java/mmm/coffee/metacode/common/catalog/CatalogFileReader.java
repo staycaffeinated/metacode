@@ -108,17 +108,15 @@ public class CatalogFileReader implements ICatalogReader {
     private static CatalogEntry readCatalogEntry (Map<String,Object> map) {
         var catalogEntry = new CatalogEntry();
         Map<String,Object> values = (Map<String,Object>)map.get(CATALOG_ENTRY_KEY);
-
-        // TODO: add setContext method
-        // catalogEntry.setContext((String)values.get(CONTEXT_KEY));
-
+        
         catalogEntry.setDestination((String)values.get(DESTINATION_KEY));
         catalogEntry.setTemplate((String)values.get(TEMPLATE_KEY));
+        catalogEntry.setContext((String)values.get(CONTEXT_KEY));   // context is either: project or endpoint
 
-        // TODO: add setFeature method, or add notion of key/values and do
-        // something like Terraform that adds tags to enable finding templates
-        // with given tags
-        // catalogEntry.setFeature( (String)values.get(FEATURE_KEY) );
+        // NB: In the YAML file, the field is currently named 'features'
+        // We want to rename this field to 'tags'.  In the CatalogEntry,
+        // get/setTags is used; the YAML files have not yet been updated.
+        catalogEntry.setTags((String)values.get(FEATURE_KEY));
 
         return catalogEntry;
     }

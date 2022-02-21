@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.common.writer;
+package mmm.coffee.metacode.spring.project.generator;
+
+import mmm.coffee.metacode.common.generator.ICodeGenerator;
 
 /**
- * WriterFactory
+ * ISpringWebFluxProjectGenerator
  */
-public interface CodeProducerFactory {
-
-    /**
-     * Returns an instance of a CodeProducer
-     */
-    CodeProducer createProducer();
+public interface ISpringWebFluxProjectGenerator extends ICodeGenerator {
 }

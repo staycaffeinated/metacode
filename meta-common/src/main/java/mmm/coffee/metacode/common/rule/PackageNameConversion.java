@@ -13,25 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.cli.create.project;
+package mmm.coffee.metacode.common.rule;
+
+import lombok.NonNull;
 
 /**
- * Integrations supported by the spring-webmvc code generator
+ * Helper methods for manipulating a package name
  */
-public enum WebMvcIntegration {
-    POSTGRES ("postgres"),
-    LIQUIBASE ("liquibase"),
-    TESTCONTAINERS ("testcontainers")
-            ;
+public class PackageNameConversion {
+    private PackageNameConversion() {}
 
-    // This is the value an end-user enters on the command line.
-    private final String value;
-
-    WebMvcIntegration(String name) {
-        this.value = name;
+    /**
+     * Converts the given {@code packageName} to its file-system path equivalent
+     * @param packageName some non-null package name, such as {@code "mmm.coffee.widget" }
+     * @return the path of the package, such as {@code "mmm/coffee/widget" }
+     */
+    public static String toPath(@NonNull String packageName) {
+        return packageName.replace(".", "/");
     }
-
-    @Override
-    public String toString() { return value; }
-
 }

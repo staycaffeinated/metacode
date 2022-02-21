@@ -15,8 +15,8 @@
  */
 package mmm.coffee.metacode.common.catalog;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Nullable;
@@ -48,9 +48,9 @@ class CatalogEntryPredicatesTests {
     }
 
     @Test
-    void shouldFindProjectArtifacts() {
-        Set<CatalogEntry> result = CatalogEntryPredicates.filterCatalogEntries(testData, CatalogEntryPredicates.isProjectArtifact());
-        assertThat(result.size()).isEqualTo(5);
+    void shouldOnlyFindCommonProjectArtifacts() {
+        Set<CatalogEntry> result = CatalogEntryPredicates.filterCatalogEntries(testData, CatalogEntryPredicates.isCommonProjectArtifact());
+        assertThat(result.size()).isEqualTo(3);
     }
 
     @Test
@@ -58,6 +58,49 @@ class CatalogEntryPredicatesTests {
         var endpointData = buildEndpointSampleSet();
         Set<CatalogEntry> result = CatalogEntryPredicates.filterCatalogEntries(endpointData, CatalogEntryPredicates.isEndpointArtifact());
         assertThat(result.size()).isEqualTo(3);
+    }
+
+    @Test
+    void whenPostgresTagIsPresent_shouldDetectIt() {
+        CatalogEntry entry = buildEntry("PostgresConfig.ftl", "PostgresConfig.java", "postgres", "project");
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.hasPostgresTag();
+        assertThat(predicate.apply(entry)).isTrue();
+    }
+    @Test
+    void whenPostgresTagIsNotPresent_shouldNotDetectIt() {
+        // Given a common template unrelated to Postgres integration...
+        CatalogEntry entry = buildEntry("Application.ftl","Application.java", null, "project");
+
+        // When the Postgres predicate is applied to this catalog entry, it should return false;
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.hasPostgresTag();
+        assertThat(predicate.apply(entry)).isFalse();
+    }
+
+    @Test
+    void whenTestContainerTagIsPresent_shouldBeDetected() {
+        CatalogEntry entry = buildEntry("TestContainer.ftl", "TestContainer.java", "testcontainer", "project");
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.hasTestContainerTag();
+        assertThat(predicate.apply(entry)).isTrue();
+    }
+
+    @Test
+    void whenTestContainerTagIsNotPresent_shouldNotBeDetected() {
+        CatalogEntry entry = buildEntry("Application.ftl", "Application.java", null,"project");
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.hasTestContainerTag();
+        assertThat(predicate.apply(entry)).isFalse();
+    }
+
+    @Test
+    void whenLiquibaseTagIsPresent_shouldBeDetected() {
+        CatalogEntry entry = buildEntry("Liquibase.ftl", "liquibase-config.yml", "liquibase","project");
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.hasLiquibaseTag();
+        assertThat(predicate.apply(entry)).isTrue();
+    }
+    @Test
+    void whenLiquibaseTagIsNotPresent_shouldNotBeDetected() {
+        CatalogEntry entry = buildEntry("Liquibase.ftl", "liquibase-config.yml", "random-tag","project");
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.hasLiquibaseTag();
+        assertThat(predicate.apply(entry)).isFalse();
     }
 
     /**
@@ -93,7 +136,7 @@ class CatalogEntryPredicatesTests {
         CatalogEntry entry = new CatalogEntry();
         entry.setTemplate(source);
         entry.setDestination(destination);
-        entry.setTemplate(tags);
+        entry.setTags(tags);
         entry.setContext(context);
         return entry;
     }

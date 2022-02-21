@@ -20,18 +20,15 @@ import lombok.NonNull;
 import mmm.coffee.metacode.annotations.guice.CatalogProvider;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 
 /**
  * CodeGeneratorImpl
  */
-public class CodeGeneratorImpl implements ICodeGenerator {
+public class CodeGeneratorImpl implements ICodeGenerator<Descriptor> {
     private ICatalogReader catalog;
     private Descriptor descriptor;
 
-    @Override
-    public void setDescriptor(@NonNull Descriptor descriptor) {
-        this.descriptor = descriptor;
-    }
 
     public void setCatalog(@NonNull ICatalogReader catalog) {
         this.catalog = catalog;
@@ -47,7 +44,7 @@ public class CodeGeneratorImpl implements ICodeGenerator {
         this.catalog = catalog;
     }
 
-    public int generateCode() {
+    public int generateCode(Descriptor descriptor) {
         /*
          TemplateCollector::collect() --
            -- collectTemplates will have some hard-wired logic to apply
@@ -57,19 +54,20 @@ public class CodeGeneratorImpl implements ICodeGenerator {
          var templateCollector = new TemplateCollector(String[] catalogFiles, Descriptor);
          TemplateCollector::addCatalog(String catalogFile);
 
-         CodeGenerator generator = new SpringCodeGenerator(Descriptor<RestProject>,
-                                                        Collector<CatalogEntry>,
-                                                        Converter<?,?>,
-                                                        Resolver<DataModel>,
-                                                        TemplateWriter<?,?>)
-         generator.generate();
-         writeMetaCodeProperties();
+         CodeGenerator generator = new SpringCodeGenerator(Collector<CatalogEntry>,
+                                                           Resolver<DataModel>,
+                                                           WriteOutputTrait)
+
+         generator.setDescriptor2ModelConverter(...)
+         generator.setDescriptor2PredicateConverter(...)
+         generator.generateCode();
 
          int generate() {
-           dataModel = converter.convert(descriptor);
-           templateCollector.collect().stream().forEach( it -> {
-             String resolvedText = templateResolver.render(it.template(), dataModel);
-             templateWriter.writeOutput(fqp(it.destination(), dataModel), resolvedText);
+           dataModel = descriptor2model.convert(descriptor);
+           Predicate<CatalogEntry> = descriptor2predicate.convert(descriptor);
+           templateCollector.collect().stream().filter(keepThese).forEach( it -> {
+                writeOutput ( it.destination(), renderTemplate (it.template(), dataModel))
+                }
              }
            }
         */
