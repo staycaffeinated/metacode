@@ -15,10 +15,13 @@
  */
 package mmm.coffee.metacode.common.stereotype;
 
+import mmm.coffee.metacode.annotations.jacoco.Generated;
+
 /**
  * Handles writing metacode.properties file and reading that
  * same file.
  */
+@Generated // ignore code coverage
 public interface MetaCodePropertiesHandler {
     // write the properties; need to change from Obj to POJO
     void writeProperties(POJO properties);

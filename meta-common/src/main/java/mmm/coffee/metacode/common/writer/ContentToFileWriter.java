@@ -48,7 +48,7 @@ public class ContentToFileWriter implements WriteOutputTrait {
         if (Objects.isNull(content)) return;
         try {
             File fOutput = new File(destination);
-            FileUtils.forceMkdir(fOutput);
+            FileUtils.forceMkdir(fOutput.getParentFile());
             FileUtils.writeStringToFile(fOutput, content, StandardCharsets.UTF_8);
         }
         catch (IOException e) {

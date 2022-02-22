@@ -15,11 +15,13 @@
  */
 package mmm.coffee.metacode.common.stereotype;
 
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.trait.CollectTrait;
 
 /**
  * Stereotype for Collectors of CatalogEntries
  */
+@Generated // ignore code coverage for stereotypes
 public interface Collector extends CollectTrait<CatalogEntry> {
 }

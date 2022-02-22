@@ -15,8 +15,11 @@
  */
 package mmm.coffee.metacode.common.stereotype;
 
+import mmm.coffee.metacode.annotations.jacoco.Generated;
+
 /**
  * Placeholder for generic POJO objects.
  */
+@Generated // Ignore code coverage on stereotypes
 public interface POJO {
 }

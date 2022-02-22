@@ -22,6 +22,7 @@ import mmm.coffee.metacode.annotations.guice.FreemarkerConfigurationProvider;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.annotations.guice.WriteOutputProvider;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
@@ -39,6 +40,7 @@ import mmm.coffee.metacode.spring.project.generator.SpringWebMvcCodeGenerator;
  * Module for SpringWebMvc Project generator
  */
 @SuppressWarnings("java:S1452") // S1452: allow generic wildcards for the moment
+@Generated // Ignore code coverage for this class
 public final class SpringCodeGeneratorModule extends AbstractModule {
     
     @Provides

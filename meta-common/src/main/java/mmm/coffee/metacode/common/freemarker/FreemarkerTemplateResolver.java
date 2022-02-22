@@ -64,9 +64,4 @@ public class FreemarkerTemplateResolver implements TemplateRendererTrait<Object>
             throw new RuntimeApplicationError(e.getMessage());
         }
     }
-
-    public static Configuration createDefaultConfiguration() {
-        // return ConfigurationFactory.defaultConfiguration();
-        throw new UnsupportedOperationException("Need to implement this method");
-    }
 }

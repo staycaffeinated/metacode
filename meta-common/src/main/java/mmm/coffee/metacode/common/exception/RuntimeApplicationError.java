@@ -15,9 +15,12 @@
  */
 package mmm.coffee.metacode.common.exception;
 
+import mmm.coffee.metacode.annotations.jacoco.Generated;
+
 /**
  * Our application-specific runtime exception
  */
+@Generated // Ignore code coverage for this class
 public class RuntimeApplicationError extends RuntimeException {
     public RuntimeApplicationError() {}
 
