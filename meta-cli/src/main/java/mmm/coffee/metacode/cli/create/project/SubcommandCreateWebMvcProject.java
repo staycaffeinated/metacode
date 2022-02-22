@@ -61,14 +61,14 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
     /**
      * Handle to the code generator
      */
-    private ICodeGenerator codeGenerator;
+    private ICodeGenerator<?> codeGenerator;
 
     /**
      * Construct with the given code generator
      * @param codeGenerator the code generator to use
      */
     @Inject
-    public SubcommandCreateWebMvcProject(@SpringWebMvc ICodeGenerator codeGenerator) {
+    public SubcommandCreateWebMvcProject(@SpringWebMvc ICodeGenerator<?> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
 
@@ -79,7 +79,6 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
     @Override public Integer call() {
         super.validateInputs();
         Descriptor descriptor = buildProjectDescriptor();
-        codeGenerator.setDescriptor(descriptor);
         return codeGenerator.generateCode();
     }
 

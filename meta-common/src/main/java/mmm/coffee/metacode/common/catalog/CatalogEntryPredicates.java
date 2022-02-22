@@ -23,7 +23,11 @@ import java.util.stream.Collectors;
 /**
  * Predicates applicable to collections of CatalogEntry instances
  */
+@SuppressWarnings("java:S4738") // S4738: need to refactor to Java8 predicates; for now, leave it
 public class CatalogEntryPredicates {
+
+    // hidden constructor
+    private CatalogEntryPredicates() {}
 
     /**
      * Returns {@code true} if the CatalogEntry is for a project artifact

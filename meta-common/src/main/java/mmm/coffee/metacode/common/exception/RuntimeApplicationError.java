@@ -13,12 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.project.generator;
-
-import mmm.coffee.metacode.common.generator.ICodeGenerator;
+package mmm.coffee.metacode.common.exception;
 
 /**
- * ISpringWebFluxProjectGenerator
+ * Our application-specific runtime exception
  */
-public interface ISpringWebFluxProjectGenerator extends ICodeGenerator {
+public class RuntimeApplicationError extends RuntimeException {
+    public RuntimeApplicationError() {}
+
+    public RuntimeApplicationError(String msg) {
+        super(msg);
+    }
+    public RuntimeApplicationError(String msg, Throwable cause) {
+        super(msg, cause);
+    }
 }

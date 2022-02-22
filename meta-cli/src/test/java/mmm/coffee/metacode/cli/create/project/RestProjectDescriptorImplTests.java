@@ -24,7 +24,7 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * Unit tests
  */
-public class RestProjectDescriptorImplTests {
+class RestProjectDescriptorImplTests {
 
     private static final String APPNAME = "petstore";
     private static final String BASEPKG = "acme.petstore";

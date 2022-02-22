@@ -66,12 +66,7 @@ class SubcommandCreateSpringWebFluxProjectTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator {
-
-        @Override
-        public void setDescriptor(Descriptor d) {
-            // empty
-        }
+    public static class FakeCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
 
         /**
          * Returns the exit code from the generator.

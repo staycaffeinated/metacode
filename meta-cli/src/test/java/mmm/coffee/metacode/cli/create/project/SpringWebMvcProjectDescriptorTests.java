@@ -28,7 +28,7 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * Unit tests
  */
-public class SpringWebMvcProjectDescriptorTests {
+class SpringWebMvcProjectDescriptorTests {
 
     private static final String BASEPATH = "/petstore";
     private static final String BASEPKG = "io.acme.petstore";

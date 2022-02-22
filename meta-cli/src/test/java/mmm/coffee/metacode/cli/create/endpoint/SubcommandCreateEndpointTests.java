@@ -21,6 +21,7 @@ import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.Application;
 import mmm.coffee.metacode.cli.StringHelper;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,7 @@ import static mmm.coffee.metacode.cli.ExitCodes.OK;
 /**
  * Unit test
  */
+@SuppressWarnings("java:S5976") // S5976: don't refactor tests simply to satisfy sonarqube
 class SubcommandCreateEndpointTests {
 
     final CommandLine.IFactory guiceFactory = new GuiceFactory();
@@ -122,13 +124,13 @@ class SubcommandCreateEndpointTests {
     final static class SpringTestModule extends AbstractModule {
         @Provides
         @SpringWebMvc
-        ICodeGenerator provideSpringWebMvcGenerator() {
+        ICodeGenerator<?> provideSpringWebMvcGenerator() {
             return new FakeCodeGenerator();
         }
 
         @Provides
         @SpringWebFlux
-        ICodeGenerator providesSpringWebFluxGenerator() {
+        ICodeGenerator<?> providesSpringWebFluxGenerator() {
             return new FakeCodeGenerator();
         }
     }
@@ -136,7 +138,7 @@ class SubcommandCreateEndpointTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator {
+    public static class FakeCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
         /**
          * Returns the exit code from the generator.
          * 0 = success
@@ -147,10 +149,6 @@ class SubcommandCreateEndpointTests {
         @Override
         public int generateCode() {
             return 0;
-        }
-
-        public void setDescriptor(Descriptor ignored) {
-            // empty
         }
     }
 }

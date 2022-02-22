@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import lombok.NonNull;
+import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import mmm.coffee.metacode.common.trait.TemplateRendererTrait;
 
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class FreemarkerTemplateResolver implements TemplateRendererTrait<Object>
             return writer.toString();
         }
         catch (TemplateException | IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeApplicationError(e.getMessage());
         }
     }
 

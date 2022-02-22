@@ -20,10 +20,8 @@ import mmm.coffee.metacode.common.descriptor.Descriptor;
 /**
  * CodeGenerator
  */
-public interface ICodeGenerator {
+public interface ICodeGenerator<T> {
 
-    void setDescriptor(Descriptor d);
-    
     /**
      * Performs the code generation. Returns:
      *      0 = success

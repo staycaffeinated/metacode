@@ -79,24 +79,24 @@ public class PackageNameValidator {
             return false;
         }
 
-        // subsequent letters can be a-z, A-Z, 0-9, or underscore
+        // a valid subsequent letters can be: a-z, A-Z, 0-9, or underscore
         for (var i = 1; i < token.length(); i++) {
             if (!isLowerCaseLetter(token.charAt(i)) &&
                     !isUpperCaseLetter(token.charAt(i)) &&
-                    !(token.charAt(i) >= '0' && token.charAt(i) <= '9') &&
-                    !(token.charAt(i) == '_'))
+                    !isDigit(token.charAt(i)) &&
+                    token.charAt(i) != '_')
                 return false;
         }
         return true;
     }
 
+    private static boolean isDigit(char ch) {
+        return ch >= '0' && ch <= '9';
+    }
     private static boolean isLowerCaseLetter(char ch) {
-        if (ch >= 'a' && ch <= 'z') return true;
-        return false;
+        return ch >= 'a' && ch <= 'z';
     }
     private static boolean isUpperCaseLetter(char ch) {
-        if (ch >= 'A' && ch <= 'Z') return true;
-        return false;
+        return ch >= 'A' && ch <= 'Z';
     }
-
 }

@@ -93,7 +93,7 @@ public class CatalogFileReader implements ICatalogReader {
             var yaml = new Yaml();
             Map<String, Object> obj = yaml.load(is);
             List<Map<String, Object>> entries = (List<Map<String, Object>>) obj.get(CATALOG_KEY);
-            return entries.stream().map(CatalogFileReader::readCatalogEntry).collect(Collectors.toList());
+            return entries.stream().map(CatalogFileReader::readCatalogEntry).toList();
         }
     }
 

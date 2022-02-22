@@ -30,6 +30,7 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * Unit tests
  */
+@SuppressWarnings("java:S5976") // S5976: don't refactor tests simply to satisfy sonarqube
 class SubcommandCreateSpringWebMvcProjectTests {
 
     protected CommandLine commandLine;

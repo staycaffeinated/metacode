@@ -22,6 +22,7 @@ import mmm.coffee.metacode.cli.Application;
 import mmm.coffee.metacode.cli.ExitCodes;
 import mmm.coffee.metacode.cli.StringHelper;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,13 +75,13 @@ class CreateCommandTest {
     final static class SpringTestModule extends AbstractModule {
         @Provides
         @SpringWebMvc
-        ICodeGenerator provideSpringWebMvcGenerator() {
+        ICodeGenerator<?> provideSpringWebMvcGenerator() {
             return new FakeCodeGenerator();
         }
 
         @Provides
         @SpringWebFlux
-        ICodeGenerator providesSpringWebFluxGenerator() {
+        ICodeGenerator<?> providesSpringWebFluxGenerator() {
             return new FakeCodeGenerator();
         }
     }
@@ -88,13 +89,7 @@ class CreateCommandTest {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator {
-
-        @Override
-        public void setDescriptor(Descriptor d) {
-
-        }
-
+    public static class FakeCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
         /**
          * Returns the exit code from the generator.
          * 0 = success

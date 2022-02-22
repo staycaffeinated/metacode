@@ -33,7 +33,7 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
  * Code generator for SpringWebMvc project
  */
 @SuperBuilder
-public class SpringWebMvcCodeGenerator implements ICodeGenerator {
+public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
     
     final private Collector collector;
     final private ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2context;
@@ -61,11 +61,6 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator {
         this.descriptor2Predicate = descriptor2predicateConverter;
         this.templateRenderer = templateRenderer;
         this.outputHandler = outputWriter;
-    }
-
-    @Override
-    public void setDescriptor(Descriptor d) {
-        this.descriptor = (RestProjectDescriptor)d;
     }
 
     /**

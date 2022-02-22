@@ -39,14 +39,14 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
     /**
      * Handle to the code generator
      */
-    private final ICodeGenerator codeGenerator;
+    private final ICodeGenerator<?> codeGenerator;
     
     /**
      * Construct instance with a given generator
      * @param codeGenerator the code generator used by this command
      */
     @Inject
-    public SubcommandCreateWebfluxProject(@SpringWebFlux ICodeGenerator codeGenerator) {
+    public SubcommandCreateWebfluxProject(@SpringWebFlux ICodeGenerator<?> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
 
@@ -56,8 +56,6 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
      */
     @Override public Integer call() {
         super.validateInputs();
-        // generator.setDescriptor()
-
         int rc = codeGenerator.generateCode();
 
         // Next step: build a ProjectDescriptor

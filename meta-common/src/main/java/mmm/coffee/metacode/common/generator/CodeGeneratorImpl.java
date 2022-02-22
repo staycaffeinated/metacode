@@ -47,8 +47,7 @@ public class CodeGeneratorImpl implements ICodeGenerator {
     public void setDescriptor(RestProjectDescriptor descriptor) {
         this.descriptor = descriptor;
     }
-
-    @Override
+    
     public void setDescriptor(Descriptor d) {
         this.descriptor = (RestProjectDescriptor)descriptor;
     }

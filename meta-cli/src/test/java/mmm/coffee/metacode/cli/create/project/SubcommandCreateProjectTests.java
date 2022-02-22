@@ -33,6 +33,7 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * Unit test
  */
+@SuppressWarnings("java:S5976") // S5976: don't refactor tests simply to satisfy sonarqube
 class SubcommandCreateProjectTests {
 
     final SubcommandCreateProject createCommand = new SubcommandCreateProject();
@@ -93,13 +94,13 @@ class SubcommandCreateProjectTests {
     final static class SpringTestModule extends AbstractModule {
         @Provides
         @SpringWebMvc
-        ICodeGenerator provideSpringWebMvcGenerator() {
+        ICodeGenerator<?> provideSpringWebMvcGenerator() {
             return new FakeCodeGenerator();
         }
 
         @Provides
         @SpringWebFlux
-        ICodeGenerator providesSpringWebFluxGenerator() {
+        ICodeGenerator<?> providesSpringWebFluxGenerator() {
             return new FakeCodeGenerator();
         }
     }
@@ -107,12 +108,7 @@ class SubcommandCreateProjectTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator {
-
-        @Override
-        public void setDescriptor(Descriptor d) {
-            
-        }
+    public static class FakeCodeGenerator implements ICodeGenerator<String> {
 
         @Override
         public int generateCode() {

@@ -28,9 +28,7 @@ import lombok.NonNull;
  */
 @SuppressWarnings({"squid:S1075" })  // the template path is intentionally hard-coded
 public class ConfigurationFactory {
-
-        // public static final String TEMPLATE_PATH = "/restapi/templates/";
-
+    
         // private constructor since there is no need to create instances of this class
         private ConfigurationFactory() {}
 
