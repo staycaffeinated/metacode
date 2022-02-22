@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests
@@ -46,5 +47,12 @@ class FreemarkerTemplateResolverTest {
 
         // expect: at least a non-empty string
         assertThat(content).isNotEmpty();
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionWhenConfigArgIsNull() {
+        assertThrows(NullPointerException.class, () -> {
+            new FreemarkerTemplateResolver(null);
+        });
     }
 }

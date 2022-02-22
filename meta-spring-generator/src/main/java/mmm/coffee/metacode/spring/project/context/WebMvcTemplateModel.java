@@ -23,7 +23,7 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
  * A Freemarker TemplateModel for Spring WebMvc
  */
 @SuperBuilder
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=true)
 @Generated // ignore code coverage for this class
 public class WebMvcTemplateModel extends RestProjectTemplateModel {
     private boolean enableTestContainers;

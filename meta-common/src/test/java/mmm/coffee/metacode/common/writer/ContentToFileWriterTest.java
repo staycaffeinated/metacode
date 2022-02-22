@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test
@@ -56,5 +57,12 @@ class ContentToFileWriterTest {
         // expect: that file contains the expected content
         String actualContent = FileUtils.readFileToString(tempFile, StandardCharsets.UTF_8);
         assertThat(actualContent).isEqualTo(expectedContent);
+    }
+
+    @Test
+    void shouldThrowNullPointerExceptionWhenDestinationIsNull() {
+        assertThrows(NullPointerException.class, () -> {
+            writerUnderTest.writeOutput(null, "hello, world");
+        });         
     }
 }

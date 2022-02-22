@@ -15,14 +15,17 @@
  */
 package mmm.coffee.metacode.spring.catalog;
 
+import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
+import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test
@@ -42,5 +45,53 @@ class SpringWebFluxTemplateCatalogTest {
         List<CatalogEntry> resultSet = catalogUnderTest.collect();
         assertThat(resultSet).isNotNull();
         assertThat(resultSet.size()).isGreaterThan(0);
+    }
+
+    /*
+     * This is a white box test of the {@code SpringTemplateCatalog}
+     * constructor.  Our fake subclass's constructor invokes
+     * the super's constructor with a null argument to verify
+     * an NPE is thrown.
+     */
+    @Test
+    void shouldThrowExceptionWhenCatalogReaderArgIsNull() {
+        assertThrows(NullPointerException.class, () -> {
+            new FakeTemplateCatalog(null);
+        });
+    }
+
+    /*
+     * This is a white box test of the
+     * {@code collectGeneralCatalogsAndThisOne} method.
+     * This test calls that method with a {@code null}
+     * argument to ensure an NPE is thrown.
+     */
+    @Test
+    void shouldThrowExceptionWhenCatalogPathIsNull() {
+        assertThrows(NullPointerException.class, () -> {
+            var tmp = new FakeTemplateCatalog(new CatalogFileReader());
+            tmp.invokeCollectGeneralCatalogsAndThisOne();
+        });
+    }
+
+    private class FakeTemplateCatalog extends SpringTemplateCatalog {
+
+        public FakeTemplateCatalog(@NonNull ICatalogReader reader) {
+            super(reader);
+        }
+
+        /**
+         * Collects items, honoring the conditions set with {@code setConditions}
+         *
+         * @return the items meeting the conditions
+         */
+        @Override
+        public List<CatalogEntry> collect() {
+            return null;
+        }
+
+        public void invokeCollectGeneralCatalogsAndThisOne() {
+            super.collectGeneralCatalogsAndThisOne(null);
+        }
     }
 }
