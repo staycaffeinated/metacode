@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ public class RestProjectDescriptorImplTests {
 
     @Test
     void shouldBuildWellFormedObject() {
-        RestProjectDescriptorImpl obj = RestProjectDescriptorImpl.builder()
+        RestProjectDescriptor obj = RestProjectDescriptor.builder()
                 .basePackage(BASEPKG)
                 .basePath(BASEPATH)
                 .applicationName(APPNAME)
@@ -53,6 +54,9 @@ public class RestProjectDescriptorImplTests {
     @Test
     @Tag("coverage")
     void shouldHitCodeCoverage() {
-        var foo = RestProjectDescriptorImpl.builder().toString();
+        var foo = RestProjectDescriptor.builder().toString();
+        // String should contain some content; we're not picky about what
+        // content, for the most part. 
+        assertThat(foo).isNotEmpty();
     }
 }

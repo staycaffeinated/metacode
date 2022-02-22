@@ -17,6 +17,7 @@ package mmm.coffee.metacode.spring.project.generator;
 
 import com.google.common.base.Predicate;
 import lombok.Builder;
+import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
@@ -30,14 +31,16 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
 /**
  * Code generator for SpringWebMvc project
  */
-@Builder
-public class SpringWebFluxCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
+@SuperBuilder
+public class SpringWebFluxCodeGenerator implements ICodeGenerator {
 
     final private Collector collector;
     final private ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2templateModel;
     final private ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2predicate;
     final private TemplateResolver templateRenderer;
     final private WriteOutputTrait outputHandler;
+
+    private RestProjectDescriptor descriptor;
 
 
     /**
@@ -60,6 +63,10 @@ public class SpringWebFluxCodeGenerator implements ICodeGenerator<RestProjectDes
         this.templateRenderer = templateRenderer;
         this.outputHandler = outputWriter;
     }
+
+    public void setDescriptor(Descriptor descriptor) {
+        this.descriptor = (RestProjectDescriptor) descriptor;
+    }
     
     /**
      * Returns the exit code from the generator.
@@ -69,7 +76,7 @@ public class SpringWebFluxCodeGenerator implements ICodeGenerator<RestProjectDes
      * @return the exit code, with zero indicating success.
      */
     @Override
-    public int generateCode(RestProjectDescriptor descriptor) {
+    public int generateCode() {
         return 0;
     }
 }

@@ -88,7 +88,12 @@ class CreateCommandTest {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator<Descriptor> {
+    public static class FakeCodeGenerator implements ICodeGenerator {
+
+        @Override
+        public void setDescriptor(Descriptor d) {
+
+        }
 
         /**
          * Returns the exit code from the generator.
@@ -98,6 +103,6 @@ class CreateCommandTest {
          * @return the exit code, with zero indicating success.
          */
         @Override
-        public int generateCode(Descriptor descriptor) { return 0; }
+        public int generateCode() { return 0; }
     }
 }

@@ -18,9 +18,9 @@ package mmm.coffee.metacode.cli;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.cli.create.CreateCommand;
 import mmm.coffee.metacode.cli.traits.CallTrait;
-import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.spring.project.SpringCodeGeneratorModule;
 import picocli.AutoComplete.GenerateCompletion;
 import picocli.CommandLine;
@@ -60,7 +60,7 @@ public class Application implements CallTrait {
      * The following class configures a factory to enable Guice
      * From: https://picocli.info/#_guice_example
      */
-    final static class GuiceFactory implements CommandLine.IFactory {
+    static final class GuiceFactory implements CommandLine.IFactory {
         // We have to explicitly list our modules; they don't get auto-discovered
         private final Injector injector = Guice.createInjector(new SpringCodeGeneratorModule());
 

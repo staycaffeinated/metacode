@@ -34,6 +34,7 @@ import java.util.concurrent.Callable;
         synopsisHeading = "%nUsage:%n%n",
         optionListHeading = "%nOptions:%n%n"
 )
+@SuppressWarnings("java:S125") // S125: allow comments that look like code
 public class SubcommandCreateEndpoint implements Callable<Integer> {
 
     @CommandLine.Spec

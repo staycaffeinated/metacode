@@ -18,28 +18,29 @@ package mmm.coffee.metacode.spring.project.generator;
 import com.google.common.base.Predicate;
 import lombok.Builder;
 import lombok.NonNull;
+import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
-import mmm.coffee.metacode.common.trait.*;
+import mmm.coffee.metacode.common.trait.ConvertTrait;
+import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
-
-import java.util.Objects;
 
 /**
  * Code generator for SpringWebMvc project
  */
-@Builder
-public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
+@SuperBuilder
+public class SpringWebMvcCodeGenerator implements ICodeGenerator {
     
     final private Collector collector;
     final private ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2context;
     final private ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
     final private TemplateResolver templateRenderer;
     final private WriteOutputTrait outputHandler;
+    private RestProjectDescriptor descriptor;
 
     /**
      * Constructor
@@ -62,6 +63,11 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
         this.outputHandler = outputWriter;
     }
 
+    @Override
+    public void setDescriptor(Descriptor d) {
+        this.descriptor = (RestProjectDescriptor)d;
+    }
+
     /**
      * Returns the exit code from the generator.
      * 0 = success
@@ -69,7 +75,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
      *
      * @return the exit code, with zero indicating success.
      */
-    public int generateCode(@NonNull RestProjectDescriptor descriptor) {
+    public int generateCode() {
 
         return 0;
     }

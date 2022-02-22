@@ -21,7 +21,9 @@ import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Meta-data of a REST project. This object captures the
@@ -29,11 +31,33 @@ import java.util.List;
  * Anything the Code
  */
 @Data
-@Builder
+@SuperBuilder
 @Generated // exclude from code coverage reports
 public class RestProjectDescriptor implements Descriptor {
     private String basePackage;
     private String applicationName;
     private String basePath;
-    @Builder.Default private List<String> integrations = new ArrayList<>();
+    private String groupId;
+
+    /*
+     * The integrations to support in the generated code.
+     * For example, if integration with Postgres is selected,
+     * then Postgres-specific properties are included in the
+     * generated application.properties file.
+     *
+     * If integration with Liquibase is selected, then default
+     * liquibase files are generated.
+     *
+     * NB: Lombok allows @Singular annotation and @Builder.Default.
+     * The @Singular creates an immutable list; the collection must be
+     * populated before build() is called; after build() is called, the
+     * collection becomes immutable.  With @Builder.Default, we
+     * initialize the collection, and lobmok does not generate methods
+     * to add to the collection while building the object. After build()
+     * is called, we can call getIntegration().add(...), and we do
+     * have a mutable collection.
+     *
+     * See https://projectlombok.org/features/Builder#singular
+     */
+    @Builder.Default private Set<String> integrations = new HashSet<>();
 }

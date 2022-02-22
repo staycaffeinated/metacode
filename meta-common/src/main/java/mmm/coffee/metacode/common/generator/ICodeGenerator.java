@@ -15,13 +15,14 @@
  */
 package mmm.coffee.metacode.common.generator;
 
-import lombok.NonNull;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
 
 /**
  * CodeGenerator
  */
-public interface ICodeGenerator<T extends Descriptor> {
+public interface ICodeGenerator {
+
+    void setDescriptor(Descriptor d);
     
     /**
      * Performs the code generation. Returns:
@@ -29,5 +30,5 @@ public interface ICodeGenerator<T extends Descriptor> {
      *      1 = general error
      * @return the exit code, with zero indicating success. 
      */
-    int generateCode(T descriptor);
+    int generateCode();
 }

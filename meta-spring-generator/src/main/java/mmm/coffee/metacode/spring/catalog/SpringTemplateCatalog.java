@@ -20,7 +20,6 @@ import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import mmm.coffee.metacode.common.stereotype.Collector;
-import mmm.coffee.metacode.common.trait.CollectTrait;
 
 import java.io.IOException;
 import java.util.ArrayList;

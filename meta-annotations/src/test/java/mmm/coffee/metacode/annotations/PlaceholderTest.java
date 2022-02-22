@@ -13,10 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.project.converter;
+package mmm.coffee.metacode.annotations;
+
+import org.junit.jupiter.api.Test;
+
+import static com.google.common.truth.Truth.assertThat;
 
 /**
- * TODO: Fill me in
+ * This class does not contain any tests.
+ * Sonarqube has problems if a module does not
+ * contain any unit tests.  As this module only
+ * contains annotations, there's nothing really to test,
+ * but to get Sonarqube task to work, we need something.
  */
-public class DescriptorToWebMvcContextTest {
+class PlaceholderTest {
+    @Test
+    void shouldWork() {
+        assertThat(true).isTrue();
+    }
 }

@@ -15,8 +15,8 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
-import mmm.coffee.metacode.cli.traits.CallTrait;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
+import mmm.coffee.metacode.cli.traits.CallTrait;
 import picocli.CommandLine;
 
 /**

@@ -17,7 +17,8 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
-import mmm.coffee.metacode.cli.ExitCodes;
+import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
 import picocli.CommandLine;
@@ -60,7 +61,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
     /**
      * Handle to the code generator
      */
-    private final ICodeGenerator codeGenerator;
+    private ICodeGenerator codeGenerator;
 
     /**
      * Construct with the given code generator
@@ -77,22 +78,29 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
      */
     @Override public Integer call() {
         super.validateInputs();
-        return codeGenerator.generateCode(buildProjectDescriptor());
+        Descriptor descriptor = buildProjectDescriptor();
+        codeGenerator.setDescriptor(descriptor);
+        return codeGenerator.generateCode();
     }
 
     /**
      * Creates a project descriptor from the command-line arguments
      * @return a POJO that encapsulates the command-line arguments
      */
-    IRestProjectDescriptor buildProjectDescriptor() {
-        SpringWebMvcProjectDescriptor descriptor = new SpringWebMvcProjectDescriptor();
-        descriptor.setApplicationName(applicationName);
-        descriptor.setBasePackage(packageName);
-        descriptor.setBasePath(basePath);
-        descriptor.setGroupId(groupId);
+    RestProjectDescriptor buildProjectDescriptor() {
+        // Get the basic information
+        var descriptor = SpringWebMvcProjectDescriptor
+                .builder()
+                .applicationName(applicationName)
+                .basePackage(packageName)
+                .basePath(basePath)
+                .groupId(groupId)
+                .build();
+
+        // take note of any features/integrations
         if (features != null) {
             for (WebMvcIntegration f : features) {
-                descriptor.getIntegrations().add(f);
+                descriptor.getIntegrations().add(f.name());
             }
         }
         return descriptor;

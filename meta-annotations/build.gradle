@@ -9,5 +9,19 @@ apply from: "../gradle/java-conventions.gradle"
 // --------------------------------------------------------------
 dependencies {
     implementation libs.guice
+
+    testImplementation ( platform(libs.junitBillOfMaterial) )
+    testImplementation ( libs.junitJupiter )
+    testImplementation ( libs.junitSystemRules )
+    testImplementation ( libs.truth )
+    testImplementation ( libs.mockito )
+    testImplementation ( libs.systemLambda )
+
+    integrationTestImplementation ( platform(libs.junitBillOfMaterial) )
+    integrationTestImplementation ( libs.junitJupiter )
+    integrationTestImplementation ( libs.junitSystemRules )
+    integrationTestImplementation ( libs.truth )
+    integrationTestImplementation ( libs.mockito )
+    integrationTestImplementation ( libs.systemLambda )
 }
 

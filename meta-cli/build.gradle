@@ -40,17 +40,5 @@ dependencies {
     testImplementation ( libs.commonsBeanUtils )
     testImplementation ( libs.mockito )
     testImplementation ( libs.systemLambda )
-
-    // this dependency is needed for integration testing
-//    integrationTestImplementation project (path: ':zen-spring-generator')
-//    integrationTestImplementation project (path: ':zen-generator-factory')
-//    integrationTestImplementation project (path: ':zen-core')
-//
-//    integrationTestImplementation ( platform(libs.junitBillOfMaterial) )
-//    integrationTestImplementation ( libs.junitJupiter )
-//    integrationTestImplementation ( libs.junitSystemRules )
-//    integrationTestImplementation ( libs.truth )
-//    integrationTestImplementation ( libs.commonsBeanUtils )
-//    integrationTestImplementation ( libs.mockito )
 }
 

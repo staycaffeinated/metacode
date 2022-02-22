@@ -18,8 +18,12 @@ package mmm.coffee.metacode.cli;
 import com.google.inject.*;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
+import mmm.coffee.metacode.annotations.guice.WriteOutputProvider;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
+import mmm.coffee.metacode.common.trait.WriteOutputTrait;
+import mmm.coffee.metacode.common.writer.ContentToNullWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
@@ -112,30 +116,47 @@ class ApplicationTest {
         @Provides
         @SpringWebMvc
         ICodeGenerator provideSpringWebMvcGenerator() {
-            return new FakeCodeGenerator();
+            return new FakeSpringCodeGenerator();
         }
 
         @Provides
         @SpringWebFlux
         ICodeGenerator providesSpringWebFluxGenerator() {
-            return new FakeCodeGenerator();
+            return new FakeSpringCodeGenerator();
         }
+        
+        /**
+         * The code generator needs a class that will handle writing content to a file.
+         * Specifically, once a template is parsed and rendered as a String, that String
+         * gets written to a file (such as a .java source file). The WriteOutputProvider
+         * provides the class that handles that.
+         *
+         * The WriteOutputProvider is made "pluggable" so that, during testing, a NullWriter
+         * can be used to exercise the code w/o producing files that need to be cleaned up
+         * after the tests finish.
+         */
+        @Provides
+        @WriteOutputProvider
+        WriteOutputTrait providesWriteOutput() { return new ContentToNullWriter(); }
     }
 
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator<Descriptor> {
-
+    public static class FakeSpringCodeGenerator implements ICodeGenerator {
         /**
-         * Returns the exit code from the generator.
+         * Performs the code generation. Returns:
          * 0 = success
          * 1 = general error
          *
          * @return the exit code, with zero indicating success.
          */
         @Override
-        public int generateCode(Descriptor descriptor) { return 0; }
+        public int generateCode() {
+            return 0;
+        }
+
+        public void setDescriptor(Descriptor d) {}
     }
 
 }

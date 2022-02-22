@@ -107,10 +107,15 @@ class SubcommandCreateProjectTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator<Descriptor> {
-        
+    public static class FakeCodeGenerator implements ICodeGenerator {
+
         @Override
-        public int generateCode(Descriptor descriptor) {
+        public void setDescriptor(Descriptor d) {
+            
+        }
+
+        @Override
+        public int generateCode() {
             return 0;
         }
     }

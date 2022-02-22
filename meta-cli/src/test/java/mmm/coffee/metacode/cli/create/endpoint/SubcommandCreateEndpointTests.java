@@ -136,8 +136,7 @@ class SubcommandCreateEndpointTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator<Descriptor> {
-
+    public static class FakeCodeGenerator implements ICodeGenerator {
         /**
          * Returns the exit code from the generator.
          * 0 = success
@@ -146,8 +145,12 @@ class SubcommandCreateEndpointTests {
          * @return the exit code, with zero indicating success.
          */
         @Override
-        public int generateCode(Descriptor descriptor) {
+        public int generateCode() {
             return 0;
+        }
+
+        public void setDescriptor(Descriptor ignored) {
+            // empty
         }
     }
 }

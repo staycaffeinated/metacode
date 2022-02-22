@@ -15,30 +15,32 @@
  */
 package mmm.coffee.metacode.spring.catalog;
 
-import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
-import mmm.coffee.metacode.common.catalog.ICatalogReader;
+import mmm.coffee.metacode.common.catalog.CatalogFileReader;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.google.common.truth.Truth.assertThat;
+
 /**
- * Loads the Spring WebMvc template catalog
+ * Unit test
  */
-public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
+class SpringWebFluxTemplateCatalogTest {
 
-    private static final String WEBMVC_CATALOG = "/spring/catalogs/spring-webmvc.yml";
+    SpringWebFluxTemplateCatalog catalogUnderTest;
 
-    /**
-     * Constructor
-     *
-     * @param reader the CatalogReader
-     */
-    public SpringWebMvcTemplateCatalog(@NonNull ICatalogReader reader) {
-        super(reader);
+    @BeforeEach
+    public void setUp() {
+        CatalogFileReader catalogFileReader = new CatalogFileReader();
+        catalogUnderTest = new SpringWebFluxTemplateCatalog(catalogFileReader);
     }
 
-    @Override
-    public List<CatalogEntry> collect() {
-        return super.collectGeneralCatalogsAndThisOne(WEBMVC_CATALOG);
+    @Test
+    void shouldReadTemplates() {
+        List<CatalogEntry> resultSet = catalogUnderTest.collect();
+        assertThat(resultSet).isNotNull();
+        assertThat(resultSet.size()).isGreaterThan(0);
     }
 }

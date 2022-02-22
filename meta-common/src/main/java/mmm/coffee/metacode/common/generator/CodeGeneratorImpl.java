@@ -25,7 +25,7 @@ import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 /**
  * CodeGeneratorImpl
  */
-public class CodeGeneratorImpl implements ICodeGenerator<Descriptor> {
+public class CodeGeneratorImpl implements ICodeGenerator {
     private ICatalogReader catalog;
     private Descriptor descriptor;
 
@@ -44,7 +44,16 @@ public class CodeGeneratorImpl implements ICodeGenerator<Descriptor> {
         this.catalog = catalog;
     }
 
-    public int generateCode(Descriptor descriptor) {
+    public void setDescriptor(RestProjectDescriptor descriptor) {
+        this.descriptor = descriptor;
+    }
+
+    @Override
+    public void setDescriptor(Descriptor d) {
+        this.descriptor = (RestProjectDescriptor)descriptor;
+    }
+
+    public int generateCode() {
         /*
          TemplateCollector::collect() --
            -- collectTemplates will have some hard-wired logic to apply

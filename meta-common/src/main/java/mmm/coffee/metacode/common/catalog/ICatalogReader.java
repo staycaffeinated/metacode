@@ -18,7 +18,6 @@ package mmm.coffee.metacode.common.catalog;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Stereotype for a Reader of catalog files. Catalog files in YAML format

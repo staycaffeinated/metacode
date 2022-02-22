@@ -16,15 +16,11 @@
 package mmm.coffee.metacode.common.catalog;
 
 import lombok.NonNull;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -75,6 +71,7 @@ public class CatalogFileReader implements ICatalogReader {
      * Constructor
      */
     public CatalogFileReader() {
+        // empty; no instance variables are needed
     }
 
 
@@ -119,14 +116,5 @@ public class CatalogFileReader implements ICatalogReader {
         catalogEntry.setTags((String)values.get(FEATURE_KEY));
 
         return catalogEntry;
-    }
-
-    /**
-     * Returns the list of templates of this catalog.
-     * A {@code CatalogEntry} defines the template source and
-     * the destination of the code emitted by the template.
-     */
-    public Set<CatalogEntry> getEntries() {
-        return new HashSet<>();
     }
 }

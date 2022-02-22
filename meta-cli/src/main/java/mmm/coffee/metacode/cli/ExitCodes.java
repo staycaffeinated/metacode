@@ -22,6 +22,10 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
  */
 @Generated // jacoco should ignore this class in code coverage
 public class ExitCodes {
+
     public static final int OK = 0;
     public static final int INVALID_INPUT = 2;
+
+    /* Hidden constructor */
+    private ExitCodes() {}
 }
