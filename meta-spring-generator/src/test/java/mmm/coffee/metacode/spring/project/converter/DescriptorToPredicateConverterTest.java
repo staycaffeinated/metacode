@@ -27,7 +27,7 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * Unit test
  */
-public class DescriptorToPredicateConverterTest {
+class DescriptorToPredicateConverterTest {
 
     private static final String BASE_PATH = "/petstore";
     private static final String BASE_PKG = "acme.petstore";

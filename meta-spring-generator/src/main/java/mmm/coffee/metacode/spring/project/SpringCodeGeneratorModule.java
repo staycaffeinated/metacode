@@ -38,11 +38,12 @@ import mmm.coffee.metacode.spring.project.generator.SpringWebMvcCodeGenerator;
 /**
  * Module for SpringWebMvc Project generator
  */
+@SuppressWarnings("java:S1452") // S1452: allow generic wildcards for the moment
 public final class SpringCodeGeneratorModule extends AbstractModule {
     
     @Provides
     @SpringWebMvc
-    ICodeGenerator provideSpringWebMvcGenerator() {
+    ICodeGenerator<?> provideSpringWebMvcGenerator() {
         return SpringWebMvcCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
                 .descriptor2context(new DescriptorToRestProjectTemplateModelConverter())
@@ -54,7 +55,7 @@ public final class SpringCodeGeneratorModule extends AbstractModule {
 
     @Provides
     @SpringWebFlux
-    ICodeGenerator providesSpringWebFluxGenerator() {
+    ICodeGenerator<?> providesSpringWebFluxGenerator() {
         return SpringWebFluxCodeGenerator.builder()
                 .collector(new SpringWebFluxTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())

@@ -15,7 +15,6 @@
  */
 package mmm.coffee.metacode.spring.catalog;
 
-import com.google.inject.Inject;
 import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
@@ -28,6 +27,9 @@ import java.util.List;
 /**
  * Base class for loading the catalog entries
  */
+@SuppressWarnings( { "java:S125", "java:S106" })
+// S125: we're OK with comments that look like code
+// S106: adding a proper logger instead of using syserr is on the roadmap
 public abstract class SpringTemplateCatalog implements Collector {
 
     private static final String[] SPRING_CATALOGS = {
@@ -35,15 +37,13 @@ public abstract class SpringTemplateCatalog implements Collector {
             "/spring/catalogs/spring-boot.yml",
             "/spring/catalogs/spring-gradle.yml",
     };
-    private static final String WEBFLUX_CATALOG = "/spring/catalogs/spring-webflux.yml";
-
+    
     final ICatalogReader reader;
 
     /*
      * Most likely, reader is-a CatalogFileReader
      */
-    @Inject
-    public SpringTemplateCatalog(@NonNull ICatalogReader reader) {
+    protected SpringTemplateCatalog(@NonNull ICatalogReader reader) {
         this.reader = reader;
     }
 
@@ -66,9 +66,8 @@ public abstract class SpringTemplateCatalog implements Collector {
         }
         return resultSet;
     }
-
-
-    public List<CatalogEntry> __collect() {
+    
+    // NOTES:
         // read all the CatalogEntry's from all catalogs
         // filter ( allCatalogs, isCommonUsage() ).collect(resultSet.addAll())
         // if (descriptor.isWebFlux())
@@ -97,7 +96,5 @@ public abstract class SpringTemplateCatalog implements Collector {
         // We could define a Criteria, which is a chain of Predicates.
         // allowing us to do something like:
         //    allCriteria.apply ( allCatalogs.stream() ).forEach ( resultSet::add );
-
-        return null;
-    }
+    
 }

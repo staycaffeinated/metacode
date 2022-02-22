@@ -28,6 +28,8 @@ import java.io.StringWriter;
 /**
  * Handles rendering templates
  */
+@SuppressWarnings("java:S125")
+// S125: allow comments that look like code
 public class FreemarkerTemplateResolver implements TemplateRendererTrait<Object> {
 
     private final Configuration configuration;

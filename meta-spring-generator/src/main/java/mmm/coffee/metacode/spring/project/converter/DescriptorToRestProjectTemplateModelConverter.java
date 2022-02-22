@@ -15,11 +15,10 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
  */
 public class DescriptorToRestProjectTemplateModelConverter implements ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> {
     public RestProjectTemplateModel convert(RestProjectDescriptor descriptor) {
-        var result = RestProjectTemplateModel.builder()
+        return RestProjectTemplateModel.builder()
                 .applicationName(descriptor.getApplicationName())
                 .basePackage(descriptor.getBasePackage())
                 .basePath(descriptor.getBasePath())
                 .build();
-        return result;         
     }
 }

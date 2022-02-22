@@ -20,13 +20,13 @@ package mmm.coffee.metacode.common.trait;
  * We'll use this to convert, say, a ProjectDescriptor into a SpringProjectContext,
  * or an EndpointDescriptor into a SpringEndpointContext.
  */
-public interface ConvertTrait<FROM,TO> {
+public interface ConvertTrait<F,T> {
     /**
      * Converts an instance of class {@code FROM} into an instance of class {@code TO}.
      * We let the implementer decide how to handle {@code nulls}
      * @param fromType some instance to convert
      * @return the transformed object
      */
-    TO convert(FROM fromType);
+    T convert(F fromType);
 }
 

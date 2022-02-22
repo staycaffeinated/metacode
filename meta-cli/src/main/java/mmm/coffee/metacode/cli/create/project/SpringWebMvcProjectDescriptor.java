@@ -15,16 +15,11 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
-import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Spring WebMvc properties

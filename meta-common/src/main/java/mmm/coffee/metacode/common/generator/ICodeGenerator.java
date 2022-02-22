@@ -15,11 +15,10 @@
  */
 package mmm.coffee.metacode.common.generator;
 
-import mmm.coffee.metacode.common.descriptor.Descriptor;
-
 /**
  * CodeGenerator
  */
+@SuppressWarnings("java:S2326") // S2326: fixing this is on the roadmap
 public interface ICodeGenerator<T> {
 
     /**

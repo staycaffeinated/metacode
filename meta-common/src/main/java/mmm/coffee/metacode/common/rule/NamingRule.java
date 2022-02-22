@@ -25,6 +25,9 @@ import org.apache.commons.lang3.StringUtils;
 public class NamingRule {
     private static final String EJB_SUFFIX = "EntityBean";
 
+    // Hidden constructor
+    private NamingRule() {}
+
     /**
      * Returns the syntax convention for the given resource value
      * @param resource the name of some resource or entity

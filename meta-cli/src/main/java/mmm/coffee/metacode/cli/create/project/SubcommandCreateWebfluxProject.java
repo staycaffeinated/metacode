@@ -17,7 +17,6 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
-import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;
 
@@ -34,6 +33,9 @@ import picocli.CommandLine;
         synopsisHeading = "%nUsage:%n",
         optionListHeading = "%nOptions:%n"
 )
+@SuppressWarnings({ "java:S1854", "java:S1841", "java:S125" } )
+// S1854, S1841: allow  unused vars for now
+// S125: allow comments that look like code
 public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
 
     /**
@@ -56,11 +58,6 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
      */
     @Override public Integer call() {
         super.validateInputs();
-        int rc = codeGenerator.generateCode();
-
-        // Next step: build a ProjectDescriptor
-        // Build CodeGenerator ( SpringWebFluxProjectGenerator (descriptor ) ).generate();
-        // generator.getZipFile() 
-        return rc;
+        return codeGenerator.generateCode();
     }
 }

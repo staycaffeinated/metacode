@@ -16,11 +16,8 @@
 package mmm.coffee.metacode.spring.project.generator;
 
 import com.google.common.base.Predicate;
-import lombok.Builder;
-import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
-import mmm.coffee.metacode.common.descriptor.Descriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.stereotype.Collector;
@@ -33,13 +30,14 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
  * Code generator for SpringWebMvc project
  */
 @SuperBuilder
+@SuppressWarnings("java:S1068") // S1068: this is a work-in-progress so unused stuff is ok
 public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
     
-    final private Collector collector;
-    final private ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2context;
-    final private ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
-    final private TemplateResolver templateRenderer;
-    final private WriteOutputTrait outputHandler;
+    private final Collector collector;
+    private final ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2context;
+    private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
+    private final TemplateResolver templateRenderer;
+    private final WriteOutputTrait outputHandler;
     private RestProjectDescriptor descriptor;
 
     /**

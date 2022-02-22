@@ -15,19 +15,21 @@
  */
 package mmm.coffee.metacode.spring.project.context;
 
-/**
- * TODO: Fill me in
- */
-
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
+/**
+ * A Freemarker TemplateModel for Spring WebMvc
+ */
 @SuperBuilder
+@EqualsAndHashCode
 @Generated // ignore code coverage for this class
 public class WebMvcTemplateModel extends RestProjectTemplateModel {
     private boolean enableTestContainers;
     private boolean enablePostgres;
     private boolean enableLiquibase;
 
+    @Override
     public boolean isWebMvc() { return true; }
 }

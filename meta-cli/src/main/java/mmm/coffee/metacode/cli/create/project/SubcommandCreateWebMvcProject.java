@@ -36,6 +36,7 @@ import picocli.CommandLine;
         synopsisHeading = "%nUsage:%n",
         optionListHeading = "%nOptions:%n"
 )
+@SuppressWarnings({ "java:S1854", "java:S1481" } ) // S1854, S1481: allow  unused vars for now
 public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
 
     //

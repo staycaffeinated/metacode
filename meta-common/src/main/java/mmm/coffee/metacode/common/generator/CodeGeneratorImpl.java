@@ -25,7 +25,10 @@ import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 /**
  * CodeGeneratorImpl
  */
-public class CodeGeneratorImpl implements ICodeGenerator {
+@SuppressWarnings({ "java:S125","java:S1450" } )
+// S125: we're OK with comments that look like code
+// S1450: allow unused vars for the moment
+public class CodeGeneratorImpl implements ICodeGenerator<RestProjectDescriptor> {
     private ICatalogReader catalog;
     private Descriptor descriptor;
 
@@ -48,10 +51,6 @@ public class CodeGeneratorImpl implements ICodeGenerator {
         this.descriptor = descriptor;
     }
     
-    public void setDescriptor(Descriptor d) {
-        this.descriptor = (RestProjectDescriptor)descriptor;
-    }
-
     public int generateCode() {
         /*
          TemplateCollector::collect() --

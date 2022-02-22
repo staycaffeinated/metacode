@@ -16,11 +16,13 @@
 package mmm.coffee.metacode.common.writer;
 
 import lombok.NonNull;
+import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -47,10 +49,10 @@ public class ContentToFileWriter implements WriteOutputTrait {
         try {
             File fOutput = new File(destination);
             FileUtils.forceMkdir(fOutput);
-            FileUtils.writeStringToFile(fOutput, content, "UTF-8");
+            FileUtils.writeStringToFile(fOutput, content, StandardCharsets.UTF_8);
         }
         catch (IOException e) {
-            new RuntimeException(e.getMessage());
+            throw new RuntimeApplicationError(e.getMessage(), e);
         }
     }
 }
