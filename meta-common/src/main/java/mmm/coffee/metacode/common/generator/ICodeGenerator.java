@@ -15,10 +15,13 @@
  */
 package mmm.coffee.metacode.common.generator;
 
+import mmm.coffee.metacode.annotations.jacoco.Generated;
+
 /**
  * CodeGenerator
  */
 @SuppressWarnings("java:S2326") // S2326: fixing this is on the roadmap
+@Generated // exclude from code coverage reports
 public interface ICodeGenerator<T> {
 
     /**

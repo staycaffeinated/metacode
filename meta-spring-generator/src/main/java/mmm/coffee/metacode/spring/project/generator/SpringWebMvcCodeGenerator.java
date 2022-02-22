@@ -34,33 +34,17 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
 public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
     
     private final Collector collector;
-    private final ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2context;
+    private final ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2templateModel;
     private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
     private final TemplateResolver templateRenderer;
     private final WriteOutputTrait outputHandler;
-    private RestProjectDescriptor descriptor;
 
-    /**
-     * Constructor
-     * @param collector handles fetching the CatalogEntry files and returning a collection
-     * @param descriptor2ModelConverter converts Descriptors into TemplateModels
-     * @param descriptor2predicateConverter the RestProjectDescriptor into a Predicate
-     * @param templateRenderer proxy to Freemarker to load and render the template
-     * @param outputWriter handles writing the rendered template to a file
+    /*
+     * An instance of a RestProjectDescriptor is almost never available
+     * when this object's builder methods are called. 
      */
-    public SpringWebMvcCodeGenerator(Collector collector,
-                                     ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2ModelConverter,
-                                     ConvertTrait<RestProjectDescriptor, Predicate<CatalogEntry>> descriptor2predicateConverter,
-                                     TemplateResolver templateRenderer,
-                                     WriteOutputTrait outputWriter)
-    {
-        this.collector = collector;
-        this.descriptor2context = descriptor2ModelConverter;
-        this.descriptor2Predicate = descriptor2predicateConverter;
-        this.templateRenderer = templateRenderer;
-        this.outputHandler = outputWriter;
-    }
-
+    private RestProjectDescriptor descriptor;
+    
     /**
      * Returns the exit code from the generator.
      * 0 = success

@@ -40,28 +40,6 @@ public class SpringWebFluxCodeGenerator implements ICodeGenerator<RestProjectDes
     private final WriteOutputTrait outputHandler;
 
     private RestProjectDescriptor descriptor;
-
-
-    /**
-     * Constructor
-     * @param collector handles fetching the CatalogEntry files and returning a collection
-     * @param descriptor2ModelConverter converts Descriptors into TemplateModels
-     * @param descriptor2predicateConverter the RestProjectDescriptor into a Predicate
-     * @param templateRenderer proxy to Freemarker to load and render the template
-     * @param outputWriter handles writing the rendered template to a file
-     */
-    public SpringWebFluxCodeGenerator(Collector collector,
-                                     ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2ModelConverter,
-                                     ConvertTrait<RestProjectDescriptor, Predicate<CatalogEntry>> descriptor2predicateConverter,
-                                     TemplateResolver templateRenderer,
-                                     WriteOutputTrait outputWriter)
-    {
-        this.collector = collector;
-        this.descriptor2templateModel = descriptor2ModelConverter;
-        this.descriptor2predicate = descriptor2predicateConverter;
-        this.templateRenderer = templateRenderer;
-        this.outputHandler = outputWriter;
-    }
     
     /**
      * Returns the exit code from the generator.

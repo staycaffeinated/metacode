@@ -48,7 +48,7 @@ public final class SpringCodeGeneratorModule extends AbstractModule {
     ICodeGenerator<?> provideSpringWebMvcGenerator() {
         return SpringWebMvcCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
-                .descriptor2context(new DescriptorToRestProjectTemplateModelConverter())
+                .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
                 .descriptor2Predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new TemplateResolver(ConfigurationFactory.defaultConfiguration("/spring/templates")))
                 .outputHandler(new ContentToFileWriter())
