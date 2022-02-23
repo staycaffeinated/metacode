@@ -53,7 +53,12 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
      * @return the exit code, with zero indicating success.
      */
     public int generateCode(RestProjectDescriptor descriptor) {
-
-        return 0;
+        var templateModel = descriptor2templateModel.convert(descriptor);
+        Predicate<CatalogEntry> keepThese = descriptor2Predicate.convert(descriptor);
+        collector.collect().stream().filter(keepThese).forEach( it -> {
+            // writeIt ( renderIt(it) )
+            outputHandler.writeOutput ( it.getDestination(), templateRenderer.resolve (it.getTemplate(), null));
+        });
+        return 0; // TODO: Move ExitCodes from meta-CLI into meta-COMMON
     }
 }
