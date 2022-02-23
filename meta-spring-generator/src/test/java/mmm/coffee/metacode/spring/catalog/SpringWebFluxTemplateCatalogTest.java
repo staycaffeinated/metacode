@@ -76,7 +76,7 @@ class SpringWebFluxTemplateCatalogTest {
 
     private class FakeTemplateCatalog extends SpringTemplateCatalog {
 
-        public FakeTemplateCatalog(@NonNull ICatalogReader reader) {
+        public FakeTemplateCatalog(ICatalogReader reader) {
             super(reader);
         }
 

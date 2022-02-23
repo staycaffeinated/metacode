@@ -20,7 +20,7 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import lombok.NonNull;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
-import mmm.coffee.metacode.common.trait.TemplateRendererTrait;
+import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -30,7 +30,7 @@ import java.io.StringWriter;
  */
 @SuppressWarnings("java:S125")
 // S125: allow comments that look like code
-public class FreemarkerTemplateResolver implements TemplateRendererTrait<Object> {
+public class FreemarkerTemplateResolver implements TemplateResolver<Object> {
 
     private final Configuration configuration;
 

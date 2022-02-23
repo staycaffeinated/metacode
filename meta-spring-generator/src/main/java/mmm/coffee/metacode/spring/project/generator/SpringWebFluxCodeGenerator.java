@@ -36,7 +36,7 @@ public class SpringWebFluxCodeGenerator implements ICodeGenerator<RestProjectDes
     private final Collector collector;
     private final ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2templateModel;
     private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2predicate;
-    private final TemplateResolver templateRenderer;
+    private final TemplateResolver<?> templateRenderer;
     private final WriteOutputTrait outputHandler;
 
     private RestProjectDescriptor descriptor;

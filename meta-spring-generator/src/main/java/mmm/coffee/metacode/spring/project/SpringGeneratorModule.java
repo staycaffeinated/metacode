@@ -25,8 +25,8 @@ import mmm.coffee.metacode.annotations.guice.WriteOutputProvider;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
+import mmm.coffee.metacode.common.freemarker.FreemarkerTemplateResolver;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
-import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.common.writer.ContentToFileWriter;
 import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
@@ -50,7 +50,7 @@ public final class SpringGeneratorModule extends AbstractModule {
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
                 .descriptor2Predicate(new DescriptorToPredicateConverter())
-                .templateRenderer(new TemplateResolver(ConfigurationFactory.defaultConfiguration("/spring/templates")))
+                .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration("/spring/templates")))
                 .outputHandler(new ContentToFileWriter())
                 .build();
     }
@@ -62,7 +62,7 @@ public final class SpringGeneratorModule extends AbstractModule {
                 .collector(new SpringWebFluxTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
-                .templateRenderer(new TemplateResolver(ConfigurationFactory.defaultConfiguration("/spring/templates")))
+                .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration("/spring/templates")))
                 .outputHandler(new ContentToFileWriter())
                 .build();
     }

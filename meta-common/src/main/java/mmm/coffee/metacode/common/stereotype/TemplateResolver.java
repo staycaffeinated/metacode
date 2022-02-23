@@ -15,48 +15,18 @@
  */
 package mmm.coffee.metacode.common.stereotype;
 
-import freemarker.template.Configuration;
-import freemarker.template.TemplateModel;
-import lombok.NonNull;
-import mmm.coffee.metacode.common.catalog.CatalogEntry;
-import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
-import mmm.coffee.metacode.common.trait.ResolveTrait;
-
-import java.util.Map;
-
 /**
  * Resolves a template, which is to say: replaces tokens within the template with concrete values.
  */
 @SuppressWarnings({"java:S1068", "java:S6206"})
 // S1068: this is a false positive
 // java:S6206: adding using Records to roadmap
-public class TemplateResolver implements ResolveTrait<String, TemplateModel, String> {
-
-    private final Configuration configuration;
-
+public interface TemplateResolver<T> {
     /**
-     * Constructor
-     * @param configuration the Freemarker Configuration used to load and render templates
+     * Renders the {@code template}, using {@code dataModel} to resolve template variables
+     * @param templateClassPath the resource path to the template file
+     * @param dataModel the data model processed by the template engine to resolve variables
+     * @return the rendered content
      */
-    public TemplateResolver(@NonNull Configuration configuration) {
-        this.configuration = configuration;
-    }
-
-    public Configuration getConfiguration() { return configuration; }
-
-    /**
-     * Transforms an input of type {@code A} into an output of type {code R},
-     * using {@code B} for context information
-     *
-     * @param templateResourcePath the template
-     * @param templateModel this contains the keys that resolve to values
-     *                      when the template is rendered. For example,
-     *                      if the template contains variable "{{firstName}}",
-     *                      templateModel.getFirstName() returns that value. 
-     * @return the transformed content, as an instance of {@code R}.
-     */
-    @Override
-    public String resolve(String templateResourcePath, TemplateModel templateModel) {
-        return "resolve method is not yet implemented";
-    }
+    String render(String templateClassPath, T dataModel);
 }

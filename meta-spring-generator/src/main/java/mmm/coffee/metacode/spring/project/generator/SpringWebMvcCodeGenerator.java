@@ -31,13 +31,17 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
  * Code generator for SpringWebMvc project
  */
 @SuperBuilder
-@SuppressWarnings("java:S1068") // S1068: this is a work-in-progress so unused stuff is ok
+@SuppressWarnings({"java:S1068","java:S1602","java:S125","java:S4738"})
+// S1068: this is a work-in-progress so unused stuff is ok
+// S1602: false positive; curly braces detected in a comment does not mean it's a lambda function
+// S125: we're OK with comments that happen to look like code
+// S4738: converting to java.util.function.Predicate is on the roadmap
 public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
     
     private final Collector collector;
     private final ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2templateModel;
     private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
-    private final TemplateResolver templateRenderer;
+    private final TemplateResolver<Object> templateRenderer;
     private final WriteOutputTrait outputHandler;
 
     /*
@@ -54,12 +58,18 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
      * @return the exit code, with zero indicating success.
      */
     public int generateCode(RestProjectDescriptor descriptor) {
+        // Build the TemplateModel consumed by Freemarker to resolve template variables
         var templateModel = descriptor2templateModel.convert(descriptor);
+
+        // Create a predicate to determine which template's to render
         Predicate<CatalogEntry> keepThese = descriptor2Predicate.convert(descriptor);
+
+        // Render the templates
         collector.collect().stream().filter(keepThese).forEach( it -> {
             // essentially: it -> { writeIt ( renderIt(it) ) }
-            outputHandler.writeOutput ( it.getDestination(), templateRenderer.resolve (it.getTemplate(), null));
+            outputHandler.writeOutput ( it.getDestination(), templateRenderer.render (it.getTemplate(), templateModel));
         });
+        
         return ExitCodes.OK;
     }
 }

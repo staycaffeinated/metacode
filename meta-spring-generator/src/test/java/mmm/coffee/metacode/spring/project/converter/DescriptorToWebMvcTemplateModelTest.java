@@ -19,6 +19,7 @@ import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests
@@ -47,5 +48,12 @@ class DescriptorToWebMvcTemplateModelTest {
         assertThat(model.getBasePath()).isEqualTo(BASE_PATH);
         assertThat(model.isWebMvc()).isTrue();
         assertThat(model.isWebFlux()).isFalse(); // if its webmvc, its _not_ webflux
+    }
+
+    @Test
+    void shouldThrowException_whenConvertingNullObject() {
+        assertThrows(NullPointerException.class, () -> {
+            converterUnderTest.convert(null);
+        }) ;
     }
 }

@@ -53,14 +53,19 @@ class SpringWebMvcCodeGeneratorTest {
     Collector fakeCollector;
 
     @Mock
-    TemplateResolver mockRenderer;
+    TemplateResolver<Object> mockRenderer;
     
     @BeforeEach
     public void setUp() {
+        // create a Collector that'll return some test data
         fakeCollector = new FakeCollector();
 
+        // In the TemplateResolver, we just need the
+        // {@code render} method to return a non-null String.
+        // For these tests, we want to confirm the Generator's
+        // 'pipeline' works.
         mockRenderer = Mockito.mock(TemplateResolver.class);
-        when(mockRenderer.resolve(any(), any())).thenReturn("");
+        when(mockRenderer.render(any(), any())).thenReturn("");
 
         generatorUnderTest = SpringWebMvcCodeGenerator.builder()
                 .collector(fakeCollector)
