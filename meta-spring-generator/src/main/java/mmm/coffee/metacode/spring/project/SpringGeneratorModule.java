@@ -41,7 +41,7 @@ import mmm.coffee.metacode.spring.project.generator.SpringWebMvcCodeGenerator;
  */
 @SuppressWarnings("java:S1452") // S1452: allow generic wildcards for the moment
 @Generated // Ignore code coverage for this class
-public final class SpringCodeGeneratorModule extends AbstractModule {
+public final class SpringGeneratorModule extends AbstractModule {
     
     @Provides
     @SpringWebMvc

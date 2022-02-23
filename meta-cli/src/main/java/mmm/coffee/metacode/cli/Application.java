@@ -21,7 +21,7 @@ import com.google.inject.Injector;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.cli.create.CreateCommand;
 import mmm.coffee.metacode.cli.traits.CallTrait;
-import mmm.coffee.metacode.spring.project.SpringCodeGeneratorModule;
+import mmm.coffee.metacode.spring.project.SpringGeneratorModule;
 import picocli.AutoComplete.GenerateCompletion;
 import picocli.CommandLine;
 
@@ -62,7 +62,7 @@ public class Application implements CallTrait {
      */
     static final class GuiceFactory implements CommandLine.IFactory {
         // We have to explicitly list our modules; they don't get auto-discovered
-        private final Injector injector = Guice.createInjector(new SpringCodeGeneratorModule());
+        private final Injector injector = Guice.createInjector(new SpringGeneratorModule());
 
         @Override
         public <K> K create(Class<K> aClass) throws Exception {
