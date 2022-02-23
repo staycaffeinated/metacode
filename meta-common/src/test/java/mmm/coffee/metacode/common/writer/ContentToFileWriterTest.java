@@ -63,4 +63,18 @@ class ContentToFileWriterTest {
             writerUnderTest.writeOutput(null, "hello, world");
         });         
     }
+
+    @Test
+    void shouldNotWriteFileWhenContentIsEmptyr() throws IOException {
+        TemporaryFolder temporaryFolder = new TemporaryFolder();
+        temporaryFolder.create();
+        File tempFile = temporaryFolder.newFile("sample.txt");
+
+        writerUnderTest.writeOutput(tempFile.getCanonicalPath(), null);
+
+        // When no content is written, the temp file may exist
+        // but should be empty
+        assertThat(tempFile.exists()).isTrue();
+        assertThat(FileUtils.sizeOf(tempFile)).isEqualTo(0);
+    }
 }

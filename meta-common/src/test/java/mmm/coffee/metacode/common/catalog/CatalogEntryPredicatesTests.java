@@ -103,6 +103,27 @@ class CatalogEntryPredicatesTests {
         assertThat(predicate.apply(entry)).isFalse();
     }
 
+    @Test
+    void givenSomeCatalogEntryWithNullContextField_predicatesShouldReturnFalse() {
+        CatalogEntry entry = buildEntryWithNullContext("Liquibase.ftl", "liquibase-config.yml", "random-tag","project");
+
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.hasLiquibaseTag();
+        assertThat(predicate.apply(entry)).isFalse();
+
+        predicate = CatalogEntryPredicates.hasPostgresTag();
+        assertThat(predicate.apply(entry)).isFalse();
+
+        predicate = CatalogEntryPredicates.hasTestContainerTag();
+        assertThat(predicate.apply(entry)).isFalse();
+
+        predicate = CatalogEntryPredicates.isEndpointArtifact();
+        assertThat(predicate.apply(entry)).isFalse();
+
+        predicate = CatalogEntryPredicates.isEndpointArtifact();
+        assertThat(predicate.apply(entry)).isFalse();
+    }
+
+
     /**
      * Helper method to build test data
      * @return the test data
@@ -125,6 +146,14 @@ class CatalogEntryPredicatesTests {
         return ImmutableSet.of(e1, e2, e3);
     }
 
+    private static Set<CatalogEntry> buildEndpointSampleWithNullContext() {
+        CatalogEntry e1 = buildEntry("Service.ftl","PetService.java", null, "endpoint");
+        CatalogEntry e2 = buildEntry("Controller.ftl", "PetController.java", null, "endpoint");
+        CatalogEntry e3 = buildEntry("Repository.ftl", "PetRepository.java", null, "endpoint");
+
+        return ImmutableSet.of(e1, e2, e3);
+    }
+
     /**
      * Builds a single CatalogEntry
      * @param source the template source
@@ -138,6 +167,24 @@ class CatalogEntryPredicatesTests {
         entry.setDestination(destination);
         entry.setTags(tags);
         entry.setContext(context);
+        return entry;
+    }
+
+    /**
+     * Builds a single CatalogEntry with Null context field.
+     * This is done for the sake of code coverage and checking the
+     * edge case of a CatalogEntry having a null context field
+     * 
+     * @param source the template source
+     * @param destination the destination of the rendered content, as a file path
+     * @param tags optional tags associated to a template
+     * @return the populated CatalogEntry
+     */
+    private static CatalogEntry buildEntryWithNullContext(String source, String destination, @Nullable String tags, String context) {
+        CatalogEntry entry = new CatalogEntry();
+        entry.setTemplate(source);
+        entry.setDestination(destination);
+        entry.setTags(tags);
         return entry;
     }
 

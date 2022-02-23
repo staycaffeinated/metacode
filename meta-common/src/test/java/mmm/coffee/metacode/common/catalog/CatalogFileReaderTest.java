@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit test
@@ -46,5 +47,12 @@ class CatalogFileReaderTest {
         assertThat(entry.getTemplate()).isEqualTo( "/gradle/BuildDotGradle.ftl");
         assertThat(entry.getContext()).isEqualTo("project");
         assertThat(entry.getDestination()).isEqualTo("build.gradle");
+    }
+
+    @Test
+    void shouldThrowException_whenRequiredArgIsNull() {
+        assertThrows (NullPointerException.class, () -> {
+            readerUnderTest.readCatalogFile(null);
+        });
     }
 }
