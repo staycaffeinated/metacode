@@ -16,6 +16,7 @@
 package mmm.coffee.metacode.common.stereotype;
 
 import freemarker.template.Configuration;
+import freemarker.template.TemplateModel;
 import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
@@ -29,7 +30,7 @@ import java.util.Map;
 @SuppressWarnings({"java:S1068", "java:S6206"})
 // S1068: this is a false positive
 // java:S6206: adding using Records to roadmap
-public class TemplateResolver implements ResolveTrait<CatalogEntry, Map<String,String>, String> {
+public class TemplateResolver implements ResolveTrait<String, TemplateModel, String> {
 
     private final Configuration configuration;
 
@@ -47,12 +48,15 @@ public class TemplateResolver implements ResolveTrait<CatalogEntry, Map<String,S
      * Transforms an input of type {@code A} into an output of type {code R},
      * using {@code B} for context information
      *
-     * @param theSource  the template
-     * @param theContext
+     * @param templateResourcePath the template
+     * @param templateModel this contains the keys that resolve to values
+     *                      when the template is rendered. For example,
+     *                      if the template contains variable "{{firstName}}",
+     *                      templateModel.getFirstName() returns that value. 
      * @return the transformed content, as an instance of {@code R}.
      */
     @Override
-    public String resolve(CatalogEntry theSource, Map<String, String> theContext) {
-        throw new RuntimeApplicationError("This method is not implemented yet");
+    public String resolve(String templateResourcePath, TemplateModel templateModel) {
+        return "resolve method is not yet implemented";
     }
 }

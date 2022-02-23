@@ -19,7 +19,7 @@ import com.google.inject.*;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.Application;
-import mmm.coffee.metacode.cli.ExitCodes;
+import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.cli.StringHelper;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;

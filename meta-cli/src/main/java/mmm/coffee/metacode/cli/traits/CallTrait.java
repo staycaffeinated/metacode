@@ -16,7 +16,7 @@
 package mmm.coffee.metacode.cli.traits;
 
 import mmm.coffee.metacode.annotations.jacoco.Generated;
-import mmm.coffee.metacode.cli.ExitCodes;
+import mmm.coffee.metacode.common.ExitCodes;
 
 import java.util.concurrent.Callable;
 

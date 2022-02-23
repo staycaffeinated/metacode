@@ -27,8 +27,8 @@ import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
 
 import static com.google.common.truth.Truth.assertThat;
-import static mmm.coffee.metacode.cli.ExitCodes.INVALID_INPUT;
-import static mmm.coffee.metacode.cli.ExitCodes.OK;
+import static mmm.coffee.metacode.common.ExitCodes.INVALID_INPUT;
+import static mmm.coffee.metacode.common.ExitCodes.OK;
 
 /**
  * Unit test

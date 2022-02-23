@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.cli;
+package mmm.coffee.metacode.common;
 
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 

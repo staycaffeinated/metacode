@@ -15,7 +15,7 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
-import mmm.coffee.metacode.cli.ExitCodes;
+import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.cli.StringHelper;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
