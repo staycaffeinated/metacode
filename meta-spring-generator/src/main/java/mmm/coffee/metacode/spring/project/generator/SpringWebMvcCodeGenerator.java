@@ -17,6 +17,7 @@ package mmm.coffee.metacode.spring.project.generator;
 
 import com.google.common.base.Predicate;
 import lombok.experimental.SuperBuilder;
+import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
@@ -56,9 +57,9 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
         var templateModel = descriptor2templateModel.convert(descriptor);
         Predicate<CatalogEntry> keepThese = descriptor2Predicate.convert(descriptor);
         collector.collect().stream().filter(keepThese).forEach( it -> {
-            // writeIt ( renderIt(it) )
+            // essentially: it -> { writeIt ( renderIt(it) ) }
             outputHandler.writeOutput ( it.getDestination(), templateRenderer.resolve (it.getTemplate(), null));
         });
-        return 0; // TODO: Move ExitCodes from meta-CLI into meta-COMMON
+        return ExitCodes.OK;
     }
 }
