@@ -1,0 +1,9 @@
+
+# Ignore IDE files
+.idea/
+
+# Ignore Gradle/wrapper
+gradle/wrapper/
+
+# Ignore props that don't need to be public knowledge 
+gradle.properties
