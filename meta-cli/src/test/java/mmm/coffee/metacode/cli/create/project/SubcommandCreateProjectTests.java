@@ -93,13 +93,13 @@ class SubcommandCreateProjectTests {
     final static class SpringTestModule extends AbstractModule {
         @Provides
         @SpringWebMvc
-        ICodeGenerator<?> provideSpringWebMvcGenerator() {
+        ICodeGenerator<RestProjectDescriptor> provideSpringWebMvcGenerator() {
             return new FakeCodeGenerator();
         }
 
         @Provides
         @SpringWebFlux
-        ICodeGenerator<?> providesSpringWebFluxGenerator() {
+        ICodeGenerator<RestProjectDescriptor> providesSpringWebFluxGenerator() {
             return new FakeCodeGenerator();
         }
     }
@@ -107,10 +107,10 @@ class SubcommandCreateProjectTests {
     /**
      * A fake code generator suitable for testing
      */
-    public static class FakeCodeGenerator implements ICodeGenerator<String> {
+    public static class FakeCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
 
         @Override
-        public int generateCode() {
+        public int generateCode(RestProjectDescriptor ignored) {
             return 0;
         }
     }

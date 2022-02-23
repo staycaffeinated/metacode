@@ -30,5 +30,5 @@ public interface ICodeGenerator<T> {
      *      1 = general error
      * @return the exit code, with zero indicating success. 
      */
-    int generateCode();
+    int generateCode(T spec);
 }

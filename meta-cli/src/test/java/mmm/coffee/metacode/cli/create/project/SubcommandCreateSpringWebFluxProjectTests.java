@@ -75,9 +75,8 @@ class SubcommandCreateSpringWebFluxProjectTests {
          * @return the exit code, with zero indicating success.
          */
         @Override
-        public int generateCode() {
+        public int generateCode(RestProjectDescriptor ignored) {
             return 0;
         }
-
     }
 }

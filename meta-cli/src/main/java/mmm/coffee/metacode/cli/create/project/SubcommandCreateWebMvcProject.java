@@ -17,7 +17,6 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
-import mmm.coffee.metacode.common.descriptor.Descriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
@@ -62,14 +61,14 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
     /**
      * Handle to the code generator
      */
-    private ICodeGenerator<?> codeGenerator;
+    private ICodeGenerator<RestProjectDescriptor> codeGenerator;
 
     /**
      * Construct with the given code generator
      * @param codeGenerator the code generator to use
      */
     @Inject
-    public SubcommandCreateWebMvcProject(@SpringWebMvc ICodeGenerator<?> codeGenerator) {
+    public SubcommandCreateWebMvcProject(@SpringWebMvc ICodeGenerator<RestProjectDescriptor> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
 
@@ -79,8 +78,8 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
      */
     @Override public Integer call() {
         super.validateInputs();
-        Descriptor descriptor = buildProjectDescriptor();
-        return codeGenerator.generateCode();
+        var descriptor = buildProjectDescriptor();
+        return codeGenerator.generateCode(descriptor);
     }
 
     /**

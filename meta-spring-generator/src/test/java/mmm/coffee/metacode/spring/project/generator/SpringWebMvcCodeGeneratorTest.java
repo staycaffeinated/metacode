@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.spring.project.generator;
 
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.writer.ContentToNullWriter;
@@ -39,6 +40,9 @@ class SpringWebMvcCodeGeneratorTest {
     @Mock
     TemplateResolver mockRenderer;
 
+    @Mock
+    RestProjectDescriptor mockDescriptor;
+
     @BeforeEach
     public void setUp() {
         generatorUnderTest = SpringWebMvcCodeGenerator.builder()
@@ -52,7 +56,7 @@ class SpringWebMvcCodeGeneratorTest {
 
     @Test
     void shouldSucceed() {
-        assertThat(generatorUnderTest.generateCode()).isEqualTo(0);
+        assertThat(generatorUnderTest.generateCode(mockDescriptor)).isEqualTo(0);
     }
 
 

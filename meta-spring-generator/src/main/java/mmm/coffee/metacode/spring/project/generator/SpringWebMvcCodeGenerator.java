@@ -52,7 +52,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
      *
      * @return the exit code, with zero indicating success.
      */
-    public int generateCode() {
+    public int generateCode(RestProjectDescriptor descriptor) {
 
         return 0;
     }

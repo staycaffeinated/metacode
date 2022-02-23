@@ -17,6 +17,7 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;
 
@@ -41,14 +42,14 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
     /**
      * Handle to the code generator
      */
-    private final ICodeGenerator<?> codeGenerator;
+    private final ICodeGenerator<RestProjectDescriptor> codeGenerator;
     
     /**
      * Construct instance with a given generator
      * @param codeGenerator the code generator used by this command
      */
     @Inject
-    public SubcommandCreateWebfluxProject(@SpringWebFlux ICodeGenerator<?> codeGenerator) {
+    public SubcommandCreateWebfluxProject(@SpringWebFlux ICodeGenerator<RestProjectDescriptor> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
 
@@ -58,6 +59,6 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
      */
     @Override public Integer call() {
         super.validateInputs();
-        return codeGenerator.generateCode();
+        return codeGenerator.generateCode(null);
     }
 }

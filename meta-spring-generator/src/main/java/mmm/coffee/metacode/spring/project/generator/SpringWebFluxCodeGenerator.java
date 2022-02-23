@@ -49,7 +49,7 @@ public class SpringWebFluxCodeGenerator implements ICodeGenerator<RestProjectDes
      * @return the exit code, with zero indicating success.
      */
     @Override
-    public int generateCode() {
+    public int generateCode(RestProjectDescriptor descriptor) {
         return 0;
     }
 }

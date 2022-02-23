@@ -51,7 +51,7 @@ public class CodeGeneratorImpl implements ICodeGenerator<RestProjectDescriptor> 
         this.descriptor = descriptor;
     }
     
-    public int generateCode() {
+    public int generateCode(RestProjectDescriptor something) {
         /*
          TemplateCollector::collect() --
            -- collectTemplates will have some hard-wired logic to apply
@@ -71,8 +71,9 @@ public class CodeGeneratorImpl implements ICodeGenerator<RestProjectDescriptor> 
 
          int generate() {
            dataModel = descriptor2model.convert(descriptor);
-           Predicate<CatalogEntry> = descriptor2predicate.convert(descriptor);
+           Predicate<CatalogEntry> keepThese = descriptor2predicate.convert(descriptor);
            templateCollector.collect().stream().filter(keepThese).forEach( it -> {
+                // writeIt ( renderIt(it) )
                 writeOutput ( it.destination(), renderTemplate (it.template(), dataModel))
                 }
              }

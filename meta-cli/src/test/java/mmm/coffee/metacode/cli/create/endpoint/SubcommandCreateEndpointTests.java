@@ -123,13 +123,13 @@ class SubcommandCreateEndpointTests {
     final static class SpringTestModule extends AbstractModule {
         @Provides
         @SpringWebMvc
-        ICodeGenerator<?> provideSpringWebMvcGenerator() {
+        ICodeGenerator<RestProjectDescriptor> provideSpringWebMvcGenerator() {
             return new FakeCodeGenerator();
         }
 
         @Provides
         @SpringWebFlux
-        ICodeGenerator<?> providesSpringWebFluxGenerator() {
+        ICodeGenerator<RestProjectDescriptor> providesSpringWebFluxGenerator() {
             return new FakeCodeGenerator();
         }
     }
@@ -146,7 +146,7 @@ class SubcommandCreateEndpointTests {
          * @return the exit code, with zero indicating success.
          */
         @Override
-        public int generateCode() {
+        public int generateCode(RestProjectDescriptor ignored) {
             return 0;
         }
     }
