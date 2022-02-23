@@ -68,9 +68,9 @@ class SpringWebFluxTemplateCatalogTest {
      */
     @Test
     void shouldThrowExceptionWhenCatalogPathIsNull() {
+        var obj = new FakeTemplateCatalog(new CatalogFileReader());
         assertThrows(NullPointerException.class, () -> {
-            var tmp = new FakeTemplateCatalog(new CatalogFileReader());
-            tmp.invokeCollectGeneralCatalogsAndThisOne();
+            obj.invokeCollectGeneralCatalogsAndThisOne();
         });
     }
 
