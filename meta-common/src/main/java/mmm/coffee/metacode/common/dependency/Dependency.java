@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.common.dependency;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
@@ -24,6 +25,20 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
 @Data
 @Generated // exclude this class out from code coverage reports
 public class Dependency {
+
+    /**
+     * Default constructor
+     */
+    public Dependency() {}
+
+    /**
+     * All-args constructor
+     */
+    public Dependency(String name, String version) {
+        this.name = name;
+        this.version = version;
+    }
+
     private String name;
     private String version;
 }

@@ -42,6 +42,11 @@ public class DependencyCatalog {
         }
     }
 
+    /**
+     * Populates the TemplateHashModel (templateKeys) with the
+     * content of the DependencyCatalog
+     * @param templateKeys the template model, in Map form
+     */
     public void loadTemplateKeys(@NonNull Map<String,Object> templateKeys) {
         entries.forEach( library -> templateKeys.put(library.getName()+"Version", library.getVersion()));
     }
