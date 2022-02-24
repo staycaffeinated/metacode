@@ -40,10 +40,10 @@ class RestProjectTemplateModelTests {
     // Completely hypothetical versions of libraries
     private static final String ASSERTJ_VERSION = "1.2.3";
     private static final String SPRINGBOOT_VERSION = "2.6.3";
-    private static final String SPRINGCLOUD_VERSION = "2.5.5";
+    private static final String SPRING_CLOUD_VERSION = "2.5.5";
     private static final String SPRING_DM_VERSION = "1.0.1";
     private static final String PROBLEM_VERSION = "2.6";
-    private static final String BENMANES_VERSION = "1.4.2";
+    private static final String BEN_MANES_VERSION = "1.4.2";
     private static final String JUNIT_RULES_VERSION = "1.0.1b";
     private static final String JUNIT_VERSION = "5.8.1";
     private static final String LIQUIBASE_VERSION = "4.5.6";
@@ -58,7 +58,7 @@ class RestProjectTemplateModelTests {
         // Mock the DependencyCatalog to return sample data
         mockDependencyCatalog = Mockito.mock(DependencyCatalog.class);
         List<Dependency> fakeDependencies = buildFakeDependencies();
-        when(mockDependencyCatalog.entries()).thenReturn(fakeDependencies);
+        when(mockDependencyCatalog.collect()).thenReturn(fakeDependencies);
     }
 
     @ParameterizedTest
@@ -142,10 +142,10 @@ class RestProjectTemplateModelTests {
         // with the getter method returning the expected value
         assertThat(modelUnderTest.getAssertJVersion()).isEqualTo(ASSERTJ_VERSION);
         assertThat(modelUnderTest.getSpringBootVersion()).isEqualTo(SPRINGBOOT_VERSION);
-        assertThat(modelUnderTest.getSpringCloudVersion()).isEqualTo(SPRINGCLOUD_VERSION);
+        assertThat(modelUnderTest.getSpringCloudVersion()).isEqualTo(SPRING_CLOUD_VERSION);
         assertThat(modelUnderTest.getSpringDependencyManagementVersion()).isEqualTo(SPRING_DM_VERSION);
         assertThat(modelUnderTest.getProblemSpringWebVersion()).isEqualTo(PROBLEM_VERSION);
-        assertThat(modelUnderTest.getBenManesPluginVersion()).isEqualTo(BENMANES_VERSION);
+        assertThat(modelUnderTest.getBenManesPluginVersion()).isEqualTo(BEN_MANES_VERSION);
         assertThat(modelUnderTest.getJunitSystemRulesVersion()).isEqualTo(JUNIT_RULES_VERSION);
         assertThat(modelUnderTest.getJunitVersion()).isEqualTo(JUNIT_VERSION);
         assertThat(modelUnderTest.getLiquibaseVersion()).isEqualTo(LIQUIBASE_VERSION);
@@ -161,11 +161,11 @@ class RestProjectTemplateModelTests {
     List<Dependency> buildFakeDependencies() {
         List<Dependency> resultSet = new ArrayList<>();
         resultSet.add(new Dependency("springBoot", SPRINGBOOT_VERSION));
-        resultSet.add(new Dependency("springCloud", SPRINGCLOUD_VERSION));
+        resultSet.add(new Dependency("springCloud", SPRING_CLOUD_VERSION));
         resultSet.add(new Dependency("springDependencyManagement", SPRING_DM_VERSION));
         resultSet.add(new Dependency("problemSpringWeb", PROBLEM_VERSION));
         resultSet.add(new Dependency("assertJ", ASSERTJ_VERSION));
-        resultSet.add(new Dependency("benManesPlugin", BENMANES_VERSION));
+        resultSet.add(new Dependency("benManesPlugin", BEN_MANES_VERSION));
         resultSet.add(new Dependency("junitSystemRules", JUNIT_RULES_VERSION));
         resultSet.add(new Dependency("junit", JUNIT_VERSION));
         resultSet.add(new Dependency("liquibase", LIQUIBASE_VERSION));

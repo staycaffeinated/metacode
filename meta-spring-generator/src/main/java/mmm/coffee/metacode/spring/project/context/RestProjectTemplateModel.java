@@ -20,6 +20,7 @@ import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
+import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -33,6 +34,8 @@ import java.util.Locale;
 @Data
 @SuperBuilder
 @Generated // Ignore code coverage for this class
+@SuppressWarnings("java:S125")
+// S125: don't warn about comments that happen to look like code
 public class RestProjectTemplateModel {
     // Basic properties
     private String applicationName;
@@ -72,12 +75,16 @@ public class RestProjectTemplateModel {
     private String log4JVersion;
     private String testContainersVersion;
 
+    /**
+     * Apply the entries from the {@code dependencyCatalog} to the
+     * state of this template model object. There's information in
+     * the DependencyCatalog that needs to be available to the Template
+     * engine to enable resolving some template variables.
+     *
+     * @param dependencyCatalog the dependency data to add to the template model
+     */
     public void apply(@NonNull DependencyCatalog dependencyCatalog) {
-        dependencyCatalog.entries().forEach(it -> {
-            setField(it.getName(), it.getVersion());
-        });
-
-        // entries.forEach( library -> templateKeys.put(library.getName()+"Version", library.getVersion()));
+        dependencyCatalog.collect().forEach(it -> setField(it.getName(), it.getVersion()));
     }
 
     // visible for testing
@@ -88,8 +95,7 @@ public class RestProjectTemplateModel {
             method.invoke(this, value);
         }
         catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
-            System.err.printf("ERROR: %s%n", e.getMessage());
-            // log.error(e.getMessage(), e);
+            throw new RuntimeApplicationError(e.getMessage(), e);
         }
     }
     // Visible for testing

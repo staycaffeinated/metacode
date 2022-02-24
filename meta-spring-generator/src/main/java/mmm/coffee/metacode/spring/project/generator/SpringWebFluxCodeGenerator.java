@@ -18,6 +18,7 @@ package mmm.coffee.metacode.spring.project.generator;
 import com.google.common.base.Predicate;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
+import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.stereotype.Collector;
@@ -38,6 +39,7 @@ public class SpringWebFluxCodeGenerator implements ICodeGenerator<RestProjectDes
     private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2predicate;
     private final TemplateResolver<?> templateRenderer;
     private final WriteOutputTrait outputHandler;
+    private final DependencyCatalog dependencyCatalog;
 
     private RestProjectDescriptor descriptor;
     

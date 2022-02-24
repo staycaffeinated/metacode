@@ -17,39 +17,41 @@ package mmm.coffee.metacode.common.dependency;
 
 import lombok.NonNull;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
+import mmm.coffee.metacode.common.stereotype.DependencyCollector;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Abstracts the contents of a library-versions.yaml file. Provides
  * a helper method to filter the catalog entries.
  */
-public class DependencyCatalog {
+public class DependencyCatalog implements DependencyCollector {
 
-    private final List<Dependency> entries;   // libraryVersionReader.readCatalog guarantees a non-null list
+    private final String resourceName;
 
     /**
      * Constructor
      */
     public DependencyCatalog(@NonNull String resourceName) {
-        try {
-            entries = new DependencyCatalogReader().readLibraryCatalog(resourceName);
-        }
-        catch (IOException e) {
-            throw new RuntimeApplicationError(e.getMessage(), e);
-        }
+        this.resourceName = resourceName;
     }
 
     /**
-     * Populates the TemplateHashModel (templateKeys) with the
-     * content of the DependencyCatalog
-     * @param templateKeys the template model, in Map form
+     * Reads the YAML resource file that contains Dependency entries
+     * and returns those Dependency entries.
+     *
+     * Typically, the YAML file is a file named 'dependencies.yml',
+     * but that's just by convention within this project.
+     *
+     * @return the Dependency entries
      */
-    public void loadTemplateKeys(@NonNull Map<String,Object> templateKeys) {
-        entries.forEach( library -> templateKeys.put(library.getName()+"Version", library.getVersion()));
+    @Override
+    public List<Dependency> collect() {
+        try {
+            return new DependencyCatalogReader().readLibraryCatalog(resourceName);
+        } catch (IOException e) {
+            throw new RuntimeApplicationError(e.getMessage(), e);
+        }
     }
-
-    public List<Dependency> entries()  { return entries; }
 }

@@ -23,7 +23,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Reads the dependencies.yml file
@@ -51,7 +50,7 @@ public class DependencyCatalogReader {
             var yaml = new Yaml();
             Map<String, Object> obj = yaml.load(is);
             List<Map<String, Object>> entries = (List<Map<String, Object>>) obj.get(LIBRARY_ROOT);
-            return entries.stream().map(DependencyCatalogReader::readLibraryEntry).collect(Collectors.toList());
+            return entries.stream().map(DependencyCatalogReader::readLibraryEntry).toList();
         }
     }
 

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Unit tests
  */
-public class DependencyCatalogTests {
+class DependencyCatalogTests {
     private static final String TEST_CATALOG = "/test-dependencies.yml";
 
     DependencyCatalog catalogUnderTest;
@@ -39,7 +39,7 @@ public class DependencyCatalogTests {
 
     @Test
     void shouldReturnDependencyEntries() {
-        List<Dependency> entries = catalogUnderTest.entries();
+        List<Dependency> entries = catalogUnderTest.collect();
         assertThat(entries).isNotEmpty();
     }
 
@@ -47,20 +47,4 @@ public class DependencyCatalogTests {
     void shouldDisallowNullCatalogName() {
         assertThrows(NullPointerException.class, () -> new DependencyCatalog(null));
     }
-
-    @Test
-    void shouldLoadTemplateKeys() {
-        // given
-        var templateKeys = new HashMap<String,Object>();
-        // when
-        catalogUnderTest.loadTemplateKeys(templateKeys);
-        // then
-        assertThat(templateKeys).isNotEmpty();
-    }
-
-    @Test
-    void whenArgumentIsNull_expectNullPointerException() {
-        assertThrows(NullPointerException.class, () -> catalogUnderTest.loadTemplateKeys(null));
-    }
-
 }

@@ -15,12 +15,22 @@
  */
 package mmm.coffee.metacode.common.dependency;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
- * Models an entry within the library-versions.yaml file
+ * A Dependency maps a 3rd-party library and version.
+ * A Java project nearly always uses 3rd-party jars as part of
+ * its builds. A collection of Dependency entries enumerates
+ * the various 3rd-party libraries (and their versions) that
+ * will appear in the templates. For example, template might contain
+ * a statement like:
+ * <code>
+ *     testImplementation ""org.junit.jupiter:junit-jupiter:{{junitVersion}}"
+ * </code>
+ * A yaml file (usually named "dependencies.yml") defines the values for all
+ * these template variables that to be defined. A Dependency object
+ * captures each entry from that dependencies.yml file.
  */
 @Data
 @Generated // exclude this class out from code coverage reports

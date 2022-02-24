@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Unit tests
  */
-public class DependencyCatalogReaderTest {
+class DependencyCatalogReaderTest {
     private final static String TEST_CATALOG = "/test-dependencies.yml";
 
     DependencyCatalogReader readerUnderTest;

@@ -15,11 +15,10 @@
  */
 package mmm.coffee.metacode.spring.project.generator;
 
-import freemarker.template.Configuration;
-import freemarker.template.TemplateModel;
-import lombok.NonNull;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
+import mmm.coffee.metacode.common.dependency.Dependency;
+import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
@@ -32,16 +31,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * Unit test
  */
+@SuppressWarnings("unchecked")
 class SpringWebMvcCodeGeneratorTest {
 
     private static final String APP_NAME = "petstore";
@@ -54,6 +54,9 @@ class SpringWebMvcCodeGeneratorTest {
 
     @Mock
     TemplateResolver<Object> mockRenderer;
+
+    @Mock
+    DependencyCatalog mockDependencyCollector;
     
     @BeforeEach
     public void setUp() {
@@ -67,12 +70,16 @@ class SpringWebMvcCodeGeneratorTest {
         mockRenderer = Mockito.mock(TemplateResolver.class);
         when(mockRenderer.render(any(), any())).thenReturn("");
 
+        mockDependencyCollector = Mockito.mock(DependencyCatalog.class);
+        when(mockDependencyCollector.collect()).thenReturn(buildFakeDependencies());
+
         generatorUnderTest = SpringWebMvcCodeGenerator.builder()
                 .collector(fakeCollector)
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
                 .descriptor2Predicate(new DescriptorToPredicateConverter())
                 .outputHandler(new ContentToNullWriter())
                 .templateRenderer(mockRenderer)
+                .dependencyCatalog(mockDependencyCollector)
                 .build();
     }
 
@@ -184,14 +191,21 @@ class SpringWebMvcCodeGeneratorTest {
         }
     }
 
-//    public static class FakeResolver extends TemplateResolver {
-//
-//        public FakeResolver(@NonNull Configuration configuration) {
-//            super(Mockito.mock(Configuration.class));
-//        }
-//        @Override
-//        public String resolve(String templateResourcePath, TemplateModel templateModel) {
-//            return "";
-//        }
-//    }
+    List<Dependency> buildFakeDependencies() {
+        List<Dependency> resultSet = new ArrayList<>();
+        // These are completely hypothetical versions for these libraries.
+        resultSet.add(new Dependency("springBoot", "2.6"));
+        resultSet.add(new Dependency("springCloud", "2.5"));
+        resultSet.add(new Dependency("springDependencyManagement", "1.2.3"));
+        resultSet.add(new Dependency("problemSpringWeb", "2.6.1"));
+        resultSet.add(new Dependency("assertJ", "4.0.1"));
+        resultSet.add(new Dependency("benManesPlugin", "0.44.1"));
+        resultSet.add(new Dependency("junitSystemRules", "2.8"));
+        resultSet.add(new Dependency("junit", "5.8.1"));
+        resultSet.add(new Dependency("liquibase", "2.7"));
+        resultSet.add(new Dependency("lombok", "22.5"));
+        resultSet.add(new Dependency("log4J", "2.24.5"));
+        resultSet.add(new Dependency("testContainers", "6.5"));
+        return resultSet;
+    }
 }

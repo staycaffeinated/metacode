@@ -19,6 +19,7 @@ import com.google.common.base.Predicate;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
+import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.stereotype.Collector;
@@ -43,6 +44,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
     private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
     private final TemplateResolver<Object> templateRenderer;
     private final WriteOutputTrait outputHandler;
+    private final DependencyCatalog dependencyCatalog;
 
     /*
      * An instance of a RestProjectDescriptor is almost never available
@@ -60,6 +62,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
     public int generateCode(RestProjectDescriptor descriptor) {
         // Build the TemplateModel consumed by Freemarker to resolve template variables
         var templateModel = descriptor2templateModel.convert(descriptor);
+        templateModel.apply(dependencyCatalog);
 
         // Create a predicate to determine which template's to render
         Predicate<CatalogEntry> keepThese = descriptor2Predicate.convert(descriptor);
