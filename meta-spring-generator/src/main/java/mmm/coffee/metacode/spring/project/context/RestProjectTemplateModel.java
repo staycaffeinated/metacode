@@ -34,8 +34,9 @@ import java.util.Locale;
 @Data
 @SuperBuilder
 @Generated // Ignore code coverage for this class
-@SuppressWarnings("java:S125")
+@SuppressWarnings({"java:S125","java:S116"})
 // S125: don't warn about comments that happen to look like code
+// S116: need to relax this naming convention rule for the R2dbc_h2Version instance variable
 public class RestProjectTemplateModel {
     // Basic properties
     private String applicationName;
@@ -44,6 +45,11 @@ public class RestProjectTemplateModel {
     private String javaVersion;
     private String framework;
     private String groupId;
+
+    // 
+    private String postgres;
+    private String testContainers;
+    private String liquibase;
 
     // In Mojo2, integrations work by having
     // a field=true|false. eg:
@@ -62,18 +68,29 @@ public class RestProjectTemplateModel {
     // we can't get these values from the ProjectDescriptor.
     // We'll need a method load Dependency info and init these fields,
     // say, TemplateModel.addVersions(DependencyYaml) -> TemplateHashModel
+    // Future Task: create Version class that contains these,
+    // and change templates to {{version.springBoot}}
     private String springBootVersion;
     private String springCloudVersion;
     private String springDependencyManagementVersion;
+    private String problemJacksonDataTypeVersion;
     private String problemSpringWebVersion;
     private String assertJVersion;
     private String benManesPluginVersion;
     private String junitSystemRulesVersion;
     private String junitVersion;
+    private String jibPluginVersion;
     private String liquibaseVersion;
     private String lombokVersion;
-    private String log4JVersion;
+    private String lombokPluginVersion;
+    private String log4jVersion;
     private String testContainersVersion;
+    private String truthVersion;
+    private String mockitoVersion;
+    private String R2dbc_h2Version;
+    private String sonarqubeVersion;
+    private String spotlessVersion;
+    private String reactorTestVersion;
 
     /**
      * Apply the entries from the {@code dependencyCatalog} to the
@@ -95,7 +112,7 @@ public class RestProjectTemplateModel {
             method.invoke(this, value);
         }
         catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
-            throw new RuntimeApplicationError(e.getMessage(), e);
+            throw new RuntimeApplicationError(String.format("No setter method found for %s", prefix), e);
         }
     }
     // Visible for testing

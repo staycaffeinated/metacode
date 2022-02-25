@@ -34,8 +34,7 @@ public abstract class SpringTemplateCatalog implements Collector {
 
     private static final String[] SPRING_CATALOGS = {
             "/spring/catalogs/common-stuff.yml",
-            "/spring/catalogs/spring-boot.yml",
-            "/spring/catalogs/spring-gradle.yml",
+            "/spring/catalogs/spring-gradle.yml"
     };
     
     final ICatalogReader reader;

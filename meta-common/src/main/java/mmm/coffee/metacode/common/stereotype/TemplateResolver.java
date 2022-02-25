@@ -22,11 +22,42 @@ package mmm.coffee.metacode.common.stereotype;
 // S1068: this is a false positive
 // java:S6206: adding using Records to roadmap
 public interface TemplateResolver<T> {
+
+    /*
+     * This is the root variable in the template files.
+     * Template's have variables that look like '${project.someField}'
+     * or '${endpoint.someField}'.
+     */
+    enum Key {
+        PROJECT ("project"),
+        ENDPOINT ("endpoint");
+
+        private final String value;
+        Key(String value) {
+            this.value = value;
+        }
+        public String value() { return value; }
+    }
+
+    /*
+     * These are the legal values for the 'framework'
+     * variable in the template models.
+     */
+    enum Framework {
+        WEBMVC ("WEBMVC"),
+        WEBFLUX ("WEBFLUX");
+
+        private final String value;
+        Framework(String value) { this.value = value; }
+        public String value() { return value; }
+    }
+
     /**
      * Renders the {@code template}, using {@code dataModel} to resolve template variables
      * @param templateClassPath the resource path to the template file
      * @param dataModel the data model processed by the template engine to resolve variables
+     * @param key the root key expected by the template (this is applied when resolving template variables)
      * @return the rendered content
      */
-    String render(String templateClassPath, T dataModel);
+    String render(String templateClassPath, T dataModel, Key key);
 }

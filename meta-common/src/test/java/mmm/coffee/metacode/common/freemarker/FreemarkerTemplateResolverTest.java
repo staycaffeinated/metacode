@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.common.freemarker;
 
+import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +44,7 @@ class FreemarkerTemplateResolverTest {
         final String template = "/common/Copyright.ftl";
 
         // when: the template is rendered
-        String content = resolverUnderTest.render(template, templateModel);
+        String content = resolverUnderTest.render(template, templateModel, TemplateResolver.Key.PROJECT);
 
         // expect: at least a non-empty string
         assertThat(content).isNotEmpty();

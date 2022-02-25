@@ -16,9 +16,24 @@ dependencies {
     implementation libs.snakeYaml
     implementation libs.guice
 
+    testImplementation project (path: ':meta-common' )
+    testImplementation project (path: ':meta-annotations')
+
     testImplementation(platform(libs.junitBillOfMaterial))
     testImplementation(libs.junitJupiter)
     testImplementation(libs.junitSystemRules)
     testImplementation(libs.truth)
     testImplementation(libs.mockito)
+}
+
+// Gradle 7.4 has built-in understanding of integrationTest folder.
+// For the sake of IntelliJ, we do this, since IntelliJ does not
+// know what the 'integrationTest' folder is out-of-the-box. 
+sourceSets {
+    integrationTest {
+        java.srcDir file("src/integrationTest/java")
+        resources.srcDir file("src/integrationTest/resources")
+        runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
+        compileClasspath += sourceSets.main.compileClasspath + sourceSets.test.compileClasspath
+    }
 }

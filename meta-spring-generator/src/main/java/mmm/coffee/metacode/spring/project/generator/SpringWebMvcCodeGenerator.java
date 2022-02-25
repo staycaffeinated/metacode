@@ -70,7 +70,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
         // Render the templates
         collector.collect().stream().filter(keepThese).forEach( it -> {
             // essentially: it -> { writeIt ( renderIt(it) ) }
-            outputHandler.writeOutput ( it.getDestination(), templateRenderer.render (it.getTemplate(), templateModel));
+            outputHandler.writeOutput ( it.getDestination(), templateRenderer.render (it.getTemplate(), templateModel, TemplateResolver.Key.PROJECT));
         });
         
         return ExitCodes.OK;

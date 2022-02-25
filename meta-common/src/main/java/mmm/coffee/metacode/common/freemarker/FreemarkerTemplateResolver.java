@@ -24,6 +24,9 @@ import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Handles rendering templates
@@ -47,17 +50,31 @@ public class FreemarkerTemplateResolver implements TemplateResolver<Object> {
      * Render the template
      * @param templateClassPath the path to the template file (a freemarker FTL file, for example)
      * @param dataModel the data model used to resolve template variables
+     * @param key the base name of template properties, such as 'project' or 'endpoint'
+     *            The {@code TemplateResolver} class defines the supported values
      * @return the rendered content of the template, as a String
      */
     @Override
-    public String render(String templateClassPath, Object dataModel) {
+    public String render(String templateClassPath, Object dataModel, TemplateResolver.Key key) {
         try {
             // materialize the freemarker Template instance
-            var template = configuration.getTemplate(templateClassPath, "UTF-8");
+            var template = configuration.getTemplate(templateClassPath, StandardCharsets.UTF_8.name());
+
+            // The template model is passed into the process() method
+            // via a Map. The map's key will be either 'project' or 'endpoint',
+            // since those are the base names we used in the template variables.
+            // For example, in the templates, we use expressions like '${project.applicationName}'
+            // or '${endpoint.resourceName}', therefore, Freemarker will query
+            // the Map for an entry with key 'project' or 'endpoint', and then use
+            // _that_ object as a POJO to resolve the rest of the expression.
+            // The POJO simply needs matching getter methods, like 'getApplicationName()'
+            // or 'getResourceName()'.
+            Map<String,Object> map = new HashMap<>();
+            map.put(key.value(), dataModel);
 
             // Parse and render the template
             var writer = new StringWriter();
-            template.process(dataModel, writer);
+            template.process(map, writer);
             return writer.toString();
         }
         catch (TemplateException | IOException e) {

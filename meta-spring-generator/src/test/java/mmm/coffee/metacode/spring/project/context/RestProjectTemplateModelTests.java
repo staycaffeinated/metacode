@@ -73,7 +73,7 @@ class RestProjectTemplateModelTests {
             "junit,setJunitVersion",
             "liquibase,setLiquibaseVersion",
             "lombok,setLombokVersion",
-            "log4J,setLog4JVersion",
+            "log4j,setLog4jVersion",
             "testContainers,setTestContainersVersion"
     })
     void shouldConjureSetterName(String field, String expectedMethod) {
@@ -122,7 +122,7 @@ class RestProjectTemplateModelTests {
         modelUnderTest.setField("lombok", expectedVersion);
         assertThat(modelUnderTest.getLombokVersion()).isEqualTo(expectedVersion);
 
-        modelUnderTest.setField("log4J", expectedVersion);
+        modelUnderTest.setField("log4j", expectedVersion);
         assertThat(modelUnderTest.getLombokVersion()).isEqualTo(expectedVersion);
 
         modelUnderTest.setField("testContainers", expectedVersion);
@@ -150,7 +150,7 @@ class RestProjectTemplateModelTests {
         assertThat(modelUnderTest.getJunitVersion()).isEqualTo(JUNIT_VERSION);
         assertThat(modelUnderTest.getLiquibaseVersion()).isEqualTo(LIQUIBASE_VERSION);
         assertThat(modelUnderTest.getLombokVersion()).isEqualTo(LOMBOK_VERSION);
-        assertThat(modelUnderTest.getLog4JVersion()).isEqualTo(LOG4J_VERSION);
+        assertThat(modelUnderTest.getLog4jVersion()).isEqualTo(LOG4J_VERSION);
         assertThat(modelUnderTest.getTestContainersVersion()).isEqualTo(TESTCONTAINER_VERSION);
     }
 
@@ -170,7 +170,7 @@ class RestProjectTemplateModelTests {
         resultSet.add(new Dependency("junit", JUNIT_VERSION));
         resultSet.add(new Dependency("liquibase", LIQUIBASE_VERSION));
         resultSet.add(new Dependency("lombok", LOMBOK_VERSION));
-        resultSet.add(new Dependency("log4J", LOG4J_VERSION));
+        resultSet.add(new Dependency("log4j", LOG4J_VERSION));
         resultSet.add(new Dependency("testContainers", TESTCONTAINER_VERSION));
         return resultSet;
     }

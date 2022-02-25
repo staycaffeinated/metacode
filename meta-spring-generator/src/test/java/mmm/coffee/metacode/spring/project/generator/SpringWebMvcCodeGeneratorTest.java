@@ -68,7 +68,7 @@ class SpringWebMvcCodeGeneratorTest {
         // For these tests, we want to confirm the Generator's
         // 'pipeline' works.
         mockRenderer = Mockito.mock(TemplateResolver.class);
-        when(mockRenderer.render(any(), any())).thenReturn("");
+        when(mockRenderer.render(any(), any(), any())).thenReturn("");
 
         mockDependencyCollector = Mockito.mock(DependencyCatalog.class);
         when(mockDependencyCollector.collect()).thenReturn(buildFakeDependencies());
@@ -194,6 +194,8 @@ class SpringWebMvcCodeGeneratorTest {
     List<Dependency> buildFakeDependencies() {
         List<Dependency> resultSet = new ArrayList<>();
         // These are completely hypothetical versions for these libraries.
+        // The names here should match those found in the dependencies.yml file
+        // for the sake of finding name mismatches early. 
         resultSet.add(new Dependency("springBoot", "2.6"));
         resultSet.add(new Dependency("springCloud", "2.5"));
         resultSet.add(new Dependency("springDependencyManagement", "1.2.3"));
@@ -204,7 +206,7 @@ class SpringWebMvcCodeGeneratorTest {
         resultSet.add(new Dependency("junit", "5.8.1"));
         resultSet.add(new Dependency("liquibase", "2.7"));
         resultSet.add(new Dependency("lombok", "22.5"));
-        resultSet.add(new Dependency("log4J", "2.24.5"));
+        resultSet.add(new Dependency("log4j", "2.24.5"));
         resultSet.add(new Dependency("testContainers", "6.5"));
         return resultSet;
     }

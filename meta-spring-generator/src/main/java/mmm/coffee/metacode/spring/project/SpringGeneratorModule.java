@@ -42,7 +42,7 @@ import mmm.coffee.metacode.spring.project.generator.SpringWebMvcCodeGenerator;
 @Generated // Ignore code coverage for this class
 public final class SpringGeneratorModule extends AbstractModule {
 
-    private static final String DEPENDENCY_FILE = "/spring/catalogs/dependencies.yml";
+    private static final String DEPENDENCY_FILE = "/spring/dependencies/dependencies.yml";
     private static final String TEMPLATE_DIRECTORY = "/spring/templates/";
     
     @Provides
