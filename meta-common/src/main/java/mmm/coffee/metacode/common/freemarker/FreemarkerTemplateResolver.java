@@ -21,6 +21,7 @@ import freemarker.template.TemplateException;
 import lombok.NonNull;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
+import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -33,7 +34,7 @@ import java.util.Map;
  */
 @SuppressWarnings("java:S125")
 // S125: allow comments that look like code
-public class FreemarkerTemplateResolver implements TemplateResolver<Object> {
+public class FreemarkerTemplateResolver implements TemplateResolver<MetaTemplateModel> {
 
     private final Configuration configuration;
 
@@ -50,12 +51,10 @@ public class FreemarkerTemplateResolver implements TemplateResolver<Object> {
      * Render the template
      * @param templateClassPath the path to the template file (a freemarker FTL file, for example)
      * @param dataModel the data model used to resolve template variables
-     * @param key the base name of template properties, such as 'project' or 'endpoint'
-     *            The {@code TemplateResolver} class defines the supported values
      * @return the rendered content of the template, as a String
      */
     @Override
-    public String render(String templateClassPath, Object dataModel, TemplateResolver.Key key) {
+    public String render(String templateClassPath, MetaTemplateModel dataModel) {
         try {
             // materialize the freemarker Template instance
             var template = configuration.getTemplate(templateClassPath, StandardCharsets.UTF_8.name());
@@ -70,7 +69,7 @@ public class FreemarkerTemplateResolver implements TemplateResolver<Object> {
             // The POJO simply needs matching getter methods, like 'getApplicationName()'
             // or 'getResourceName()'.
             Map<String,Object> map = new HashMap<>();
-            map.put(key.value(), dataModel);
+            map.put(dataModel.getTopLevelVariable(), dataModel);
 
             // Parse and render the template
             var writer = new StringWriter();

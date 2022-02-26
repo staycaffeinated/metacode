@@ -17,6 +17,7 @@ package mmm.coffee.metacode.spring.project.context;
 
 import mmm.coffee.metacode.common.dependency.Dependency;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
+import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -78,6 +79,30 @@ class RestProjectTemplateModelTests {
     })
     void shouldConjureSetterName(String field, String expectedMethod) {
         assertThat(modelUnderTest.conjureSetterMethod(field)).isEqualTo(expectedMethod);
+    }
+
+    @Test
+    void whenIsWebMvc_shouldReturnWEBMVCFramework() {
+        RestProjectTemplateModel model = RestProjectTemplateModel.builder()
+                .applicationName("petstore")
+                .basePackage("acme.petstore")
+                .basePath("/petstore")
+                .isWebMvc(true)
+                .build();
+
+        assertThat(model.getFramework()).isEqualTo(MetaTemplateModel.Framework.WEBMVC.value());
+    }
+
+    @Test
+    void whenIsWebFlux_shouldReturnWEBFLUXFramework() {
+        RestProjectTemplateModel model = RestProjectTemplateModel.builder()
+                .applicationName("petstore")
+                .basePackage("acme.petstore")
+                .basePath("/petstore")
+                .isWebFlux(true)
+                .build();
+
+        assertThat(model.getFramework()).isEqualTo(MetaTemplateModel.Framework.WEBFLUX.value());
     }
 
     /**

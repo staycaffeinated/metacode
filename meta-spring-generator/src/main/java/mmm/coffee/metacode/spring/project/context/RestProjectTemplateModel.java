@@ -15,12 +15,12 @@
  */
 package mmm.coffee.metacode.spring.project.context;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
+import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -37,13 +37,22 @@ import java.util.Locale;
 @SuppressWarnings({"java:S125","java:S116"})
 // S125: don't warn about comments that happen to look like code
 // S116: need to relax this naming convention rule for the R2dbc_h2Version instance variable
-public class RestProjectTemplateModel {
+public class RestProjectTemplateModel implements MetaTemplateModel {
+    // When this object is passed into Freemarker,
+    // it's assigned a name referred to in Freemarker lingo
+    // as the "top level variable".
+    private final String topLevelVariable = Key.PROJECT.value();
+
     // Basic properties
     private String applicationName;
     private String basePath;
     private String basePackage;
     private String javaVersion;
+
+    @Setter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.NONE)   // we provide a custom getter
     private String framework;
+
     private String groupId;
 
     // 
@@ -60,8 +69,32 @@ public class RestProjectTemplateModel {
     // a field exists or doesn't exist, so we init all these
     // features to 'false' and set to 'true' as appropriate
 
+    // This field has a custom setter method, so tell lombok not to create a setter
+    @Setter(AccessLevel.NONE)
     private boolean isWebFlux;
+
+    // This field has a custom setter method, so tell lombok not to create a setter
+    @Setter(AccessLevel.NONE)
     private boolean isWebMvc;
+
+    public void isWebFlux(boolean value) {
+        this.isWebFlux = value;
+        if (value) setFramework(Framework.WEBFLUX.value());
+    }
+    public void isWebMvc(boolean value) {
+        this.isWebMvc = value;
+        if (value) setFramework (Framework.WEBMVC.value());
+    }
+
+    /**
+     * Returns the framework (WebMvc or WebFlux).
+     * WebFlux is the default framework
+     * @return the framework, with WebFlux as the default
+     */
+    public final String getFramework() {
+        if (isWebMvc) return Framework.WEBMVC.value();
+        return Framework.WEBFLUX.value();
+    }
 
     // Library versions
     // These are set by reading the dependencies.yml file;

@@ -21,6 +21,7 @@ import mmm.coffee.metacode.common.dependency.Dependency;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.stereotype.Collector;
+import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.writer.ContentToNullWriter;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
@@ -53,7 +54,7 @@ class SpringWebMvcCodeGeneratorTest {
     Collector fakeCollector;
 
     @Mock
-    TemplateResolver<Object> mockRenderer;
+    TemplateResolver<MetaTemplateModel> mockRenderer;
 
     @Mock
     DependencyCatalog mockDependencyCollector;
@@ -68,7 +69,7 @@ class SpringWebMvcCodeGeneratorTest {
         // For these tests, we want to confirm the Generator's
         // 'pipeline' works.
         mockRenderer = Mockito.mock(TemplateResolver.class);
-        when(mockRenderer.render(any(), any(), any())).thenReturn("");
+        when(mockRenderer.render(any(), any())).thenReturn("");
 
         mockDependencyCollector = Mockito.mock(DependencyCatalog.class);
         when(mockDependencyCollector.collect()).thenReturn(buildFakeDependencies());
@@ -169,11 +170,11 @@ class SpringWebMvcCodeGeneratorTest {
          * Builds a data set of CatalogEntry's
          */
         private static List<CatalogEntry> buildSampleSet() {
-            CatalogEntry e1 = buildEntry("Application.ftl","Application.java", null, "project");
-            CatalogEntry e2 = buildEntry("Controller.ftl", "Controller.java", null, "project");
-            CatalogEntry e3 = buildEntry("PostgresConfig.ftl", "PostgresConfig.java", "postgres", "project");
-            CatalogEntry e4 = buildEntry("ErrorHandler.ftl","ErrorHandler.java", null, "project");
-            CatalogEntry e5 = buildEntry("TestContainer.ftl","TestContainer.java", "testcontainer", "project");
+            CatalogEntry e1 = buildEntry("Application.ftl","Application.java", null);
+            CatalogEntry e2 = buildEntry("Controller.ftl", "Controller.java", null);
+            CatalogEntry e3 = buildEntry("PostgresConfig.ftl", "PostgresConfig.java", "postgres");
+            CatalogEntry e4 = buildEntry("ErrorHandler.ftl","ErrorHandler.java", null);
+            CatalogEntry e5 = buildEntry("TestContainer.ftl","TestContainer.java", "testcontainer");
 
             return List.of(e1, e2, e3, e4, e5);
         }
@@ -181,12 +182,12 @@ class SpringWebMvcCodeGeneratorTest {
         /**
          * Builds a single CatalogEntry
          */
-        private static CatalogEntry buildEntry(String source, String destination, String tags, String context) {
+        private static CatalogEntry buildEntry(String source, String destination, String tags) {
             CatalogEntry entry = new CatalogEntry();
             entry.setTemplate(source);
             entry.setDestination(destination);
             entry.setTags(tags);
-            entry.setContext(context);
+            entry.setContext(MetaTemplateModel.Key.PROJECT.value());
             return entry;
         }
     }

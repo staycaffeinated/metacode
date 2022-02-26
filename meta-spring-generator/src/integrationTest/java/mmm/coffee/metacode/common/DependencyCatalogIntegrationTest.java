@@ -13,7 +13,7 @@ import static com.google.common.truth.Truth.assertThat;
  * DependencyCatalogIT
  */
 @Tag("integration")
-class DependencyCatalogIT {
+class DependencyCatalogIntegrationTest {
 
     private static final String DEPENDENCY_FILE = "/spring/dependencies/dependencies.yml";
 

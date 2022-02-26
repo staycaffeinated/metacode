@@ -23,6 +23,7 @@ import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.stereotype.Collector;
+import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
@@ -42,7 +43,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
     private final Collector collector;
     private final ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2templateModel;
     private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
-    private final TemplateResolver<Object> templateRenderer;
+    private final TemplateResolver<MetaTemplateModel> templateRenderer;
     private final WriteOutputTrait outputHandler;
     private final DependencyCatalog dependencyCatalog;
 
@@ -70,7 +71,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
         // Render the templates
         collector.collect().stream().filter(keepThese).forEach( it -> {
             // essentially: it -> { writeIt ( renderIt(it) ) }
-            outputHandler.writeOutput ( it.getDestination(), templateRenderer.render (it.getTemplate(), templateModel, TemplateResolver.Key.PROJECT));
+            outputHandler.writeOutput ( it.getDestination(), templateRenderer.render (it.getTemplate(), templateModel));
         });
         
         return ExitCodes.OK;

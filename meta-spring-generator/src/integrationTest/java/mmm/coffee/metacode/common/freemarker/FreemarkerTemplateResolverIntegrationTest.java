@@ -9,7 +9,9 @@ import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.stereotype.Collector;
+import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
+import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
@@ -19,9 +21,11 @@ import org.junit.jupiter.api.Test;
 import static com.google.common.truth.Truth.assertThat;
 
 /**
+
  * FreemarkerTemplateResolverIT
  */
-class FreemarkerTemplateResolverIT {
+@SuppressWarnings("DuplicatCode")
+class FreemarkerTemplateResolverIntegrationTest {
 
     private static final String TEMPLATE_FOLDER = "/spring/templates";
     private static final String APP_NAME = "petstore";
@@ -32,9 +36,11 @@ class FreemarkerTemplateResolverIT {
 
     final FreemarkerTemplateResolver resolverUnderTest = new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_FOLDER));
 
-    RestProjectTemplateModel templateModel;
+    RestProjectTemplateModel webMvcProject;
+    RestProjectTemplateModel webFluxProject;
 
     final DependencyCatalog dependencyCatalog = new DependencyCatalog(DEPENDENCY_FILE);
+    final ConvertTrait<RestProjectDescriptor, Predicate<CatalogEntry>> converter = new DescriptorToPredicateConverter();
 
     /*
      * Use the Spring templates for test coverage
@@ -45,11 +51,18 @@ class FreemarkerTemplateResolverIT {
 
     @BeforeEach
     public void setUpTemplateModel() {
-        templateModel = RestProjectTemplateModel.builder()
+        webMvcProject = RestProjectTemplateModel.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
                 .basePath(BASE_PATH)
-                .framework(TemplateResolver.Framework.WEBMVC.value())
+                .isWebMvc(true)
+                .build();
+
+        webFluxProject = RestProjectTemplateModel.builder()
+                .applicationName(APP_NAME)
+                .basePackage(BASE_PKG)
+                .basePath(BASE_PATH)
+                .isWebFlux(true)
                 .build();
 
         // Set up our base project model
@@ -61,7 +74,7 @@ class FreemarkerTemplateResolverIT {
     }
 
     /**
-     * This test takes a RestTemplateModel and uses it to render every template.
+     * This test takes a RestTemplateModel and uses it to render every WebMvc-based template.
      * This test will tell us if a template has an undefined variable, which needs
      * to be added to the template model. Freemarker throws an exception whenever
      * an undefined variable is encountered in a template. To ensure our template model
@@ -69,15 +82,30 @@ class FreemarkerTemplateResolverIT {
      * test case try every template.
      */
     @Test
-    void shouldRenderAllProjectTemplates() {
+    void shouldRenderWebMvcProjectTemplates() {
         // prelim: create a Predicate to include project templates
         // and exclude endpoint templates.
-        var converter = new DescriptorToPredicateConverter();
         Predicate<CatalogEntry> keepThese = converter.convert(projectDescriptor);
-        templateModel.apply(dependencyCatalog);
+        webMvcProject.apply(dependencyCatalog);
 
         templateCatalog.collect().stream().filter(keepThese).forEach(it -> {
-            var content = resolverUnderTest.render(it.getTemplate(), templateModel, TemplateResolver.Key.PROJECT);
+            var content = resolverUnderTest.render(it.getTemplate(), webMvcProject);
+            assertThat(content).isNotEmpty();
+        });
+    }
+
+    /**
+     * This test takes a RestTemplateModel and uses it to render every WebMvc-based template.
+     */
+    @Test
+    void shouldRenderWebFluxProjectTemplates() {
+        // prelim: create a Predicate to include project templates
+        // and exclude endpoint templates.
+        Predicate<CatalogEntry> keepThese = converter.convert(projectDescriptor);
+        webFluxProject.apply(dependencyCatalog);
+
+        templateCatalog.collect().stream().filter(keepThese).forEach(it -> {
+            var content = resolverUnderTest.render(it.getTemplate(), webFluxProject);
             assertThat(content).isNotEmpty();
         });
     }

@@ -30,7 +30,7 @@ import static com.google.common.truth.Truth.assertThat;
  * SpringWebMvcCodeGeneratorIT
  */
 @Tag("integration")
-class SpringWebMvcCodeGeneratorIT {
+class SpringWebMvcCodeGeneratorIntegrationTest {
 
     private static final String DEPENDENCY_FILE = "/spring/dependencies/dependencies.yml";
     private static final String TEMPLATE_DIRECTORY = "/spring/templates/";
