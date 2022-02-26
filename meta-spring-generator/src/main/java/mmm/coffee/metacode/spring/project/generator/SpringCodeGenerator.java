@@ -38,11 +38,11 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
 // S1602: false positive; curly braces detected in a comment does not mean it's a lambda function
 // S125: we're OK with comments that happen to look like code
 // S4738: converting to java.util.function.Predicate is on the roadmap
-public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
+public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor> {
     
     private final Collector collector;
     private final ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> descriptor2templateModel;
-    private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2Predicate;
+    private final ConvertTrait<RestProjectDescriptor,Predicate<CatalogEntry>> descriptor2predicate;
     private final TemplateResolver<MetaTemplateModel> templateRenderer;
     private final WriteOutputTrait outputHandler;
     private final DependencyCatalog dependencyCatalog;
@@ -66,7 +66,7 @@ public class SpringWebMvcCodeGenerator implements ICodeGenerator<RestProjectDesc
         templateModel.apply(dependencyCatalog);
 
         // Create a predicate to determine which template's to render
-        Predicate<CatalogEntry> keepThese = descriptor2Predicate.convert(descriptor);
+        Predicate<CatalogEntry> keepThese = descriptor2predicate.convert(descriptor);
 
         // Render the templates
         collector.collect().stream().filter(keepThese).forEach( it -> {

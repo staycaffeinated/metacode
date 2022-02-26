@@ -32,8 +32,7 @@ import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
-import mmm.coffee.metacode.spring.project.generator.SpringWebFluxCodeGenerator;
-import mmm.coffee.metacode.spring.project.generator.SpringWebMvcCodeGenerator;
+import mmm.coffee.metacode.spring.project.generator.SpringCodeGenerator;
 
 /**
  * Module for SpringWebMvc Project generator
@@ -48,10 +47,10 @@ public final class SpringGeneratorModule extends AbstractModule {
     @Provides
     @SpringWebMvc
     ICodeGenerator<?> provideSpringWebMvcGenerator() {
-        return SpringWebMvcCodeGenerator.builder()
+        return SpringCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
-                .descriptor2Predicate(new DescriptorToPredicateConverter())
+                .descriptor2predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToFileWriter())
                 .dependencyCatalog(new DependencyCatalog(DEPENDENCY_FILE))
@@ -61,7 +60,7 @@ public final class SpringGeneratorModule extends AbstractModule {
     @Provides
     @SpringWebFlux
     ICodeGenerator<?> providesSpringWebFluxGenerator() {
-        return SpringWebFluxCodeGenerator.builder()
+        return SpringCodeGenerator.builder()
                 .collector(new SpringWebFluxTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())

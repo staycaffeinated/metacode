@@ -43,13 +43,13 @@ import static org.mockito.Mockito.when;
  * Unit test
  */
 @SuppressWarnings("unchecked")
-class SpringWebMvcCodeGeneratorTest {
+class SpringCodeGeneratorTest {
 
     private static final String APP_NAME = "petstore";
     private static final String BASE_PKG = "acme.petstore";
     private static final String BASE_PATH = "/petstore";
 
-    SpringWebMvcCodeGenerator generatorUnderTest;
+    SpringCodeGenerator generatorUnderTest;
 
     Collector fakeCollector;
 
@@ -74,10 +74,10 @@ class SpringWebMvcCodeGeneratorTest {
         mockDependencyCollector = Mockito.mock(DependencyCatalog.class);
         when(mockDependencyCollector.collect()).thenReturn(buildFakeDependencies());
 
-        generatorUnderTest = SpringWebMvcCodeGenerator.builder()
+        generatorUnderTest = SpringCodeGenerator.builder()
                 .collector(fakeCollector)
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
-                .descriptor2Predicate(new DescriptorToPredicateConverter())
+                .descriptor2predicate(new DescriptorToPredicateConverter())
                 .outputHandler(new ContentToNullWriter())
                 .templateRenderer(mockRenderer)
                 .dependencyCatalog(mockDependencyCollector)
@@ -192,7 +192,10 @@ class SpringWebMvcCodeGeneratorTest {
         }
     }
 
-    List<Dependency> buildFakeDependencies() {
+    /*
+     * This is a static method to enable re-use by SpringWebFluxCodeGeneratorTest
+     */
+    static List<Dependency> buildFakeDependencies() {
         List<Dependency> resultSet = new ArrayList<>();
         // These are completely hypothetical versions for these libraries.
         // The names here should match those found in the dependencies.yml file
