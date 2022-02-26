@@ -166,8 +166,10 @@ tasks.withType(Test) {
 }
 
 // ----------------------------------------------------------------------------
-// ensure JUnit5 is used
+// Define an allIn task run compile thru to sonarqube
 // ----------------------------------------------------------------------------
-//test {
-//    useJUnitPlatform()
-//}
+task allIn(type: GradleBuild) {
+    group = 'Build'
+    description = 'Run a complete build and test cycle, then publish to SonarQube.'
+    tasks = [ 'clean', 'build', 'integrationTest', 'jacocoTestReport', 'sonarqube' ]
+}
