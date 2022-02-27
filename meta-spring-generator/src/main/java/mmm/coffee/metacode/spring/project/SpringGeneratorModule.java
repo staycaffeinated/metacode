@@ -22,6 +22,7 @@ import mmm.coffee.metacode.annotations.guice.*;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
 import mmm.coffee.metacode.common.freemarker.FreemarkerTemplateResolver;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
@@ -46,7 +47,7 @@ public final class SpringGeneratorModule extends AbstractModule {
     
     @Provides
     @SpringWebMvc
-    ICodeGenerator<?> provideSpringWebMvcGenerator() {
+    ICodeGenerator<RestProjectDescriptor> provideSpringWebMvcGenerator() {
         return SpringCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
@@ -59,7 +60,7 @@ public final class SpringGeneratorModule extends AbstractModule {
 
     @Provides
     @SpringWebFlux
-    ICodeGenerator<?> providesSpringWebFluxGenerator() {
+    ICodeGenerator<RestProjectDescriptor> providesSpringWebFluxGenerator() {
         return SpringCodeGenerator.builder()
                 .collector(new SpringWebFluxTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
