@@ -44,10 +44,6 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
      */
     private ICodeGenerator<RestProjectDescriptor> codeGenerator;
 
-    public SubcommandCreateWebfluxProject() {
-        // empty
-    }
-
     /**
      * Construct instance with a given generator
      * @param codeGenerator the code generator used by this command
@@ -73,20 +69,12 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
      */
     RestProjectDescriptor buildProjectDescriptor() {
         // Get the basic information
-        var descriptor = SpringWebMvcProjectDescriptor
+        return SpringWebMvcProjectDescriptor
                 .builder()
                 .applicationName(applicationName)
                 .basePackage(packageName)
                 .basePath(basePath)
                 .groupId(groupId)
                 .build();
-
-        // take note of any features/integrations
-//        if (features != null) {
-//            for (WebMvcIntegration f : features) {
-//                descriptor.getIntegrations().add(f.name());
-//            }
-//        }
-        return descriptor;
     }
 }
