@@ -48,6 +48,7 @@ public class RestProjectTemplateModel implements MetaTemplateModel {
     private String basePath;
     private String basePackage;
     private String javaVersion;
+    private String basePackagePath;
 
     @Setter(AccessLevel.PRIVATE)
     @Getter(AccessLevel.NONE)   // we provide a custom getter

@@ -37,4 +37,19 @@ public class RestEndpointDescriptor {
      * For example, {@code "/pets"} or {@code "/owners"}.
      */
     private String route;
+
+    /**
+     * The base package of the project; for example, 'acme.petstore'
+     */
+    private String basePackage;
+
+    /**
+     * Toggle this to TRUE to enable generating reactive code (ie: using spring-webflux)
+     */
+    private boolean isWebFlux;
+
+    /**
+     * Toggle this to TRUE to enable generating synchronous code (ie: using spring-webmvc)
+     */
+    private boolean isWebMvc;
 }
