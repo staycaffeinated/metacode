@@ -4,8 +4,10 @@
 package mmm.coffee.metacode.spring.project.converter;
 
 import mmm.coffee.metacode.spring.constant.MustacheConstants;
-import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.SystemErrRule;
+import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -16,6 +18,12 @@ import static com.google.common.truth.Truth.assertThat;
  * RestTemplateModelToMapConverterTests
  */
 class RestTemplateModelToMapConverterTests {
+
+    @Rule
+    public final SystemErrRule systemErrRule = new SystemErrRule().enableLog().muteForSuccessfulTests();
+
+    @Rule
+    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests();
 
     /*
      * Test values

@@ -28,6 +28,7 @@ import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
+import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
 
 /**
  * Code generator for SpringWebMvc project
@@ -46,6 +47,7 @@ public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor
     private final TemplateResolver<MetaTemplateModel> templateRenderer;
     private final WriteOutputTrait outputHandler;
     private final DependencyCatalog dependencyCatalog;
+    private final MustacheDecoder mustacheDecoder;
 
     /*
      * An instance of a RestProjectDescriptor is almost never available
@@ -68,10 +70,17 @@ public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor
         // Create a predicate to determine which template's to render
         Predicate<CatalogEntry> keepThese = descriptor2predicate.convert(descriptor);
 
+        // Is there a better way? Would really like the generator to agnostic of this
+        mustacheDecoder.configure(templateModel);
+
         // Render the templates
         collector.collect().stream().filter(keepThese).forEach( it -> {
             // essentially: it -> { writeIt ( renderIt(it) ) }
-            outputHandler.writeOutput ( it.getDestination(), templateRenderer.render (it.getTemplate(), templateModel));
+            outputHandler.writeOutput (
+                    // CatalogEntry's use mustache expressions for destinations;
+                    // we need to translate that expression that to its actual path
+                    mustacheDecoder.decode(it.getDestination()),
+                    templateRenderer.render (it.getTemplate(), templateModel));
         });
         
         return ExitCodes.OK;

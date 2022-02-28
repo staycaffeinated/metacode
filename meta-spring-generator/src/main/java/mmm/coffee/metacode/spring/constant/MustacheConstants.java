@@ -3,8 +3,6 @@
  */
 package mmm.coffee.metacode.spring.constant;
 
-import com.samskivert.mustache.Mustache;
-
 /**
  * MustacheConstants
  */

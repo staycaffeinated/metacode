@@ -27,6 +27,8 @@ import mmm.coffee.metacode.common.writer.ContentToNullWriter;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
+import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -81,6 +83,9 @@ class SpringCodeGeneratorTest {
                 .outputHandler(new ContentToNullWriter())
                 .templateRenderer(mockRenderer)
                 .dependencyCatalog(mockDependencyCollector)
+                .mustacheDecoder(
+                        MustacheDecoder.builder()
+                                .converter(new RestTemplateModelToMapConverter()).build())
                 .build();
     }
 

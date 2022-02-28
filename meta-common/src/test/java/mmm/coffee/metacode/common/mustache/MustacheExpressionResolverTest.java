@@ -41,8 +41,8 @@ class MustacheExpressionResolverTest {
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog().muteForSuccessfulTests();
 
 
-    final Map<String,Object> emptyMap = new HashMap<>();
-    Map<String,Object> valueMap;
+    final Map<String,String> emptyMap = new HashMap<>();
+    Map<String,String> valueMap;
 
     final String basePackage = "mmm.coffee.widget";
     final String basePackagePath = "mmm/coffee/widget";

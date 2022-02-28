@@ -1,49 +1,45 @@
 /*
- * Copyright 2022 Jon Caulfield
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.common.rule;
+package mmm.coffee.metacode.spring.converter;
 
 import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * The syntax rules we apply to resource names, entity names, base paths, and such
- * to provide consistent naming conventions
+ * A collection of methods for converting names
+ * of items, such as converting a resource name to
+ * an entity-bean name. The conversions are used to
+ * name classes, instance variables, and sundry items
+ * that come up during code generation.
+ *
+ * This is a stateless object (there are no instance variables).
+ * As such, every method _could_ be defined as a static method.
+ * To enable dependency injection, non-static methods are used instead.
  */
-public class NamingRule {
+public class NameConverter {
+
     private static final String EJB_SUFFIX = "EntityBean";
 
-    // Hidden constructor
-    private NamingRule() {}
+    /**
+     * Default constructor
+     */
+    public NameConverter() {
+        // empty
+    }
 
     /**
      * Returns the syntax convention for the given resource value
      * @param resource the name of some resource or entity
      * @return the resource name, with syntax conventions applied
      */
-    public static @NonNull String toEntityName(@NonNull String resource) {
+    public String toEntityName(@NonNull String resource) {
         // Capitalize the first char; leave others as-is
         return StringUtils.capitalize(resource);
 
     }
-    public static @NonNull String toEntityVariableName(@NonNull String resource) {
+    public String toEntityVariableName(@NonNull String resource) {
         return StringUtils.uncapitalize(resource);
-    }
-
-    public static String toBasePackagePath(@NonNull String basePackage) {
-        return StringUtils.replace(basePackage, ".", "/");
     }
 
     /**
@@ -53,7 +49,7 @@ public class NamingRule {
      * @param route the suggested base path to the resource, probably input by an end-user
      * @return the basePath, with formatting conventions applied.
      */
-    public static @NonNull String toBasePathUrl(@NonNull String route) {
+    public String toBasePathUrl(@NonNull String route) {
         if (!route.startsWith("/")) {
             route = "/" + route;
         }
@@ -66,19 +62,19 @@ public class NamingRule {
      * @param projectName the project name
      * @return the default schema name
      */
-    public static @NonNull String toDatabaseSchemaName(@NonNull String projectName) {
+    public String toDatabaseSchemaName(@NonNull String projectName) {
         return StringUtils.toRootLowerCase(projectName);
     }
 
-    public static String toPojoClassName(String resourceName) {
+    public String toPojoClassName(String resourceName) {
         return StringUtils.capitalize(resourceName);
     }
 
-    public static String toEjbClassName(String resourceName) {
+    public String toEjbClassName(String resourceName) {
         return StringUtils.capitalize(resourceName) + EJB_SUFFIX;
     }
 
-    public static String toTableName(String resourceName) {
+    public String toTableName(String resourceName) {
         return resourceName;
     }
 
@@ -94,10 +90,8 @@ public class NamingRule {
      * @param resourceOrEntityName the name of the RESTful resource/entity, for example ```Student``` or ```Account```
      * @return the package name into which the assets of this resource will be placed
      */
-    @NonNull
-    public static String toEndpointPackageName (@NonNull String basePackage, @NonNull String resourceOrEntityName) {
+    public  String toEndpointPackageName (@NonNull String basePackage, @NonNull String resourceOrEntityName) {
         String packageName = basePackage + ".endpoint." + StringUtils.toRootLowerCase(resourceOrEntityName);
         return StringUtils.toRootLowerCase(packageName);
     }
-
 }

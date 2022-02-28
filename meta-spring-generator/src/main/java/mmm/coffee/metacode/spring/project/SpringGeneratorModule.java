@@ -33,6 +33,8 @@ import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
+import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
 import mmm.coffee.metacode.spring.project.generator.SpringCodeGenerator;
 
 /**
@@ -55,6 +57,9 @@ public final class SpringGeneratorModule extends AbstractModule {
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToFileWriter())
                 .dependencyCatalog(new DependencyCatalog(DEPENDENCY_FILE))
+                .mustacheDecoder(
+                        MustacheDecoder.builder()
+                                .converter(new RestTemplateModelToMapConverter()).build())
                 .build();
     }
 
@@ -68,6 +73,9 @@ public final class SpringGeneratorModule extends AbstractModule {
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToFileWriter())
                 .dependencyCatalog(new DependencyCatalog(DEPENDENCY_FILE))
+                .mustacheDecoder(
+                        MustacheDecoder.builder()
+                                .converter(new RestTemplateModelToMapConverter()).build())
                 .build();
     }
 

@@ -154,4 +154,60 @@ public class NamingRuleTest {
             assertThrows(NullPointerException.class, () -> NamingRule.toEndpointPackageName("org.example", null));
         }
     }
+
+    @Nested
+    class BasePackagePathTests {
+        @ParameterizedTest
+        @CsvSource({
+                // testValue,   expectedResult
+                "org.acme.petstore, org/acme/petstore",
+                "acme,              acme",
+                "acme.petstore,     acme/petstore"
+        })
+        void shouldConvertJavaPackageToFileSystemPath(String testValue, String expectedResult) {
+            assertThat(NamingRule.toBasePackagePath(testValue)).isEqualTo(expectedResult);
+        }
+    }
+
+    @Nested
+    class PojoClassNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // testValue,   expectedResult
+                "pet, Pet",
+                "owner, Owner",
+                "accountNumber, AccountNumber"
+        })
+        void shouldConvertJavaPackageToFileSystemPath(String testValue, String expectedResult) {
+            assertThat(NamingRule.toPojoClassName(testValue)).isEqualTo(expectedResult);
+        }
+    }
+
+    @Nested
+    class EjbClassNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // testValue,   expectedResult
+                "pet, PetEntityBean",
+                "petOwner, PetOwnerEntityBean",
+                "account, AccountEntityBean"
+        })
+        void shouldConvertJavaPackageToFileSystemPath(String testValue, String expectedResult) {
+            assertThat(NamingRule.toEjbClassName(testValue)).isEqualTo(expectedResult);
+        }
+    }
+
+    @Nested
+    class TableNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // testValue,   expectedResult
+                "pet, pet",
+                "petOwner, petOwner",
+                "account, account"
+        })
+        void shouldConvertJavaPackageToFileSystemPath(String testValue, String expectedResult) {
+            assertThat(NamingRule.toTableName(testValue)).isEqualTo(expectedResult);
+        }
+    }
 }

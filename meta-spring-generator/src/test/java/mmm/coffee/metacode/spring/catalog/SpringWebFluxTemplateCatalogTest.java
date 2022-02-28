@@ -15,7 +15,6 @@
  */
 package mmm.coffee.metacode.spring.catalog;
 
-import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
