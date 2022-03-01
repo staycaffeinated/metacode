@@ -31,11 +31,15 @@ public class MustacheDecoder {
 
     private RestTemplateModelToMapConverter converter;
 
+    /**
+     * Initialize a map to be used by the Mustache parser to resolve values
+     * @param model the source data that's read to create the map
+     */
     public void configure(RestProjectTemplateModel model) {
         map = converter.convert(model);
     }
 
     public String decode(String incoming) {
-        return MustacheExpressionResolver.toString(incoming, map);
+        return MustacheExpressionResolver.resolve(incoming, map);
     }
 }

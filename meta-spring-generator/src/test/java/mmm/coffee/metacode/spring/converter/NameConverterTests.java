@@ -143,4 +143,24 @@ class NameConverterTests {
             assertThrows(NullPointerException.class, () -> converterUnderTest.toEndpointPackageName("org.example", null));
         }
     }
+
+    @Nested
+    class PackageNameToPathTests {
+
+        @ParameterizedTest
+        @CsvSource({
+                // testValue,   expectedResult
+                "org.acme,          org/acme",
+                "org.acme.petstore, org/acme/petstore",
+                "acme,              acme"
+        })
+        void shouldReturnEquivalentPath(String sample, String expected) {
+            assertThat(converterUnderTest.packageNameToPath(sample)).isEqualTo(expected);
+        }
+
+        @Test
+        void shouldThrowNullPointerExceptionWhenArgIsNull() {
+            assertThrows(NullPointerException.class, () -> converterUnderTest.packageNameToPath(null));
+        }
+    }
 }

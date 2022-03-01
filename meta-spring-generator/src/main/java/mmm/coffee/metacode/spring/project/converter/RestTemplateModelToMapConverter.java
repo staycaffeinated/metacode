@@ -5,6 +5,7 @@ package mmm.coffee.metacode.spring.project.converter;
 
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.constant.MustacheConstants;
+import mmm.coffee.metacode.spring.converter.NameConverter;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
 
 import java.util.HashMap;
@@ -24,10 +25,11 @@ public class RestTemplateModelToMapConverter implements ConvertTrait<RestProject
 
 
     public Map<String,String> convert (RestProjectTemplateModel model) {
-        var map = new HashMap<String,String>();
+        NameConverter nameConverter = new NameConverter();
 
+        var map = new HashMap<String,String>();
         map.put(MustacheConstants.BASE_PACKAGE, model.getBasePackage());
-        map.put(MustacheConstants.BASE_PACKAGE_PATH, model.getBasePackage());
+        map.put(MustacheConstants.BASE_PACKAGE_PATH, nameConverter.packageNameToPath(model.getBasePackage()));
         map.put(MustacheConstants.BASE_PATH, model.getBasePath());
         return map;
     }

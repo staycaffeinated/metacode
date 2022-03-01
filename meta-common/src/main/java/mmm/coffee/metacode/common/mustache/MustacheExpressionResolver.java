@@ -34,7 +34,7 @@ public class MustacheExpressionResolver {
      * then
      *      toString returns "org.example.projectx".
      */
-    public static @NonNull String toString (@NonNull String mustacheExpression, Map<String,String> values) {
+    public static @NonNull String resolve(@NonNull String mustacheExpression, Map<String,String> values) {
         var template = Mustache.compiler().compile(mustacheExpression);
         return template.execute(values);
     }

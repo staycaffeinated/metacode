@@ -94,4 +94,13 @@ public class NameConverter {
         String packageName = basePackage + ".endpoint." + StringUtils.toRootLowerCase(resourceOrEntityName);
         return StringUtils.toRootLowerCase(packageName);
     }
+
+    /**
+     * Converts a package name to its equivalent file system path. This method is used to enable
+     * writing Java files in the correct directory.
+     * 
+     * @param packageName a Java package, such as 'org.acme.petstore'
+     * @return the equivalent file system path, such as 'org/example/petstore'
+     */
+    public String packageNameToPath(@NonNull String packageName) { return packageName.replace(".", "/"); }
 }

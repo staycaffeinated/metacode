@@ -64,12 +64,12 @@ class MustacheExpressionResolverTest {
 
     @Test
     void shouldThrowNullPointerExceptionWhenExpressionIsNull() {
-        assertThrows (NullPointerException.class, () ->  MustacheExpressionResolver.toString(null, emptyMap));
+        assertThrows (NullPointerException.class, () ->  MustacheExpressionResolver.resolve(null, emptyMap));
     }
 
     @Test
     void shouldThrowNullPointerExceptionWhenMapIsNull() {
-        assertThrows (NullPointerException.class, () -> MustacheExpressionResolver.toString("{{something}}", null));
+        assertThrows (NullPointerException.class, () -> MustacheExpressionResolver.resolve("{{something}}", null));
     }
 
     @ParameterizedTest
@@ -78,7 +78,7 @@ class MustacheExpressionResolverTest {
             "src/main/java/{{basePackagePath}}/{{entityName}}Controller.java,   src/main/java/mmm/coffee/widget/WidgetController.java"
     })
     void shouldConvertExpressionToString(String expression, String expectedResult) {
-        String actual = MustacheExpressionResolver.toString(expression, valueMap);
+        String actual = MustacheExpressionResolver.resolve(expression, valueMap);
         assertThat(actual).isEqualTo(expectedResult);
     }
 
