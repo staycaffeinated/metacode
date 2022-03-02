@@ -30,6 +30,7 @@ public class DescriptorToWebMvcTemplateModel implements ConvertTrait<RestProject
                 .applicationName(descriptor.getApplicationName())
                 .basePackage(descriptor.getBasePackage())
                 .basePath(descriptor.getBasePath())
+                .isWebMvc(true)
                 .enableLiquibase(descriptor.getIntegrations().contains(WebMvcIntegration.LIQUIBASE.name()))
                 .enablePostgres(descriptor.getIntegrations().contains(WebMvcIntegration.POSTGRES.name()))
                 .enableTestContainers(descriptor.getIntegrations().contains(WebMvcIntegration.TESTCONTAINERS.name()))

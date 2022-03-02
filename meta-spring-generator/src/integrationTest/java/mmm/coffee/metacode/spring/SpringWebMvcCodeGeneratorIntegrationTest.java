@@ -6,6 +6,7 @@ package mmm.coffee.metacode.spring;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
 import mmm.coffee.metacode.common.freemarker.FreemarkerTemplateResolver;
@@ -14,7 +15,7 @@ import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
-import mmm.coffee.metacode.spring.project.generator.SpringWebMvcCodeGenerator;
+import mmm.coffee.metacode.spring.project.generator.SpringCodeGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -39,14 +40,14 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
     private static final String BASE_PATH = "/petstore";
     private static final String BASE_PKG = "org.acme.petstore";
 
-    SpringWebMvcCodeGenerator generatorUnderTest;
+    SpringCodeGenerator generatorUnderTest;
 
     @BeforeEach
     public void setUp() {
-        generatorUnderTest = SpringWebMvcCodeGenerator.builder()
+        generatorUnderTest = SpringCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
-                .descriptor2Predicate(new DescriptorToPredicateConverter())
+                .descriptor2predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToNullWriter())
                 .dependencyCatalog(new DependencyCatalog(DEPENDENCY_FILE))
@@ -63,6 +64,7 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
                 .basePackage(BASE_PATH)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         assertThat(generatorUnderTest.generateCode(spec)).isEqualTo(ExitCodes.OK);
@@ -79,6 +81,7 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
                 .basePackage(BASE_PATH)
+                .framework(Framework.SPRING_WEBMVC)
                 .integrations(integrations)
                 .build();
 
@@ -97,6 +100,7 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
                 .basePackage(BASE_PATH)
+                .framework(Framework.SPRING_WEBMVC)
                 .integrations(integrations)
                 .build();
 
@@ -117,6 +121,7 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
                 .basePackage(BASE_PATH)
+                .framework(Framework.SPRING_WEBMVC)
                 .integrations(integrations)
                 .build();
 
@@ -136,6 +141,7 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
                 .basePackage(BASE_PKG)
                 .basePackage(BASE_PATH)
                 .integrations(integrations)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         // when: generating code, expect success
@@ -157,6 +163,7 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
                 .basePackage(BASE_PKG)
                 .basePackage(BASE_PATH)
                 .integrations(integrations)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         // when: generating code, expect success
@@ -175,8 +182,6 @@ class SpringWebMvcCodeGeneratorIntegrationTest {
      * @return the equivalent Set
      */
     private Set<String> buildIntegrations(String... args) {
-        Set<String> rs = new HashSet<>();
-        rs.addAll(Arrays.stream(args).toList());
-        return rs;
+        return new HashSet<>(Arrays.stream(args).toList());
     }
 }

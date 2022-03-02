@@ -3,6 +3,7 @@
  */
 package mmm.coffee.metacode.spring.project.converter;
 
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
@@ -19,6 +20,8 @@ public class DescriptorToRestProjectTemplateModelConverter implements ConvertTra
                 .applicationName(descriptor.getApplicationName())
                 .basePackage(descriptor.getBasePackage())
                 .basePath(descriptor.getBasePath())
+                .isWebFlux(descriptor.getFramework().equals(Framework.SPRING_WEBFLUX.frameworkName()))
+                .isWebMvc(descriptor.getFramework().equals(Framework.SPRING_WEBMVC.frameworkName()))
                 .build();
     }
 }

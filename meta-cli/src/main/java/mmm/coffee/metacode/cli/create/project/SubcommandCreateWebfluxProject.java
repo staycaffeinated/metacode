@@ -17,6 +17,7 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;
@@ -69,12 +70,13 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
      */
     RestProjectDescriptor buildProjectDescriptor() {
         // Get the basic information
-        return SpringWebMvcProjectDescriptor
+        return RestProjectDescriptor
                 .builder()
                 .applicationName(applicationName)
                 .basePackage(packageName)
                 .basePath(basePath)
                 .groupId(groupId)
+                .framework(Framework.SPRING_WEBFLUX)
                 .build();
     }
 }

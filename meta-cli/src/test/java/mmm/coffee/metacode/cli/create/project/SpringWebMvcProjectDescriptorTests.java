@@ -15,6 +15,8 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
+import mmm.coffee.metacode.common.descriptor.Framework;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -26,7 +28,13 @@ import java.util.Set;
 import static com.google.common.truth.Truth.assertThat;
 
 /**
- * Unit tests
+ * Unit tests of RestProjectDescriptor in the context of defining spring-webmvc projects.
+ *
+ * This test case lives in the {@code meta-cli} module because {@code meta-cli} has dependencies
+ * on {@code meta-common} and {@code meta-spring}.  This test uses some {@code meta-cli} classes.
+ * If this test were moved to {@code meta-common}, then {@code meta-common} would require a
+ * dependency on {@code meta-cli}, causing a circular dependency between {@code meta-cli} and {@code meta-common}.
+ * Thus, this test lives in {@code meta-cli}.
  */
 class SpringWebMvcProjectDescriptorTests {
 
@@ -48,11 +56,12 @@ class SpringWebMvcProjectDescriptorTests {
      */
     @Test
     void shouldBuildWellFormedObject() {
-        var descriptor = SpringWebMvcProjectDescriptor.builder()
+        var descriptor = RestProjectDescriptor.builder()
                 .applicationName(APPNAME)
                 .basePackage(BASEPKG)
                 .basePath(BASEPATH)
                 .groupId(GROUPID)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
@@ -76,11 +85,12 @@ class SpringWebMvcProjectDescriptorTests {
 
     @Test
     void shouldAllowAddingIntegrationsAfterBuildIsCalled() {
-        var descriptor = SpringWebMvcProjectDescriptor.builder()
+        var descriptor = RestProjectDescriptor.builder()
                 .applicationName(APPNAME)
                 .basePackage(BASEPKG)
                 .basePath(BASEPATH)
                 .groupId(GROUPID)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
@@ -92,11 +102,12 @@ class SpringWebMvcProjectDescriptorTests {
     
     @Test
     void shouldAddIntegrationsDuringBuildPhase() {
-        var descriptor = SpringWebMvcProjectDescriptor.builder()
+        var descriptor = RestProjectDescriptor.builder()
                 .applicationName(APPNAME)
                 .basePackage(BASEPKG)
                 .basePath(BASEPATH)
                 .groupId(GROUPID)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         // calling {@code '.integrations(FEATURES)'} does not work - we end up with an empty list.
@@ -113,7 +124,7 @@ class SpringWebMvcProjectDescriptorTests {
     @Test
     @Tag("coverage")
     void testToString() {
-        var descriptor = SpringWebMvcProjectDescriptor.builder().build();
+        var descriptor = RestProjectDescriptor.builder().build();
         assertThat(descriptor.toString()).isNotEmpty();
     }
 
@@ -123,7 +134,7 @@ class SpringWebMvcProjectDescriptorTests {
     @Test
     @Tag("coverage")
     void testBuilderToString() {
-        var descriptor = SpringWebMvcProjectDescriptor.builder().toString();
+        var descriptor = RestProjectDescriptor.builder().toString();
         assertThat(descriptor.toString()).isNotEmpty();
     }
 }

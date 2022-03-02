@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.common.descriptor;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,7 @@ class RestProjectDescriptorTest {
     private static final String BASE_PATH = "/petstore";
     private static final String BASE_PKG = "acme.petstore";
     private static final String APP_NAME = "petstore";
+    private static final String GROUP_ID = "org.acme.petstore";
 
 
     @Test
@@ -42,15 +44,45 @@ class RestProjectDescriptorTest {
     }
 
     @Test
-    void shouldBuildWellFormedObject() {
+    void shouldDefineWellFormedSpringWebMvcProject() {
         var descriptor = RestProjectDescriptor.builder()
                 .basePath(BASE_PATH)
                 .basePackage(BASE_PKG)
                 .applicationName(APP_NAME)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         assertThat(descriptor.getApplicationName()).isEqualTo(APP_NAME);
         assertThat(descriptor.getBasePackage()).isEqualTo(BASE_PKG);
         assertThat(descriptor.getBasePath()).isEqualTo(BASE_PATH);
+        assertThat(descriptor.getFramework()).isEqualTo(Framework.SPRING_WEBMVC.frameworkName());
     }
+
+    @Test
+    void shouldDefineWellFormedSpringWebFluxProject() {
+        var descriptor = RestProjectDescriptor.builder()
+                .basePath(BASE_PATH)
+                .basePackage(BASE_PKG)
+                .applicationName(APP_NAME)
+                .framework(Framework.SPRING_WEBFLUX)
+                .build();
+
+        assertThat(descriptor.getApplicationName()).isEqualTo(APP_NAME);
+        assertThat(descriptor.getBasePackage()).isEqualTo(BASE_PKG);
+        assertThat(descriptor.getBasePath()).isEqualTo(BASE_PATH);
+        assertThat(descriptor.getFramework()).isEqualTo(Framework.SPRING_WEBFLUX.frameworkName());
+    }
+
+    /*
+     * This test only helps with code coverage, hence the tag name
+     */
+    @Test
+    @Tag("coverage")
+    void shouldHitCodeCoverage() {
+        var foo = RestProjectDescriptor.builder().toString();
+        // String should contain some content; we're not picky about what
+        // content, for the most part.
+        assertThat(foo).isNotEmpty();
+    }
+    
 }

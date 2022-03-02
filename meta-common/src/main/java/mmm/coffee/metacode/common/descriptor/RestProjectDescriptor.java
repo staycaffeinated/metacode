@@ -38,6 +38,35 @@ public class RestProjectDescriptor implements Descriptor {
     private String groupId;
 
     /*
+     * Indicates the framework in play.
+     * Currently, Spring WebMvc and Spring WebFlux are supported.
+     * Naturally, we want the code design to easily support other
+     * frameworks like Quarkus or Micronaut
+     */
+    private Framework framework;
+
+    /**
+     * The template files are expecting a String value
+     * as the framework value, so this custom getter is
+     * provided to achieve that.
+     *
+     * For example, a template might have this statement:
+     * <code>
+     *     <#if (project.framework == 'WEBFLUX')>
+     * </code>
+     * so {@code getFramework()} must return a value the
+     * template will understand.
+     *
+     * @return the String expected by the template language. 
+     */
+    public String getFramework() {
+        if (framework != null) {
+            return framework.frameworkName();
+        }
+        return Framework.UNDEFINED.frameworkName();
+    }
+    
+    /*
      * The integrations to support in the generated code.
      * For example, if integration with Postgres is selected,
      * then Postgres-specific properties are included in the

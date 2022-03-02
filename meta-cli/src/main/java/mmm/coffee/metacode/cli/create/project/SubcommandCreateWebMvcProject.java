@@ -17,6 +17,7 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
@@ -88,12 +89,12 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
      */
     RestProjectDescriptor buildProjectDescriptor() {
         // Get the basic information
-        var descriptor = SpringWebMvcProjectDescriptor
-                .builder()
+        var descriptor = RestProjectDescriptor.builder()
                 .applicationName(applicationName)
                 .basePackage(packageName)
                 .basePath(basePath)
                 .groupId(groupId)
+                .framework(Framework.SPRING_WEBMVC)
                 .build();
 
         // take note of any features/integrations
