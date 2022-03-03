@@ -84,7 +84,8 @@ class MetaPropertiesWriterTests {
 
         // when: the propertiesConfig.write method throws a ConfigurationException
         // expect: that exception is recast as a RuntimeApplicationError
-        assertThrows(RuntimeApplicationError.class, () -> writer.saveProperties(buildSampleProperties()) );
+        Map<String,Object> sampleData = buildSampleProperties();
+        assertThrows(RuntimeApplicationError.class, () -> writer.saveProperties(sampleData) );
     }
 
     /**

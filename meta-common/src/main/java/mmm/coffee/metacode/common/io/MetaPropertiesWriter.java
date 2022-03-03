@@ -3,9 +3,7 @@
  */
 package mmm.coffee.metacode.common.io;
 
-import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Setter;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
