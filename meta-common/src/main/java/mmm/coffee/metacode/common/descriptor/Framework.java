@@ -4,11 +4,13 @@
 package mmm.coffee.metacode.common.descriptor;
 
 import lombok.NonNull;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
  * An enumeration of the frameworks currently supported
  * by the MetaCode code generator
  */
+@Generated // exclude from code coverage
 public enum Framework {
     SPRING_WEBMVC("WEBMVC"),
     SPRING_WEBFLUX("WEBFLUX"),
