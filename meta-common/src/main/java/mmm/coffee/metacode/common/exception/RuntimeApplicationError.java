@@ -29,5 +29,5 @@ public class RuntimeApplicationError extends RuntimeException {
     public RuntimeApplicationError(String msg, Throwable cause) {
         super(msg, cause);
     }
-    public RuntimeApplicationError(Throwable t) { super (t); }
+    public RuntimeApplicationError(Throwable t) { super(t); }
 }

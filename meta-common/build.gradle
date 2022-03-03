@@ -25,18 +25,5 @@ dependencies {
     testImplementation(libs.junitSystemRules)
     testImplementation(libs.truth)
     testImplementation(libs.mockito)
-    testImplementation(libs.commonsBeanUtils)
-}
-
-// Gradle 7.4 has built-in understanding of integrationTest folder.
-// For the sake of IntelliJ, we do this, since IntelliJ does not
-// know what the 'integrationTest' folder is out-of-the-box.
-sourceSets {
-    integrationTest {
-        java.srcDir file("src/integrationTest/java")
-        resources.srcDir file("src/integrationTest/resources")
-        runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.test.runtimeClasspath
-        compileClasspath += sourceSets.main.compileClasspath + sourceSets.test.compileClasspath
-    }
 }
 
