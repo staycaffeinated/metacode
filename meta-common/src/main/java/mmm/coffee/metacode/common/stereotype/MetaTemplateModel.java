@@ -3,9 +3,12 @@
  */
 package mmm.coffee.metacode.common.stereotype;
 
+import mmm.coffee.metacode.annotations.jacoco.Generated;
+
 /**
  * Stereotype for a template model
  */
+@Generated // exclude interfaces from code coverage reports
 public interface MetaTemplateModel {
     
     /*
@@ -13,6 +16,7 @@ public interface MetaTemplateModel {
      * Template's have variables that look like '${project.someField}'
      * or '${endpoint.someField}'.
      */
+    @Generated
     enum Key {
         PROJECT ("project"),
         ENDPOINT ("endpoint");
@@ -28,6 +32,7 @@ public interface MetaTemplateModel {
      * These are the legal values for the 'framework'
      * variable in the template models.
      */
+    @Generated
     enum Framework {
         WEBMVC ("WEBMVC"),
         WEBFLUX ("WEBFLUX");
