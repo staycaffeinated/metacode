@@ -28,7 +28,6 @@ public interface TemplateResolver<T> {
      * Renders the {@code template}, using {@code dataModel} to resolve template variables
      * @param templateClassPath the resource path to the template file
      * @param dataModel the data model processed by the template engine to resolve variables
-     * @param key the root key expected by the template (this is applied when resolving template variables)
      * @return the rendered content
      */
     String render(String templateClassPath, T dataModel);
