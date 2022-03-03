@@ -23,11 +23,11 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
 @Generated // Ignore code coverage for this class
 public class RuntimeApplicationError extends RuntimeException {
     public RuntimeApplicationError() {}
-
     public RuntimeApplicationError(String msg) {
         super(msg);
     }
     public RuntimeApplicationError(String msg, Throwable cause) {
         super(msg, cause);
     }
+    public RuntimeApplicationError(Throwable t) { super (t); }
 }
