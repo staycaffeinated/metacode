@@ -24,6 +24,8 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
 @Generated // exclude from code coverage reports
 public interface ICodeGenerator<T> {
 
+    ICodeGenerator<T> doPreprocessing(T spec);
+
     /**
      * Performs the code generation. Returns:
      *      0 = success

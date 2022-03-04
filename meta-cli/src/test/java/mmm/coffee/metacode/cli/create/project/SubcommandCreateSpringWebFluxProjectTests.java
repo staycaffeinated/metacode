@@ -78,5 +78,7 @@ class SubcommandCreateSpringWebFluxProjectTests {
         public int generateCode(RestProjectDescriptor ignored) {
             return 0;
         }
+
+        public FakeCodeGenerator doPreprocessing(RestProjectDescriptor ignored) { return this; }
     }
 }

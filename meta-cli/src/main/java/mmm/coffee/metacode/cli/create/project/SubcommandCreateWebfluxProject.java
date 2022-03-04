@@ -61,7 +61,7 @@ public class SubcommandCreateWebfluxProject extends AbstractCreateRestProject {
     @Override public Integer call() {
         super.validateInputs();
         var descriptor = buildProjectDescriptor();
-        return codeGenerator.generateCode(descriptor);
+        return codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);
     }
 
     /**

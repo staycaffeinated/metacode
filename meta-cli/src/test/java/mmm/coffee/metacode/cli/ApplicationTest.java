@@ -156,6 +156,10 @@ class ApplicationTest {
         public int generateCode(RestProjectDescriptor ignored) {
             return 0;
         }
+
+        public FakeSpringCodeGenerator doPreprocessing(RestProjectDescriptor ignored) {
+            return this;
+        }
     }
 
 }

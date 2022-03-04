@@ -54,6 +54,10 @@ public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor
      * when this object's builder methods are called. 
      */
     private RestProjectDescriptor descriptor;
+
+    public SpringCodeGenerator doPreprocessing(RestProjectDescriptor descriptor) {
+        return this;
+    }
     
     /**
      * Returns the exit code from the generator.
