@@ -22,6 +22,7 @@ import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
+import mmm.coffee.metacode.common.io.MetaPropertiesHandler;
 import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
@@ -48,6 +49,7 @@ public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor
     private final WriteOutputTrait outputHandler;
     private final DependencyCatalog dependencyCatalog;
     private final MustacheDecoder mustacheDecoder;
+    private final MetaPropertiesHandler<RestProjectDescriptor> metaPropertiesHandler;
 
     /*
      * An instance of a RestProjectDescriptor is almost never available
@@ -55,7 +57,13 @@ public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor
      */
     private RestProjectDescriptor descriptor;
 
+    /**
+     * Writes the metacode.properties file
+     * @param descriptor provides the values to be saved to metacode.properties
+     * @return {@code this} object
+     */
     public SpringCodeGenerator doPreprocessing(RestProjectDescriptor descriptor) {
+        metaPropertiesHandler.writeMetaProperties(descriptor);
         return this;
     }
     

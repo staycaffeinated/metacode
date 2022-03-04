@@ -26,16 +26,24 @@ import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
 import mmm.coffee.metacode.common.freemarker.FreemarkerTemplateResolver;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
+import mmm.coffee.metacode.common.io.MetaProperties;
+import mmm.coffee.metacode.common.io.MetaPropertiesHandler;
+import mmm.coffee.metacode.common.io.MetaPropertiesReader;
+import mmm.coffee.metacode.common.io.MetaPropertiesWriter;
 import mmm.coffee.metacode.common.stereotype.DependencyCollector;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.common.writer.ContentToFileWriter;
 import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
+import mmm.coffee.metacode.spring.project.converter.DescriptorToMetaProperties;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
 import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
 import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
 import mmm.coffee.metacode.spring.project.generator.SpringCodeGenerator;
+import mmm.coffee.metacode.spring.project.io.SpringMetaPropertiesHandler;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
 
 /**
  * Module for SpringWebMvc Project generator
@@ -46,7 +54,7 @@ public final class SpringGeneratorModule extends AbstractModule {
 
     private static final String DEPENDENCY_FILE = "/spring/dependencies/dependencies.yml";
     private static final String TEMPLATE_DIRECTORY = "/spring/templates/";
-    
+
     @Provides
     @SpringWebMvc
     ICodeGenerator<RestProjectDescriptor> provideSpringWebMvcGenerator() {
@@ -60,6 +68,7 @@ public final class SpringGeneratorModule extends AbstractModule {
                 .mustacheDecoder(
                         MustacheDecoder.builder()
                                 .converter(new RestTemplateModelToMapConverter()).build())
+                .metaPropertiesHandler(providesMetaPropertiesHandler())
                 .build();
     }
 
@@ -76,6 +85,7 @@ public final class SpringGeneratorModule extends AbstractModule {
                 .mustacheDecoder(
                         MustacheDecoder.builder()
                                 .converter(new RestTemplateModelToMapConverter()).build())
+                .metaPropertiesHandler(providesMetaPropertiesHandler())
                 .build();
     }
 
@@ -108,4 +118,19 @@ public final class SpringGeneratorModule extends AbstractModule {
         return new DependencyCatalog(DEPENDENCY_FILE);
     }
 
+    @Provides
+    @MetaPropertiesHandlerProvider
+    MetaPropertiesHandler<RestProjectDescriptor> providesMetaPropertiesHandler() {
+        return SpringMetaPropertiesHandler.builder()
+                .converter(new DescriptorToMetaProperties())
+                .reader(MetaPropertiesReader.builder()
+                        .propertyFileName(MetaProperties.DEFAULT_FILENAME)
+                        .configurations(new Configurations())
+                        .build())
+                .writer(MetaPropertiesWriter.builder()
+                        .destinationFile(MetaProperties.DEFAULT_FILENAME)
+                        .configuration(new PropertiesConfiguration())
+                        .build())
+                .build();
+    }
 }

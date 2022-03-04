@@ -28,7 +28,7 @@ public class MetaPropertiesWriter {
             // The incoming {@code properties} could contain many values,
             // but only a handful of values need to be persisted
             // to the {@code metacode.properties} file.
-            configuration.setHeader("This property file was created by the Mojo code generator.\nThese values are consumed when creating endpoints");
+            configuration.setHeader("This property file was created by the MetaCode code generator.\nThese values are consumed when creating endpoints");
             configuration.setProperty(MetaProperties.BASE_PATH, properties.get(MetaProperties.BASE_PATH));
             configuration.setProperty(MetaProperties.BASE_PACKAGE, properties.get(MetaProperties.BASE_PACKAGE));
             configuration.setProperty(MetaProperties.FRAMEWORK, properties.get(MetaProperties.FRAMEWORK));
