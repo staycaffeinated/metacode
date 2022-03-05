@@ -44,6 +44,16 @@ public class RestEndpointDescriptor {
     private String basePackage;
 
     /**
+     * The base path of the root application
+     */
+    private String basePath;
+
+    /**
+     * Indicates whether this is webflux or webmvc
+     */
+    private String framework;
+
+    /**
      * Toggle this to TRUE to enable generating reactive code (ie: using spring-webflux)
      */
     private boolean isWebFlux;

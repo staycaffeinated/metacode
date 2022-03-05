@@ -15,8 +15,13 @@
  */
 package mmm.coffee.metacode.cli.create.endpoint;
 
+import com.google.inject.Inject;
+import lombok.NonNull;
+import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
 import mmm.coffee.metacode.cli.mixin.DryRunOption;
 import mmm.coffee.metacode.cli.validation.ResourceNameValidator;
+import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
+import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;
 
 import java.util.concurrent.Callable;
@@ -53,16 +58,28 @@ public class SubcommandCreateEndpoint implements Callable<Integer> {
             names={"-p", "--route"},
             description="The route (path) to the resource (e.g: --route /coffee)",
             paramLabel = "ROUTE")
-    String baseRoute; // visible for testing
+    String resourceRoute; // visible for testing
+
+    /**
+     * Handle to the code generator
+     */
+    private final ICodeGenerator<RestEndpointDescriptor> codeGenerator;
+
+    /**
+     * Constructor
+     * @param codeGenerator use this to generate code
+     */
+    @Inject
+    public SubcommandCreateEndpoint(@RestEndpointGeneratorProvider ICodeGenerator<RestEndpointDescriptor> codeGenerator) {
+        this.codeGenerator = codeGenerator;
+    }
 
 
     /* This is never called directly */
     @Override public Integer call() {
         validateInputs();
-
-        // create an EndpointDescriptor from commandline & config file
-        // create an endpointGenerator with the EndpointDescriptor
-        return 0;
+        var spec = buildRestEndpointDescriptor();
+        return codeGenerator.doPreprocessing(spec).generateCode(spec);
     }
 
     private void validateInputs() {
@@ -71,12 +88,11 @@ public class SubcommandCreateEndpoint implements Callable<Integer> {
                     String.format("%nERROR: %n\tThe resource name '%s' cannot be used; it will not produce a legal Java class name", resourceName));
         }
     }
-    /**
-     * Side-bar task to look up the project's framework, since the framework
-     * affects whether the code generator produces WebMVC or WebFlux controllers
-     */
-//    private SupportedFramework determineFramework(org.apache.commons.configuration2.Configuration configuration) {
-//        var s = configuration.getString(ProjectKeys.FRAMEWORK);
-//        return SupportedFramework.convert(s);
-//    }
+
+    private RestEndpointDescriptor buildRestEndpointDescriptor() {
+        return RestEndpointDescriptor.builder()
+                .resource(this.resourceName)
+                .route(this.resourceRoute)
+                .build();
+    }
 }

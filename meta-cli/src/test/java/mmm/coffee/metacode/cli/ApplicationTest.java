@@ -16,10 +16,12 @@
 package mmm.coffee.metacode.cli;
 
 import com.google.inject.*;
+import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.annotations.guice.WriteOutputProvider;
 import mmm.coffee.metacode.common.ExitCodes;
+import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
@@ -139,6 +141,12 @@ class ApplicationTest {
         @Provides
         @WriteOutputProvider
         WriteOutputTrait providesWriteOutput() { return new ContentToNullWriter(); }
+
+        @Provides
+        @RestEndpointGeneratorProvider
+        ICodeGenerator<RestEndpointDescriptor> providesRestEndpointGenerator() {
+            return new FakeEndpointGenerator();
+        }
     }
 
     /**
@@ -158,6 +166,13 @@ class ApplicationTest {
         }
 
         public FakeSpringCodeGenerator doPreprocessing(RestProjectDescriptor ignored) {
+            return this;
+        }
+    }
+
+    public static class FakeEndpointGenerator implements ICodeGenerator<RestEndpointDescriptor> {
+        public int generateCode(RestEndpointDescriptor d) { return 0; }
+        public FakeEndpointGenerator doPreprocessing(RestEndpointDescriptor d) {
             return this;
         }
     }

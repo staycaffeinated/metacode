@@ -23,7 +23,6 @@ import java.util.Map;
  */
 public class RestTemplateModelToMapConverter implements ConvertTrait<RestProjectTemplateModel, Map<String,String>> {
 
-
     public Map<String,String> convert (RestProjectTemplateModel model) {
         NameConverter nameConverter = new NameConverter();
 

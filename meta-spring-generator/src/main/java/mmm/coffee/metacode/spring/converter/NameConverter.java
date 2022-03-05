@@ -6,6 +6,8 @@ package mmm.coffee.metacode.spring.converter;
 import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
+
 /**
  * A collection of methods for converting names
  * of items, such as converting a resource name to
@@ -41,6 +43,8 @@ public class NameConverter {
     public String toEntityVariableName(@NonNull String resource) {
         return StringUtils.uncapitalize(resource);
     }
+
+    public String toLowerCaseEntityName(@NonNull String resource) { return resource.toLowerCase(Locale.ROOT); }
 
     /**
      * Base path must begin with a forward-slash ('/'), and the route must be
