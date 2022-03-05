@@ -115,7 +115,7 @@ class SubcommandCreateEndpointTests {
     @Test
     void shouldRejectInvalidResourceName() {
         // Given: the user attempts to create a resource with an invalid resourceName
-        String[] argv = StringHelper.toArgV("create endpoint --resource Pet#1 --route /pets");
+        String[] argv = StringHelper.toArgV("--resource Pet#1 --route /pets");
 
         // Expect the command is rejected
         int rc = commandLine.execute(argv);

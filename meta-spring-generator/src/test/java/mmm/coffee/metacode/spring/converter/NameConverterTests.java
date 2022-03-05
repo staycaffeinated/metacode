@@ -163,4 +163,84 @@ class NameConverterTests {
             assertThrows(NullPointerException.class, () -> converterUnderTest.packageNameToPath(null));
         }
     }
+
+    @Nested
+    class ToLowerCaseEntityNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // testValue,   expectedResult
+                "Pet,       pet",
+                "PET,       pet",
+                "pet,       pet",
+                "PetStore,  petstore"
+        })
+        void shouldBeLowerCaseValue(String testValue, String expectedValue) {
+            assertThat(converterUnderTest.toLowerCaseEntityName(testValue)).isEqualTo(expectedValue);
+        }
+
+        @Test
+        void shouldThrowNpeWhenArgIsNull() {
+            assertThrows(NullPointerException.class, () -> converterUnderTest.toLowerCaseEntityName(null));
+        }
+    }
+
+    @Nested
+    class ToPojoClassNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // testValue, classname for its POJO class
+                "Pet,       Pet",
+                "PET,       PET",
+                "pet,       Pet",
+                "PetStore,  PetStore"
+        })
+        void shouldConvertSuccessfully(String resourceName, String expectedValue) {
+            assertThat(converterUnderTest.toPojoClassName(resourceName)).isEqualTo(expectedValue);
+        }
+
+        @Test
+        void shouldThrowNpeWhenArgIsNull() {
+            assertThrows(NullPointerException.class, () -> converterUnderTest.toPojoClassName(null));
+        }
+    }
+
+    @Nested
+    class ToTableNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // resourceName,   tableName
+                "Pet,               Pet",
+                "PET,               PET",
+                "pet,               pet",
+                "PetStore,          PetStore"
+        })
+        void shouldConvertSuccessfully(String resourceName, String expectedValue) {
+            assertThat(converterUnderTest.toTableName(resourceName)).isEqualTo(expectedValue);
+        }
+
+        @Test
+        void shouldThrowNpeWhenArgIsNull() {
+            assertThrows(NullPointerException.class, () -> converterUnderTest.toTableName(null));
+        }
+    }
+
+    @Nested
+    class ToEjbClassNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // resourceName,   ejbClassName
+                "Pet,               PetEntityBean",
+                "PET,               PETEntityBean",
+                "pet,               PetEntityBean",
+                "PetStore,          PetStoreEntityBean"
+        })
+        void shouldConvertSuccessfully(String resourceName, String expectedValue) {
+            assertThat(converterUnderTest.toEjbClassName(resourceName)).isEqualTo(expectedValue);
+        }
+
+        @Test
+        void shouldThrowNpeWhenArgIsNull() {
+            assertThrows(NullPointerException.class, () -> converterUnderTest.toEjbClassName(null));
+        }
+    }
 }

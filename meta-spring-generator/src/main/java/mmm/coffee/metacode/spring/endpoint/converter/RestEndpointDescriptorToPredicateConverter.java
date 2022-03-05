@@ -26,11 +26,11 @@ public class RestEndpointDescriptorToPredicateConverter implements ConvertTrait<
      */
     @Override
     public Predicate<CatalogEntry> convert(RestEndpointDescriptor fromType) {
-        List<Predicate<CatalogEntry>> predicateList = collectPredicates(fromType);
+        List<Predicate<CatalogEntry>> predicateList = collectPredicates();
         return Predicates.or(predicateList);
     }
 
-    private List<Predicate<CatalogEntry>> collectPredicates(RestEndpointDescriptor descriptor) {
+    private List<Predicate<CatalogEntry>> collectPredicates() {
         List<Predicate<CatalogEntry>> resultSet = new ArrayList<>();
         resultSet.add ( CatalogEntryPredicates.isEndpointArtifact() );
         return resultSet;

@@ -61,7 +61,7 @@ public class NameConverter {
     }
 
     /**
-     * The dabase schema for JPA projects. Use this if a schema wasn't explicitly
+     * The database schema for JPA projects. Use this if a schema wasn't explicitly
      * defined on the command line
      * @param projectName the project name
      * @return the default schema name
@@ -70,15 +70,34 @@ public class NameConverter {
         return StringUtils.toRootLowerCase(projectName);
     }
 
-    public String toPojoClassName(String resourceName) {
+    /**
+     * The code generator produces an EJB class and a POJO class for each resource.
+     * This method conjures the name of the POJO class
+     * @param resourceName the resource handled by the endpoint, such as 'pet', 'owner', 'shoppingCart', 'invoice'
+     * @return the name to use for the POJO class
+     */
+    public String toPojoClassName(@NonNull String resourceName) {
         return StringUtils.capitalize(resourceName);
     }
 
-    public String toEjbClassName(String resourceName) {
+    /**
+     * The code generator produces an EJB class and a POJO class for each resource.
+     * This method conjures the name of the EJB class
+     * @param resourceName the resource handled by the endpoint, such as 'pet', 'owner', 'shoppingCart', 'invoice'
+     * @return the name to use for the EJB class
+     */
+    public String toEjbClassName(@NonNull String resourceName) {
         return StringUtils.capitalize(resourceName) + EJB_SUFFIX;
     }
 
-    public String toTableName(String resourceName) {
+    /**
+     * When the EJB class is generated, a custom database table name can be assigned to the EJB
+     * (rather than the default table name).
+     * This method conjures the database table name
+     * @param resourceName the resource handled by the endpoint, such as 'pet', 'owner', 'shoppingCart', 'invoice'
+     * @return the name to use for the EJB class
+     */
+    public String toTableName(@NonNull String resourceName) {
         return resourceName;
     }
 

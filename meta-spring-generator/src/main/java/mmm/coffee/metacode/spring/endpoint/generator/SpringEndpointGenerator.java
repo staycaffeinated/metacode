@@ -24,6 +24,10 @@ import org.apache.commons.configuration2.Configuration;
  * SpringEndpointGenerator
  */
 @SuperBuilder
+@SuppressWarnings({"java:S4738","java:S1602","java:S125"})
+// S4738: accepting Google Predicate class for now
+// S1602: false positive: comment around line 82 happens to look like a lambda function
+// S125: we're OK with comments that look like code
 public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescriptor> {
 
     private final Collector collector;
@@ -80,11 +84,11 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         // Render the templates
         collector.collect().stream().filter(keepThese).forEach( it -> {
             // essentially: it -> { writeIt ( renderIt(it) ) }
-            outputHandler.writeOutput (
+            outputHandler.writeOutput(
                     // CatalogEntry's use mustache expressions for destinations;
                     // we need to translate that expression that to its actual path
                     mustacheDecoder.decode(it.getDestination()),
-                    templateRenderer.render (it.getTemplate(), templateModel));
+                    templateRenderer.render(it.getTemplate(), templateModel));
         });
 
         return ExitCodes.OK;
