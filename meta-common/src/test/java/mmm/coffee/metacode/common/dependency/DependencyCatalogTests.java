@@ -18,7 +18,6 @@ package mmm.coffee.metacode.common.dependency;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;

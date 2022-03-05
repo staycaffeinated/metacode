@@ -5,8 +5,6 @@ package mmm.coffee.metacode.common.descriptor;
 
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
-
 import static com.google.common.truth.Truth.assertThat;
 
 /**

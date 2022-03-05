@@ -20,8 +20,8 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import lombok.NonNull;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
-import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
+import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 
 import java.io.IOException;
 import java.io.StringWriter;

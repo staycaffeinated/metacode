@@ -5,10 +5,8 @@ package mmm.coffee.metacode.spring.endpoint.context;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
-import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.spring.model.SpringTemplateModel;
 
 /**

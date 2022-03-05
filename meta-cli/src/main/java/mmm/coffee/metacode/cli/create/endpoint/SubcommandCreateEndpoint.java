@@ -16,7 +16,6 @@
 package mmm.coffee.metacode.cli.create.endpoint;
 
 import com.google.inject.Inject;
-import lombok.NonNull;
 import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
 import mmm.coffee.metacode.cli.mixin.DryRunOption;
 import mmm.coffee.metacode.cli.validation.ResourceNameValidator;

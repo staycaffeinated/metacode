@@ -9,8 +9,6 @@ import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.stereotype.Collector;
-import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
-import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;

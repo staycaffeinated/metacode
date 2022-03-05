@@ -7,8 +7,6 @@ import com.google.common.base.Predicate;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
-import mmm.coffee.metacode.common.dependency.DependencyCatalog;
-import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.io.MetaProperties;
@@ -20,7 +18,6 @@ import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
 import mmm.coffee.metacode.spring.endpoint.function.MustacheEndpointDecoder;
-import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
 import org.apache.commons.configuration2.Configuration;
 
 /**
