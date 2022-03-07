@@ -20,25 +20,36 @@ import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.dependency.Dependency;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
+import mmm.coffee.metacode.common.io.MetaProperties;
+import mmm.coffee.metacode.common.io.MetaPropertiesReader;
+import mmm.coffee.metacode.common.io.MetaPropertiesWriter;
 import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.writer.ContentToNullWriter;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
+import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.project.converter.DescriptorToMetaProperties;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
 import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
 import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
+import mmm.coffee.metacode.spring.project.io.SpringMetaPropertiesHandler;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 /**
@@ -62,7 +73,7 @@ class SpringCodeGeneratorTest {
     DependencyCatalog mockDependencyCollector;
     
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws Exception {
         // create a Collector that'll return some test data
         fakeCollector = new FakeCollector();
 
@@ -76,11 +87,14 @@ class SpringCodeGeneratorTest {
         mockDependencyCollector = Mockito.mock(DependencyCatalog.class);
         when(mockDependencyCollector.collect()).thenReturn(buildFakeDependencies());
 
+        SpringMetaPropertiesHandler mockHandler = setUpMetaPropertiesHandler();
+
         generatorUnderTest = SpringCodeGenerator.builder()
                 .collector(fakeCollector)
                 .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
                 .outputHandler(new ContentToNullWriter())
+                .metaPropertiesHandler(mockHandler)
                 .templateRenderer(mockRenderer)
                 .dependencyCatalog(mockDependencyCollector)
                 .mustacheDecoder(
@@ -94,7 +108,8 @@ class SpringCodeGeneratorTest {
         // Given: a basic project w/o any integrations enabled
         var descriptor = buildSampleDescriptor();
 
-        // expect: code generation is successful
+        // expect: basic workflow works
+        assertThat(generatorUnderTest.doPreprocessing(descriptor)).isNotNull();
         assertThat(generatorUnderTest.generateCode(descriptor)).isEqualTo(ExitCodes.OK);
     }
 
@@ -155,6 +170,25 @@ class SpringCodeGeneratorTest {
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
                 .basePath(BASE_PATH)
+                .build();
+    }
+
+    /**
+     * The codeGenerator's doPreprocessing method invokes the writer's saveProperties method.
+     * Since we don't need to actually save anything, saveProperties is mocked.
+     * @return a mocked instance of a SpringMetaPropertiesHandler
+     */
+    private SpringMetaPropertiesHandler setUpMetaPropertiesHandler() throws Exception {
+        var mockWriter = Mockito.mock(MetaPropertiesWriter.class);
+        doNothing().when(mockWriter).saveProperties(any());
+
+        var mockConverter = Mockito.mock(DescriptorToMetaProperties.class);
+        when(mockConverter.convert(any())).thenReturn(new HashMap<String,Object>());
+
+        // A Reader is not needed for any of these tests, so we leave it undefined
+        return SpringMetaPropertiesHandler.builder()
+                .converter(mockConverter )
+                .writer(mockWriter)
                 .build();
     }
 
