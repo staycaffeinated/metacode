@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
 
-    private static final String WEBMVC_CATALOG = "/spring/catalogs/spring-webmvc.yml";
+    public static final String WEBMVC_CATALOG = "/spring/catalogs/spring-webmvc.yml";
 
     /**
      * Constructor

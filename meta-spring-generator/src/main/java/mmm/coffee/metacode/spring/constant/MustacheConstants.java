@@ -21,11 +21,12 @@ public class MustacheConstants {
     public static final String BASE_PATH = "basePath";
 
     // These only apply to endpoint assets; these remain undefined for project assets.
+    public static final String EJB_NAME = "ejbName";
     public static final String ENTITY_NAME = "entityName";
     public static final String ENTITY_VAR_NAME = "entityVarName";
     public static final String ENTITY_NAME_LOWERCASE = "lowerCaseEntityName";
-
-
+    public static final String POJO_NAME = "pojoName";
+    
     // Hidden constructor
     private MustacheConstants() {}
 

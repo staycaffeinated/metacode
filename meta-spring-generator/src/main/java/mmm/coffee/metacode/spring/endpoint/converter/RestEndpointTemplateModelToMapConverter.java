@@ -24,6 +24,8 @@ public class RestEndpointTemplateModelToMapConverter implements ConvertTrait<Res
         map.put(MustacheConstants.ENTITY_NAME, model.getEntityName());
         map.put(MustacheConstants.ENTITY_VAR_NAME, model.getEntityVarName());
         map.put(MustacheConstants.ENTITY_NAME_LOWERCASE, model.getLowerCaseEntityName());
+        map.put(MustacheConstants.EJB_NAME, model.getEjbName());
+        map.put(MustacheConstants.POJO_NAME, model.getPojoName());
 
         return map;
     }

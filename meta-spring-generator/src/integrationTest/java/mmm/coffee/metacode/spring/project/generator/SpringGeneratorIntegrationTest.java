@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring;
+package mmm.coffee.metacode.spring.project.generator;
 
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
@@ -31,7 +31,7 @@ import static com.google.common.truth.Truth.assertThat;
  * SpringWebMvcCodeGeneratorIT
  */
 @Tag("integration")
-class SpringWebMvcCodeGeneratorIntegrationTest {
+class SpringGeneratorIntegrationTest {
 
     private static final String DEPENDENCY_FILE = "/spring/dependencies/dependencies.yml";
     private static final String TEMPLATE_DIRECTORY = "/spring/templates/";
