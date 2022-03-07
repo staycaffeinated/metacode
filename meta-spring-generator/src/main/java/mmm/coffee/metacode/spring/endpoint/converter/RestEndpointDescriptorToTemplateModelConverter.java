@@ -28,13 +28,43 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
      */
     @Override
     public RestEndpointTemplateModel convert(RestEndpointDescriptor fromType) {
+        final String resourceName = fromType.getResource();
+        final String packageName = buildPackageName(fromType);
+        final String packagePath = nameConverter.packageNameToPath(packageName);
+
         return RestEndpointTemplateModel.builder()
                 .basePackage(fromType.getBasePackage())
+                .basePackagePath(nameConverter.packageNameToPath(fromType.getBasePackage()))
                 .basePath(fromType.getBasePath())
+                .ejbName(nameConverter.toEntityName(resourceName))
+                .entityName(nameConverter.toEntityName(resourceName))
+                .entityVarName(nameConverter.toEntityVariableName(resourceName))
                 .framework(fromType.getFramework())
-                .entityName(nameConverter.toEntityName(fromType.getResource()))
-                .entityVarName(nameConverter.toEntityVariableName(fromType.getResource()))
-                .lowerCaseEntityName(nameConverter.toLowerCaseEntityName(fromType.getResource()))
-                .build();         
+                .lowerCaseEntityName(nameConverter.toLowerCaseEntityName(resourceName))
+                .packageName(packageName)
+                .packagePath(packagePath)
+                .pojoName(nameConverter.toPojoClassName(resourceName))
+                .resource(fromType.getResource())
+                .route(fromType.getRoute())
+                .tableName(nameConverter.toTableName(resourceName))
+                .build();
+    }
+
+    /**
+     * Returns the package name into which classes (and sub-packages) specific to this endpoint
+     * are placed. For better cohesion of the classes, all classes that support and endpoint,
+     * such as the Controller, Repository, Service classes, are all placed in a package named
+     * something like: '{{basePackage}}.endpoint.pet' or '{{basePackage}}.endpoint.owner'.
+     *
+     * @param descriptor contains the command-line values entered by the end-user
+     * @return the package name for this endpoint's classes and sub-packages.
+     */
+    private String buildPackageName(RestEndpointDescriptor descriptor) {
+        final String resourceName = descriptor.getResource();
+        final String lowerCaseName = nameConverter.toLowerCaseEntityName(resourceName);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(descriptor.getBasePackage()).append(".endpoint.").append(lowerCaseName);
+        return sb.toString();
     }
 }
