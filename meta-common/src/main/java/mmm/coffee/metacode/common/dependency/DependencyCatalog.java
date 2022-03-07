@@ -29,12 +29,25 @@ import java.util.List;
 public class DependencyCatalog implements DependencyCollector {
 
     private final String resourceName;
+    private final DependencyCatalogReader reader;
 
     /**
-     * Constructor
+     * This constructor creates a default DependencyCatalogReader.
      */
     public DependencyCatalog(@NonNull String resourceName) {
         this.resourceName = resourceName;
+        reader = new DependencyCatalogReader();
+    }
+
+    /**
+     * This constructor allows all fields to be defined by the caller.
+     * @param resourceName the classpath of the resource file,
+     *                     such as "/spring/dependencies/dependencies.yml"
+     * @param reader a reader capable of parsing the dependencies.yml file
+     */
+    public DependencyCatalog(@NonNull String resourceName, @NonNull DependencyCatalogReader reader) {
+        this.resourceName = resourceName;
+        this.reader = reader;
     }
 
     /**
@@ -49,7 +62,7 @@ public class DependencyCatalog implements DependencyCollector {
     @Override
     public List<Dependency> collect() {
         try {
-            return new DependencyCatalogReader().readLibraryCatalog(resourceName);
+            return reader.readLibraryCatalog(resourceName);
         } catch (IOException e) {
             throw new RuntimeApplicationError(e.getMessage(), e);
         }

@@ -7,6 +7,7 @@ import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.spring.converter.NameConverter;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -54,6 +55,15 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
         assertThat(model.getPojoName()).isNotEmpty();
         assertThat(model.getTableName()).isNotEmpty();
         assertThat(model.getTopLevelVariable()).isEqualTo(MetaTemplateModel.Key.ENDPOINT.value());
+    }
+
+    @Test
+    @Tag("coverage")
+    void shouldCreateInstanceWithBuilderAPI() {
+        var converter = RestEndpointDescriptorToTemplateModelConverter
+                .builder().nameConverter(new NameConverter()).build();
+
+        assertThat(converter).isNotNull();
     }
 
 }

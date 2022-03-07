@@ -15,13 +15,19 @@
  */
 package mmm.coffee.metacode.common.dependency;
 
+import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit tests
@@ -45,5 +51,20 @@ class DependencyCatalogTests {
     @Test
     void shouldDisallowNullCatalogName() {
         assertThrows(NullPointerException.class, () -> new DependencyCatalog(null));
+    }
+
+    /**
+     * If an IOException occurs when the code attempts to read
+     * the dependencies.yml file, the IOException should be wrapped
+     * in a RuntimeApplicationError
+     */
+    @Test
+    void shouldThrowRuntimeApplicationError() throws Exception {
+        var mockReader = Mockito.mock(DependencyCatalogReader.class);
+        when(mockReader.readLibraryCatalog(any())).thenThrow(IOException.class);
+
+        DependencyCatalog catalog = new DependencyCatalog(TEST_CATALOG, mockReader);
+
+        assertThrows(RuntimeApplicationError.class, () -> catalog.collect());
     }
 }

@@ -18,6 +18,7 @@ package mmm.coffee.metacode.spring.catalog;
 import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
+import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import mmm.coffee.metacode.common.stereotype.Collector;
 
 import java.io.IOException;
@@ -27,9 +28,8 @@ import java.util.List;
 /**
  * Base class for loading the catalog entries
  */
-@SuppressWarnings( { "java:S125", "java:S106" })
+@SuppressWarnings( { "java:S125" })
 // S125: we're OK with comments that look like code
-// S106: adding a proper logger instead of using syserr is on the roadmap
 public abstract class SpringTemplateCatalog implements Collector {
 
     private static final String[] SPRING_CATALOGS = {
@@ -60,40 +60,9 @@ public abstract class SpringTemplateCatalog implements Collector {
                 resultSet.addAll(reader.readCatalogFile(specificCatalog));
             }
             catch (IOException e) {
-                System.err.println(e.getMessage());
+                throw new RuntimeApplicationError("Error when reading Spring template catalogs", e);
             }
         }
         return resultSet;
     }
-    
-    // NOTES:
-        // read all the CatalogEntry's from all catalogs
-        // filter ( allCatalogs, isCommonUsage() ).collect(resultSet.addAll())
-        // if (descriptor.isWebFlux())
-        //    filter ( allCatalogs, isWebFlux() ).collect(resultSet.addAll())
-        // else if (descriptor.isWebMvc() )
-        //    filter ( allCatalogs, isWebMvc() ).collect(resultSet.addAll())
-        // filter (allCatalogs, isPostgres() ).collect(resultSet.addAll())
-        // filter (allCatalogs, isTestContainer()).collect(resultSet.addAll())
-
-        // Set<Predicate> predicates = DescriptorToPredicatesConverter.convert(descriptor);
-        // eg:
-        //      addPredicate( CommonUsagePredicate() )
-        //      addPredicate( WebFluxPredicate() )
-        //      addPredicate( PostgresPredicate() )
-        //      addPredicate( TestContainerPredicate() )
-        // predicates.forEach(p ->
-        //    filter (allCatalogs, p ).collect(resultSet.addAll())
-        //
-        // something like this might work nicely:
-        // -- this combines all the Predicate's into an Or chain of predicates
-        //    (that is, a.or.b.or.c.or.d; e.g.: commonUsage.or.webFlux.or.postgres.or.testcontainer
-        // -- got this from baeldung site. 
-        // allCatalogs.filter( allPredicates.stream().reduce(x->false, Predicate::or) ).collect(Collectors.toList());
-        //
-        // Also look at: https://stackoverflow.com/questions/22845574/how-to-dynamically-do-filtering-in-java-8
-        // We could define a Criteria, which is a chain of Predicates.
-        // allowing us to do something like:
-        //    allCriteria.apply ( allCatalogs.stream() ).forEach ( resultSet::add );
-    
 }
