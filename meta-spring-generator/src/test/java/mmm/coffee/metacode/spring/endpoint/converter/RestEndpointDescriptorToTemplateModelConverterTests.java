@@ -70,4 +70,24 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
         assertThat(converter).isNotNull();
     }
 
+    /**
+     * If the route entered on the command line does not
+     * begin with a forward slash, the converter should add
+     * to avoid errors at runtime that can be difficult to identify.
+     */
+    @Test
+    void shouldPrefaceRouteWithForwardSlash() {
+        var spec = RestEndpointDescriptor.builder()
+                .basePackage(BASE_PACKAGE)
+                .basePath(BASE_PATH)
+                .framework(WEBFLUX)
+                .resource("Owner")
+                .route("owner")
+                .build();
+
+        var model = converterUnderTest.convert(spec);
+
+        assertThat(model.getRoute()).startsWith("/");
+    }
+
 }
