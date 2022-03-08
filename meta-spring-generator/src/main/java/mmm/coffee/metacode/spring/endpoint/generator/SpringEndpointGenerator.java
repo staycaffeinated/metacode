@@ -30,7 +30,10 @@ import org.apache.commons.configuration2.Configuration;
 // S125: we're OK with comments that look like code
 public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescriptor> {
 
-    private final Collector collector;
+    // At this time, we don't know which Collector to use until the doPreprocessing
+    // method is called, because we have one collector for WebMvc templates, and a
+    // different collector for WebFlux. This choice is worth revisiting.   
+    private Collector collector;
     private final ConvertTrait<RestEndpointDescriptor, RestEndpointTemplateModel> descriptor2templateModel;
     private final ConvertTrait<RestEndpointDescriptor, Predicate<CatalogEntry>> descriptor2predicate;
     private final TemplateResolver<MetaTemplateModel> templateRenderer;
@@ -56,9 +59,8 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         Configuration config = metaPropertiesHandler.readMetaProperties();
         spec.setBasePackage(config.getString(MetaProperties.BASE_PACKAGE));
         spec.setBasePath(config.getString(MetaProperties.BASE_PATH));
-
         spec.setFramework(config.getString(MetaProperties.FRAMEWORK));
-        
+
         return this;
     }
 
@@ -86,7 +88,7 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
             // essentially: it -> { writeIt ( renderIt(it) ) }
             outputHandler.writeOutput(
                     // CatalogEntry's use mustache expressions for destinations;
-                    // we need to translate that expression that to its actual path
+                    // we need to translate that expression that to its canonical-ish path
                     mustacheDecoder.decode(it.getDestination()),
                     templateRenderer.render(it.getTemplate(), templateModel));
         });

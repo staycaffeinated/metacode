@@ -10,9 +10,6 @@ import mmm.coffee.metacode.common.catalog.CatalogEntryPredicates;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * RestEndpointDescriptorToPredicateConverter
  */
@@ -26,13 +23,15 @@ public class RestEndpointDescriptorToPredicateConverter implements ConvertTrait<
      */
     @Override
     public Predicate<CatalogEntry> convert(RestEndpointDescriptor fromType) {
-        List<Predicate<CatalogEntry>> predicateList = collectPredicates();
-        return Predicates.or(predicateList);
-    }
-
-    private List<Predicate<CatalogEntry>> collectPredicates() {
-        List<Predicate<CatalogEntry>> resultSet = new ArrayList<>();
-        resultSet.add ( CatalogEntryPredicates.isEndpointArtifact() );
-        return resultSet;
+        if (fromType.isWebFlux()) {
+            // isEndpointTemplate AND isWebFluxTemplate
+            return Predicates.and(CatalogEntryPredicates.isEndpointArtifact(),
+                    CatalogEntryPredicates.isWebFluxArtifact());
+        }
+        else {
+            // isEndpointTemplate and isWebMvcTemplate
+            return Predicates.and(CatalogEntryPredicates.isEndpointArtifact(),
+                    CatalogEntryPredicates.isWebMvcArtifact());
+        }
     }
 }

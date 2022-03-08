@@ -20,6 +20,7 @@ import com.google.common.collect.ImmutableSet;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Set;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -123,11 +124,26 @@ class CatalogEntryPredicatesTests {
         assertThat(predicate.apply(entry)).isFalse();
     }
 
+    @Test
+    void shouldOnlyKeepWebFluxTemplates() {
+        Set<CatalogEntry> dataSet = buildFrameworkMixtureSampleSet();
+        Set<CatalogEntry> result = CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.isWebFluxArtifact());
+        assertThat(result.size()).isEqualTo(3);
+    }
 
-    /**
-     * Helper method to build test data
-     * @return the test data
-     */
+    @Test
+    void shouldOnlyKeepWebMvcTemplates() {
+        Set<CatalogEntry> dataSet = buildFrameworkMixtureSampleSet();
+        Set<CatalogEntry> result = CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.isWebMvcArtifact());
+        assertThat(result.size()).isEqualTo(3);
+    }
+
+    // ------------------------------------------------------------------------------
+    //
+    // Helper Methods
+    //
+    // ------------------------------------------------------------------------------
+
     private static Set<CatalogEntry> buildSampleSet() {
         CatalogEntry e1 = buildEntry("Application.ftl","Application.java", null, "project");
         CatalogEntry e2 = buildEntry("Controller.ftl", "Controller.java", null, "project");
@@ -139,19 +155,26 @@ class CatalogEntryPredicatesTests {
     }
 
     private static Set<CatalogEntry> buildEndpointSampleSet() {
-        CatalogEntry e1 = buildEntry("Service.ftl","PetService.java", null, "endpoint");
-        CatalogEntry e2 = buildEntry("Controller.ftl", "PetController.java", null, "endpoint");
-        CatalogEntry e3 = buildEntry("Repository.ftl", "PetRepository.java", null, "endpoint");
+        CatalogEntry e1 = buildEntry("/webflux/Service.ftl","PetService.java", null, "endpoint");
+        CatalogEntry e2 = buildEntry("/webflux/Controller.ftl", "PetController.java", null, "endpoint");
+        CatalogEntry e3 = buildEntry("/webmvc/Repository.ftl", "PetRepository.java", null, "endpoint");
 
         return ImmutableSet.of(e1, e2, e3);
     }
 
-    private static Set<CatalogEntry> buildEndpointSampleWithNullContext() {
-        CatalogEntry e1 = buildEntry("Service.ftl","PetService.java", null, "endpoint");
-        CatalogEntry e2 = buildEntry("Controller.ftl", "PetController.java", null, "endpoint");
-        CatalogEntry e3 = buildEntry("Repository.ftl", "PetRepository.java", null, "endpoint");
+    /**
+     * Return a sample set that includes both WebMvc and WebFlux templates
+     * to enable verifying the Predicate can tell the difference.
+     */
+    private static Set<CatalogEntry> buildFrameworkMixtureSampleSet() {
+        CatalogEntry e1 = buildEntry("/webflux/Service.ftl","PetService.java", null, "endpoint");
+        CatalogEntry e2 = buildEntry("/webflux/Controller.ftl", "PetController.java", null, "endpoint");
+        CatalogEntry e3 = buildEntry("/webflux/Repository.ftl", "PetRepository.java", null, "endpoint");
+        CatalogEntry e4 = buildEntry("/webmvc/Service.ftl","PetService.java", null, "endpoint");
+        CatalogEntry e5 = buildEntry("/webmvc/Controller.ftl", "PetController.java", null, "endpoint");
+        CatalogEntry e6 = buildEntry("/webmvc/Repository.ftl", "PetRepository.java", null, "endpoint");
 
-        return ImmutableSet.of(e1, e2, e3);
+        return ImmutableSet.of(e1, e2, e3, e4, e5, e6);
     }
 
     /**

@@ -45,6 +45,19 @@ public class CatalogEntryPredicates {
         return p -> p.getContext() != null && p.getContext().contains("endpoint");
     }
 
+    /**
+     * Returns {@code true} if the CatalogEntry is for a webflux artifact
+     */
+    public static Predicate<CatalogEntry> isWebFluxArtifact() {
+        return p -> p.getTemplate() != null && p.getTemplate().contains("/webflux/");
+    }
+
+    /**
+     * Returns {@code true} if the CatalogEntry is for a webmvc artifact
+     */
+    public static Predicate<CatalogEntry> isWebMvcArtifact() {
+        return p -> p.getTemplate() != null && p.getTemplate().contains("/webmvc/");
+    }
 
     /**
      * Returns {@code true} if the CatalogEntry's tags includes {@code postgres}

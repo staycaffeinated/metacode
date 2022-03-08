@@ -22,6 +22,7 @@ import mmm.coffee.metacode.annotations.guice.*;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
+import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
 import mmm.coffee.metacode.common.freemarker.FreemarkerTemplateResolver;
@@ -33,8 +34,16 @@ import mmm.coffee.metacode.common.io.MetaPropertiesWriter;
 import mmm.coffee.metacode.common.stereotype.DependencyCollector;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.common.writer.ContentToFileWriter;
+import mmm.coffee.metacode.spring.catalog.SpringEndpointCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
+import mmm.coffee.metacode.spring.converter.NameConverter;
+import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
+import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToTemplateModelConverter;
+import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.endpoint.function.MustacheEndpointDecoder;
+import mmm.coffee.metacode.spring.endpoint.generator.SpringEndpointGenerator;
+import mmm.coffee.metacode.spring.endpoint.io.SpringEndpointMetaPropertiesHandler;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToMetaProperties;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
@@ -130,6 +139,35 @@ public final class SpringGeneratorModule extends AbstractModule {
                 .writer(MetaPropertiesWriter.builder()
                         .destinationFile(MetaProperties.DEFAULT_FILENAME)
                         .configuration(new PropertiesConfiguration())
+                        .build())
+                .build();
+    }
+
+    @Provides
+    @RestEndpointGeneratorProvider
+    ICodeGenerator<RestEndpointDescriptor> providesRestEndpointGenerator() {
+        var converterO1 = new RestEndpointTemplateModelToMapConverter();
+
+        return SpringEndpointGenerator.builder()
+                .collector(new SpringEndpointCatalog(new CatalogFileReader()))
+                .descriptor2predicate(new RestEndpointDescriptorToPredicateConverter())
+                .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter()))
+                .metaPropertiesHandler(providesEndpointMetaPropertiesHandler())
+                .mustacheDecoder(MustacheEndpointDecoder.builder()
+                        .converter(converterO1)
+                        .build())
+                .outputHandler(providesWriteOutput())
+                .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
+                .build();
+    }
+
+    @Provides
+    @EndpointMetaPropertiesHandlerProvider
+    MetaPropertiesHandler<RestEndpointDescriptor> providesEndpointMetaPropertiesHandler() {
+        return SpringEndpointMetaPropertiesHandler.builder()
+                .reader(MetaPropertiesReader.builder()
+                        .propertyFileName(MetaProperties.DEFAULT_FILENAME)
+                        .configurations(new Configurations())
                         .build())
                 .build();
     }

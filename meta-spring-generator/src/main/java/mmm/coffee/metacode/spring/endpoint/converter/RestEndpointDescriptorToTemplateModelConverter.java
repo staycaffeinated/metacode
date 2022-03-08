@@ -36,7 +36,7 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
                 .basePackage(fromType.getBasePackage())
                 .basePackagePath(nameConverter.packageNameToPath(fromType.getBasePackage()))
                 .basePath(fromType.getBasePath())
-                .ejbName(nameConverter.toEntityName(resourceName))
+                .ejbName(nameConverter.toEjbClassName(resourceName))
                 .entityName(nameConverter.toEntityName(resourceName))
                 .entityVarName(nameConverter.toEntityVariableName(resourceName))
                 .framework(fromType.getFramework())

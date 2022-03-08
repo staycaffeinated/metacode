@@ -3,6 +3,7 @@
  */
 package mmm.coffee.metacode.spring.endpoint.io;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.io.MetaPropertiesHandler;
@@ -18,6 +19,7 @@ import org.apache.commons.configuration2.Configuration;
  * behavior defined in {@code MetaPropertiesHandler} is to do nothing, which suits our needs).
  */
 @Builder
+@AllArgsConstructor
 public class SpringEndpointMetaPropertiesHandler implements MetaPropertiesHandler<RestEndpointDescriptor> {
     private MetaPropertiesReader reader;
 

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class SpringWebFluxTemplateCatalog extends SpringTemplateCatalog {
 
-    private static final String WEBFUX_CATALOG = "/spring/catalogs/spring-webflux.yml";
+    static final String WEBFUX_CATALOG = "/spring/catalogs/spring-webflux.yml";
 
     /**
      * Constructor
