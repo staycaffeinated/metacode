@@ -9,7 +9,7 @@ public class ${endpoint.entityName}Routes {
 
     private ${endpoint.entityName}Routes() {}
 
-    public static final String BASE_PATH = "${endpoint.basePath}";
+    public static final String BASE_PATH = "${endpoint.route}";
     public static final String ID_PARAM = "/{id}";
 
     public static final String GET_ONE = BASE_PATH + ID_PARAM;

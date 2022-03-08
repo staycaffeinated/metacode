@@ -29,6 +29,4 @@ public class WebMvcTemplateModel extends RestProjectTemplateModel {
     private boolean enableTestContainers;
     private boolean enablePostgres;
     private boolean enableLiquibase;
-
-    public boolean isWebMvc() { return true; }
 }

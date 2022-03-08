@@ -43,6 +43,10 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
         assertThat(model.getResource()).isEqualTo(RESOURCE);
         assertThat(model.getRoute()).isEqualTo(ROUTE);
 
+        // This test explicitly set the framework to webflux, so test the toggles
+        assertThat(model.isWebFlux()).isTrue();
+        assertThat(model.isWebMvc()).isFalse();
+
         // The NameConverter determines _how_ names are converted, and tests of
         // the NameConverter verify the results of the various conversions.
         // Rather than repeat those tests, we've elected here to only check for

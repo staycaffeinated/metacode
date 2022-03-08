@@ -23,6 +23,13 @@ public enum Framework {
     }
     public final String frameworkName() { return frameworkName; }
 
+    public static final Framework toFramework(String s) {
+        if (s == null) return UNDEFINED;
+        if (s.equals("WEBMVC")) return SPRING_WEBMVC;
+        if (s.equals("WEBFLUX")) return SPRING_WEBFLUX;
+        return UNDEFINED;
+    }
+
     public boolean isWebMvc() {
         return SPRING_WEBMVC.frameworkName.equals(frameworkName);
     }

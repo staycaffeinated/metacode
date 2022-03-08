@@ -49,4 +49,22 @@ class RestEndpointDescriptorTest {
         assertThat(descriptor.getResource()).isEqualTo(SAMPLE_RESOURCE);
         assertThat(descriptor.getRoute()).isEqualTo(SAMPLE_ROUTE);
     }
+
+    @Test
+    void shouldRecognizeWebFluxFramework() {
+        var descriptor = RestEndpointDescriptor.builder()
+                .framework(Framework.SPRING_WEBFLUX.frameworkName()).build();
+
+        assertThat(descriptor.isWebFlux()).isTrue();
+        assertThat(descriptor.isWebMvc()).isFalse();
+    }
+
+    @Test
+    void shouldRecognizeWebMvcFramework() {
+        var descriptor = RestEndpointDescriptor.builder()
+                .framework(Framework.SPRING_WEBMVC.frameworkName()).build();
+
+        assertThat(descriptor.isWebMvc()).isTrue();
+        assertThat(descriptor.isWebFlux()).isFalse();
+    }
 }

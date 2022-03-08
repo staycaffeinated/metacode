@@ -16,6 +16,7 @@
 package mmm.coffee.metacode.spring.project.converter;
 
 import lombok.NonNull;
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
@@ -30,7 +31,7 @@ public class DescriptorToWebMvcTemplateModel implements ConvertTrait<RestProject
                 .applicationName(descriptor.getApplicationName())
                 .basePackage(descriptor.getBasePackage())
                 .basePath(descriptor.getBasePath())
-                .isWebMvc(true)
+                .framework(Framework.SPRING_WEBMVC.frameworkName())
                 .enableLiquibase(descriptor.getIntegrations().contains(WebMvcIntegration.LIQUIBASE.name()))
                 .enablePostgres(descriptor.getIntegrations().contains(WebMvcIntegration.POSTGRES.name()))
                 .enableTestContainers(descriptor.getIntegrations().contains(WebMvcIntegration.TESTCONTAINERS.name()))

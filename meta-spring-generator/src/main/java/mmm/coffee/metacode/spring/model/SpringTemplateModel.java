@@ -28,28 +28,22 @@ public abstract class SpringTemplateModel implements MetaTemplateModel {
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.NONE)       // we provide a custom getter
-    private String framework;
+    private String framework;       // This is a String because the templates expect a string
+                                    // Future task: refactor to use the Enum here, and have
+                                    // templates use 'framework.isWebFlux', 'framework.isWebMvc'
 
     /**
-     * Toggle the Spring WebFlux flag which, when true,
-     * directs the code generator to use spring-webflux libraries
+     * Returns {@code true} if {@code framework} is spring-webflux
      */
-    public void isWebFlux(boolean value) {
-        this.isWebFlux = value;
-        if (value) setFramework(Framework.WEBFLUX.value());
-    }
-
-    public boolean isWebFlux() {
-        return this.isWebFlux;
+    public final boolean isWebFlux() {
+        return Framework.WEBFLUX.value().equals(framework);
     }
 
     /**
-     * Toggle the Spring WebMvc flag which, when true,
-     * directs the code generator to use spring-webmvc libraries
+     * Returns {@code true} if {@code framework} is spring-webmvc
      */
-    public void isWebMvc(boolean value) {
-        this.isWebMvc = value;
-        if (value) setFramework (Framework.WEBMVC.value());
+    public final boolean isWebMvc() {
+        return Framework.WEBMVC.value().equals(framework);
     }
     /**
      * Returns the framework (WebMvc or WebFlux).

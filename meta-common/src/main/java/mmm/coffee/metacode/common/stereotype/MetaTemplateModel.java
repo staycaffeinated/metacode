@@ -53,6 +53,9 @@ public interface MetaTemplateModel {
         private final String value;
         Framework(String value) { this.value = value; }
         public String value() { return value; }
+
+        public final boolean isWebFlux() { return WEBFLUX.value.equals(this.value); }
+        public final boolean isWebMvc() { return WEBMVC.value.equals(this.value); }
     }
 
 

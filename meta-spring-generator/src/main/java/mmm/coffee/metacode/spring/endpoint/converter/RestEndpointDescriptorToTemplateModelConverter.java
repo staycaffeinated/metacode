@@ -47,6 +47,8 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
                 .resource(fromType.getResource())
                 .route(fromType.getRoute())
                 .tableName(nameConverter.toTableName(resourceName))
+                .isWebFlux(fromType.isWebFlux())
+                .isWebMvc(fromType.isWebMvc())
                 .build();
     }
 

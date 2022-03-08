@@ -15,8 +15,7 @@
  */
 package mmm.coffee.metacode.common.descriptor;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
@@ -53,13 +52,18 @@ public class RestEndpointDescriptor {
      */
     private String framework;
 
-    /**
-     * Toggle this to TRUE to enable generating reactive code (ie: using spring-webflux)
-     */
-    private boolean isWebFlux;
 
-    /**
-     * Toggle this to TRUE to enable generating synchronous code (ie: using spring-webmvc)
-     */
-    private boolean isWebMvc;
+    public final String getFramework() {
+        if (framework != null) {
+            return framework;
+        }
+        return Framework.UNDEFINED.frameworkName();
+    }
+
+    public final boolean isWebMvc() {
+        return framework != null && Framework.toFramework(framework).isWebMvc();
+    }
+    public final boolean isWebFlux() {
+        return framework != null && Framework.toFramework(framework).isWebFlux();
+    }
 }
