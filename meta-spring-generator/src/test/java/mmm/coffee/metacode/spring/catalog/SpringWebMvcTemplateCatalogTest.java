@@ -73,6 +73,11 @@ class SpringWebMvcTemplateCatalogTest {
         });
     }
 
+    @Test
+    void shouldThrowExceptionWhenReaderArgIsNull() {
+        assertThrows(NullPointerException.class, () -> new SpringWebMvcTemplateCatalog(null));
+    }
+
     // -----------------------------------------------------------------------------
     //
     // Helper methods

@@ -16,7 +16,7 @@ import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.writer.ContentToNullWriter;
-import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
+import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.converter.NameConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToTemplateModelConverter;
@@ -25,6 +25,7 @@ import mmm.coffee.metacode.spring.endpoint.function.MustacheEndpointDecoder;
 import mmm.coffee.metacode.spring.endpoint.io.SpringEndpointMetaPropertiesHandler;
 import org.apache.commons.configuration2.Configuration;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -37,7 +38,8 @@ import static org.mockito.Mockito.when;
  * defined.  The production code templates are read and rendered,
  * with the rendered content written to /dev/null.
  */
-class WebFluxEndpointGeneratorIntegrationTest {
+@Tag("integration")
+class SpringEndpointGeneratorForWebMvcTests {
 
     private static final String TEMPLATE_DIRECTORY = "/spring/templates/";
 
@@ -100,7 +102,7 @@ class WebFluxEndpointGeneratorIntegrationTest {
     }
 
     private Collector setUpTemplateCollector() {
-        return new SpringWebFluxTemplateCatalog(new CatalogFileReader());
+        return new SpringWebMvcTemplateCatalog(new CatalogFileReader());
     }
 
     private TemplateResolver<MetaTemplateModel> setUpTemplateResolver() {
