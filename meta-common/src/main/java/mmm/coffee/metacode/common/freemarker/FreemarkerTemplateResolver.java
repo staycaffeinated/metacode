@@ -26,6 +26,7 @@ import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +72,11 @@ public class FreemarkerTemplateResolver implements TemplateResolver<MetaTemplate
             Map<String,Object> map = new HashMap<>();
             map.put(dataModel.getTopLevelVariable(), dataModel);
 
+            // Add a top-level variable, YEAR, that has the current year.
+            // This is used is the Copyright header, which gets used by
+            // both the project and endpoint code generators
+            map.put("YEAR", currentYear());
+
             // Parse and render the template
             var writer = new StringWriter();
             template.process(map, writer);
@@ -79,5 +85,9 @@ public class FreemarkerTemplateResolver implements TemplateResolver<MetaTemplate
         catch (TemplateException | IOException e) {
             throw new RuntimeApplicationError(e.getMessage());
         }
+    }
+
+    private String currentYear() {
+        return String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
     }
 }
