@@ -45,7 +45,8 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
                 .packagePath(packagePath)
                 .pojoName(nameConverter.toPojoClassName(resourceName))
                 .resource(fromType.getResource())
-                .route(fromType.getRoute())
+                // ensure route begins with forward slash
+                .route(nameConverter.toBasePathUrl(fromType.getRoute()))
                 .tableName(nameConverter.toTableName(resourceName))
                 .isWebFlux(fromType.isWebFlux())
                 .isWebMvc(fromType.isWebMvc())

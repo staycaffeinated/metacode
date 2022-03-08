@@ -138,6 +138,36 @@ class CatalogEntryPredicatesTests {
         assertThat(result.size()).isEqualTo(3);
     }
 
+    /**
+     * This test verifies that predicates that inspect the
+     * {@code template} instance variable of a CatalogEntry handle nulls
+     */
+    @Test
+    void shouldRejectCatalogEntryWhenTemplateIsNull() {
+        CatalogEntry entry = new CatalogEntry();
+        ImmutableSet<CatalogEntry> dataSet = ImmutableSet.of(entry);
+
+        assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.isCommonProjectArtifact())).isEmpty();
+        assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.isCommonProjectArtifact())).isEmpty();
+        assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.isWebFluxArtifact())).isEmpty();
+        assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.isWebMvcArtifact())).isEmpty();
+    }
+
+    /**
+     * This test verifies that predicates that inspect the {@code tag}
+     * instance variable of a CatalogEntry handle nulls
+     */
+    @Test
+    void shouldRejectCatalogEntryWhenTagIsNull() {
+        CatalogEntry entry = new CatalogEntry();
+        ImmutableSet<CatalogEntry> dataSet = ImmutableSet.of(entry);
+
+        assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.hasLiquibaseTag())).isEmpty();
+        assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.hasTestContainerTag())).isEmpty();
+        assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.hasPostgresTag())).isEmpty();
+
+    }
+
     // ------------------------------------------------------------------------------
     //
     // Helper Methods
