@@ -1,0 +1,25 @@
+project:
+  name: metacode 
+  version: 0.1.0
+  description: Code generator for Spring-based projects 
+  longDescription: Generates code for a Spring-based project, including comprehensive test cases
+  website: https://github.com/staycaffeinated/metacode
+  authors:
+    - JonC
+  license: Apache-2
+  java:
+    groupId: mmm.coffee.metacode
+    version: 8
+  extraProperties:
+    inceptionYear: 2022
+
+release:
+  github:
+    owner: staycaffeinated 
+
+distributions:
+  app:
+    artifacts:
+      - path: ./meta-cli/build/distributions/meta-cli-shadow-{{projectVersion}}.tar
+
+
