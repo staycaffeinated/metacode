@@ -33,19 +33,19 @@ class RootControllerTest {
 
     @Test
     void testMonoStream() {
-        webClient.get().uri("${project.basePath}/mono").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk();
+        webClient.get().uri("/mono").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk();
     }
 
     @Test
     void testMonoResponse() {
-        Flux<String> msg = webClient.get().uri("${project.basePath}/mono").exchange().expectStatus().isOk()
+        Flux<String> msg = webClient.get().uri("/mono").exchange().expectStatus().isOk()
             .returnResult(String.class).getResponseBody().log();
         StepVerifier.create(msg).expectSubscription().expectNext("OK").verifyComplete();
     }
 
     @Test
     void testFluxStream() {
-        webClient.get().uri("${project.basePath}/flux").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk();
+        webClient.get().uri("/flux").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk();
     }
 
     /**

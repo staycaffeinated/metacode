@@ -17,7 +17,7 @@ import java.time.Duration;
  */
 @RestController
 <#noparse>
-@RequestMapping("${spring.webflux.base-path}")
+@RequestMapping("/")
 </#noparse>
 @Slf4j
 public class RootController {
@@ -32,16 +32,24 @@ public class RootController {
     }
 
     /*
-     * An example Mono stream
+     * A placeholder for the home page
+     */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<String> getHome() {
+      return Mono.just("Success").log();
+    }
+
+    /*
+     * An example of returning a Mono stream
      */
     @GetMapping (value= "/mono", produces = MediaType.APPLICATION_JSON_VALUE )
-    public Mono<String> getHome() {
+    public Mono<String> getMono() {
         rootService.doNothing();
         return Mono.just("OK").log();
     }
     
     /**
-	 * An example Flux stream
+	 * An example of returning a Flux stream
 	 */
 	@GetMapping(value="/flux", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Flux<String> getFlux() {
