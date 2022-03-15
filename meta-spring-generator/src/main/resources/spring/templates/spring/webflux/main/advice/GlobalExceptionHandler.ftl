@@ -5,11 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import ${project.basePackage}.exception.ResourceNotFoundException;
 import ${project.basePackage}.exception.UnprocessableEntityException;
 
+import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ServerWebExchange;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import org.zalando.problem.spring.webflux.advice.ProblemHandling;
@@ -24,7 +26,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @ControllerAdvice
 @ResponseBody
-public class GlobalExceptionHandler implements ProblemHandling {
+public class GlobalExceptionHandler implements ProblemHandling, ErrorWebExceptionHandler {
 
     @ExceptionHandler(UnprocessableEntityException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -33,16 +35,24 @@ public class GlobalExceptionHandler implements ProblemHandling {
     }
     
     @ExceptionHandler(ResourceNotFoundException.class)
-	  @ResponseStatus(value = HttpStatus.NOT_FOUND)
-	  public Mono<Problem> handleResourceNotFound(ResourceNotFoundException exception) {
-		    return problemDescription("Resource not found", exception, Status.NOT_FOUND);
-	  }
-	  
-	  @ExceptionHandler(NumberFormatException.class)
-	  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-	  public Mono<Problem> handleNumberFormatException(NumberFormatException exception) {
-		    return problemDescription("Bad request: request contains an invalid parameter", exception);
-	  }
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public Mono<Problem> handleResourceNotFound(ResourceNotFoundException exception) {
+	    return problemDescription("Resource not found", exception, Status.NOT_FOUND);
+	}
+
+	@ExceptionHandler(NumberFormatException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public Mono<Problem> handleNumberFormatException(NumberFormatException exception) {
+	    return problemDescription("Bad request: request contains an invalid parameter", exception);
+	}
+
+    /**
+     * Catch anything not caught by other handlers
+     */
+    @Override
+    public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
+        return null;
+    }
 
     /**
      * Build a Problem/JSON description with HttpStatus: 422 (unprocessable entity)
