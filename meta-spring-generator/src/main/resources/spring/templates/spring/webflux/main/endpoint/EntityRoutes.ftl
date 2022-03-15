@@ -13,7 +13,7 @@ public class ${endpoint.entityName}Routes {
     public static final String ID_PARAM = "/{id}";
 
     public static final String GET_ONE = BASE_PATH + ID_PARAM;
-    public static final String GET_ALL = BASE_PATH + "/all";
+    public static final String GET_ALL = BASE_PATH + "/findAll";
     public static final String GET_STREAM = BASE_PATH + "/stream";
 
     public static final String CREATE = BASE_PATH;
