@@ -21,7 +21,7 @@ import java.time.Duration;
 
 @RestController
 <#noparse>
-@RequestMapping("${spring.webflux.base-path}")
+@RequestMapping("")
 </#noparse>
 @Slf4j
 public class ${endpoint.entityName}Controller {

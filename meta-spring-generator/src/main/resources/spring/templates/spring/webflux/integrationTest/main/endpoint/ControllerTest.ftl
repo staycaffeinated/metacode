@@ -45,7 +45,7 @@ class ${endpoint.entityName}ControllerTest {
 
    	@Autowired
     public void setApplicationContext(ApplicationContext context) {
-        this.client = WebTestClient.bindToApplicationContext(context).configureClient().baseUrl(applicationBasePath).build();
+        this.client = WebTestClient.bindToApplicationContext(context).configureClient().build();
     }
 
     @Test
