@@ -223,7 +223,7 @@ To check the health of the microservice, the following URL works
 with both Spring WebMvc and Spring WebFlux projects.
 
 ```[http request]
-   http://localhost:8080/adventure/_internal/health
+   http://localhost:8080/petstore/_internal/health
 ```
 
 ### Get a code coverage report
