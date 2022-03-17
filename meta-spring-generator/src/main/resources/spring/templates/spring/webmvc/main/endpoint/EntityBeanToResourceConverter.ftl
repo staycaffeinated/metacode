@@ -6,7 +6,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ${endpoint.entityName}BeanToResourceConverter implements Converter<${endpoint.ejbName}, ${endpoint.pojoName}> {
@@ -30,6 +29,6 @@ public class ${endpoint.entityName}BeanToResourceConverter implements Converter<
      * Convert a list of EJBs into RestfulResource objects
      */
     public List<${endpoint.pojoName}> convert (@NonNull List<${endpoint.ejbName}> sourceList) {
-        return sourceList.stream().map(this::convert).collect(Collectors.toList());
+        return sourceList.stream().map(this::convert).toList();
     }
 }

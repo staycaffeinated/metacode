@@ -7,7 +7,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Converts Drink entity beans into DrinkResource objects
@@ -33,6 +32,6 @@ public class ${endpoint.entityName}ResourceToBeanConverter implements Converter<
      * Convert a list of RestfulResource objects into EJBs
      */
     public List<${endpoint.ejbName}> convert (@NonNull List<${endpoint.pojoName}> sourceList) {
-        return sourceList.stream().map(this::convert).collect(Collectors.toList());
+        return sourceList.stream().map(this::convert).toList();
     }
 }
