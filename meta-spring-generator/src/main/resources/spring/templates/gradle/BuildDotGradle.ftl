@@ -19,7 +19,8 @@ apply plugin: 'io.spring.dependency-management'
 version='0.0.1'
 
 // --------------------------------------------------------------------------------
-// Enforce Java version
+// Enable compiling with a specific Java version,
+// independent of the developer's current Java version.
 // --------------------------------------------------------------------------------
 java {
   toolchain {
