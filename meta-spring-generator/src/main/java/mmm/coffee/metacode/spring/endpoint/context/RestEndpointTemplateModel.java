@@ -3,6 +3,7 @@
  */
 package mmm.coffee.metacode.spring.endpoint.context;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
@@ -97,4 +98,12 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
      * sets the value used in the JPA annotation. 
      */
     private String tableName;
+
+    /**
+     * Provides the constant names used in the Routes class.
+     * The constant names are intentionally sensitive to the
+     * entity name to avoid DuplicatedBlocks errors from Sonarqube,
+     * which, by default, are Major severity.
+     */
+    private RouteConstants routeConstants;
 }

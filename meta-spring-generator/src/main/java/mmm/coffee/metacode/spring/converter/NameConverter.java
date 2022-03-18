@@ -29,7 +29,7 @@ public class NameConverter {
     public NameConverter() {
         // empty
     }
-
+    
     /**
      * Returns the syntax convention for the given resource value
      * @param resource the name of some resource or entity
@@ -126,4 +126,6 @@ public class NameConverter {
      * @return the equivalent file system path, such as 'org/example/petstore'
      */
     public String packageNameToPath(@NonNull String packageName) { return packageName.replace(".", "/"); }
+
+
 }

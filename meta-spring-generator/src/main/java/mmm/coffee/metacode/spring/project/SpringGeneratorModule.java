@@ -38,6 +38,7 @@ import mmm.coffee.metacode.spring.catalog.SpringEndpointCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.converter.NameConverter;
+import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToTemplateModelConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
@@ -151,7 +152,7 @@ public final class SpringGeneratorModule extends AbstractModule {
         return SpringEndpointGenerator.builder()
                 .collector(new SpringEndpointCatalog(new CatalogFileReader()))
                 .descriptor2predicate(new RestEndpointDescriptorToPredicateConverter())
-                .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter()))
+                .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter(), new RouteConstantsConverter()))
                 .metaPropertiesHandler(providesEndpointMetaPropertiesHandler())
                 .mustacheDecoder(MustacheEndpointDecoder.builder()
                         .converter(converterO1)

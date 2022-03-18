@@ -7,6 +7,8 @@ import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.spring.converter.NameConverter;
+import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
+import mmm.coffee.metacode.spring.endpoint.context.RouteConstants;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
     private static final String RESOURCE = "Pet";
     private static final String ROUTE = "/pet";
 
-    final RestEndpointDescriptorToTemplateModelConverter converterUnderTest = new RestEndpointDescriptorToTemplateModelConverter(new NameConverter());
+    final RestEndpointDescriptorToTemplateModelConverter converterUnderTest = new RestEndpointDescriptorToTemplateModelConverter(new NameConverter(), new RouteConstantsConverter());
 
     @Test
     void shouldDefineAllTemplateValues() {
@@ -88,6 +90,61 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
         var model = converterUnderTest.convert(spec);
 
         assertThat(model.getRoute()).startsWith("/");
+    }
+
+    @Test
+    void shouldPopulateRouteConstants() {
+        var spec = RestEndpointDescriptor.builder()
+                .basePackage(BASE_PACKAGE)
+                .basePath(BASE_PATH)
+                .framework(WEBFLUX)
+                .resource("Owner")
+                .route("owner")
+                .build();
+
+        var model = converterUnderTest.convert(spec);
+
+        RouteConstants routeConstants = model.getRouteConstants();
+
+        // Verify a value is defined for each constant name.
+        // We do some white-box testing and verify the returned name
+        // looks like what is expected. Since a converter basically provides
+        // a mapping, copying instance variables from one object into the
+        // instance variables of another object, the following tests verify
+        // the name looks like what is expected, to make sure each instance
+        // variable was mapped correctly.
+        //
+        // The pattern for the name isn't a hard contract. If the pattern changes,
+        // just update these tests accordingly.
+        assertThat(routeConstants).isNotNull();
+        assertThat(routeConstants.getBasePath()).isNotEmpty();
+        
+        assertThat(routeConstants.getCreate()).isNotEmpty();
+        assertThat(routeConstants.getCreate()).contains("CREATE");
+
+        assertThat(routeConstants.getDelete()).isNotEmpty();
+        assertThat(routeConstants.getDelete()).contains("DELETE");
+
+        assertThat(routeConstants.getEvents()).isNotEmpty();
+        assertThat(routeConstants.getEvents()).contains("EVENT");
+
+        assertThat(routeConstants.getFindAll()).isNotEmpty();
+        assertThat(routeConstants.getFindAll()).contains("FIND_ALL");
+
+        assertThat(routeConstants.getFindOne()).isNotEmpty();
+        assertThat(routeConstants.getFindOne()).contains("FIND");
+
+        assertThat(routeConstants.getIdParameter()).isNotEmpty();
+        assertThat(routeConstants.getIdParameter()).contains("ID");
+
+        assertThat(routeConstants.getSearch()).isNotEmpty();
+        assertThat(routeConstants.getSearch()).contains("SEARCH");
+
+        assertThat(routeConstants.getStream()).isNotEmpty();
+        assertThat(routeConstants.getStream()).contains("STREAM");
+
+        assertThat(routeConstants.getUpdate()).isNotEmpty();
+        assertThat(routeConstants.getUpdate()).contains("UPDATE");
     }
 
 }

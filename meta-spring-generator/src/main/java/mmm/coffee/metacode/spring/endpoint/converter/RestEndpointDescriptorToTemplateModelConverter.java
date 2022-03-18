@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.converter.NameConverter;
+import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
 import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
+import mmm.coffee.metacode.spring.endpoint.context.RouteConstants;
 
 /**
  * RestEndpointDescriptorToTemplateModelConverter
@@ -18,6 +20,7 @@ import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
 public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTrait<RestEndpointDescriptor, RestEndpointTemplateModel> {
 
     final NameConverter nameConverter;
+    final RouteConstantsConverter resourceConstantsConverter;
 
     /**
      * Converts an instance of class {@code FROM} into an instance of class {@code TO}.
@@ -31,6 +34,21 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
         final String resourceName = fromType.getResource();
         final String packageName = buildPackageName(fromType);
         final String packagePath = nameConverter.packageNameToPath(packageName);
+
+        resourceConstantsConverter.setResourcName(resourceName);
+        // See the RouteConstants class for an explanation of why this is done
+        var constants = RouteConstants.builder()
+                .create(resourceConstantsConverter.create())
+                .delete(resourceConstantsConverter.delete())
+                .basePath(resourceConstantsConverter.basePath())
+                .events(resourceConstantsConverter.events())
+                .findAll(resourceConstantsConverter.findAll())
+                .findOne(resourceConstantsConverter.findOne())
+                .idParameter(resourceConstantsConverter.idParameter())
+                .search(resourceConstantsConverter.search())
+                .stream(resourceConstantsConverter.stream())
+                .update(resourceConstantsConverter.update())
+                .build();
 
         return RestEndpointTemplateModel.builder()
                 .basePackage(fromType.getBasePackage())
@@ -50,6 +68,7 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
                 .tableName(nameConverter.toTableName(resourceName))
                 .isWebFlux(fromType.isWebFlux())
                 .isWebMvc(fromType.isWebMvc())
+                .routeConstants(constants)
                 .build();
     }
 

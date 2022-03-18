@@ -9,18 +9,18 @@ public class ${endpoint.entityName}Routes {
 
     private ${endpoint.entityName}Routes() {}
 
-    public static final String BASE_PATH = "${endpoint.route}";
-    public static final String ID_PARAM = "/{id}";
+    public static final String ${endpoint.routeConstants.basePath} = "${endpoint.route}";
+    public static final String ${endpoint.routeConstants.idParameter} = "/{id}";
 
-    public static final String GET_ONE = BASE_PATH + ID_PARAM;
-    public static final String GET_ALL = BASE_PATH + "/findAll";
-    public static final String GET_STREAM = BASE_PATH + "/stream";
+    public static final String ${endpoint.routeConstants.findOne} = ${endpoint.routeConstants.basePath} + ${endpoint.routeConstants.idParameter};
+    public static final String ${endpoint.routeConstants.findAll} = ${endpoint.routeConstants.basePath} + "/findAll";
+    public static final String ${endpoint.routeConstants.stream} = ${endpoint.routeConstants.basePath} + "/stream";
 
-    public static final String CREATE = BASE_PATH;
-    public static final String UPDATE = BASE_PATH + ID_PARAM;
-    public static final String DELETE = BASE_PATH + ID_PARAM;
-    public static final String SEARCH = BASE_PATH + "/search";
+    public static final String ${endpoint.routeConstants.create} = ${endpoint.routeConstants.basePath};
+    public static final String ${endpoint.routeConstants.update} = ${endpoint.routeConstants.basePath} + ${endpoint.routeConstants.idParameter};
+    public static final String ${endpoint.routeConstants.delete} = ${endpoint.routeConstants.basePath} + ${endpoint.routeConstants.idParameter};
+    public static final String ${endpoint.routeConstants.search} = ${endpoint.routeConstants.basePath} + "/search";
 
     // Get websocket events
-    public static final String GET_WS_EVENTS = BASE_PATH + "/ws/events";
+    public static final String ${endpoint.routeConstants.events} = ${endpoint.routeConstants.basePath} + "/ws/events";
 }

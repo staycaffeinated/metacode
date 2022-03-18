@@ -60,7 +60,7 @@ class ${endpoint.entityName}ControllerTests {
         when(mock${endpoint.entityName}Service.findByResourceId(expectedResourceID)).thenReturn(Mono.just(ejb));
         when(mock${endpoint.entityName}Service.find${endpoint.entityName}ByResourceId(expectedResourceID)).thenReturn(Mono.just(pojo));
 
-        webClient.get().uri(${endpoint.entityName}Routes.GET_ONE, expectedResourceID)
+        webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, expectedResourceID)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
@@ -77,7 +77,7 @@ class ${endpoint.entityName}ControllerTests {
 
         when(mock${endpoint.entityName}Service.findAll${endpoint.entityName}s()).thenReturn(flux);
 
-        webClient.get().uri(${endpoint.entityName}Routes.GET_ALL).accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
+        webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findAll}).accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON).expectBody().jsonPath("$.[0].text").isNotEmpty()
                 .jsonPath("$.[0].resourceId").isNotEmpty();
     }
@@ -90,7 +90,7 @@ class ${endpoint.entityName}ControllerTests {
 
         when(mock${endpoint.entityName}Service.create${endpoint.entityName}(any(${endpoint.pojoName}.class))).thenReturn(Mono.just(expectedId));
 
-        webClient.post().uri(${endpoint.entityName}Routes.CREATE).contentType(MediaType.APPLICATION_JSON)
+        webClient.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create}).contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(pojo), ${endpoint.pojoName}.class).exchange().expectStatus().isCreated().expectHeader()
                 .contentType(MediaType.APPLICATION_JSON);
     }
@@ -98,7 +98,7 @@ class ${endpoint.entityName}ControllerTests {
     @Test
     void shouldUpdate${endpoint.entityName}() {
         ${endpoint.pojoName} pojo = create${endpoint.entityName}();
-        webClient.put().uri(${endpoint.entityName}Routes.UPDATE, pojo.getResourceId())
+        webClient.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, pojo.getResourceId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(pojo), ${endpoint.pojoName}.class).exchange().expectStatus().isOk();
     }
@@ -110,7 +110,7 @@ class ${endpoint.entityName}ControllerTests {
 		pojo.setResourceId(5000L);
 
 		// when the ID in the URL is a mismatch to the ID in the POJO, the request should fail
-		webClient.put().uri(${endpoint.entityName}Routes.UPDATE, 1000L).contentType(MediaType.APPLICATION_JSON)
+		webClient.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, 1000L).contentType(MediaType.APPLICATION_JSON)
 				.body(Mono.just(pojo), ${endpoint.pojoName}.class).exchange().expectStatus().is4xxClientError();
 	}
 
@@ -119,7 +119,7 @@ class ${endpoint.entityName}ControllerTests {
         ${endpoint.pojoName} pojo = create${endpoint.entityName}();
         when(mock${endpoint.entityName}Service.find${endpoint.entityName}ByResourceId(pojo.getResourceId())).thenReturn(Mono.just(pojo));
 
-        webClient.delete().uri(${endpoint.entityName}Routes.DELETE, pojo.getResourceId()).exchange().expectStatus().isNoContent();
+        webClient.delete().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.delete}, pojo.getResourceId()).exchange().expectStatus().isNoContent();
     }
 
  	@Test
@@ -129,7 +129,7 @@ class ${endpoint.entityName}ControllerTests {
 		given(mock${endpoint.entityName}Service.findAll${endpoint.entityName}s()).willReturn(Flux.fromIterable(resourceList));
 
 		// When
-		FluxExchangeResult<${endpoint.pojoName}> result = webClient.get().uri(${endpoint.entityName}Routes.GET_STREAM)
+		FluxExchangeResult<${endpoint.pojoName}> result = webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.stream})
 				.accept(MediaType.TEXT_EVENT_STREAM).exchange().expectStatus().isOk()
 				.returnResult(${endpoint.pojoName}.class);
 

@@ -18,6 +18,7 @@ import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.writer.ContentToNullWriter;
 import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
 import mmm.coffee.metacode.spring.converter.NameConverter;
+import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToTemplateModelConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
@@ -63,7 +64,7 @@ class SpringEndpointGeneratorForWebFluxTests {
                 .metaPropertiesHandler(mockMetaPropertiesHandler)
                 .mustacheDecoder(decoder)
                 .collector(templateCollector)
-                .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter()))
+                .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter(), new RouteConstantsConverter()))
                 .descriptor2predicate(new RestEndpointDescriptorToPredicateConverter())
                 .outputHandler(new ContentToNullWriter())
                 .templateRenderer(templateResolver)

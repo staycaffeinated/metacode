@@ -18,6 +18,8 @@ package mmm.coffee.metacode.common.rule;
 import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Locale;
+
 /**
  * The syntax rules we apply to resource names, entity names, base paths, and such
  * to provide consistent naming conventions
@@ -36,7 +38,11 @@ public class NamingRule {
     public static @NonNull String toEntityName(@NonNull String resource) {
         // Capitalize the first char; leave others as-is
         return StringUtils.capitalize(resource);
+    }
 
+    public static @NonNull String toEntityNameUpperCase(@NonNull String resource) {
+        // Capitalize everything
+        return resource.toUpperCase(Locale.ROOT);
     }
     public static @NonNull String toEntityVariableName(@NonNull String resource) {
         return StringUtils.uncapitalize(resource);
@@ -99,5 +105,4 @@ public class NamingRule {
         String packageName = basePackage + ".endpoint." + StringUtils.toRootLowerCase(resourceOrEntityName);
         return StringUtils.toRootLowerCase(packageName);
     }
-
 }

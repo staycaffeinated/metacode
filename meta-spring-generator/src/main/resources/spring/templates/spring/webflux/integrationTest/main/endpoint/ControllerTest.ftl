@@ -50,7 +50,7 @@ class ${endpoint.entityName}ControllerTest {
 
     @Test
     void testGetAll${endpoint.entityName}s() {
-        this.client.get().uri(${endpoint.entityName}Routes.GET_ALL).accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
+        this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findAll}).accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
             .expectHeader().contentType(MediaType.APPLICATION_JSON).expectBody()
             .jsonPath("$.[0].text").isNotEmpty()
             .jsonPath("$.[0].resourceId").isNotEmpty();
@@ -60,7 +60,7 @@ class ${endpoint.entityName}ControllerTest {
     void testGetSingle${endpoint.entityName}() {
         create${endpoint.entityName}();
 
-        this.client.get().uri(replaceId(${endpoint.entityName}Routes.GET_ONE))
+        this.client.get().uri(replaceId(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}))
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
    			    .expectStatus().isOk().expectHeader()
@@ -74,7 +74,7 @@ class ${endpoint.entityName}ControllerTest {
     void testGetCatalogItemsStream() throws Exception {
         FluxExchangeResult<${endpoint.pojoName}> result
                 = this.client.get()
-                      .uri(${endpoint.entityName}Routes.GET_STREAM)
+                      .uri(${endpoint.entityName}Routes.${endpoint.routeConstants.stream})
                       .accept(MediaType.TEXT_EVENT_STREAM)
                       .exchange()
                       .expectStatus().isOk()
@@ -97,7 +97,7 @@ class ${endpoint.entityName}ControllerTest {
 		${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.entityName}Generator.generate${endpoint.entityName}();
 		${endpoint.entityVarName}.setResourceId(null);
 
-		this.client.post().uri(${endpoint.entityName}Routes.CREATE)
+		this.client.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
                     .contentType(MediaType.APPLICATION_JSON)
 				    .body(Mono.just( ${endpoint.entityVarName} ), ${endpoint.pojoName}.class)
                     .exchange()
@@ -111,7 +111,7 @@ class ${endpoint.entityName}ControllerTest {
 
 		${endpoint.entityVarName}.setText("my new text");
 
-		this.client.put().uri(replaceId(${endpoint.entityName}Routes.UPDATE))
+		this.client.put().uri(replaceId(${endpoint.entityName}Routes.${endpoint.routeConstants.update}))
                     .contentType(MediaType.APPLICATION_JSON)
 				    .body(Mono.just(${endpoint.entityVarName}), ${endpoint.pojoName}.class)
                     .exchange()
@@ -122,12 +122,12 @@ class ${endpoint.entityName}ControllerTest {
 	void testDelete${endpoint.entityName}() {
 		create${endpoint.entityName}();
 
-		this.client.delete().uri(replaceId(${endpoint.entityName}Routes.DELETE)).exchange().expectStatus().isNoContent();
+		this.client.delete().uri(replaceId(${endpoint.entityName}Routes.${endpoint.routeConstants.delete})).exchange().expectStatus().isNoContent();
 	}
 
 	@Test
 	void testResourceNotFoundException() throws Exception {
-		this.client.get().uri(${endpoint.entityName}Routes.GET_ONE.replaceAll("\\{id\\}", "12345")).accept(MediaType.APPLICATION_JSON)
+		this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id\\}", "12345")).accept(MediaType.APPLICATION_JSON)
 		    .exchange().expectStatus().isNotFound().expectHeader().contentType(MediaType.APPLICATION_JSON);
 	}
 
@@ -139,7 +139,7 @@ class ${endpoint.entityName}ControllerTest {
         ${endpoint.entityVarName} = ${endpoint.entityName}Generator.generate${endpoint.entityName}();
 		${endpoint.entityVarName}.setResourceId(null);
 
-		EntityExchangeResult<ResourceIdentity> result = this.client.post().uri(${endpoint.entityName}Routes.CREATE)
+		EntityExchangeResult<ResourceIdentity> result = this.client.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
 				.contentType(MediaType.APPLICATION_JSON).body(Mono.just(${endpoint.entityVarName}), ${endpoint.pojoName}.class).exchange().expectStatus()
 				.isCreated().expectBody(ResourceIdentity.class).returnResult();
 

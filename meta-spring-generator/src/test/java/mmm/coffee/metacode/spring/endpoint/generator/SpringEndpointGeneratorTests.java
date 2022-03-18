@@ -14,6 +14,7 @@ import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.spring.converter.NameConverter;
+import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToTemplateModelConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
@@ -34,6 +35,7 @@ import static org.mockito.Mockito.when;
 /**
  * SpringEndpointGeneratorTests
  */
+@SuppressWarnings("unchecked")
 class SpringEndpointGeneratorTests {
 
     final String BASE_PATH = "/petstore";
@@ -89,7 +91,7 @@ class SpringEndpointGeneratorTests {
         generatorUnderTest = SpringEndpointGenerator.builder()
                 .collector(new FakeCollector())
                 .descriptor2predicate(new RestEndpointDescriptorToPredicateConverter())
-                .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter()))
+                .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter(), new RouteConstantsConverter()))
                 .metaPropertiesHandler(mockMetaPropHandler)
                 .mustacheDecoder(mustacheEndpointDecoder)
                 .templateRenderer(mockTemplateResolver)
