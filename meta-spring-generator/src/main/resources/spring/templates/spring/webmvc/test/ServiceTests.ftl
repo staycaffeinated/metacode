@@ -3,6 +3,7 @@
 package ${endpoint.packageName};
 
 
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,9 @@ class ${endpoint.entityName}ServiceTests {
 
     @Mock
     private ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
+
+    @Mock
+    private SecureRandomSeries secureRandom;
 
     @Spy
     private final ${endpoint.entityName}ResourceToBeanConverter ${endpoint.entityVarName}ResourceToBeanConverter = new ${endpoint.entityName}ResourceToBeanConverter();

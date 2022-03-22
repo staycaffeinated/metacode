@@ -30,15 +30,19 @@ public class ${endpoint.entityName}Service {
 
     private final ConversionService conversionService;
 
+    private final SecureRandomSeries secureRandom;
+
     /*
      * Constructor
      */
     @Autowired
     public ${endpoint.entityName}Service(${endpoint.entityName}Repository ${endpoint.entityVarName}Repository,
-                                        ConversionService conversionService)
+                                        ConversionService conversionService,
+                                        SecureRandomSeries secureRandom)
     {
         this.${endpoint.entityVarName}Repository = ${endpoint.entityVarName}Repository;
         this.conversionService = conversionService;
+        this.secureRandom = secureRandom;
     }
 
     /*
@@ -72,7 +76,7 @@ public class ${endpoint.entityName}Service {
      * Persists a new resource
      */
     public ${endpoint.pojoName} create${endpoint.entityName}( @NonNull @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
-        resource.setResourceId ( SecureRandomSeries.nextLong() );
+        resource.setResourceId ( secureRandom.nextLong() );
         ${endpoint.ejbName} entityBean = Objects.requireNonNull(conversionService.convert (resource, ${endpoint.ejbName}.class ));
         entityBean = ${endpoint.entityVarName}Repository.save ( entityBean );
         return conversionService.convert(entityBean, ${endpoint.pojoName}.class);

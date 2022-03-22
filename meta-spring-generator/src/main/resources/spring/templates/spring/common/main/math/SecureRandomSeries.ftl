@@ -1,6 +1,9 @@
 <#include "/common/Copyright.ftl">
 package ${project.basePackage}.math;
 
+import lombok.NonNull;
+import org.springframework.stereotype.Component;
+
 import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -14,19 +17,29 @@ import java.util.Base64;
  * See https://metebalci.com/blog/everything-about-javas-securerandom/
  *
  */
+@Component
 public class SecureRandomSeries {
-    private static SecureRandom random;
+    private SecureRandom random;
     private static final Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
 
-    static {
-        try { random = SecureRandom.getInstance("DRBG"); }
-        catch (NoSuchAlgorithmException e) {
+
+    /**
+     * Default constructor, which selects a default algorithm
+     */
+    public SecureRandomSeries() {
+        this("DRBG");
+    }
+
+    /**
+     * Constructor with a preferred algorithm
+     */
+    public SecureRandomSeries(@NonNull String algorithm) {
+        try {
+            random = SecureRandom.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
             random = new SecureRandom();
         }
     }
-
-    // A private constructor to prevent instantiation
-    private SecureRandomSeries() {}
 
     /**
      * Returns a secure random value with at least 160 bits of entropy.
@@ -34,7 +47,7 @@ public class SecureRandomSeries {
      * The returned string happens to be 27 characters long (that length is not guaranteed).
      * @return a secure random value
      */
-    public static String nextString() {
+    public String nextString() {
         byte[] buffer = randomBytes();
         return encoder.encodeToString(buffer);
     }
@@ -43,7 +56,7 @@ public class SecureRandomSeries {
      * Returns a secure random Long value with at least 160 bits of entropy
      * @return a secure random value
      */
-    public static Long nextLong() {
+    public Long nextLong() {
         byte[] buffer = randomBytes();
         return ByteBuffer.wrap(buffer).getLong();
     }
@@ -54,7 +67,7 @@ public class SecureRandomSeries {
      * Of course, the entropy can be increased by adding more bytes to the array.
      * @return a random series of bytes
      */
-    private static byte[] randomBytes() {
+    private byte[] randomBytes() {
         byte[] buffer = new byte[20]; // 20x8 = 160 = bits of entropy
         random.nextBytes(buffer);
         return buffer;

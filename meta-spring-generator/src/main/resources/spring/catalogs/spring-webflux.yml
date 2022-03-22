@@ -50,7 +50,7 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/config/WebFluxConfiguration.java"
       context: "project"
   - entry:
-      template: "/spring/webflux/main/math/SecureRandomSeries.ftl"
+      template: "/spring/common/main/math/SecureRandomSeries.ftl"
       destination: "src/main/java/{{basePackagePath}}/math/SecureRandomSeries.java"
       context: "project"
   - entry:
