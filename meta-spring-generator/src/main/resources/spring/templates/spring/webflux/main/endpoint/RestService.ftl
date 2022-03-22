@@ -27,16 +27,20 @@ public class ${endpoint.entityName}Service {
     private final ApplicationEventPublisher publisher;
 	private final ConversionService conversionService;
     private final ${endpoint.entityName}Repository repository;
+    private final SecureRandomSeries secureRandom;
 
     /*
      * Constructor
      */
     @Autowired
     public ${endpoint.entityName}Service(${endpoint.entityName}Repository ${endpoint.entityVarName}Repository,
-                                        @Qualifier("${endpoint.entityVarName}Converter")ConversionService conversionService, ApplicationEventPublisher publisher) {
+                                        @Qualifier("${endpoint.entityVarName}Converter")ConversionService conversionService,
+                                        ApplicationEventPublisher publisher,
+                                        SecureRandomSeries secureRandom) {
         this.repository = ${endpoint.entityVarName}Repository;
         this.conversionService = conversionService;
         this.publisher = publisher;
+        this.secureRandom = secureRandom;
     }
 
     /*
@@ -70,7 +74,7 @@ public class ${endpoint.entityName}Service {
             log.error("This POJO yielded a null value when converted to an entity bean: {}", resource);
             throw new UnprocessableEntityException();
         }
-        entity.setResourceId(SecureRandomSeries.nextLong());
+        entity.setResourceId(secureRandom.nextLong());
 		return repository.save(entity)
                          .doOnSuccess(item -> publishEvent(${endpoint.entityName}Event.CREATED, item))
 				         .flatMap(item -> Mono.just(item.getResourceId()));

@@ -51,6 +51,9 @@ class ${endpoint.entityName}ServiceTests {
     @Mock
     private ApplicationEventPublisher publisher;
 
+    @Mock
+    private SecureRandomSeries mockSecureRandom;
+
     @InjectMocks
     private ${endpoint.entityName}Service serviceUnderTest;
 
@@ -200,7 +203,7 @@ class ${endpoint.entityName}ServiceTests {
 	void whenConversionToEjbFails_expectUnprocessableEntityException() {
         // given
 		ConversionService mockConversionService = Mockito.mock(ConversionService.class);
-		${endpoint.entityName}Service localService = new ${endpoint.entityName}Service(mockRepository, mockConversionService, publisher);
+		${endpoint.entityName}Service localService = new ${endpoint.entityName}Service(mockRepository, mockConversionService, publisher, new SecureRandomSeries());
         given(mockConversionService.convert(any(${endpoint.pojoName}.class), eq(${endpoint.ejbName}.class)))
                  .willReturn((${endpoint.ejbName}) null);
 
