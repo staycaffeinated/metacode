@@ -28,7 +28,7 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/webmvc/main/exception/UnprocessableEntityException.ftl"
-      destination: "src/main/java/{{basePackagePath}}/advice/UnprocessableEntityException.java"
+      destination: "src/main/java/{{basePackagePath}}/exception/UnprocessableEntityException.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/common/Constants.ftl"

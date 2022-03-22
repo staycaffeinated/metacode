@@ -35,9 +35,9 @@ public abstract class AbstractIntegrationTest {
 <#if (project.testcontainers)??>
 
     // if possible, initialize these from bootstrap-test.properties
-    static private final String databaseName = "testdb";
-    static private final String username = "postgres";
-    static private final String password = "root";
+    private static final String databaseName = "testdb";
+    private static final String username = "postgres";
+    private static final String password = "root";
 </#if>
 <#if (project.testcontainers)?? &&  (project.postgres)??>
 

@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
 public class UnprocessableEntityException extends ResponseStatusException {
 
-    static private final long serialVersionUID = 1;
+    private static final long serialVersionUID = 2711067751568445348L;
 
     /**
      * Default Constructor

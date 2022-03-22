@@ -115,7 +115,7 @@ class GlobalExceptionHandlerTests {
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleSQLException(ex, mockWebRequest);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody().getStatus()).isEqualTo(Status.BAD_REQUEST);
+        assertThat(response.getBody().getStatus()).isEqualTo(Status.SERVICE_UNAVAILABLE);
         assertThat(response.getBody().getTitle()).isNotEmpty();
     }
 

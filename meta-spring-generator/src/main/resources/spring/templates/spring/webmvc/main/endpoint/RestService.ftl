@@ -21,7 +21,6 @@ import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Optional;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -47,7 +46,7 @@ public class ${endpoint.entityName}Service {
      */
     public List<${endpoint.pojoName}> findAll${endpoint.entityName}s() {
         List<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findAll();
-        return resultSet.stream().map(ejb -> conversionService.convert(ejb,${endpoint.pojoName}.class)).collect(Collectors.toList());
+        return resultSet.stream().map(ejb -> conversionService.convert(ejb,${endpoint.pojoName}.class)).toList();
     }
 
     /**
@@ -66,7 +65,7 @@ public class ${endpoint.entityName}Service {
             Page<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findByText(text, pageable);
             return resultSet.stream()
                             .map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class))
-                            .collect(Collectors.toList());
+                            .toList();
     }
 
     /**

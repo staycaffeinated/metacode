@@ -4,14 +4,21 @@ package ${endpoint.packageName};
 /**
  * Routes to ${endpoint.entityName} resources
  */
+@SuppressWarnings({"java:S1075"})
+// S1075: let basePath be hard-coded
 public class ${endpoint.entityName}Routes {
 
     private ${endpoint.entityName}Routes() {}
 
-    public static final String INDEX = "${endpoint.route}";
-    public static final String CREATE_ONE = INDEX;
-    public static final String EXACTLY_ONE = INDEX + "/{id}";
-    public static final String GET_ALL = INDEX + "/findAll";
-    public static final String SEARCH = INDEX + "/search";
+    public static final String ${endpoint.routeConstants.basePath} = "${endpoint.route}";
+    public static final String ${endpoint.routeConstants.idParameter} = "/{id}";
+
+    public static final String ${endpoint.routeConstants.create} = ${endpoint.routeConstants.basePath};
+    public static final String ${endpoint.routeConstants.update} = ${endpoint.routeConstants.basePath} + ${endpoint.routeConstants.idParameter};
+    public static final String ${endpoint.routeConstants.delete} = ${endpoint.routeConstants.basePath} + ${endpoint.routeConstants.idParameter};
+
+    public static final String ${endpoint.routeConstants.findOne} = ${endpoint.routeConstants.basePath} + ${endpoint.routeConstants.idParameter};
+    public static final String ${endpoint.routeConstants.findAll} = ${endpoint.routeConstants.basePath} + "/findAll";
+    public static final String ${endpoint.routeConstants.search} = ${endpoint.routeConstants.basePath} + "/search";
 
 }

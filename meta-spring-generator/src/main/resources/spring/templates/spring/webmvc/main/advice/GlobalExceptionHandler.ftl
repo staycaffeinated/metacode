@@ -113,7 +113,7 @@ public class GlobalExceptionHandler implements ProblemHandling {
      */
     private ResponseEntity<Problem> problemDescription(String title, Throwable throwable, Status status) {
         Problem problem = Problem.builder()
-                .withStatus(Status.BAD_REQUEST)
+                .withStatus(status)
                 .withDetail(throwable.getMessage())
                 .withTitle(title)
                 .build();
