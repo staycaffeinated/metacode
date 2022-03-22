@@ -35,7 +35,7 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
         final String packageName = buildPackageName(fromType);
         final String packagePath = nameConverter.packageNameToPath(packageName);
 
-        resourceConstantsConverter.setResourcName(resourceName);
+        resourceConstantsConverter.setResourceName(resourceName);
         // See the RouteConstants class for an explanation of why this is done
         var constants = RouteConstants.builder()
                 .create(resourceConstantsConverter.create())

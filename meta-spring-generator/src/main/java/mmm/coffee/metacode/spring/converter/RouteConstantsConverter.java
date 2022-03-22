@@ -8,7 +8,7 @@ import lombok.NonNull;
 import java.util.Locale;
 
 /**
- * ResourceKeyConverter
+ * RouteConstantsConverter builds the constants names that appear in the (generated) Routes class
  */
 public class RouteConstantsConverter {
 
@@ -18,8 +18,7 @@ public class RouteConstantsConverter {
         // empty
     }
 
-    public void setResourcName(@NonNull String resourceName) {
-        // this.resourceName = resourceName;
+    public void setResourceName(@NonNull String resourceName) {
         this.resourceNameUpperCase = resourceName.toUpperCase(Locale.ROOT);
     }
 

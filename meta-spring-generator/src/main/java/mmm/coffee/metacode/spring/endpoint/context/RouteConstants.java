@@ -5,6 +5,7 @@ package mmm.coffee.metacode.spring.endpoint.context;
 
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
+import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
  * Defines the constant names plugged into the {whatever}Routes.java class.
@@ -41,6 +42,7 @@ import lombok.experimental.SuperBuilder;
  */
 @SuperBuilder
 @Data
+@Generated  // code coverage not needed for a lombok-generated POJO
 public class RouteConstants {
     String basePath;    // BASE_PATH_entityNameUpperCase
     String create;      // CREATE_entityNameUpperCase

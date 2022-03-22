@@ -22,7 +22,7 @@ class RouteConstantsConverterTests {
 
     @Test
     void shouldPopulateAllKeys() {
-        converterUnderTest.setResourcName(resourceName);
+        converterUnderTest.setResourceName(resourceName);
         
         checkValue(converterUnderTest.basePath());
         checkValue(converterUnderTest.create());
