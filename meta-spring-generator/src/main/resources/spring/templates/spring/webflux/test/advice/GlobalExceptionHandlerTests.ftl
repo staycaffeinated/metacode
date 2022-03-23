@@ -7,12 +7,10 @@ import ${project.basePackage}.exception.ResourceNotFoundException;
 import ${project.basePackage}.exception.UnprocessableEntityException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
-import org.zalando.problem.StatusType;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.test.StepVerifier;
-
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,7 +34,7 @@ class GlobalExceptionHandlerTests {
 
         // then
         StepVerifier.create(publisher).expectSubscription()
-            .consumeNextWith(p -> assertThat(Objects.equals(p.getStatus().getStatusCode(), HttpStatus.UNPROCESSABLE_ENTITY)))
+            .consumeNextWith(p -> assertThat(p.getStatus().getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value()))
             .verifyComplete();
     }
 
@@ -47,7 +45,7 @@ class GlobalExceptionHandlerTests {
 
         // then
         StepVerifier.create(publisher).expectSubscription()
-            .consumeNextWith(p -> assertThat(Objects.equals(p.getStatus().getStatusCode(), HttpStatus.NOT_FOUND)))
+            .consumeNextWith(p -> assertThat(p.getStatus().getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND.value()))
             .verifyComplete();
     }
 
@@ -58,7 +56,15 @@ class GlobalExceptionHandlerTests {
 
         // then
         StepVerifier.create(publisher).expectSubscription()
-            .consumeNextWith(p -> assertThat(Objects.equals(p.getStatus().getStatusCode(), HttpStatus.UNPROCESSABLE_ENTITY)))
+            .consumeNextWith(p -> assertThat(p.getStatus().getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY.value()))
             .verifyComplete();
+    }
+
+    @Test
+    void verifyHandleMethodReturnsNull() {
+        var serverWebExchange = Mockito.mock(ServerWebExchange.class);
+        var publisher = exceptionHandlerUnderTest.handle(serverWebExchange, new Throwable());
+
+        assertThat(publisher).isNull();
     }
 }

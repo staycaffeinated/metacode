@@ -32,6 +32,11 @@ class RootControllerTest {
     private RootService mockRootService;
 
     @Test
+    void testHomePage() {
+        webClient.get().uri("/").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk();
+    }
+
+    @Test
     void testMonoStream() {
         webClient.get().uri("/mono").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk();
     }
