@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.cli.validation;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -89,5 +90,16 @@ class PackageNameValidatorTests {
     @Test
     void shouldAcceptLongPackageNames() {
         assertThat(PackageNameValidator.isValid("aa.bb.cc.dd.xx.yy.zz")).isTrue();
+    }
+
+    @Nested
+    class IsLowerCaseLetterTests {
+        @Test
+        void verifyIsLowerCaseLetterEdgeCases() {
+            assertThat(PackageNameValidator.isLowerCaseLetter('A')).isFalse();
+            assertThat(PackageNameValidator.isLowerCaseLetter('a')).isTrue();
+            assertThat(PackageNameValidator.isLowerCaseLetter('z')).isTrue();
+            assertThat(PackageNameValidator.isLowerCaseLetter('{')).isFalse();
+        }
     }
 }

@@ -38,7 +38,7 @@ public class ConfigurationFactory {
          *                             for example, "/spring/templates/" or "/micronaut/templates/". 
          * @return a Configuration
          */
-        @NonNull public static Configuration defaultConfiguration(@NonNull String templateResourcePath) {
+        public static Configuration defaultConfiguration(@NonNull String templateResourcePath) {
             var configuration = new Configuration(Configuration.VERSION_2_3_30);
             configuration.setClassForTemplateLoading(ConfigurationFactory.class, templateResourcePath);
             configuration.setDefaultEncoding("UTF-8");

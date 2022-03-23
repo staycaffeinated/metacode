@@ -17,6 +17,7 @@ package mmm.coffee.metacode.common.catalog;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Nullable;
@@ -165,6 +166,82 @@ class CatalogEntryPredicatesTests {
         assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.hasLiquibaseTag())).isEmpty();
         assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.hasTestContainerTag())).isEmpty();
         assertThat(CatalogEntryPredicates.filterCatalogEntries(dataSet, CatalogEntryPredicates.hasPostgresTag())).isEmpty();
+
+    }
+
+    @Nested
+    class CommonPredicateTests {
+
+        Predicate<CatalogEntry> predicate = CatalogEntryPredicates.isCommonProjectArtifact();
+
+        @Test
+        void whenContextIsNull_expectFalse() {
+            // given: a CatalogEntry that has a NULL context field
+            CatalogEntry entry = new CatalogEntry();
+            entry.setContext(null);
+
+            // expect: the predicate returns false since context is null
+            assertThat(predicate.apply(entry)).isFalse();
+        }
+
+        @Test
+        void whenContextIsProjectAndTagsAreNull_expectTrue() {
+            CatalogEntry entry = new CatalogEntry();
+            entry.setContext("project");
+            entry.setTags(null);
+
+            // expect: the predicate returns true since context is 'project'
+            // and no tags are present
+            assertThat(predicate.apply(entry)).isTrue();
+        }
+
+        @Test
+        void whenContextIsProjectAndTagsAreBlank_expectTrue() {
+            CatalogEntry entry = new CatalogEntry();
+            entry.setContext("project");
+            entry.setTags(" ");
+
+            // expect: the predicate returns true since context is 'project'
+            // and no tags are present
+            assertThat(predicate.apply(entry)).isTrue();
+        }
+
+        @Test
+        void whenContextIsNotProject_expectFalse() {
+            CatalogEntry entry = new CatalogEntry();
+            entry.setContext("endpoint");
+
+            assertThat(predicate.apply(entry)).isFalse();
+        }
+    }
+
+    @Nested
+    class EndpointArtifactTests {
+
+        Predicate<CatalogEntry> endpointArtifactPredicate = CatalogEntryPredicates.isEndpointArtifact();
+
+        @Test
+        void whenContextIsNull_expectFalse() {
+            CatalogEntry entry = new CatalogEntry();
+            entry.setContext(null);
+            assertThat(endpointArtifactPredicate.apply(entry)).isFalse();
+        }
+
+        @Test
+        void whenContextIsEndpoint_expectTrue() {
+            CatalogEntry entry = new CatalogEntry();
+            entry.setContext("endpoint");
+
+            assertThat(endpointArtifactPredicate.apply(entry)).isTrue();
+        }
+
+        @Test
+        void whenContextIsNotEndpoint_expectFalse() {
+            CatalogEntry entry = new CatalogEntry();
+            entry.setContext("project");
+
+            assertThat(endpointArtifactPredicate.apply(entry)).isFalse();
+        }
 
     }
 

@@ -15,13 +15,19 @@
  */
 package mmm.coffee.metacode.common.freemarker;
 
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
+import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.IOException;
+
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
@@ -56,5 +62,22 @@ class FreemarkerTemplateResolverTest {
         assertThrows(NullPointerException.class, () -> {
             new FreemarkerTemplateResolver(null);
         });
+    }
+
+    @Test
+    void shouldThrowRuntimeApplicationErrorWhenTemplateExceptionOccurs() throws IOException {
+        var mockConfig = Mockito.mock(freemarker.template.Configuration.class);
+        // ReflectionTestUtils.setField(mockConfig, "lock", new Object());
+
+        when(mockConfig.getTemplate(anyString(), anyString())).thenThrow(IOException.class);
+
+        FreemarkerTemplateResolver resolver = new FreemarkerTemplateResolver(mockConfig);
+        // The resolver is a synchronized class that uses a 'lock' instance variable for locking.
+        // Cannot enter synchronized block because "this.lock" is null
+        // ReflectionTestUtils.setField(resolver, "lock", new Object());
+
+        MetaTemplateModel mockTemplateModel = Mockito.mock(MetaTemplateModel.class);
+        assertThrows(RuntimeApplicationError.class, () -> resolver.render("someTemplate", mockTemplateModel));
+
     }
 }

@@ -67,4 +67,14 @@ class DependencyCatalogTests {
 
         assertThrows(RuntimeApplicationError.class, () -> catalog.collect());
     }
+
+    @Test
+    void shouldThrowExceptionWhenAnyArgumentIsNull() {
+        var mockReader = Mockito.mock(DependencyCatalogReader.class);
+        // If the resourceName is null, expect an NPE
+        assertThrows(NullPointerException.class, () -> new DependencyCatalog(null, mockReader));
+
+        // if the reader is null, expect an NPE
+        assertThrows(NullPointerException.class, () -> new DependencyCatalog("/catalog/example", null));
+    }
 }

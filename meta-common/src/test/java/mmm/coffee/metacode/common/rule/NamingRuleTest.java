@@ -167,6 +167,11 @@ public class NamingRuleTest {
         void shouldConvertJavaPackageToFileSystemPath(String testValue, String expectedResult) {
             assertThat(NamingRule.toBasePackagePath(testValue)).isEqualTo(expectedResult);
         }
+
+        @Test
+        void shouldThrowExceptionWhenArgumentIsNull() {
+            assertThrows(NullPointerException.class, () -> NamingRule.toBasePackagePath(null));
+        }
     }
 
     @Nested
@@ -208,6 +213,25 @@ public class NamingRuleTest {
         })
         void shouldConvertJavaPackageToFileSystemPath(String testValue, String expectedResult) {
             assertThat(NamingRule.toTableName(testValue)).isEqualTo(expectedResult);
+        }
+    }
+
+    @Nested
+    class EntityNameUpperCaseTests {
+        @ParameterizedTest
+        @CsvSource({
+                // actual,   expected
+                "pet,           PET",
+                "owner,         OWNER",
+                "accountNumber, ACCOUNTNUMBER"
+        })
+        void shouldReturnUpperCaseString(String actual, String expected) {
+            assertThat(NamingRule.toEntityNameUpperCase(actual)).isEqualTo(expected);
+        }
+
+        @Test
+        void shouldThrowExceptionWhenArgumentIsNull() {
+            assertThrows(NullPointerException.class, () -> NamingRule.toEntityNameUpperCase(null));
         }
     }
 }

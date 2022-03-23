@@ -90,13 +90,13 @@ public class PackageNameValidator {
         return true;
     }
 
-    private static boolean isDigit(char ch) {
+    protected static boolean isDigit(char ch) {
         return ch >= '0' && ch <= '9';
     }
-    private static boolean isLowerCaseLetter(char ch) {
+    protected static boolean isLowerCaseLetter(char ch) {
         return ch >= 'a' && ch <= 'z';
     }
-    private static boolean isUpperCaseLetter(char ch) {
+    protected static boolean isUpperCaseLetter(char ch) {
         return ch >= 'A' && ch <= 'Z';
     }
 }

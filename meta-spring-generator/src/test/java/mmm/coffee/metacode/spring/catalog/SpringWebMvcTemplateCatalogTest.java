@@ -20,6 +20,7 @@ import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -76,6 +77,13 @@ class SpringWebMvcTemplateCatalogTest {
     @Test
     void shouldThrowExceptionWhenReaderArgIsNull() {
         assertThrows(NullPointerException.class, () -> new SpringWebMvcTemplateCatalog(null));
+    }
+
+    @Test
+    void shouldInstantiateSuccessfully() {
+        var mockCatalogReader = Mockito.mock(ICatalogReader.class);
+        var obj = new SpringWebMvcTemplateCatalog(mockCatalogReader);
+        assertThat(obj).isNotNull();
     }
 
     // -----------------------------------------------------------------------------

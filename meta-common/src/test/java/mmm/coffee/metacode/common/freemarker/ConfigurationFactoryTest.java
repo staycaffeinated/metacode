@@ -28,6 +28,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.io.IOException;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
 /**
  * Unit test
@@ -69,6 +70,11 @@ class ConfigurationFactoryTest {
     void shouldFindTemplates(String templatePath) throws IOException {
         Template template = configuration.getTemplate(templatePath);
         assertThat(template).isNotNull();
+    }
+
+    @Test
+    void shouldThrowExceptionIfArgumentIsNull() {
+        assertThrows(NullPointerException.class, () -> ConfigurationFactory.defaultConfiguration(null));
     }
 
 }

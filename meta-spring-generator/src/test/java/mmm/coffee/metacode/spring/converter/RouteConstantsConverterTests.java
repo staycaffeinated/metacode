@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Locale;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertThrows;
 
 /**
  * ResourceKeyConverterTests
@@ -34,6 +35,11 @@ class RouteConstantsConverterTests {
         checkValue(converterUnderTest.search());
         checkValue(converterUnderTest.stream());
         checkValue(converterUnderTest.update());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenArgumentIsNull() {
+        assertThrows(NullPointerException.class, () -> converterUnderTest.setResourceName(null));
     }
 
     private void checkValue(String resourceKey) {

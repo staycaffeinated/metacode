@@ -20,6 +20,7 @@ import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
@@ -71,6 +72,18 @@ class SpringWebFluxTemplateCatalogTest {
         assertThrows(NullPointerException.class, () -> {
             obj.invokeCollectGeneralCatalogsAndThisOne();
         });
+    }
+
+    @Test
+    void shouldThrowExceptionWhenCatalogIsNull() {
+        assertThrows(NullPointerException.class, () -> new SpringWebFluxTemplateCatalog(null));
+    }
+
+    @Test
+    void shouldBuildObjectSuccessfully() {
+        var catalogReader = Mockito.mock(ICatalogReader.class);
+        var catalog = new SpringWebFluxTemplateCatalog(catalogReader);
+        assertThat(catalog).isNotNull();
     }
 
     private class FakeTemplateCatalog extends SpringTemplateCatalog {
