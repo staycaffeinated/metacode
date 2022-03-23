@@ -4,7 +4,7 @@
 plugins {
     // See https://github.com/diffplug/spotless-changelog
     id 'com.diffplug.spotless-changelog' version '2.4.0'
-    id 'com.diffplug.spotless' version '6.2.0'
+    id 'com.diffplug.spotless' version '6.3.0'
 
     // This plugin helps collate findings between the subprojects
     id 'org.kordamp.gradle.jacoco' version '0.47.0'
@@ -25,7 +25,7 @@ plugins {
     id 'jacoco-report-aggregation'
 
     // this enables lombok
-    id 'io.freefair.lombok' version '6.3.0'
+    id 'io.freefair.lombok' version '6.4.1'
 
     // Integration test plugin
     // id "com.coditory.integration-test" version "1.3.0"
@@ -40,7 +40,7 @@ plugins {
 
     id "org.sonarqube" version "3.3"
 
-    id "com.github.ben-manes.versions" version "0.41.0"
+    id "com.github.ben-manes.versions" version "0.42.0"
 }
 
 // -------------------------------------
@@ -60,12 +60,13 @@ spotlessChangelog {
     }
 
 // ----------------------------------------------------------------------------
-// Enforce Java 17
-// (java 17 is not absolutely required)
+// Use Java 11, for the sake of supporting the oldest LTS Java version.
+// Since Java8 and Java11 are still the most used versions in production
+// systems, we'll go with a version most developers are likely to have.
 // ----------------------------------------------------------------------------
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
 
