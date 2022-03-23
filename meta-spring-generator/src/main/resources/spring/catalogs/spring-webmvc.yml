@@ -88,6 +88,10 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/endpoint/root/RootControllerTest.java"
       context: "project"
   - entry:
+      template: "/spring/webmvc/test/endpoint-root/RootServiceTest.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/root/RootServiceTest.java"
+      context: "project"
+  - entry:
       template: "/spring/webmvc/test/advice/GlobalExceptionHandlerTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/advice/GlobalExceptionHandlerTests.java"
       context: "project"

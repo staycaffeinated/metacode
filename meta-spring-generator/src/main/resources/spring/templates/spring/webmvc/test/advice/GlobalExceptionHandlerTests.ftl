@@ -1,12 +1,15 @@
 <#include "/common/Copyright.ftl">
 package ${project.basePackage}.advice;
 
+import ${project.basePackage}.exception.UnprocessableEntityException;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.core.MethodParameter;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -119,4 +122,68 @@ class GlobalExceptionHandlerTests {
         assertThat(response.getBody().getTitle()).isNotEmpty();
     }
 
+    @Test
+    void whenUnprocessableEntityException_expectBadRequest() {
+        var ex = Mockito.mock(UnprocessableEntityException.class);
+        when(ex.getMessage()).thenReturn("A mock message");
+        when(ex.getReason()).thenReturn("A mock reason");
+
+        ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleUnprocessableRequestException(ex);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody().getTitle()).isNotBlank();
+    }
+
+    @Test
+    void whenMissingServletRequestParameter_expectBadRequest() {
+        var ex = Mockito.mock(MissingServletRequestParameterException.class);
+        when(ex.getMessage()).thenReturn("Mock message");
+
+        ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMissingServletRequestParameter(ex);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody().getTitle()).isNotBlank();
+    }
+
+    @Test
+    void whenMethodArgumentTypeMismatch_expectBadRequest() {
+        var ex = Mockito.mock(MethodArgumentTypeMismatchException.class);
+        when(ex.getMessage()).thenReturn("Mock message");
+        when(ex.getValue()).thenReturn("STRING");
+        when(ex.getRequiredType()).thenAnswer(it -> Integer.class);
+
+        var webRequest = Mockito.mock(WebRequest.class);
+
+        ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMethodArgumentTypeMismatch(ex, webRequest);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void whenMethodArgumentTypeMismatchAndValueIsNull_expectBadRequest() {
+        var ex = Mockito.mock(MethodArgumentTypeMismatchException.class);
+        when(ex.getMessage()).thenReturn("Mock message");
+        when(ex.getValue()).thenReturn(null);
+        when(ex.getRequiredType()).thenAnswer(it -> Integer.class);
+
+        var webRequest = Mockito.mock(WebRequest.class);
+
+        ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMethodArgumentTypeMismatch(ex, webRequest);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void whenMethodArgumentTypeMismatchAndRequiredTypeIsNull_expectBadRequest() {
+        var ex = Mockito.mock(MethodArgumentTypeMismatchException.class);
+        when(ex.getMessage()).thenReturn("Mock message");
+        when(ex.getValue()).thenReturn("FirstName");
+        when(ex.getRequiredType()).thenAnswer(it -> null);
+
+        var webRequest = Mockito.mock(WebRequest.class);
+
+        ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMethodArgumentTypeMismatch(ex, webRequest);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
 }

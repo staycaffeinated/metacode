@@ -2,6 +2,7 @@
 
 package ${endpoint.packageName};
 
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -41,4 +42,18 @@ class ${endpoint.entityName}BeanToResourceConverterTests {
         assertThat(resource.getResourceId()).isEqualTo(bean.getResourceId());
         assertThat(resource.getText()).isEqualTo(bean.getText());
     }
+
+    @Test
+    void shouldCopyList() {
+        ${endpoint.ejbName} bean = new ${endpoint.ejbName}();
+        bean.setResourceId(12345L);
+        bean.setText("hello, world");
+        var ejbList = Lists.list(bean);
+
+        List<${endpoint.pojoName}> pojoList = converter.convert(ejbList);
+        assertThat(pojoList.size()).isOne();
+        assertThat(pojoList.get(0).getResourceId()).isEqualTo(bean.getResourceId());
+        assertThat(pojoList.get(0).getText()).isEqualTo(bean.getText());
+    }
+
 }

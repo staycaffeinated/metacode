@@ -131,6 +131,11 @@ class ${endpoint.entityName}ServiceTests {
             then(result).isNotNull();       // must never get null back
             then(result.size()).isZero();   // must have no content for this edge case
         }
+
+        @Test
+        void shouldThrowNullPointerExceptionWhen${endpoint.entityName}IsNull() {
+            assertThrows (NullPointerException.class, () ->  ${endpoint.entityVarName}Service.findByText(null, 1, 100));
+        }
     }
 
     @Nested
@@ -232,6 +237,11 @@ class ${endpoint.entityName}ServiceTests {
             Optional<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.update${endpoint.entityName}(changedVersion);
             then(result.isEmpty()).isTrue();
         }
+
+        @Test
+        void shouldThrowExceptionWhenArgumentIsNull() {
+            assertThrows(NullPointerException.class, () -> ${endpoint.entityVarName}Service.update${endpoint.entityName}(null));
+        }
     }
 
     @Nested
@@ -262,6 +272,11 @@ class ${endpoint.entityName}ServiceTests {
 
             // Verify the deleteByResourceId method was invoked
             verify(${endpoint.entityVarName}Repository, times(1)).deleteByResourceId(any());
+        }
+
+        @Test
+        void shouldThrowExceptionWhenArgumentIsNull() {
+            assertThrows(NullPointerException.class, () -> ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(null));
         }
     }
 }
