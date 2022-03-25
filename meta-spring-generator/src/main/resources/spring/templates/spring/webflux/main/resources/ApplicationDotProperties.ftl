@@ -40,11 +40,9 @@ spring.datasource.password=secret
 # spring.datasource.driver-class-name=org.postgresql.Driver
 </#if>
 <#-- define the jdbc url -->
-<#if (project.postgres)??>
+<#if (project.isWithPostgres())>
     <#if (project.schema)??>
 spring.datasource.url=jdbc:postgresql://localhost:5432/${project.schema}
-    <#elseif (project.applicationName)??>
-spring.datasource.url=jdbc:postgresql://localhost:5432/${project.applicationName}
     <#else>
 spring.datasource.url=jdbc:postgresql://localhost:5432/testdb
     </#if>

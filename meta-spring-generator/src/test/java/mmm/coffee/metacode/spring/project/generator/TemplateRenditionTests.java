@@ -45,6 +45,9 @@ class TemplateRenditionTests {
         // This path is relative to TEMPLATE_DIRECTORY
         final String template = "/gradle/BuildDotGradle.ftl";
 
+        //
+        // This series confirms behavior when flags _are_ enabled
+        //
         @Test
         void whenPostgresFlagIsEnabled_expectUsesPostgresLibrary() {
             RestProjectTemplateModel templateModel = buildBasicModel();
@@ -74,7 +77,7 @@ class TemplateRenditionTests {
         @Test
         void whenLiquibaseFlagIsEnabled_expectUsesLiquibaseLibrary() {
             RestProjectTemplateModel templateModel = buildBasicModel();
-            templateModel.setWithTestContainers(true);
+            templateModel.setWithLiquibase(true);
             templateModel.setWebMvc(true);
 
             String content = templateResolver.render(template, templateModel);
@@ -96,6 +99,119 @@ class TemplateRenditionTests {
             assertThat(content).contains("libs.testContainersPostgres");
         }
 
+        //
+        // This series confirms behavior when flags _are not_ set. For example, when an integration
+        // is not requested, the integration library should not be present.
+        //
+        @Test
+        void whenPostgresFlagIsNotEnabled_expectPostgresLibraryIsAbsent() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(false);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            assertThat(content).isNotNull();
+            assertThat(content).doesNotContain("libs.postgresql");
+        }
+
+        @Test
+        void whenLiquibaseFlagIsNotEnabled_expectLiquibaseLibraryIsAbsent() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(false);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            assertThat(content).isNotNull();
+            assertThat(content).doesNotContain("libs.liquibaseCore");
+        }
+
+        @Test
+        void whenTestContainersFlagIsNotEnabled_expectTestContainersLibraryIsAbsent() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(false);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            assertThat(content).isNotNull();
+            assertThat(content).doesNotContain("libs.testContainersBom");
+            assertThat(content).doesNotContain("libs.testContainersJupiter");
+        }
+
+    }
+
+    @Nested
+    class ApplicationDotPropertiesTests {
+        // This path is relative to TEMPLATE_DIRECTORY
+        final String template = "/spring/webmvc/main/resources/ApplicationDotProperties.ftl";
+
+        @Test
+        void whenPostgresFlagEnabled_expectPostgresJdbcDriver() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(true);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            assertThat(content).isNotNull();
+            assertThat(content).contains("spring.datasource.url=jdbc:postgresql:");
+            assertThat(content).contains("spring.datasource.driver-class-name=org.postgresql.Driver");
+        }
+
+        @Test
+        void whenPostgresFlagIsNotEnabled_expectH2JdbcDriver() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(false);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            // When no database is specified, the templates default to the H2 in-memory database
+            assertThat(content).isNotNull();
+            assertThat(content).contains("spring.datasource.url=jdbc:h2:mem");
+            assertThat(content).contains("spring.datasource.driver-class-name=org.h2.Driver");
+        }
+
+
+    }
+
+
+    @Nested
+    class ApplicationTestDotYamlTests {
+        // This path is relative to TEMPLATE_DIRECTORY
+        final String template = "/spring/webmvc/test/resources/ApplicationTestDotYaml.ftl";
+
+        @Test
+        void whenPostgresFlagEnabled_expectPostgresJdbcDriver() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(true);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            // these are some strings expected to be found.
+            assertThat(content).isNotNull();
+            assertThat(content).contains("driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver");
+            assertThat(content).contains("url: jdbc:tc:postgresql:9.6.8:///testdb?currentSchema=public");
+            assertThat(content).contains("database-platform: org.hibernate.dialect.PostgreSQLDialect");
+        }
+
+        @Test
+        void whenPostgresFlagIsNotEnabled_expectH2JdbcDriver() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(false);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            // When no database is specified, the templates default to the H2 in-memory database
+            assertThat(content).isNotNull();
+            assertThat(content).contains("driver-class-name: org.h2.Driver");
+            assertThat(content).contains("url: jdbc:h2:mem:testdb");
+            assertThat(content).contains("database-platform: org.hibernate.dialect.H2Dialect");
+        }
     }
 
     // ------------------------------------------------------------------------------------------------

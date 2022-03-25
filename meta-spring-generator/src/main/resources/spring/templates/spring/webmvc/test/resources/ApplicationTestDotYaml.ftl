@@ -3,7 +3,7 @@ spring:
         activate:
             on-profile: test
 
-<#if (project.postgres)??>
+<#if (project.isWithPostgres())>
     datasource:
         driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     <#noparse>

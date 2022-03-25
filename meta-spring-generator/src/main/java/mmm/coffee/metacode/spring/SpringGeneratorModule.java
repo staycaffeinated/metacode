@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.project;
+package mmm.coffee.metacode.spring;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
