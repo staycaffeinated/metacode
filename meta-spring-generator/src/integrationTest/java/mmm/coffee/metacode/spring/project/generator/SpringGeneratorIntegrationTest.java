@@ -12,10 +12,9 @@ import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
 import mmm.coffee.metacode.common.freemarker.FreemarkerTemplateResolver;
 import mmm.coffee.metacode.common.writer.ContentToNullWriter;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
-import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
-import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
-import mmm.coffee.metacode.spring.project.generator.SpringCodeGenerator;
+import mmm.coffee.metacode.spring.project.converter.DescriptorToTemplateModelConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class SpringGeneratorIntegrationTest {
     public void setUp() {
         generatorUnderTest = SpringCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
-                .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
+                .descriptor2templateModel(new DescriptorToTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToNullWriter())
@@ -76,7 +75,7 @@ class SpringGeneratorIntegrationTest {
     @Test
     void whenPostgresIntegration_shouldRenderTemplate() {
         // given: postgres integration is enabled
-        Set<String> integrations = buildIntegrations(WebMvcIntegration.POSTGRES.name());
+        Set<String> integrations = buildIntegrations(SpringIntegrations.POSTGRES.name());
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
@@ -95,7 +94,7 @@ class SpringGeneratorIntegrationTest {
     @Test
     void whenTestContainersIntegration_shouldRenderTemplate() {
         // given: testcontainers integration is enabled
-        Set<String> integrations = buildIntegrations(WebMvcIntegration.TESTCONTAINERS.name());
+        Set<String> integrations = buildIntegrations(SpringIntegrations.TESTCONTAINERS.name());
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
@@ -114,8 +113,8 @@ class SpringGeneratorIntegrationTest {
     @Test
     void whenTestContainersAndPostgresIntegration_shouldRenderTemplate() {
         // given: testcontainers and postgres integration is enabled
-        Set<String> integrations = buildIntegrations(WebMvcIntegration.TESTCONTAINERS.name(),
-                WebMvcIntegration.POSTGRES.name());
+        Set<String> integrations = buildIntegrations(SpringIntegrations.TESTCONTAINERS.name(),
+                SpringIntegrations.POSTGRES.name());
 
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
@@ -135,7 +134,7 @@ class SpringGeneratorIntegrationTest {
     @Test
     void whenLiquibaseIntegration_shouldRenderTemplate() {
         // given: liquibase integration is enabled
-        Set<String> integrations = buildIntegrations(WebMvcIntegration.LIQUIBASE.name());
+        Set<String> integrations = buildIntegrations(SpringIntegrations.LIQUIBASE.name());
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
@@ -154,9 +153,9 @@ class SpringGeneratorIntegrationTest {
     @Test
     void whenPostgresAndTestContainersAndLiquibaseIntegration_shouldRenderTemplate() {
         // given: postgres, testcontainers, and liquibase integrations are enabled
-        Set<String> integrations = buildIntegrations(WebMvcIntegration.POSTGRES.name(),
-                WebMvcIntegration.TESTCONTAINERS.name(),
-                WebMvcIntegration.LIQUIBASE.name());
+        Set<String> integrations = buildIntegrations(SpringIntegrations.POSTGRES.name(),
+                SpringIntegrations.TESTCONTAINERS.name(),
+                SpringIntegrations.LIQUIBASE.name());
         
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)

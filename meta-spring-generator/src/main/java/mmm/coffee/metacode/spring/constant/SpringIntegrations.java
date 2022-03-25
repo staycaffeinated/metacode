@@ -18,7 +18,7 @@ package mmm.coffee.metacode.spring.constant;
 /**
  * Integrations supported by the spring-webmvc code generator
  */
-public enum WebMvcIntegration {
+public enum SpringIntegrations {
     POSTGRES ("postgres"),
     LIQUIBASE ("liquibase"),
     TESTCONTAINERS ("testcontainers")
@@ -27,7 +27,7 @@ public enum WebMvcIntegration {
     // This is the value an end-user enters on the command line.
     private final String value;
 
-    WebMvcIntegration(String name) {
+    SpringIntegrations(String name) {
         this.value = name;
     }
 

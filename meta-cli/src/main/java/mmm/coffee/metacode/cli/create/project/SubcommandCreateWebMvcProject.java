@@ -20,7 +20,7 @@ import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
-import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import picocli.CommandLine;
 
 /**
@@ -57,7 +57,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
             paramLabel = "LIBRARY",
             description = { "Add the support of additional libraries to the project. Currently supported libraries are: ${COMPLETION-CANDIDATES}." }
     )
-    private WebMvcIntegration[] features;
+    private SpringIntegrations[] features;
 
     /**
      * Handle to the code generator
@@ -99,7 +99,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
 
         // take note of any features/integrations
         if (features != null) {
-            for (WebMvcIntegration f : features) {
+            for (SpringIntegrations f : features) {
                 descriptor.getIntegrations().add(f.name());
             }
         }

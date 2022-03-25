@@ -8,21 +8,21 @@ dependencies {
     implementation libs.springBootStarterDataJpa
     implementation libs.problemSpringWeb
     implementation libs.problemJacksonDataType
-<#if (project.liquibase)??>
+<#if (project.isWithLiquibase)??>
     implementation libs.liquibaseCore
 </#if>
 
-<#if (project.postgres)??>
+<#if (project.isWithPostgres)??>
     runtimeOnly libs.postgresql
 <#else>
     runtimeOnly libs.h2
 </#if>
 
-<#if (project.testcontainers)??>
+<#if (project.isWithTestContainers)??>
     testImplementation libs.springCloud
     testImplementation platform( libs.testContainersBom )
     testImplementation libs.testContainersJupiter
-    <#if (project.postgres)??> <#-- if (testcontainers && postgres) -->
+    <#if (project.isWithPostgres)??> <#-- if (testcontainers && postgres) -->
     testImplementation libs.testContainersPostgres
     </#if>
 <#else>

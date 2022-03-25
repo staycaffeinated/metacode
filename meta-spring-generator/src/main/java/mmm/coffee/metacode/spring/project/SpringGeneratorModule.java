@@ -47,7 +47,7 @@ import mmm.coffee.metacode.spring.endpoint.generator.SpringEndpointGenerator;
 import mmm.coffee.metacode.spring.endpoint.io.SpringEndpointMetaPropertiesHandler;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToMetaProperties;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
-import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
+import mmm.coffee.metacode.spring.project.converter.DescriptorToTemplateModelConverter;
 import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
 import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
 import mmm.coffee.metacode.spring.project.generator.SpringCodeGenerator;
@@ -70,7 +70,7 @@ public final class SpringGeneratorModule extends AbstractModule {
     ICodeGenerator<RestProjectDescriptor> provideSpringWebMvcGenerator() {
         return SpringCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
-                .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
+                .descriptor2templateModel(new DescriptorToTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToFileWriter())
@@ -87,7 +87,7 @@ public final class SpringGeneratorModule extends AbstractModule {
     ICodeGenerator<RestProjectDescriptor> providesSpringWebFluxGenerator() {
         return SpringCodeGenerator.builder()
                 .collector(new SpringWebFluxTemplateCatalog(new CatalogFileReader()))
-                .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
+                .descriptor2templateModel(new DescriptorToTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToFileWriter())

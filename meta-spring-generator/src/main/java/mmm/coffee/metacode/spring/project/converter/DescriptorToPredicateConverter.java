@@ -21,7 +21,7 @@ import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.CatalogEntryPredicates;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
-import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +49,13 @@ public class DescriptorToPredicateConverter implements ConvertTrait<RestProjectD
         List<Predicate<CatalogEntry>> resultSet = new ArrayList<>();
         resultSet.add ( CatalogEntryPredicates.isCommonProjectArtifact() );
 
-        if (descriptor.getIntegrations().contains(WebMvcIntegration.POSTGRES.name()))
+        if (descriptor.getIntegrations().contains(SpringIntegrations.POSTGRES.name()))
             resultSet.add( CatalogEntryPredicates.hasPostgresTag() );
 
-        if (descriptor.getIntegrations().contains(WebMvcIntegration.TESTCONTAINERS.name()))
+        if (descriptor.getIntegrations().contains(SpringIntegrations.TESTCONTAINERS.name()))
             resultSet.add( CatalogEntryPredicates.hasTestContainerTag() );
 
-        if (descriptor.getIntegrations().contains(WebMvcIntegration.LIQUIBASE.name()))
+        if (descriptor.getIntegrations().contains(SpringIntegrations.LIQUIBASE.name()))
            resultSet.add(CatalogEntryPredicates.hasLiquibaseTag());
 
 

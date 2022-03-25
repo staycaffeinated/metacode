@@ -6,6 +6,7 @@ package mmm.coffee.metacode.spring.project.converter;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
 
 /**
@@ -14,7 +15,7 @@ import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
  * Separate object types are used to obtain separation of concern between the command-line module
  * and the code-generation module.
  */
-public class DescriptorToRestProjectTemplateModelConverter implements ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> {
+public class DescriptorToTemplateModelConverter implements ConvertTrait<RestProjectDescriptor, RestProjectTemplateModel> {
     public RestProjectTemplateModel convert(RestProjectDescriptor descriptor) {
         return RestProjectTemplateModel.builder()
                 .applicationName(descriptor.getApplicationName())
@@ -22,6 +23,9 @@ public class DescriptorToRestProjectTemplateModelConverter implements ConvertTra
                 .basePath(descriptor.getBasePath())
                 .isWebFlux(descriptor.getFramework().equals(Framework.SPRING_WEBFLUX.frameworkName()))
                 .isWebMvc(descriptor.getFramework().equals(Framework.SPRING_WEBMVC.frameworkName()))
+                .withPostgres(descriptor.getIntegrations().contains(SpringIntegrations.POSTGRES.name()))
+                .withTestContainers(descriptor.getIntegrations().contains(SpringIntegrations.TESTCONTAINERS.name()))
+                .withLiquibase(descriptor.getIntegrations().contains(SpringIntegrations.LIQUIBASE.name()))
                 .build();
     }
 }

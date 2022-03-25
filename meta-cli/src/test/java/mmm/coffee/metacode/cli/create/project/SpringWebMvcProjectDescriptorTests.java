@@ -17,7 +17,7 @@ package mmm.coffee.metacode.cli.create.project;
 
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
-import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -42,13 +42,13 @@ class SpringWebMvcProjectDescriptorTests {
     private static final String BASEPKG = "io.acme.petstore";
     private static final String APPNAME = "petstore";
     private static final String GROUPID = "io.acme.petstore";
-    private static Set<WebMvcIntegration> FEATURES = new HashSet<>();
+    private static Set<SpringIntegrations> FEATURES = new HashSet<>();
 
     @BeforeEach
     public void setUp() {
         FEATURES.clear();
-        FEATURES.add(WebMvcIntegration.POSTGRES);
-        FEATURES.add(WebMvcIntegration.TESTCONTAINERS);
+        FEATURES.add(SpringIntegrations.POSTGRES);
+        FEATURES.add(SpringIntegrations.TESTCONTAINERS);
     }
 
     /**
@@ -64,11 +64,11 @@ class SpringWebMvcProjectDescriptorTests {
                 .framework(Framework.SPRING_WEBMVC)
                 .build();
 
-        descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
-        descriptor.getIntegrations().add(WebMvcIntegration.TESTCONTAINERS.name());
+        descriptor.getIntegrations().add(SpringIntegrations.POSTGRES.name());
+        descriptor.getIntegrations().add(SpringIntegrations.TESTCONTAINERS.name());
         String[] expectedFeatures = {
-                WebMvcIntegration.POSTGRES.name(),
-                WebMvcIntegration.TESTCONTAINERS.name()
+                SpringIntegrations.POSTGRES.name(),
+                SpringIntegrations.TESTCONTAINERS.name()
         };
 
         assertThat(descriptor.getApplicationName()).isEqualTo(APPNAME);
@@ -93,11 +93,11 @@ class SpringWebMvcProjectDescriptorTests {
                 .framework(Framework.SPRING_WEBMVC)
                 .build();
 
-        descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
-        descriptor.getIntegrations().add(WebMvcIntegration.TESTCONTAINERS.name());
+        descriptor.getIntegrations().add(SpringIntegrations.POSTGRES.name());
+        descriptor.getIntegrations().add(SpringIntegrations.TESTCONTAINERS.name());
         
         assertThat(descriptor.getIntegrations().size()).isEqualTo(2);
-        assertThat(descriptor.getIntegrations()).containsExactly(WebMvcIntegration.POSTGRES.name(), WebMvcIntegration.TESTCONTAINERS.name());
+        assertThat(descriptor.getIntegrations()).containsExactly(SpringIntegrations.POSTGRES.name(), SpringIntegrations.TESTCONTAINERS.name());
     }
     
     @Test
@@ -115,7 +115,7 @@ class SpringWebMvcProjectDescriptorTests {
         FEATURES.forEach(f -> descriptor.getIntegrations().add(f.name()));
 
         assertThat(descriptor.getIntegrations().size()).isEqualTo(2);
-        assertThat(descriptor.getIntegrations()).containsExactly(WebMvcIntegration.POSTGRES.name(), WebMvcIntegration.TESTCONTAINERS.name());
+        assertThat(descriptor.getIntegrations()).containsExactly(SpringIntegrations.POSTGRES.name(), SpringIntegrations.TESTCONTAINERS.name());
     }
 
     /*

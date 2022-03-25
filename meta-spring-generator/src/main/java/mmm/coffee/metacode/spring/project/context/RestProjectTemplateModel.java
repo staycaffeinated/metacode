@@ -18,6 +18,7 @@ package mmm.coffee.metacode.spring.project.context;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
@@ -54,21 +55,16 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private String basePackagePath;
     private String groupId;
 
-    // 
-    private String postgres;
-    private String testContainers;
-    private String liquibase;
-
-    // In Mojo2, integrations work by having
-    // a field=true|false. eg:
-    // features.postgres=true|false
-    // features.testcontainers=true|false
-    // features.liquibase=true|false
-    // I don't think Freemarker understands booleans --
-    // a field exists or doesn't exist, so we init all these
-    // features to 'false' and set to 'true' as appropriate
-
-
+    // Booleans to indicate the integrations to accomodate
+    // The Setter annotation instructs Lombok to include a 'setX'
+    // for these. Otherwise, they're only visible within the Builder
+    @Setter
+    private boolean withPostgres;
+    @Setter
+    private boolean withTestContainers;
+    @Setter
+    private boolean withLiquibase;
+    
     /*
      * Library versions
      *

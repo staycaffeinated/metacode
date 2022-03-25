@@ -18,7 +18,7 @@ package mmm.coffee.metacode.spring.project.converter;
 import com.google.common.base.Predicate;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
-import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,13 +54,13 @@ class DescriptorToPredicateConverterTest {
         commonEntry = buildCatalogEntry("ErrorAdvice.ftl", "ErrorAdvice.java");
 
         // A template specific to Postgres support should contain the 'postgres' tag
-        postgresEntry = buildCatalogEntry("DatabaseConfig.ftl", "DatabaseConfig.java", WebMvcIntegration.POSTGRES.toString());
+        postgresEntry = buildCatalogEntry("DatabaseConfig.ftl", "DatabaseConfig.java", SpringIntegrations.POSTGRES.toString());
 
         // A template specific to testcontainer support should contain the 'testcontainer' tag
-        testContainerEntry = buildCatalogEntry("TestContainer.ftl", "TestContainer.java", WebMvcIntegration.TESTCONTAINERS.toString());
+        testContainerEntry = buildCatalogEntry("TestContainer.ftl", "TestContainer.java", SpringIntegrations.TESTCONTAINERS.toString());
 
         // A template specific to liquibase support should contain the liquibase tag
-        liquibaseEntry = buildCatalogEntry("liquibaseTemplate.ftl", "liquibase.yml", WebMvcIntegration.LIQUIBASE.toString());
+        liquibaseEntry = buildCatalogEntry("liquibaseTemplate.ftl", "liquibase.yml", SpringIntegrations.LIQUIBASE.toString());
     }
 
 
@@ -94,7 +94,7 @@ class DescriptorToPredicateConverterTest {
     void whenTestContainerSupport_shouldHaveTestContainerPredicate() {
         restProject = RestProjectDescriptor.builder()
                 .basePath(BASE_PATH).basePackage(BASE_PKG).applicationName(APP_NAME).build();
-        restProject.getIntegrations().add(WebMvcIntegration.TESTCONTAINERS.name());
+        restProject.getIntegrations().add(SpringIntegrations.TESTCONTAINERS.name());
 
         Predicate<CatalogEntry> predicate = converterUnderTest.convert(restProject);
 
@@ -117,7 +117,7 @@ class DescriptorToPredicateConverterTest {
     void whenPostgresSupport_shouldHavePostgresPredicate() {
         restProject = RestProjectDescriptor.builder()
                 .basePath(BASE_PATH).basePackage(BASE_PKG).applicationName(APP_NAME).build();
-        restProject.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
+        restProject.getIntegrations().add(SpringIntegrations.POSTGRES.name());
 
         Predicate<CatalogEntry> predicate = converterUnderTest.convert(restProject);
 
@@ -140,7 +140,7 @@ class DescriptorToPredicateConverterTest {
     void whenLiquibaseSupport_shouldHaveLiquibasePredicate() {
         restProject = RestProjectDescriptor.builder()
                 .basePath(BASE_PATH).basePackage(BASE_PKG).applicationName(APP_NAME).build();
-        restProject.getIntegrations().add(WebMvcIntegration.LIQUIBASE.name());
+        restProject.getIntegrations().add(SpringIntegrations.LIQUIBASE.name());
 
         Predicate<CatalogEntry> predicate = converterUnderTest.convert(restProject);
 

@@ -18,12 +18,10 @@ import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 @Generated // exclude this class from code coverage reports
 public abstract class SpringTemplateModel implements MetaTemplateModel {
 
-    // This field has a custom setter method, so tell lombok not to create a setter
-    @Setter(AccessLevel.PROTECTED)
+    @Setter(AccessLevel.PUBLIC)
     private boolean isWebFlux;
 
-    // This field has a custom setter method, so tell lombok not to create a setter
-    @Setter(AccessLevel.PROTECTED)
+    @Setter(AccessLevel.PUBLIC)
     private boolean isWebMvc;
 
     @Setter(AccessLevel.PROTECTED)

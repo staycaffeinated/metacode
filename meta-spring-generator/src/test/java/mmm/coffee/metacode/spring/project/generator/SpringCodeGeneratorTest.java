@@ -20,24 +20,18 @@ import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.dependency.Dependency;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
-import mmm.coffee.metacode.common.io.MetaProperties;
-import mmm.coffee.metacode.common.io.MetaPropertiesReader;
 import mmm.coffee.metacode.common.io.MetaPropertiesWriter;
 import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.writer.ContentToNullWriter;
-import mmm.coffee.metacode.spring.constant.WebMvcIntegration;
-import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToMetaProperties;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
-import mmm.coffee.metacode.spring.project.converter.DescriptorToRestProjectTemplateModelConverter;
+import mmm.coffee.metacode.spring.project.converter.DescriptorToTemplateModelConverter;
 import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
 import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
 import mmm.coffee.metacode.spring.project.io.SpringMetaPropertiesHandler;
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.PropertiesConfiguration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -91,7 +85,7 @@ class SpringCodeGeneratorTest {
 
         generatorUnderTest = SpringCodeGenerator.builder()
                 .collector(fakeCollector)
-                .descriptor2templateModel(new DescriptorToRestProjectTemplateModelConverter())
+                .descriptor2templateModel(new DescriptorToTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
                 .outputHandler(new ContentToNullWriter())
                 .metaPropertiesHandler(mockHandler)
@@ -117,7 +111,7 @@ class SpringCodeGeneratorTest {
     void givenPostgresSupport_shouldReturnOK() {
         // Given: a project that wants Postgres integration enabled
         var descriptor = buildSampleDescriptor();
-        descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
+        descriptor.getIntegrations().add(SpringIntegrations.POSTGRES.name());
 
         // Expect: code generation is successful
         assertThat(generatorUnderTest.generateCode(descriptor)).isEqualTo(ExitCodes.OK);
@@ -127,8 +121,8 @@ class SpringCodeGeneratorTest {
     void givenPostgresAndTestContainerSupport_shouldReturnOK() {
         // given: a project with Postgres and TestContainer integration enabled
         var descriptor = buildSampleDescriptor();
-        descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
-        descriptor.getIntegrations().add(WebMvcIntegration.TESTCONTAINERS.name());
+        descriptor.getIntegrations().add(SpringIntegrations.POSTGRES.name());
+        descriptor.getIntegrations().add(SpringIntegrations.TESTCONTAINERS.name());
 
         //  expect: code generation is successful
         assertThat(generatorUnderTest.generateCode(descriptor)).isEqualTo(ExitCodes.OK);
@@ -138,9 +132,9 @@ class SpringCodeGeneratorTest {
     void givenPostgresAndTestContainerAndLiquibaseSupport_shouldReturnOK() {
         // given: a project with Postgres and TestContainer integration enabled
         var descriptor = buildSampleDescriptor();
-        descriptor.getIntegrations().add(WebMvcIntegration.POSTGRES.name());
-        descriptor.getIntegrations().add(WebMvcIntegration.TESTCONTAINERS.name());
-        descriptor.getIntegrations().add(WebMvcIntegration.LIQUIBASE.name());
+        descriptor.getIntegrations().add(SpringIntegrations.POSTGRES.name());
+        descriptor.getIntegrations().add(SpringIntegrations.TESTCONTAINERS.name());
+        descriptor.getIntegrations().add(SpringIntegrations.LIQUIBASE.name());
 
         //  expect: code generation is successful
         assertThat(generatorUnderTest.generateCode(descriptor)).isEqualTo(ExitCodes.OK);
@@ -150,7 +144,7 @@ class SpringCodeGeneratorTest {
     void givenLiquibaseSupport_shouldReturnOK() {
         // given: a project with Postgres and TestContainer integration enabled
         var descriptor = buildSampleDescriptor();
-        descriptor.getIntegrations().add(WebMvcIntegration.LIQUIBASE.name());
+        descriptor.getIntegrations().add(SpringIntegrations.LIQUIBASE.name());
 
         //  expect: code generation is successful
         assertThat(generatorUnderTest.generateCode(descriptor)).isEqualTo(ExitCodes.OK);
