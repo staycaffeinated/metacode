@@ -21,7 +21,7 @@ import com.google.inject.Injector;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.cli.create.CreateCommand;
 import mmm.coffee.metacode.cli.traits.CallTrait;
-import mmm.coffee.metacode.spring.project.SpringGeneratorModule;
+import mmm.coffee.metacode.spring.SpringGeneratorModule;
 import picocli.AutoComplete.GenerateCompletion;
 import picocli.CommandLine;
 
@@ -34,7 +34,7 @@ import picocli.CommandLine;
 @CommandLine.Command(
         name="metacode",
         description="A code generator",
-        version = "0.1.5",
+        version = "0.1.6",
         mixinStandardHelpOptions = true,
         subcommands = { GenerateCompletion.class, CreateCommand.class }
 
