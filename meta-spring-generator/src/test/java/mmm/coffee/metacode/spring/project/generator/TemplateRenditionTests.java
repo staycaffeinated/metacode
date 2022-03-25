@@ -214,6 +214,41 @@ class TemplateRenditionTests {
         }
     }
 
+    @Nested
+    class DockerComposeTests {
+        // This path is relative to TEMPLATE_DIRECTORY
+        final String template = "/docker/DockerCompose.ftl";
+
+        @Test
+        void whenPostgresFlagEnabled_expectPostgresJdbcDriver() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(true);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            // these are some strings expected to be found.
+            assertThat(content).isNotNull();
+            assertThat(content).contains("SPRING_DATASOURCE_URL=jdbc:postgresql");
+            assertThat(content).contains("SPRING_DATASOURCE_USERNAME=postgres");
+        }
+
+        @Test
+        void whenPostgresFlagIsNotEnabled_expectH2JdbcDriver() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(false);
+            templateModel.setWebMvc(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            // When Postgres is not specified, the Postgres stanza should not be found.
+            // Spot check for various Postgres properties to ensure they are not present.
+            assertThat(content).isNotNull();
+            assertThat(content).doesNotContain("SPRING_DATASOURCE_URL=jdbc:postgresql");
+            assertThat(content).doesNotContain("SPRING_DATASOURCE_USERNAME=postgres");
+        }
+    }
+
     // ------------------------------------------------------------------------------------------------
     //
     // Helper Methods

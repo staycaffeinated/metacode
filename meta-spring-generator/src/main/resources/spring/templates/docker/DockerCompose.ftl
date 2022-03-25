@@ -6,7 +6,7 @@ services:
         image: ${project.applicationName}:0.0.1
         ports:
             - "8080:8080"
-<#if (project.postgres)??>
+<#if (project.isWithPostgres())>
         depends_on:
             - dbms
         environment:
