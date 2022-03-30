@@ -17,10 +17,8 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
-import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
-import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import picocli.CommandLine;
 
 /**
@@ -37,28 +35,8 @@ import picocli.CommandLine;
         optionListHeading = "%nOptions:%n"
 )
 @SuppressWarnings({ "java:S1854", "java:S1481" } ) // S1854, S1481: allow  unused vars for now
-public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
-
-    //
-    // The Support option. These are the added capabilities supported by the generated application.
-    // I've been back and forth with what to name this flag.  Spring Initialzr has the notion of
-    // 'dependencies', but all Spring Initializr does is add those dependencies to the gradle/maven build file.
-    // Micronaut uses the term 'feature', but added libraries aren't exactly 'features' of the
-    // generated application. The term 'trait' seems in line: for example, a 'postgres trait' indicates
-    // the traits of a Postgres database are enabled in the application. Along that line, 'support'
-    // also seems like a good term: the generated application will 'support' postgres or liquibase or CORS
-    // or heath checks or whatever
-    // First, we have to provide an Iterable<String> that provides the list of valid candidates
-    //
-    // The declaration the additional library options
-    // For example, ```--add postgres liquibase```
-    @CommandLine.Option(names={"-s", "--support"},
-            arity="0..*",
-            paramLabel = "LIBRARY",
-            description = { "Add the support of additional libraries to the project. Currently supported libraries are: ${COMPLETION-CANDIDATES}." }
-    )
-    private SpringIntegrations[] features;
-
+public class SubcommandCreateWebMvcProject extends AbstractCreateSpringProject {
+    
     /**
      * Handle to the code generator
      */
@@ -81,28 +59,5 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateRestProject {
         super.validateInputs();
         var descriptor = buildProjectDescriptor();
         return codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);
-    }
-
-    /**
-     * Creates a project descriptor from the command-line arguments
-     * @return a POJO that encapsulates the command-line arguments
-     */
-    RestProjectDescriptor buildProjectDescriptor() {
-        // Get the basic information
-        var descriptor = RestProjectDescriptor.builder()
-                .applicationName(applicationName)
-                .basePackage(packageName)
-                .basePath(basePath)
-                .groupId(groupId)
-                .framework(Framework.SPRING_WEBMVC)
-                .build();
-
-        // take note of any features/integrations
-        if (features != null) {
-            for (SpringIntegrations f : features) {
-                descriptor.getIntegrations().add(f.name());
-            }
-        }
-        return descriptor;
     }
 }
