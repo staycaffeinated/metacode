@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.project.context;
+package mmm.coffee.metacode.spring.project.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +23,6 @@ import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
-import mmm.coffee.metacode.spring.model.SpringTemplateModel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

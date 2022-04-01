@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring.project.context;
+package mmm.coffee.metacode.spring.project.model;
 
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;

@@ -5,7 +5,7 @@ package mmm.coffee.metacode.spring.project.converter;
 
 import mmm.coffee.metacode.spring.constant.MustacheConstants;
 import mmm.coffee.metacode.spring.converter.NameConverter;
-import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
+import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
 import org.junit.Rule;
 import org.junit.contrib.java.lang.system.SystemErrRule;
 import org.junit.contrib.java.lang.system.SystemOutRule;

@@ -1,14 +1,13 @@
 /*
  * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring.endpoint.context;
+package mmm.coffee.metacode.spring.endpoint.model;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
-import mmm.coffee.metacode.spring.model.SpringTemplateModel;
+import mmm.coffee.metacode.spring.project.model.SpringTemplateModel;
 
 /**
  * RestEndpointTemplateModel

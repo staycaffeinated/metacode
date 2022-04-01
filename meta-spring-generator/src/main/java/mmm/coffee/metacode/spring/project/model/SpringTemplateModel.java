@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring.model;
+package mmm.coffee.metacode.spring.project.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;

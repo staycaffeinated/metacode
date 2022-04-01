@@ -5,7 +5,7 @@ package mmm.coffee.metacode.spring.endpoint.converter;
 
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.constant.MustacheConstants;
-import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 
 import java.util.HashMap;
 import java.util.Map;

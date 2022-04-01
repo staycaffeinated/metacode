@@ -3,19 +3,14 @@
  */
 package mmm.coffee.metacode.spring.project.generator;
 
-import freemarker.cache.StatefulTemplateLoader;
 import freemarker.template.Configuration;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
 import mmm.coffee.metacode.common.freemarker.FreemarkerTemplateResolver;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
-import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Connection;
 
 import static com.google.common.truth.Truth.assertThat;
 

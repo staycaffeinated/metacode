@@ -28,8 +28,8 @@ import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
-import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
-import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
+import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
+import mmm.coffee.metacode.spring.project.mustache.MustacheDecoder;
 
 /**
  * Code generator for SpringWebMvc project

@@ -17,9 +17,8 @@ package mmm.coffee.metacode.spring.project.converter;
 
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.spring.constant.SpringIntegrations;
-import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
+import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;

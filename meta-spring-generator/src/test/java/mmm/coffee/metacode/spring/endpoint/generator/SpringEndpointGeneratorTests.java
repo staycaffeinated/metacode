@@ -18,7 +18,7 @@ import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToTemplateModelConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
-import mmm.coffee.metacode.spring.endpoint.function.MustacheEndpointDecoder;
+import mmm.coffee.metacode.spring.endpoint.mustache.MustacheEndpointDecoder;
 import org.apache.commons.configuration2.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -9,8 +9,8 @@ import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.converter.NameConverter;
 import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
-import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
-import mmm.coffee.metacode.spring.endpoint.context.RouteConstants;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
+import mmm.coffee.metacode.spring.endpoint.model.RouteConstants;
 
 /**
  * RestEndpointDescriptorToTemplateModelConverter

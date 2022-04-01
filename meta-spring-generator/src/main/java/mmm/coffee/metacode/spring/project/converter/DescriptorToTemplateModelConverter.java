@@ -7,7 +7,7 @@ import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.constant.SpringIntegrations;
-import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
+import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
 
 /**
  * Converts a RestProjectDescriptor (which wraps the command-line args into a POJO)

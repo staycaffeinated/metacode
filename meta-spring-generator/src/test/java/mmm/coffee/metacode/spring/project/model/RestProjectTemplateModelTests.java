@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.project.context;
+package mmm.coffee.metacode.spring.project.model;
 
 import mmm.coffee.metacode.common.dependency.Dependency;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;

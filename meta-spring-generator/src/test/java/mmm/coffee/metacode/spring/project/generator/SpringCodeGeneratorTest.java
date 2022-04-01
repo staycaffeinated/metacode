@@ -30,7 +30,7 @@ import mmm.coffee.metacode.spring.project.converter.DescriptorToMetaProperties;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToTemplateModelConverter;
 import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
-import mmm.coffee.metacode.spring.project.function.MustacheDecoder;
+import mmm.coffee.metacode.spring.project.mustache.MustacheDecoder;
 import mmm.coffee.metacode.spring.project.io.SpringMetaPropertiesHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring.endpoint.function;
+package mmm.coffee.metacode.spring.endpoint.mustache;
 
 import lombok.*;
 import mmm.coffee.metacode.common.mustache.MustacheExpressionResolver;
-import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
 
 import java.util.Map;

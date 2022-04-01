@@ -6,7 +6,7 @@ package mmm.coffee.metacode.spring.project.converter;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.constant.MustacheConstants;
 import mmm.coffee.metacode.spring.converter.NameConverter;
-import mmm.coffee.metacode.spring.project.context.RestProjectTemplateModel;
+import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
 
 import java.util.HashMap;
 import java.util.Map;

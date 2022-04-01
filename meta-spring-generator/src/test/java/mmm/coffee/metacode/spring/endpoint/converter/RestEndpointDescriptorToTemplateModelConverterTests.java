@@ -8,7 +8,7 @@ import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.spring.converter.NameConverter;
 import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
-import mmm.coffee.metacode.spring.endpoint.context.RouteConstants;
+import mmm.coffee.metacode.spring.endpoint.model.RouteConstants;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

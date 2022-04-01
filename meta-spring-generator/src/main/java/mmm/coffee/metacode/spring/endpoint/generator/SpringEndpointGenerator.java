@@ -16,8 +16,8 @@ import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.common.stereotype.TemplateResolver;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
-import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
-import mmm.coffee.metacode.spring.endpoint.function.MustacheEndpointDecoder;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
+import mmm.coffee.metacode.spring.endpoint.mustache.MustacheEndpointDecoder;
 import org.apache.commons.configuration2.Configuration;
 
 /**

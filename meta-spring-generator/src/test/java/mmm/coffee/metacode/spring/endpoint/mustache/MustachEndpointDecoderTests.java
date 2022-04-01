@@ -1,10 +1,9 @@
 /*
  * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring.endpoint.function;
+package mmm.coffee.metacode.spring.endpoint.mustache;
 
-import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
-import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

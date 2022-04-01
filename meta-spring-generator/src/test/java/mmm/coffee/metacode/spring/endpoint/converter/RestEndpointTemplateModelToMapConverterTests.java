@@ -4,7 +4,7 @@
 package mmm.coffee.metacode.spring.endpoint.converter;
 
 import mmm.coffee.metacode.spring.constant.MustacheConstants;
-import mmm.coffee.metacode.spring.endpoint.context.RestEndpointTemplateModel;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

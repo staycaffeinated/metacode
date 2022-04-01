@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2022 Jon Caulfield.
  */
-package mmm.coffee.metacode.spring.endpoint.context;
+package mmm.coffee.metacode.spring.endpoint.model;
 
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
