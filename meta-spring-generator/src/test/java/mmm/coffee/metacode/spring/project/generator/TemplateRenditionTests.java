@@ -58,20 +58,25 @@ class TemplateRenditionTests {
 
             assertThat(content).isNotNull();
             assertThat(content).contains("libs.postgresql");
+            // make sure startWeb and not starterWebFlux is used
+            assertThat(content).contains("libs.springBootStarterWeb");
+            assertThat(content).contains("libs.springBootStarterDataJpa");
         }
 
         @Test
-        void whenTestContainsFlagIsEnabled_expectUsesTestContainerLibrary() {
+        void whenTestContainerFlagIsEnabled_expectUsesTestContainerLibrary() {
             RestProjectTemplateModel templateModel = buildBasicModel();
             templateModel.setWithTestContainers(true);
             templateModel.setWebMvc(true);
-
+            
             String content = templateResolver.render(template, templateModel);
 
             assertThat(content).isNotNull();
             assertThat(content).contains("libs.testContainersBom");
             assertThat(content).contains("libs.springCloud");
             assertThat(content).contains("libs.testContainersJupiter");
+            assertThat(content).contains("libs.springBootStarterWeb");
+            assertThat(content).contains("libs.springBootStarterDataJpa");
         }
 
         @Test
@@ -84,6 +89,8 @@ class TemplateRenditionTests {
 
             assertThat(content).isNotNull();
             assertThat(content).contains("libs.liquibaseCore");
+            assertThat(content).contains("libs.springBootStarterWeb");
+            assertThat(content).contains("libs.springBootStarterDataJpa");
         }
 
         @Test
@@ -97,6 +104,9 @@ class TemplateRenditionTests {
 
             assertThat(content).isNotNull();
             assertThat(content).contains("libs.testContainersPostgres");
+            // also verify webmvc libs are used, not webflux libs
+            assertThat(content).contains("libs.springBootStarterWeb");
+            assertThat(content).contains("libs.springBootStarterDataJpa");
         }
 
         //
@@ -113,6 +123,9 @@ class TemplateRenditionTests {
 
             assertThat(content).isNotNull();
             assertThat(content).doesNotContain("libs.postgresql");
+            // check for presence of webmvc libs
+            assertThat(content).contains("libs.springBootStarterWeb");
+            assertThat(content).contains("libs.springBootStarterDataJpa");
         }
 
         @Test
@@ -125,6 +138,9 @@ class TemplateRenditionTests {
 
             assertThat(content).isNotNull();
             assertThat(content).doesNotContain("libs.liquibaseCore");
+            // check for presence of webmvc libs
+            assertThat(content).contains("libs.springBootStarterWeb");
+            assertThat(content).contains("libs.springBootStarterDataJpa");
         }
 
         @Test
@@ -138,6 +154,25 @@ class TemplateRenditionTests {
             assertThat(content).isNotNull();
             assertThat(content).doesNotContain("libs.testContainersBom");
             assertThat(content).doesNotContain("libs.testContainersJupiter");
+            // check for presence of webmvc libs
+            assertThat(content).contains("libs.springBootStarterWeb");
+            assertThat(content).contains("libs.springBootStarterDataJpa");
+        }
+
+        @Test
+        void whenWebFlux_expectSpringBootStarterWebFluxIsDependency() {
+            RestProjectTemplateModel templateModel = buildBasicModel();
+            templateModel.setWithPostgres(false);
+            templateModel.setWebFlux(true);
+
+            String content = templateResolver.render(template, templateModel);
+
+            assertThat(content).isNotNull();
+            assertThat(content).contains("libs.springBootStarterDataR2dbc");
+            assertThat(content).contains("libs.springBootStarterWebFlux");
+            // check for presence of webmvc libs
+            assertThat(content).contains("libs.problemSpringWebFlux");
+            assertThat(content).contains("libs.problemJacksonDataType");
         }
 
     }

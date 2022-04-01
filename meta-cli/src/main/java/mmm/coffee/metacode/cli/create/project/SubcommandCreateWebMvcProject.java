@@ -17,6 +17,7 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;
@@ -57,7 +58,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateSpringProject {
      */
     @Override public Integer call() {
         super.validateInputs();
-        var descriptor = buildProjectDescriptor();
+        var descriptor = buildProjectDescriptor(Framework.SPRING_WEBMVC);
         return codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);
     }
 }

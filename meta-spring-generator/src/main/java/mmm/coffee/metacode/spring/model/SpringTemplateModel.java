@@ -34,14 +34,14 @@ public abstract class SpringTemplateModel implements MetaTemplateModel {
      * Returns {@code true} if {@code framework} is spring-webflux
      */
     public final boolean isWebFlux() {
-        return Framework.WEBFLUX.value().equals(framework);
+        return isWebFlux;
     }
 
     /**
      * Returns {@code true} if {@code framework} is spring-webmvc
      */
     public final boolean isWebMvc() {
-        return Framework.WEBMVC.value().equals(framework);
+        return isWebMvc;
     }
     /**
      * Returns the framework (WebMvc or WebFlux).

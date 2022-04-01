@@ -18,14 +18,20 @@ package mmm.coffee.metacode.cli.validation;
 import java.util.Arrays;
 
 /**
- * Checks whether a word is a reserved Java keyword
+ * Checks whether a proposed class name is disallowed.
+ * A class name can be disallowed if source code for the
+ * class name can be produced, but compile errors come up.
+ * Case in point, we disallow naming a resource 'Test' because
+ * the generator produces a class Test.java, which turns out
+ * to conflict with JUnit's Test class, causing compile errors
+ * because of the naming conflict.
  */
-public class ReservedWords {
+public class DisallowedWords {
 
     private static final String[] reserved;
 
     /* a private constructor to prevent instantiation */
-    private ReservedWords() {}
+    private DisallowedWords() {}
 
     /**
      * Check whether the given {@code word} is a reserved word.
@@ -33,22 +39,17 @@ public class ReservedWords {
      * @param word the candidate value to test
      * @return if {@code word} is a reserved word, or is the String "null".
      */
-    public static boolean isReservedWord(String word) {
-        return Arrays.binarySearch(reserved, word) >= 0;
+    public static boolean isDisallowedWord(String word) {
+        for (String s: reserved) {
+            if (s.equalsIgnoreCase(word)) return true;
+        }
+        return false;
     }
 
     /*
-     * The reserved words, plus 'null'
+     * The disallowed words
      */
     static {
-        reserved = new String[] { "abstract", "assert", "boolean", "break", "byte",
-                "case", "catch", "char", "class", "const", "continue", "default", "do",
-                "double", "else", "enum", "extends", "false", "final", "finally",
-                "float", "for", "goto", "if", "implements", "import", "instanceof",
-                "int", "interface", "long", "native", "new", "null", "package",
-                "private", "protected", "public", "return", "short", "static",
-                "strictfp", "super", "switch", "synchronized", "this", "throw",
-                "throws", "transient", "true", "try", "void", "volatile", "while"
-        };
+        reserved = new String[] { "test" };
     }
 }

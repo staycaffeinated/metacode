@@ -28,12 +28,14 @@ public class ResourceNameValidator {
     private ResourceNameValidator() {}
 
     /**
-     * Checks whether {@code value} represents a valid Java package name
+     * Checks whether {@code value} represents a valid Java class name
      * @param value the String to check
-     * @return true if {@code value} is a valid Java package name
+     * @return true if {@code value} is a valid Java class name
      */
     public static boolean isValid(String value) {
+        // Null and blank names are not allowed as class names
         if (value == null || value.isBlank()) return false;
+
         return check(value);
     }
 
@@ -46,6 +48,7 @@ public class ResourceNameValidator {
      */
     private static boolean check (String candidate) {
         if (ReservedWords.isReservedWord(candidate)) return false;
+        if (DisallowedWords.isDisallowedWord(candidate)) return false;
         return isLegalClassName(candidate);
     }
 
@@ -63,6 +66,7 @@ public class ResourceNameValidator {
         for (var i = 1; i < token.length(); i++) {
             if (!Character.isJavaIdentifierPart(token.charAt(i))) return false;
         }
+
         return true;
     }
 }

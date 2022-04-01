@@ -39,7 +39,7 @@ public class AbstractCreateSpringProject extends AbstractCreateRestProject {
      * Creates a project descriptor from the command-line arguments
      * @return a POJO that encapsulates the command-line arguments
      */
-    protected RestProjectDescriptor buildProjectDescriptor() {
+    protected RestProjectDescriptor buildProjectDescriptor(Framework framework) {
         // Get the basic information
         var descriptor = RestProjectDescriptor
                 .builder()
@@ -47,7 +47,7 @@ public class AbstractCreateSpringProject extends AbstractCreateRestProject {
                 .basePackage(packageName)
                 .basePath(basePath)
                 .groupId(groupId)
-                .framework(Framework.SPRING_WEBFLUX)
+                .framework(framework)
                 .build();
 
         // take note of any features/integrations

@@ -38,6 +38,20 @@ class ResourceNameValidatorTests {
         assertThat( ResourceNameValidator.isValid(identifier)).isFalse();
     }
 
+    /**
+     * Some class names are not allowed because they lead to compile errors.
+     * Case in point, a class named 'Test' will end up conflicting with JUnit's 'Test' class
+     * and the generated code will not compile due to the name conflict.  As such,
+     *
+     * @param proposedResourceName
+     */
+    @ParameterizedTest
+    @ValueSource( strings = { "test", "Test" })
+    void shouldRecognizeDisallowedWords(String proposedResourceName) {
+        assertThat( ResourceNameValidator.isValid(proposedResourceName)).isFalse();
+    }
+
+
     @Test
     void shouldRecognizeReservedWord() {
         assertThat(ResourceNameValidator.isValid("static")).isFalse();

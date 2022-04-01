@@ -27,6 +27,7 @@ import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Unit test
@@ -88,6 +89,36 @@ class SpringWebMvcTemplateCatalogTest {
             var mockCatalogReader = Mockito.mock(ICatalogReader.class);
             var obj = new SpringWebMvcTemplateCatalog(mockCatalogReader);
             assertThat(obj).isNotNull();
+        }
+
+        /**
+         * The signature of the SpringWebMvcTemplateCatalog is:
+         * <code>
+         *  SpringWebMvcTemplateCatalog (@NotNull ICatalogReader reader)
+         * </code>
+         * Naturally, we want to test two conditions:
+         * <li>(1) The reader is null</li>
+         * <li>(2) The reader is not null</li>
+         *
+         * The two tests, <code>shouldThrowExceptionWhenReaderArgIsNull</code>
+         * and <code>shouldInstantiateSuccessfully</code> are designed to test those two
+         * conditions.  However, Jacoco's code coverage report shows that the first
+         * condition is not being tested.
+         *
+         * To address the Jacoco finding, this alternative test of condition one has
+         * been added. Jacoco concurs that _this_ test covers condition one, leaving
+         * us with a slightly cleaner report.
+         */
+        @Test
+        void thisTestFixesHoleInJacoco() {
+            try {
+                // Send in a Null argument to test the @NotNull annotation
+                var foo = new SpringWebMvcTemplateCatalog(null);
+            }
+            catch (NullPointerException e) {
+                return;
+            }
+            fail("Expected NPE to be thrown");
         }
     }
 

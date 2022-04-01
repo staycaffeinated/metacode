@@ -52,7 +52,7 @@ repositories {
 // --------------------------------------------------------------------------------
 // Dependencies
 // --------------------------------------------------------------------------------
-<#if (project.framework == 'WEBFLUX')>
+<#if (project.isWebFlux())>
     <#include "SpringWebFluxDependencies.ftl">
 <#else>
     <#include "SpringWebMvcDependencies.ftl">

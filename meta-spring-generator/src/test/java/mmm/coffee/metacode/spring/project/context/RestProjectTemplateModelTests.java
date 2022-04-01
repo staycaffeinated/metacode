@@ -82,7 +82,7 @@ class RestProjectTemplateModelTests {
     }
 
     @Test
-    void whenIsWebMvc_shouldReturnWEBMVCFramework() {
+    void whenIsWebMvc_shouldReturnWebMvcFramework() {
         RestProjectTemplateModel model = RestProjectTemplateModel.builder()
                 .applicationName("petstore")
                 .basePackage("acme.petstore")
@@ -94,7 +94,7 @@ class RestProjectTemplateModelTests {
     }
 
     @Test
-    void whenIsWebFlux_shouldReturnWEBFLUXFramework() {
+    void whenIsWebFlux_shouldReturnWebFluxFramework() {
         RestProjectTemplateModel model = RestProjectTemplateModel.builder()
                 .applicationName("petstore")
                 .basePackage("acme.petstore")
