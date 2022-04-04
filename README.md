@@ -85,7 +85,7 @@ For example,
 > in your _current working directory_, so be sure to navigate to the folder in which
 > you want the project assets created _before_ running any command.
 
-Let's walk through two examples, using Spring's venerable petstore example
+Let's walk through two examples, using Spring's venerable Pet Store example
 as the starting point.  We'll implement two resources, Pet and Store.
 
 ### Building a Spring WebMvc Application
@@ -150,6 +150,20 @@ http://localhost:8080/petstore/pet/findAll
 http://localhost:8080/petstore/store/
 http://localhost:8080/petstore/store/findAll
 ```
+
+The generated entities only have two instance variables, _resourceId_
+and _text_. The _resourceId_ is separate from the database identifier
+to reinforce the practice of not exposing database identifiers to
+the outside world. The _resourceId's_ are created with a secure
+random number generator with an entropy of 160 bits 
+to make their values hard to guess (UUIDs have an entropy of 122 bits). 
+If you want a different entropy, modify the generated
+_SecureRandomSeries.java_ class to suit your needs.
+
+The structure of the generated entities is intentionally kept simple. 
+MetaCode does not (yet) read Swagger documents, so the generator
+endeavors to create a minimum, viable starting point for your new application. 
+
 
 ### Building a Spring WebFlux Application
 
@@ -298,3 +312,9 @@ generated.  To add these integrations, so something like:
 
 Naturally, you can cherry-pick the integrations to add; for instance,
 integrating only Postgres and TestContainers is supported.
+             
+# References
+
+* [Myths about /dev/urandom] (https://www.2uo.de/myths-about-urandom/)
+* [Secure Random Number Generation in Java] (https://resources.infosecinstitute.com/topic/random-number-generation-java/) (14 Dec 2011)
+* [Moving Away from UUIDs] (https://neilmadden.blog/2018/08/30/moving-away-from-uuids/) (30 Aug 2018)
