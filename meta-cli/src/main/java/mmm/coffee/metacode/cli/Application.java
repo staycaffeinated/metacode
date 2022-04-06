@@ -34,7 +34,7 @@ import picocli.CommandLine;
 @CommandLine.Command(
         name="metacode",
         description="A code generator",
-        version = "0.1.7",
+        version = "0.1.8",
         mixinStandardHelpOptions = true,
         subcommands = { GenerateCompletion.class, CreateCommand.class }
 
