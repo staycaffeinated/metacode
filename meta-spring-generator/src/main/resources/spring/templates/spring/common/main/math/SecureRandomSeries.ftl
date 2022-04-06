@@ -53,7 +53,8 @@ public class SecureRandomSeries {
     }
 
     /**
-     * Returns a secure random Long value with at least 160 bits of entropy
+     * Returns a secure random Long value.
+     * These only have 64-bit entropy since Java long's are 64 bits long.
      * @return a secure random value
      */
     public Long nextLong() {
