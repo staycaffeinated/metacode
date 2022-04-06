@@ -13,7 +13,7 @@ dependencies:
       version: "0.27.1"
   - dependency:
       name: "jibPlugin"
-      version: "3.2.0"
+      version: "3.2.1"
   - dependency:
       name: "junitSystemRules"
       version: "1.19.0"
@@ -28,25 +28,25 @@ dependencies:
       version: "1.18.22"
   - dependency:
       name: "lombokPlugin"
-      version: "6.4.1"
+      version: "6.4.2"
   - dependency:
       name: "log4j"
-      version: "2.14.0"
+      version: "2.17.2"
   - dependency:
       name: "mockito"
-      version: "3.10.0"
+      version: "3.12.4"
   - dependency:
       name: "r2dbc_h2"
-      version: "0.8.4.RELEASE"
+      version: "0.8.5.RELEASE"
   - dependency:
       name: "sonarqube"
       version: "3.3"
   - dependency:
       name: "spotless"
-      version: "6.3.0"
+      version: "6.4.1"
   - dependency:
       name: "springBoot"
-      version: "2.6.5"
+      version: "2.6.6"
   - dependency:
       name: "springCloud"
       version: "3.1.1"
@@ -58,7 +58,7 @@ dependencies:
       version: "0.27.0"
   - dependency:
       name: "reactorTest"
-      version: "3.4.15"
+      version: "3.4.16"
   - dependency:
       name: "testContainers"
       version: "1.16.3"
