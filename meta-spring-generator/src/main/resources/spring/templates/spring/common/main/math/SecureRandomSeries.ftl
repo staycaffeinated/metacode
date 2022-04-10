@@ -4,14 +4,25 @@ package ${project.basePackage}.math;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
 /**
- * This class produces secure random values with a 160-bit entropy, which improves upon
- * the 122-bit entropy of UUIDs.
+ * This class produces secure random values. The {@code nextString()}
+ * methods returns a text String; the {@code nextResourceId()} returns
+ * a numeric String (all the characters are numbers; the {@code nextLong()}
+ * returns a Long value. Methods {@code nextString()} and {@code nextResourceId()}
+ * return values that have 160-bit entropy, making it difficult to guess
+ * the next value.  These have better entropy than UUIDs, which only have
+ * 122 bits of entropy. The {@code nextLong()} values only have 64-bits
+ * of entropy since Long's by nature are only 64 bits long.
+ *
+ * Fun facts:
+ * 160 bits = 2^160 ~= 1.46 x 10^48 possible values.
+ * The number of liters of water on the Earth is about 1.26 x 10^21.
  *
  * The strength of the secure random generator can be configured in the java.security file.
  * See https://metebalci.com/blog/everything-about-javas-securerandom/
@@ -27,6 +38,16 @@ public class SecureRandomSeries {
      * Default constructor, which selects a default algorithm
      */
     public SecureRandomSeries() {
+        // Some candidate algorithms:
+		      // DRBG (deterministic random bit generator)
+		      // SHA2-384
+		      // Hash_DRBG
+		      // The objectives are that resource IDs should be very hard to guess
+		      // and that collisions are extremely rare. A FIPS-approved algorithm
+		      // is suggested, as those are designed to meet our objectives.
+		      // Just because the generated value is 160 bits long doesn't guarantee
+		      // the entropy is that good; a FIPS-approved algorithm provides more
+		      // assurance that the entropy objective will be met.
         this("DRBG");
     }
 
@@ -61,6 +82,19 @@ public class SecureRandomSeries {
         byte[] buffer = randomBytes();
         return ByteBuffer.wrap(buffer).getLong();
     }
+    
+    /**
+	    * Returns a String that is between 48 and 49 characters in length.
+	    * There are about 10^48 possible values, so expect at least 48 digits.
+	    * The String contains is all digits. The String values have 160-bits of entropy,
+	    * meeting the OAuth2 framework recommendation (OAuth recommends resource Ids 
+	    * that have at least 128-bits of entropy and not more that 160-bits of entropy;
+	    * see https://datatracker.ietf.org/doc/html/rfc6749#section-10.10)
+	    */
+	   public String nextResourceId() {
+		      BigInteger bg = new BigInteger(160, 1, random);
+		      return bg.toString();
+	   }
 
     /**
      * Build a buffer with random byte values. The returned value has an

@@ -62,4 +62,18 @@ class SecureRandomSeriesTests {
     void shouldReturnRandomLong() {
         assertThat(randomSeriesUnderTest.nextLong()).isNotNull();
     }
+    
+    @Test
+	   void shouldReturnResourceIds() {
+		      var resourceId = randomSeriesUnderTest.nextResourceId();
+		      
+		      assertThat(resourceId).isNotBlank();
+		      		      
+		      // The range of values is 10^48, so there must be		      
+		      // at least 48 digits, and occasionally 49 digits.
+		      assertThat(resourceId.length()).isBetween(48, 49);
+		      
+		      // In our implementation, resourceIds are all digits
+		      resourceId.chars().forEach(ch -> assertThat(Character.isDigit(ch)));
+	   }
 }
