@@ -86,7 +86,7 @@ class FreemarkerTemplateResolverIntegrationTest {
         Predicate<CatalogEntry> keepThese = converter.convert(projectDescriptor);
         webMvcProject.apply(dependencyCatalog);
 
-        templateCatalog.collect().stream().filter(keepThese).forEach(it -> {
+        templateCatalog.collect().stream().filter(toJava8(keepThese)).forEach(it -> {
             var content = resolverUnderTest.render(it.getTemplate(), webMvcProject);
             assertThat(content).isNotEmpty();
         });
@@ -102,9 +102,22 @@ class FreemarkerTemplateResolverIntegrationTest {
         Predicate<CatalogEntry> keepThese = converter.convert(projectDescriptor);
         webFluxProject.apply(dependencyCatalog);
 
-        templateCatalog.collect().stream().filter(keepThese).forEach(it -> {
+        templateCatalog.collect().stream().filter(toJava8(keepThese)).forEach(it -> {
             var content = resolverUnderTest.render(it.getTemplate(), webFluxProject);
             assertThat(content).isNotEmpty();
         });
+    }
+
+    // --------------------------------------------------------------------------------------------
+    //
+    // Helper code
+    //
+    // --------------------------------------------------------------------------------------------
+    
+    /***
+     * Wraps a Google Predicate in a java.util.function.Predicate
+     */
+    public static <T> java.util.function.Predicate<T> toJava8(com.google.common.base.Predicate<T> guavaPredicate) {
+        return (guavaPredicate::apply);
     }
 }

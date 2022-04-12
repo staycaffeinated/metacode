@@ -15,6 +15,8 @@ import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
 import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
 import mmm.coffee.metacode.spring.project.converter.DescriptorToTemplateModelConverter;
+import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.project.mustache.MustacheDecoder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -41,6 +43,9 @@ class SpringGeneratorIntegrationTest {
 
     SpringCodeGenerator generatorUnderTest;
 
+    /**
+     * Configure the code generator under test
+     */
     @BeforeEach
     public void setUp() {
         generatorUnderTest = SpringCodeGenerator.builder()
@@ -50,6 +55,9 @@ class SpringGeneratorIntegrationTest {
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
                 .outputHandler(new ContentToNullWriter())
                 .dependencyCatalog(new DependencyCatalog(DEPENDENCY_FILE))
+                .mustacheDecoder(
+                        MustacheDecoder.builder()
+                                .converter(new RestTemplateModelToMapConverter()).build())
                 .build();
     }
 
