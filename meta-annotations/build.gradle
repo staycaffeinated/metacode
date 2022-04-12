@@ -1,3 +1,6 @@
+plugins {
+    id "org.kordamp.gradle.integration-test" version "0.47.0"
+}
 
 apply from: "../gradle/java-conventions.gradle"
 
@@ -16,12 +19,5 @@ dependencies {
     testImplementation ( libs.truth )
     testImplementation ( libs.mockito )
     testImplementation ( libs.systemLambda )
-
-    integrationTestImplementation ( platform(libs.junitBillOfMaterial) )
-    integrationTestImplementation ( libs.junitJupiter )
-    integrationTestImplementation ( libs.junitSystemRules )
-    integrationTestImplementation ( libs.truth )
-    integrationTestImplementation ( libs.mockito )
-    integrationTestImplementation ( libs.systemLambda )
 }
 

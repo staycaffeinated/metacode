@@ -1,3 +1,6 @@
+plugins {
+    id "org.kordamp.gradle.integration-test" version "0.47.0"
+}
 
 // --------------------------------------------------------------
 // dependencies
