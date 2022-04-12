@@ -10,6 +10,8 @@ import javax.validation.ConstraintValidatorContext;
  * This constraint can be applied in POJOs or URL path variables
  * to help verify a field or parameter "looks like" a resource ID. 
  */
+@SuppressWarnings({"java:S125"})
+// S125: We don't care if a comment happens to look like code
 public class ResourceIdValidator implements ConstraintValidator<ResourceId, String> {
    /**
     * Determines whether {@code value} is a well-formed resource identifier.

@@ -29,6 +29,8 @@ class ResourceIdValidatorTests {
         "abcd-34843-abkkcuu4-kkuy4f",                           // alpha-numeric string
         "85637831860933685547972368108919006136931041174",      // 1 digit too few
         "14286950711364307339524413794755217854384596615030",   // 1 digit too manu
+        "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvw",    // check against all characters, not digits
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVW"     // another check of all characters, not digits
     })
     void shouldDetectInvalidIds(String candidateId) {
         assertThat(validationUnderTest.isValid(candidateId, null)).isFalse();
