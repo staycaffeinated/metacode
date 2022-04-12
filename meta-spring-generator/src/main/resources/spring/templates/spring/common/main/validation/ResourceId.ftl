@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({METHOD, FIELD, PARAMETER})
 @Retention(RUNTIME)
-@Constraint(validatedBy = ResourceIdValidation.class)
+@Constraint(validatedBy = ResourceIdValidator.class)
 @Documented
 public @interface ResourceId {
 String message() default "{resourceId.invalid}";

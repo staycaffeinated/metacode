@@ -83,7 +83,7 @@ public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest 
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(resource)))
                     .andExpect(status().is(400))
-                    .andExpect(header().string("Content-Type", startsWith("application/json")))
+                    .andExpect(content().contentTypeCompatibleWith("application/problem+json"))
                     .andExpect(jsonPath("$.status", is(400)))   // hibernate throws PropertyValueException
                     .andReturn()
                     ;

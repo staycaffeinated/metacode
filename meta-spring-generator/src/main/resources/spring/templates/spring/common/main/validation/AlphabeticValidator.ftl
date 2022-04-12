@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Verifies a value only contains alphabetic characters
  */
-public class AlphabeticValidation implements ConstraintValidator<Alphabetic, String> {
+public class AlphabeticValidator implements ConstraintValidator<Alphabetic, String> {
     /**
      * Implements the validation logic.
      * The state of {@code value} must not be altered.

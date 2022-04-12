@@ -60,12 +60,12 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/stereotype/RestfulResource.java"
       context: "project"
   - entry:
-      template: "/spring/webmvc/main/validation/Alphabetic.ftl"
+      template: "/spring/common/main/validation/Alphabetic.ftl"
       destination: "src/main/java/{{basePackagePath}}/validation/Alphabetic.java"
       context: "project"
   - entry:
-      template: "/spring/webmvc/main/validation/AlphabeticValidation.ftl"
-      destination: "src/main/java/{{basePackagePath}}/validation/AlphabeticValidation.java"
+      template: "/spring/common/main/validation/AlphabeticValidator.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/AlphabeticValidator.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/validation/OnCreate.ftl"
@@ -74,6 +74,14 @@ catalog:
   - entry:
       template: "/spring/webmvc/main/validation/OnUpdate.ftl"
       destination: "src/main/java/{{basePackagePath}}/validation/OnUpdate.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/main/validation/ResourceId.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/ResourceId.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/main/validation/ResourceIdValidator.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/ResourceIdValidator.java"
       context: "project"
   - entry:
       template:  "/spring/webmvc/main/endpoint-root/RootController.ftl"
@@ -109,7 +117,7 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/ApplicationIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/ApplicationIT.java"
+      destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/resources/ApplicationDotProperties.ftl"
@@ -118,6 +126,10 @@ catalog:
   - entry:
       template: "/spring/webmvc/test/resources/ApplicationTestDotYaml.ftl"
       destination: "src/test/resources/application-test.yaml"
+      context: "project"
+  - entry:
+      template: "/spring/common/main/resources/ValidationMessages.ftl"
+      destination: "src/main/resources/ValidationMessages.properties"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/resources/db/liquibase/db.changelog-master.ftl"
@@ -134,8 +146,12 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/math/SecureRandomSeriesTests.java"
       context: "project"
   - entry:
-      template: "/spring/webmvc/test/validation/AlphabeticValidationTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/validation/AlphabeticValidationTests.java"
+      template: "/spring/common/test/validation/AlphabeticValidatorTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/validation/AlphabeticValidatorTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/test/validation/ResourceIdValidatorTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/validation/ResourceIdValidatorTests.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/endpoint/Entity.ftl"

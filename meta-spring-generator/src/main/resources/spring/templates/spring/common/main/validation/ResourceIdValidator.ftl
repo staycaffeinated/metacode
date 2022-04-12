@@ -1,18 +1,23 @@
+<#include "/common/Copyright.ftl">
+package ${project.basePackage}.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
-* Verifies a value only contains alphabetic characters
-*/
-public class ResourceIdValidation implements ConstraintValidator<ResourceId, String> {
+ * This constraint verifies a String value is
+ * consistent with the format of a resource identifier.
+ * This constraint can be applied in POJOs or URL path variables
+ * to help verify a field or parameter "looks like" a resource ID. 
+ */
+public class ResourceIdValidator implements ConstraintValidator<ResourceId, String> {
    /**
     * Determines whether {@code value} is a well-formed resource identifier.
     * A well-formed resource identifier is essentially a very large, positive integer;
     * the value
     * <ul>
     *   <li>Cannot be null</li>
-    *   <li>Must be either 48 to 49 characters long</li>
+    *   <li>Must be either 48 to 49 digits long</li>
     *   <li>Must consist only of digits</li>
     * </ul>
     * <p>

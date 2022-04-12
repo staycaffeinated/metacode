@@ -6,6 +6,7 @@ dependencies {
     implementation libs.springBootStarterActuator
     implementation libs.springBootStarterWeb
     implementation libs.springBootStarterDataJpa
+    implementation libs.springBootStarterValidation
     implementation libs.problemSpringWeb
     implementation libs.problemJacksonDataType
 <#if (project.isWithLiquibase())>

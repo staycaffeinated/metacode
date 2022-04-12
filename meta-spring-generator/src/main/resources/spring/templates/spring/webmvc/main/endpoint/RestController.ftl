@@ -20,6 +20,7 @@ import java.net.URI;
 @RestController
 @RequestMapping
 @Slf4j
+@Validated
 public class ${endpoint.entityName}Controller {
 
     private final ${endpoint.entityName}Service ${endpoint.entityVarName}Service;

@@ -8,18 +8,18 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
-* Unit tests of ResourceIdValidation
+* Unit tests of ResourceIdValidator
 */
-class ResourceIdValidationTests {
+class ResourceIdValidatorTests {
 
-    final ResourceIdValidation validationUnderTest = new ResourceIdValidation();
+    final ResourceIdValidator validationUnderTest = new ResourceIdValidator();
 
     /**
      * Valid resource Ids are 48 or 49 digits long. Therefore,
      * - numbers with less than 48 digits are invalid
      * - alpha-numeric strings are invalid
-     * - empty strings are invalid
-     * - blank strings are invalid
+     * - empty strings are invalid (appears in a later test)
+     * - blank strings are invalid (appears in a later test)
      * - values with less that 48 digits are invalid
      * - values with more than 49 digits are invalid
      */
@@ -27,13 +27,28 @@ class ResourceIdValidationTests {
     @CsvSource(value = {
         "123456",                                               // too short
         "abcd-34843-abkkcuu4-kkuy4f",                           // alpha-numeric string
-        "",                                                     // empty string
-        "     ",                                                // blank string
         "85637831860933685547972368108919006136931041174",      // 1 digit too few
         "14286950711364307339524413794755217854384596615030",   // 1 digit too manu
     })
     void shouldDetectInvalidIds(String candidateId) {
         assertThat(validationUnderTest.isValid(candidateId, null)).isFalse();
+    }
+
+    /**
+     * We have a separate tests for the empty string and blank string because, when the empty string
+     * is added to the above ParameterizedTest, these two errors occurs:
+     * 1) org.junit.platform.commons.PreconditionViolationException: Record at index 3 contains invalid CSV: ""
+     * 2) org.junit.platform.commons.PreconditionViolationException: Configuration error:
+     *     You must configure at least one set of arguments for this @ParameterizedTest
+     */
+    @Test
+    void shouldDetectEmptyStringAsInvalid() {
+        assertThat(validationUnderTest.isValid("", null)).isFalse();
+    }
+
+    @Test
+    void shouldDetectBlankStringAsInvalid() {
+        assertThat(validationUnderTest.isValid("     ", null)).isFalse();
     }
 
     /**

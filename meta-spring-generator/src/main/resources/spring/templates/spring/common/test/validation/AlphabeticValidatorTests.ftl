@@ -13,9 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Unit tests of AlphabeticValidation
  */
-class AlphabeticValidationTests {
+class AlphabeticValidatorTests {
 
-    AlphabeticValidation validationUnderTest = new AlphabeticValidation();
+    AlphabeticValidator validationUnderTest = new AlphabeticValidator();
 
     @Mock
     ConstraintValidatorContext mockContext;
