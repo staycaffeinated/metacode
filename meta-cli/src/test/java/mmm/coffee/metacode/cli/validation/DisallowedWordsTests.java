@@ -12,7 +12,7 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * DisallowedWordsTests
  */
-public class DisallowedWordsTests {
+class DisallowedWordsTests {
 
     @ParameterizedTest
     @ValueSource( strings = { "Test", "test", "TEST" })

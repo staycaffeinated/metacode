@@ -15,7 +15,6 @@
  */
 package mmm.coffee.metacode.cli.validation;
 
-import java.util.Arrays;
 
 /**
  * Checks whether a proposed class name is disallowed.
