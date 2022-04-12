@@ -58,7 +58,7 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/stereotype/RestfulResource.java"
       context: "project"
   - entry:
-      template: "/spring/webflux/main/validation/Alphabetic.ftl"
+      template: "/spring/common/main/validation/Alphabetic.ftl"
       destination: "src/main/java/{{basePackagePath}}/validation/Alphabetic.java"
       context: "project"
   - entry:
