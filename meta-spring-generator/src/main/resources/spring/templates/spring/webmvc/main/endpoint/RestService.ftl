@@ -56,7 +56,7 @@ public class ${endpoint.entityName}Service {
     /**
      * findByResourceId
      */
-    public Optional<${endpoint.pojoName}> find${endpoint.entityName}ByResourceId(Long id) {
+    public Optional<${endpoint.pojoName}> find${endpoint.entityName}ByResourceId(String id) {
         Optional<${endpoint.ejbName}> optional = ${endpoint.entityVarName}Repository.findByResourceId ( id );
         return optional.map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class));
     }
@@ -76,7 +76,7 @@ public class ${endpoint.entityName}Service {
      * Persists a new resource
      */
     public ${endpoint.pojoName} create${endpoint.entityName}( @NonNull @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
-        resource.setResourceId ( secureRandom.nextLong() );
+        resource.setResourceId ( secureRandom.nextResourceId() );
         ${endpoint.ejbName} entityBean = Objects.requireNonNull(conversionService.convert (resource, ${endpoint.ejbName}.class ));
         entityBean = ${endpoint.entityVarName}Repository.save ( entityBean );
         return conversionService.convert(entityBean, ${endpoint.pojoName}.class);
@@ -101,7 +101,7 @@ public class ${endpoint.entityName}Service {
     /**
      * delete
      */
-    public void delete${endpoint.entityName}ByResourceId(@NonNull Long id) {
+    public void delete${endpoint.entityName}ByResourceId(@NonNull String id) {
         ${endpoint.entityVarName}Repository.deleteByResourceId(id);
     }
 }

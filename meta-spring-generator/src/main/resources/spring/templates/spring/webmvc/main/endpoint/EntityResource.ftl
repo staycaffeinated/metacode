@@ -20,11 +20,12 @@ import javax.validation.constraints.Null;
 // See https://www.thecuriousdev.org/lombok-builder-with-jackson/
 @JsonDeserialize(builder = ${endpoint.pojoName}.DefaultBuilder.class)
 @Builder(builderClassName = "DefaultBuilder", toBuilder = true)
-public class ${endpoint.pojoName} implements RestfulResource<Long> {
+public class ${endpoint.pojoName} implements RestfulResource<String> {
 
     @Null(groups = OnCreate.class)
     @NotNull(groups = OnUpdate.class)
-    private Long resourceId;
+    @ResourceId
+    private String resourceId;
 
     /*
      * An @Pattern can also be used here.

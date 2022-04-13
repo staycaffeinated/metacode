@@ -3,6 +3,7 @@
 package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.common.AbstractIntegrationTest;
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,12 +25,14 @@ public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest 
     // This holds sample ${endpoint.ejbName}s that will be saved to the database
     private List<${endpoint.ejbName}> ${endpoint.entityVarName}List = null;
 
+    private final SecureRandomSeries randomSeries = new SecureRandomSeries();
+
     @BeforeEach
     void setUp() {
         ${endpoint.entityVarName}List = new ArrayList<>();
-        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(1L, 123L, "First ${endpoint.entityName}"));
-        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(2L, 456L, "Second ${endpoint.entityName}"));
-        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(3L, 789L, "Third ${endpoint.entityName}"));
+        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(1L, randomSeries.nextResourceId(), "First ${endpoint.entityName}"));
+        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(2L, randomSeries.nextResourceId(), "Second ${endpoint.entityName}"));
+        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(3L, randomSeries.nextResourceId(), "Third ${endpoint.entityName}"));
         ${endpoint.entityVarName}List = ${endpoint.entityVarName}Repository.saveAll(${endpoint.entityVarName}List);
     }
 
@@ -46,7 +49,7 @@ public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest 
         @Test
         void shouldFind${endpoint.entityName}ById() throws Exception {
             ${endpoint.ejbName} ${endpoint.entityVarName} = ${endpoint.entityVarName}List.get(0);
-            Long ${endpoint.entityVarName}Id = ${endpoint.entityVarName}.getResourceId();
+            String ${endpoint.entityVarName}Id = ${endpoint.entityVarName}.getResourceId();
 
             mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, ${endpoint.entityVarName}Id))
                     .andExpect(status().isOk())

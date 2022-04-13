@@ -45,7 +45,9 @@ class ${endpoint.entityName}ServiceTests {
     private ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
 
     @Mock
-    private SecureRandomSeries secureRandom;
+    private SecureRandomSeries mockRandomSeries;
+
+    final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
     @Spy
     private final ${endpoint.entityName}ResourceToBeanConverter ${endpoint.entityVarName}ResourceToBeanConverter = new ${endpoint.entityName}ResourceToBeanConverter();
@@ -60,9 +62,9 @@ class ${endpoint.entityName}ServiceTests {
 
     @BeforeEach
     void setUpEachTime() {
-        ${endpoint.ejbName} item1 = new ${endpoint.ejbName}(1L, 100L, "text 1");
-        ${endpoint.ejbName} item2 = new ${endpoint.ejbName}(2L, 200L, "text 2");
-        ${endpoint.ejbName} item3 = new ${endpoint.ejbName}(3L, 300L, "text 3");
+        ${endpoint.ejbName} item1 = new ${endpoint.ejbName}(1L, randomSeries.nextResourceId(), "text 1");
+        ${endpoint.ejbName} item2 = new ${endpoint.ejbName}(2L, randomSeries.nextResourceId(), "text 2");
+        ${endpoint.ejbName} item3 = new ${endpoint.ejbName}(3L, randomSeries.nextResourceId(), "text 3");
 
         ${endpoint.entityVarName}List = new LinkedList<>();
         ${endpoint.entityVarName}List.add( item1 );
@@ -146,7 +148,7 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         void shouldReturnOneWhenRepositoryContainsMatch() {
             // given
-            Long expectedId = 100L;
+            String expectedId = randomSeries.nextResourceId();
             Optional<${endpoint.ejbName}> expected = Optional.of(new ${endpoint.ejbName}(1L, expectedId, "sample"));
             given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(expected);
 
@@ -158,14 +160,14 @@ class ${endpoint.entityName}ServiceTests {
         }
 
         /*
-         * Test path when no such entity exists in the database
+         * Test scenario when no such entity exists in the database
          */
         @Test
         void shouldReturnEmptyWhenRepositoryDoesNotContainMatch() {
             given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.empty());
 
             // when/then
-            Optional<${endpoint.pojoName}> actual = ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(100L);
+            Optional<${endpoint.pojoName}> actual = ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(randomSeries.nextResourceId());
 
             assertThat(actual).isNotNull().isNotPresent();
         }
@@ -181,7 +183,7 @@ class ${endpoint.entityName}ServiceTests {
         void shouldCreateOneWhen${endpoint.entityName}IsWellFormed() {
             // given
             final String sampleText = "sample text";
-            final ${endpoint.ejbName} expectedEJB = new ${endpoint.ejbName}(1L, 100L, sampleText);
+            final ${endpoint.ejbName} expectedEJB = new ${endpoint.ejbName}(1L, randomSeries.nextResourceId(), sampleText);
             given(${endpoint.entityVarName}Repository.save(any())).willReturn(expectedEJB);
 
             // when/then
@@ -207,7 +209,7 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         void shouldUpdateWhenEntityIsFound() {
             // given
-            Long resourceId = 100L;
+            String resourceId = randomSeries.nextResourceId();
             ${endpoint.pojoName} changedVersion = ${endpoint.pojoName}.builder().resourceId(resourceId).text("new text").build();
             ${endpoint.ejbName} originalEJB = new ${endpoint.ejbName} (1L, resourceId, "old text");
             ${endpoint.ejbName} updatedEJB = ${endpoint.entityVarName}ResourceToBeanConverter.convert (changedVersion);
@@ -233,7 +235,7 @@ class ${endpoint.entityName}ServiceTests {
             given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.empty());
 
             // then/when
-            ${endpoint.pojoName} changedVersion = ${endpoint.entityName}.builder().resourceId(100L).text("new text").build();
+            ${endpoint.pojoName} changedVersion = ${endpoint.entityName}.builder().resourceId(randomSeries.nextResourceId()).text("new text").build();
             Optional<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.update${endpoint.entityName}(changedVersion);
             then(result.isEmpty()).isTrue();
         }
@@ -254,7 +256,7 @@ class ${endpoint.entityName}ServiceTests {
             // given one matching one is found
             given(${endpoint.entityVarName}Repository.deleteByResourceId(any())).willReturn(1L);
 
-            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(1010L);
+            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(randomSeries.nextResourceId());
 
             // Verify the deleteByResourceId method was invoked
             verify(${endpoint.entityVarName}Repository, times(1)).deleteByResourceId(any());
@@ -268,7 +270,7 @@ class ${endpoint.entityName}ServiceTests {
             // given no matching record is found
             given(${endpoint.entityVarName}Repository.deleteByResourceId(any())).willReturn(0L);
 
-            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(1010L);
+            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(randomSeries.nextResourceId());
 
             // Verify the deleteByResourceId method was invoked
             verify(${endpoint.entityVarName}Repository, times(1)).deleteByResourceId(any());

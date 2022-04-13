@@ -2,6 +2,7 @@
 
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,12 +48,14 @@ class ${endpoint.entityName}ControllerTest {
 
     private List<${endpoint.pojoName}> ${endpoint.entityVarName}List;
 
+    private final SecureRandomSeries randomSeries = new SecureRandomSeries();
+
     @BeforeEach
     void setUp() {
         ${endpoint.entityVarName}List = new ArrayList<>();
-        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(111L).text("text 1").build());
-        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(222L).text("text 2").build());
-        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(333L).text("text 3").build());
+        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("text 1").build());
+        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("text 2").build());
+        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("text 3").build());
 
         objectMapper.registerModule(new ProblemModule());
         objectMapper.registerModule(new ConstraintViolationProblemModule());
@@ -86,7 +89,7 @@ class ${endpoint.entityName}ControllerTest {
         @Test
         void shouldFind${endpoint.entityName}ById() throws Exception {
             // given
-            Long resourceId = 1L;
+            String resourceId = randomSeries.nextResourceId();
             ${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.pojoName}.builder().resourceId( resourceId ).text("text 1").build();
 
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId( resourceId ))
@@ -102,7 +105,7 @@ class ${endpoint.entityName}ControllerTest {
         @Test
         void shouldReturn404WhenFetchingNonExisting${endpoint.entityName}() throws Exception {
             // given
-            Long resourceId = 1L;
+            String resourceId = randomSeries.nextResourceId();
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId( resourceId ))
                     .willReturn(Optional.empty());
 
@@ -119,7 +122,7 @@ class ${endpoint.entityName}ControllerTest {
         void shouldCreateNew${endpoint.entityName}() throws Exception {
             // given
             ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().text("sample").build();
-            ${endpoint.pojoName} resourceAfterSave = ${endpoint.pojoName}.builder().text("sample").resourceId(1L).build();
+            ${endpoint.pojoName} resourceAfterSave = ${endpoint.pojoName}.builder().text("sample").resourceId(randomSeries.nextResourceId()).build();
             given(${endpoint.entityVarName}Service.create${endpoint.entityName}( any(${endpoint.pojoName}.class))).willReturn(resourceAfterSave);
 
             // when/then
@@ -139,7 +142,7 @@ class ${endpoint.entityName}ControllerTest {
         @Test
         void shouldUpdate${endpoint.entityName}() throws Exception {
             // given
-            Long resourceId = 1L;
+            String resourceId = randomSeries.nextResourceId();
             ${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.pojoName}.builder().resourceId(resourceId).text("sample text").build();
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(resourceId)).willReturn(Optional.of(${endpoint.entityVarName}));
             given(${endpoint.entityVarName}Service.update${endpoint.entityName}(any(${endpoint.pojoName}.class))).willReturn(Optional.of(${endpoint.entityVarName}));
@@ -157,7 +160,7 @@ class ${endpoint.entityName}ControllerTest {
         @Test
         void shouldReturn404WhenUpdatingNonExisting${endpoint.entityName}() throws Exception {
             // given
-            Long resourceId = 1L;
+            String resourceId = randomSeries.nextResourceId();
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(resourceId)).willReturn(Optional.empty());
 
             // when/then
@@ -176,7 +179,7 @@ class ${endpoint.entityName}ControllerTest {
         @Test
         void shouldDelete${endpoint.entityName}() throws Exception {
             // given
-            Long resourceId = 1L;
+            String resourceId = randomSeries.nextResourceId();
             ${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.pojoName}.builder().resourceId(resourceId).text("delete me").build();
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(resourceId)).willReturn(Optional.of(${endpoint.entityVarName}));
             doNothing().when(${endpoint.entityVarName}Service).delete${endpoint.entityName}ByResourceId(${endpoint.entityVarName}.getResourceId());
@@ -190,7 +193,7 @@ class ${endpoint.entityName}ControllerTest {
 
         @Test
         void shouldReturn404WhenDeletingNonExisting${endpoint.entityName}() throws Exception {
-            Long resourceId = 1L;
+            String resourceId = randomSeries.nextResourceId();
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(resourceId)).willReturn(Optional.empty());
 
             mockMvc.perform(delete(${endpoint.entityName}Routes.${endpoint.routeConstants.delete},resourceId))

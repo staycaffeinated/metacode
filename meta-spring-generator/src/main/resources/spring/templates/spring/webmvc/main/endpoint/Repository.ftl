@@ -9,10 +9,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ${endpoint.entityName}Repository extends JpaRepository<${endpoint.ejbName}, Long> {
 
-    Optional<${endpoint.ejbName}> findByResourceId ( Long id );
+    Optional<${endpoint.ejbName}> findByResourceId ( String id );
 
     /* returns the number of entities deleted */
-    Long deleteByResourceId( Long id );
+    Long deleteByResourceId( String id );
 
     Page<${endpoint.ejbName}> findByText(String text, Pageable pageable);
 }

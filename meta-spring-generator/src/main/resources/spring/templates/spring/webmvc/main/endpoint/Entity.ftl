@@ -33,7 +33,7 @@ public class ${endpoint.ejbName} {
      * This is a unique value in the database. This value can be a positive or negative number.
      */
     @Column(name="resource_id", nullable=false)
-    private Long resourceId;
+    private String resourceId;
 
     @Column(name="text", nullable = false)
     @NotEmpty(message = "Text cannot be empty")

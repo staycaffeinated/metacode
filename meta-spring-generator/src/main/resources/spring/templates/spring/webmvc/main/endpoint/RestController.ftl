@@ -3,6 +3,7 @@ package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
+import ${endpoint.basePackage}.validation.ResourceId;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class ${endpoint.entityName}Controller {
      *
      */
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, produces = MediaType.APPLICATION_JSON_VALUE )
-    public ResponseEntity<${endpoint.pojoName}> get${endpoint.entityName}ById(@PathVariable Long id) {
+    public ResponseEntity<${endpoint.pojoName}> get${endpoint.entityName}ById(@PathVariable @ResourceId String id) {
         return ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -71,7 +72,7 @@ public class ${endpoint.entityName}Controller {
      * Update one
      */
     @PutMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, produces = MediaType.APPLICATION_JSON_VALUE )
-    public ResponseEntity<${endpoint.pojoName}> update${endpoint.entityName}(@PathVariable Long id, @RequestBody @Validated(OnUpdate.class) ${endpoint.pojoName} ${endpoint.entityVarName}) {
+    public ResponseEntity<${endpoint.pojoName}> update${endpoint.entityName}(@PathVariable @ResourceId String id, @RequestBody @Validated(OnUpdate.class) ${endpoint.pojoName} ${endpoint.entityVarName}) {
         Optional<${endpoint.pojoName}> optional = ${endpoint.entityVarName}Service.update${endpoint.entityName}( ${endpoint.entityVarName} );
         return optional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -80,7 +81,7 @@ public class ${endpoint.entityName}Controller {
      * Delete one
      */
     @DeleteMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.findOne})
-    public ResponseEntity<${endpoint.pojoName}> delete${endpoint.entityName}(@PathVariable Long id) {
+    public ResponseEntity<${endpoint.pojoName}> delete${endpoint.entityName}(@PathVariable @ResourceId String id) {
         return ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(id)
                 .map(${endpoint.entityVarName} -> {
                     ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(id);

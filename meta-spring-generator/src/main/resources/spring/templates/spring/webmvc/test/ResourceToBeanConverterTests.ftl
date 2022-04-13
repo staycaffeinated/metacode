@@ -2,6 +2,8 @@
 
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.math.SecureRandomSeries;
+
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ${endpoint.entityName}ResourceToBeanConverterTests {
 
     ${endpoint.entityName}ResourceToBeanConverter converter = new ${endpoint.entityName}ResourceToBeanConverter();
+
+    final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
     @Test
     void shouldReturnNullWhenResourceIsNull() {
@@ -26,7 +30,7 @@ class ${endpoint.entityName}ResourceToBeanConverterTests {
 
     @Test
     void shouldPopulateAllFields() {
-        ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(100L).text("hello world").build();
+        ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("hello world").build();
 
         ${endpoint.ejbName} bean = converter.convert(resource);
         assertThat(bean.getResourceId()).isEqualTo(resource.getResourceId());
@@ -35,7 +39,7 @@ class ${endpoint.entityName}ResourceToBeanConverterTests {
 
     @Test
     void shouldCopyList() {
-        ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(100L).text("hello world").build();
+        ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("hello world").build();
         var pojoList = Lists.list(resource);
 
         List<${endpoint.ejbName}> ejbList = converter.convert(pojoList);

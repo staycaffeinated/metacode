@@ -2,6 +2,7 @@
 package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.common.AbstractIntegrationTest;
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,16 +26,18 @@ class ${endpoint.entityName}ExceptionHandlingIT extends AbstractIntegrationTest 
     @MockBean
     private ${endpoint.entityName}Service ${endpoint.entityVarName}Service;
 
+    final SecureRandomSeries randomSeries = new SecureRandomSeries();
+
     @Nested
     class ExceptionTests {
 
         @Test
         void shouldNotReturnStackTrace() throws Exception {
             // given
-            given( ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(any(Long.class))).willThrow(new RuntimeException("Boom!"));
+            given( ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(any(String.class))).willThrow(new RuntimeException("Boom!"));
             given( ${endpoint.entityVarName}Service.update${endpoint.entityName}(any(${endpoint.entityName}.class))).willThrow(new RuntimeException("Bad data"));
 
-            ${endpoint.pojoName} payload = ${endpoint.pojoName}.builder().resourceId(1L).text("update me").build();
+            ${endpoint.pojoName} payload = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("update me").build();
 
             // when/then
             mockMvc.perform(post("${endpoint.basePath}")

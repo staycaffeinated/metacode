@@ -2,6 +2,7 @@
 
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ${endpoint.entityName}BeanToResourceConverterTests {
 
     ${endpoint.entityName}BeanToResourceConverter converter = new ${endpoint.entityName}BeanToResourceConverter();
+
+    private final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
     @Test
     void shouldReturnNullWhenResourceIsNull() {
@@ -35,7 +38,7 @@ class ${endpoint.entityName}BeanToResourceConverterTests {
     @Test
     void shouldCopyOnlyExposedProperties() {
         ${endpoint.ejbName} bean = new ${endpoint.ejbName}();
-        bean.setResourceId(12345L);
+        bean.setResourceId(randomSeries.nextResourceId());
         bean.setText("hello, world");
 
         ${endpoint.pojoName} resource = converter.convert(bean);
@@ -46,7 +49,7 @@ class ${endpoint.entityName}BeanToResourceConverterTests {
     @Test
     void shouldCopyList() {
         ${endpoint.ejbName} bean = new ${endpoint.ejbName}();
-        bean.setResourceId(12345L);
+        bean.setResourceId(randomSeries.nextResourceId());
         bean.setText("hello, world");
         var ejbList = Lists.list(bean);
 
