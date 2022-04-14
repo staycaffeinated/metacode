@@ -2,6 +2,8 @@
 
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.math.SecureRandomSeries;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ class ${endpoint.entityName}BeanToResourceConverterTests {
 
     ${endpoint.entityName}BeanToResourceConverter converterUnderTest = new ${endpoint.entityName}BeanToResourceConverter();
 
+    final SecureRandomSeries randomSeries = new SecureRandomSeries();
+
 	@Test
 	void whenDataToConvertIsWellFormed_expectSuccessfulConversion() {
-		final Long expectedPublicId = 12345L;
+		final String expectedPublicId = randomSeries.nextResourceId();
 		final String expectedText = "hello world";
 
 		${endpoint.ejbName} ejb = ${endpoint.ejbName}.builder().resourceId(expectedPublicId).id(0L).text(expectedText).build();
@@ -31,15 +35,15 @@ class ${endpoint.entityName}BeanToResourceConverterTests {
 	@Test
 	void whenDataListIsWellFormed_expectSuccessfulConversion() {
 		// Given a list of 3 items
-		final Long itemOne_expectedPublicId = 12345L;
+		final String itemOne_expectedPublicId = randomSeries.nextResourceId();
 		final Long itemOne_expectedDatabaseId = 2424L;
 		final String itemOne_expectedText = "hello goodbye";
 
-		final Long itemTwo_expectedPublicId = 6000L;
+		final String itemTwo_expectedPublicId = randomSeries.nextResourceId();
 		final Long itemTwo_expectedDatabaseId = 42348L;
 		final String itemTwo_expectedText = "strawberry fields";
 
-		final Long itemThree_expectedPublicId = 5000L;
+		final String itemThree_expectedPublicId = randomSeries.nextResourceId();
 		final Long itemThree_expectedDatabaseId = 9341L;
 		final String itemThree_expectedText = "sgt pepper";
 
@@ -86,7 +90,7 @@ class ${endpoint.entityName}BeanToResourceConverterTests {
     @Test
     void shouldCopyOnlyExposedProperties() {
         ${endpoint.ejbName} bean = new ${endpoint.ejbName}();
-        bean.setResourceId(12345L);
+        bean.setResourceId(randomSeries.nextResourceId());
         bean.setText("hello, world");
         bean.setId(100L);
 

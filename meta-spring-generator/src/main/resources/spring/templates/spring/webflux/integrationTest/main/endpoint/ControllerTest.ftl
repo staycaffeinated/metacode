@@ -146,7 +146,7 @@ class ${endpoint.entityName}ControllerTest {
 		// After the ${endpoint.entityVarName} is created, the endpoint returns the resourceId of the
 		// created book. Here, the resourceId of the instance variable, ${endpoint.entityVarName}, is updated
 		// to enable the current test to acquire the new ${endpoint.entityName}'s resourceId.
-		Long resourceId = result.getResponseBody().getResourceId();
+		String resourceId = result.getResponseBody().getResourceId();
 		${endpoint.entityVarName}.setResourceId(resourceId);
 	}
 

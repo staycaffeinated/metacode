@@ -23,8 +23,11 @@ public class ${endpoint.ejbName} {
      * This is the identifier exposed to the outside world.
      * This is a secure random value with at least 160 bits of entropy, making it difficult for a hacker to guess.
      * This is a unique value in the database. This value can be a positive or negative number.
+     *
+     * The value is 48 or 49 characters long. Varchar50 is used to obtain an even length
      */
-    private Long resourceId;
+    @Column(value="resource_id")
+    private String resourceId;
     
     /**
      * This is the database identifier. Naturally, this value should 

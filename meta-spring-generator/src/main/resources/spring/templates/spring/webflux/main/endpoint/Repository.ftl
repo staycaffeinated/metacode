@@ -8,14 +8,14 @@ import reactor.core.publisher.Mono;
 public interface ${endpoint.entityName}Repository extends ReactiveSortingRepository<${endpoint.ejbName}, Long> {
 
     // Find by the resource ID known by external applications
-    Mono<${endpoint.ejbName}> findByResourceId ( Long id );
+    Mono<${endpoint.ejbName}> findByResourceId ( String id );
 
     // Find by the database ID
     Mono<${endpoint.ejbName}> findById ( Long id );
 
 
     /* returns the number of entities deleted */
-    Mono<Long> deleteByResourceId( Long id );
+    Mono<Long> deleteByResourceId( String id );
     
 
     Flux<${endpoint.ejbName}> findAllByText(String text);

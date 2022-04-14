@@ -5,6 +5,7 @@ import ${endpoint.basePackage}.exception.*;
 import ${endpoint.basePackage}.common.ResourceIdentity;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
+import ${endpoint.basePackage}.validation.ResourceId;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class ${endpoint.entityName}Controller {
      *
      */
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, produces = MediaType.APPLICATION_JSON_VALUE )
-    public Mono<${endpoint.pojoName}> get${endpoint.entityName}ById(@PathVariable Long id) {
+    public Mono<${endpoint.pojoName}> get${endpoint.entityName}ById(@PathVariable @ResourceId String id) {
         return ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(id);
     }
     
@@ -77,7 +78,7 @@ public class ${endpoint.entityName}Controller {
     @PostMapping (value=${endpoint.entityName}Routes.${endpoint.routeConstants.create}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<ResponseEntity<ResourceIdentity>> create${endpoint.entityName}(@RequestBody @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
-        Mono<Long> id = ${endpoint.entityVarName}Service.create${endpoint.entityName}(resource);
+        Mono<String> id = ${endpoint.entityVarName}Service.create${endpoint.entityName}(resource);
         return id.map(value -> ResponseEntity.status(HttpStatus.CREATED).body(new ResourceIdentity(value)));
     }
     
@@ -85,7 +86,7 @@ public class ${endpoint.entityName}Controller {
      * Update by resourceId
      */
     @PutMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.update}, produces = MediaType.APPLICATION_JSON_VALUE )
-    public void update${endpoint.entityName}(@PathVariable Long id, @RequestBody @Validated(OnUpdate.class) ${endpoint.pojoName} ${endpoint.entityVarName}) {
+    public void update${endpoint.entityName}(@PathVariable @ResourceId String id, @RequestBody @Validated(OnUpdate.class) ${endpoint.pojoName} ${endpoint.entityVarName}) {
         if (!Objects.equals(id, ${endpoint.entityVarName}.getResourceId())) {
             log.error("Update declined: mismatch between query string identifier, {}, and resource identifier, {}", id, ${endpoint.entityVarName}.getResourceId());
             throw new UnprocessableEntityException("Mismatch between the identifiers in the URI and the payload");
@@ -98,7 +99,7 @@ public class ${endpoint.entityName}Controller {
      */
     @DeleteMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.delete})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete${endpoint.entityName}(@PathVariable Long id) {
+    public void delete${endpoint.entityName}(@PathVariable @ResourceId String id) {
         Mono<${endpoint.pojoName}> resource = ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(id);
         resource.subscribe(value -> ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(id));
     }

@@ -3,6 +3,7 @@ package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.exception.ResourceNotFoundException;
 import ${endpoint.basePackage}.exception.UnprocessableEntityException;
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,6 +61,8 @@ class ${endpoint.entityName}ServiceTests {
     @Spy
     private final ConversionService conversionService = FakeConversionService.build();
 
+    final SecureRandomSeries randomSeries = new SecureRandomSeries();
+
 
     @Test
     void shouldFindAll${endpoint.entityName}s() {
@@ -76,10 +79,10 @@ class ${endpoint.entityName}ServiceTests {
     void shouldFind${endpoint.entityName}ByResourceId() {
         // Given
         ${endpoint.ejbName} expectedEJB = create${endpoint.entityName}();
-        Long expectedId = 1000L;
+        String expectedId = randomSeries.nextResourceId();
         expectedEJB.setResourceId(expectedId);
         Mono<${endpoint.ejbName}> rs = Mono.just(expectedEJB);
-        given(mockRepository.findByResourceId(any(Long.class))).willReturn(rs);
+        given(mockRepository.findByResourceId(any(String.class))).willReturn(rs);
 
         // When
         Mono<${endpoint.pojoName}> publisher = serviceUnderTest.find${endpoint.entityName}ByResourceId(expectedId);
@@ -115,7 +118,7 @@ class ${endpoint.entityName}ServiceTests {
     @Test
     void shouldCreate${endpoint.entityName}() {
         // Given
-        Long expectedResourceId = 123456789L;
+        String expectedResourceId = randomSeries.nextResourceId();
         // what the client submits to the service
         ${endpoint.pojoName} expectedPOJO = ${endpoint.pojoName}.builder().text("Lorim ipsum dolor amount").build();
         // what the persisted version looks like
@@ -125,7 +128,7 @@ class ${endpoint.entityName}ServiceTests {
         given(mockRepository.save(any(${endpoint.ejbName}.class))).willReturn(Mono.just(persistedObj));
 
         // When
-        Mono<Long> publisher = serviceUnderTest.create${endpoint.entityName}(expectedPOJO);
+        Mono<String> publisher = serviceUnderTest.create${endpoint.entityName}(expectedPOJO);
 
         // Then
         StepVerifier.create(publisher.log("testCreate : "))
@@ -138,11 +141,11 @@ class ${endpoint.entityName}ServiceTests {
     void shouldUpdate${endpoint.entityName}() {
         // Given
         // what the client submits
-        ${endpoint.pojoName} submittedPOJO = ${endpoint.pojoName}.builder().text("Updated value").resourceId(1000L).build();
+        ${endpoint.pojoName} submittedPOJO = ${endpoint.pojoName}.builder().text("Updated value").resourceId(randomSeries.nextResourceId()).build();
         // what the new persisted value looks like
         ${endpoint.ejbName} persistedObj = conversionService.convert(submittedPOJO, ${endpoint.ejbName}.class);
         Mono<${endpoint.ejbName}> dataStream = Mono.just(persistedObj);
-        given(mockRepository.findByResourceId(any(Long.class))).willReturn(dataStream);
+        given(mockRepository.findByResourceId(any(String.class))).willReturn(dataStream);
         given(mockRepository.save(persistedObj)).willReturn(dataStream);
 
         // When
@@ -156,8 +159,9 @@ class ${endpoint.entityName}ServiceTests {
 
     @Test
     void shouldDelete${endpoint.entityName}() {
-        Long deletedId = 1000L;
-        given(mockRepository.deleteByResourceId(deletedId)).willReturn(Mono.just(deletedId));
+        String deletedId = randomSeries.nextResourceId();
+        // The repository returns 1, to indicate 1 row was deleted
+        given(mockRepository.deleteByResourceId(deletedId)).willReturn(Mono.just(1L));
 
         serviceUnderTest.delete${endpoint.entityName}ByResourceId(deletedId);
 
@@ -167,14 +171,14 @@ class ${endpoint.entityName}ServiceTests {
 
 	@Test
 	void whenDeleteNull${endpoint.entityName}_expectNullPointerException() {
-		assertThrows(NullPointerException.class, () -> serviceUnderTest.delete${endpoint.entityName}ByResourceId((Long) null));
+		assertThrows(NullPointerException.class, () -> serviceUnderTest.delete${endpoint.entityName}ByResourceId((String) null));
 	}
 
 	@Test
 	void whenFindNonExistingEntity_expectResourceNotFoundException() {
 		given(mockRepository.findByResourceId(any())).willReturn(Mono.empty());
 
-		Mono<${endpoint.ejbName}> publisher = serviceUnderTest.findByResourceId(100L);
+		Mono<${endpoint.ejbName}> publisher = serviceUnderTest.findByResourceId(randomSeries.nextResourceId());
 
 		StepVerifier.create(publisher).expectSubscription().expectError(ResourceNotFoundException.class).verify();
 	}
@@ -224,9 +228,9 @@ class ${endpoint.entityName}ServiceTests {
     }
 
     private List<${endpoint.ejbName}> create${endpoint.entityName}List() {
-        ${endpoint.ejbName} w1 = ${endpoint.ejbName}.builder().resourceId(1000L).text("Lorim ipsum dolor imit").build();
-        ${endpoint.ejbName} w2 = ${endpoint.ejbName}.builder().resourceId(2000L).text("Duis aute irure dolor in reprehenderit").build();
-        ${endpoint.ejbName} w3 = ${endpoint.ejbName}.builder().resourceId(3000L).text("Excepteur sint occaecat cupidatat non proident").build();
+        ${endpoint.ejbName} w1 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Lorim ipsum dolor imit").build();
+        ${endpoint.ejbName} w2 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Duis aute irure dolor in reprehenderit").build();
+        ${endpoint.ejbName} w3 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Excepteur sint occaecat cupidatat non proident").build();
 
         ArrayList<${endpoint.ejbName}> dataList = new ArrayList<>();
         dataList.add(w1);
@@ -237,9 +241,9 @@ class ${endpoint.entityName}ServiceTests {
     }
 
     private List<${endpoint.ejbName}> create${endpoint.entityName}ListHavingSameTextValue(final String value) {
-        ${endpoint.ejbName} w1 = ${endpoint.ejbName}.builder().resourceId(1010L).text(value).build();
-        ${endpoint.ejbName} w2 = ${endpoint.ejbName}.builder().resourceId(2020L).text(value).build();
-        ${endpoint.ejbName} w3 = ${endpoint.ejbName}.builder().resourceId(3030L).text(value).build();
+        ${endpoint.ejbName} w1 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text(value).build();
+        ${endpoint.ejbName} w2 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text(value).build();
+        ${endpoint.ejbName} w3 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text(value).build();
 
         ArrayList<${endpoint.ejbName}> dataList = new ArrayList<>();
         dataList.add(w1);
@@ -250,6 +254,6 @@ class ${endpoint.entityName}ServiceTests {
     }
 
     private ${endpoint.ejbName} create${endpoint.entityName}() {
-        return ${endpoint.ejbName}.builder().resourceId(1000L).text("Lorim ipsum dolor imit").build();
+        return ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Lorim ipsum dolor imit").build();
     }
 }

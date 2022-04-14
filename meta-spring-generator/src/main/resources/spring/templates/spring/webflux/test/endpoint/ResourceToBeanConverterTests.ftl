@@ -2,6 +2,7 @@
 
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,10 +16,11 @@ class ${endpoint.entityName}ResourceToBeanConverterTests {
 
     ${endpoint.entityName}ResourceToBeanConverter converterUnderTest = new ${endpoint.entityName}ResourceToBeanConverter();
 
+    final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
 	@Test
 	void whenDataToConvertIsWellFormed_expectSuccessfulConversion() {
-		final Long expectedPublicId = 12345L;
+		final String expectedPublicId = randomSeries.nextResourceId();
 		final String expectedText = "hello world";
 
 		${endpoint.pojoName} pojo = ${endpoint.pojoName}.builder().resourceId(expectedPublicId).text(expectedText).build();
@@ -32,13 +34,13 @@ class ${endpoint.entityName}ResourceToBeanConverterTests {
 	@Test
 	void whenDataListIsWellFormed_expectSuccessfulConversion() {
 		// Given a list of 3 items
-		final Long itemOne_expectedPublicId = 12345L;
+		final String itemOne_expectedPublicId = randomSeries.nextResourceId();
 		final String itemOne_expectedText = "hello goodbye";
 
-		final Long itemTwo_expectedPublicId = 6000L;
+		final String itemTwo_expectedPublicId = randomSeries.nextResourceId();
 		final String itemTwo_expectedText = "strawberry fields";
 
-		final Long itemThree_expectedPublicId = 5000L;
+		final String itemThree_expectedPublicId = randomSeries.nextResourceId();
 		final String itemThree_expectedText = "sgt pepper";
 
 		${endpoint.pojoName} itemOne = ${endpoint.pojoName}.builder().resourceId(itemOne_expectedPublicId)
@@ -77,7 +79,7 @@ class ${endpoint.entityName}ResourceToBeanConverterTests {
 
     @Test
     void shouldPopulateAllFields() {
-        ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(100L).text("hello world").build();
+        ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("hello world").build();
 
         ${endpoint.ejbName} bean = converterUnderTest.convert(resource);
         assertThat(bean.getResourceId()).isEqualTo(resource.getResourceId());

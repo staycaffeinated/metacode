@@ -1,6 +1,7 @@
 <#include "/common/Copyright.ftl">
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -45,6 +46,8 @@ class ${endpoint.entityName}ControllerTests {
 </#noparse>
     String applicationBasePath;
 
+    final SecureRandomSeries randomSeries = new SecureRandomSeries();
+
     @Autowired
     public void setApplicationContext(ApplicationContext context) {
         webClient = WebTestClient.bindToApplicationContext(context).configureClient().build();
@@ -53,7 +56,7 @@ class ${endpoint.entityName}ControllerTests {
 
     @Test
     void shouldGetOne${endpoint.entityName}() {
-        final Long expectedResourceID = 1000L;
+        final String expectedResourceID = randomSeries.nextResourceId();
         ${endpoint.pojoName} pojo = ${endpoint.pojoName}.builder().text("testGetOne").resourceId(expectedResourceID).build();
         ${endpoint.ejbName} ejb = ${endpoint.ejbName}.builder().resourceId(expectedResourceID).text("testGetOne").build();
 
@@ -86,7 +89,7 @@ class ${endpoint.entityName}ControllerTests {
     void shouldCreate${endpoint.entityName}() {
         ${endpoint.pojoName} pojo = create${endpoint.entityName}();
         pojo.setResourceId(null);
-        Long expectedId = 5000L;
+        String expectedId = randomSeries.nextResourceId();
 
         when(mock${endpoint.entityName}Service.create${endpoint.entityName}(any(${endpoint.pojoName}.class))).thenReturn(Mono.just(expectedId));
 
@@ -107,10 +110,12 @@ class ${endpoint.entityName}ControllerTests {
 	void whenMismatchOfResourceIds_expectUnprocessableEntityException() {
 		// Given
 		${endpoint.pojoName} pojo = create${endpoint.entityName}();
-		pojo.setResourceId(5000L);
+        String idInBody = randomSeries.nextResourceId();
+        String idInParameter = randomSeries.nextResourceId();
+		pojo.setResourceId(idInBody);
 
 		// when the ID in the URL is a mismatch to the ID in the POJO, the request should fail
-		webClient.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, 1000L).contentType(MediaType.APPLICATION_JSON)
+		webClient.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, idInParameter).contentType(MediaType.APPLICATION_JSON)
 				.body(Mono.just(pojo), ${endpoint.pojoName}.class).exchange().expectStatus().is4xxClientError();
 	}
 
@@ -149,9 +154,9 @@ class ${endpoint.entityName}ControllerTests {
      * Generates a list of sample test data
      */
     private List<${endpoint.pojoName}> create${endpoint.entityName}List() {
-        ${endpoint.pojoName} w1 = ${endpoint.pojoName}.builder().resourceId(1000L).text("Lorim ipsum dolor imit").build();
-        ${endpoint.pojoName} w2 = ${endpoint.pojoName}.builder().resourceId(2000L).text("Hodor Hodor Hodor Hodor").build();
-        ${endpoint.pojoName} w3 = ${endpoint.pojoName}.builder().resourceId(3000L).text("Now is the time to fly").build();
+        ${endpoint.pojoName} w1 = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("Lorim ipsum dolor imit").build();
+        ${endpoint.pojoName} w2 = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("Hodor Hodor Hodor Hodor").build();
+        ${endpoint.pojoName} w3 = ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("Now is the time to fly").build();
 
         ArrayList<${endpoint.pojoName}> list = new ArrayList<>();
         list.add(w1);
@@ -165,6 +170,6 @@ class ${endpoint.entityName}ControllerTests {
      * Generates a single test item
      */
     private ${endpoint.pojoName} create${endpoint.entityName}() {
-        return ${endpoint.pojoName}.builder().resourceId(5000L).text("Duis aute irure dolor in reprehenderit.").build();
+        return ${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("Duis aute irure dolor in reprehenderit.").build();
     }
 }

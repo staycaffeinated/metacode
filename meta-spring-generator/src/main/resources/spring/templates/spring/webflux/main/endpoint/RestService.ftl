@@ -53,7 +53,7 @@ public class ${endpoint.entityName}Service {
     /**
      * findByResourceId
      */
-    public Mono<${endpoint.pojoName}> find${endpoint.entityName}ByResourceId(Long id) throws ResourceNotFoundException {
+    public Mono<${endpoint.pojoName}> find${endpoint.entityName}ByResourceId(String id) throws ResourceNotFoundException {
         Mono<${endpoint.ejbName}> monoItem = findByResourceId(id);
 		return monoItem.flatMap(it -> Mono.just(conversionService.convert(it, ${endpoint.pojoName}.class)));
     }
@@ -68,13 +68,13 @@ public class ${endpoint.entityName}Service {
     /**
      * Create
      */
-    public Mono<Long> create${endpoint.entityName}( @NonNull @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
+    public Mono<String> create${endpoint.entityName}( @NonNull @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
 	    ${endpoint.ejbName} entity = conversionService.convert(resource, ${endpoint.ejbName}.class);
 		if (entity == null) {
             log.error("This POJO yielded a null value when converted to an entity bean: {}", resource);
             throw new UnprocessableEntityException();
         }
-        entity.setResourceId(secureRandom.nextLong());
+        entity.setResourceId(secureRandom.nextResourceId());
 		return repository.save(entity)
                          .doOnSuccess(item -> publishEvent(${endpoint.entityName}Event.CREATED, item))
 				         .flatMap(item -> Mono.just(item.getResourceId()));
@@ -96,14 +96,14 @@ public class ${endpoint.entityName}Service {
     /**
      * Delete
      */
-    public void delete${endpoint.entityName}ByResourceId(@NonNull Long id) {
+    public void delete${endpoint.entityName}ByResourceId(@NonNull String id) {
         repository.deleteByResourceId(id).doOnSuccess(item -> publishDeleteEvent(${endpoint.entityName}Event.DELETED, id)).subscribe();
     }
 
     /**
      * Find the EJB having the given resourceId
      */
-    Mono<${endpoint.ejbName}> findByResourceId(Long id) throws ResourceNotFoundException {
+    Mono<${endpoint.ejbName}> findByResourceId(String id) throws ResourceNotFoundException {
         return repository.findByResourceId(id).switchIfEmpty(Mono.defer(() -> Mono.error(
             new ResourceNotFoundException(String.format("Entity not found with the given resourceId: %s", id)))));
     }
@@ -116,7 +116,7 @@ public class ${endpoint.entityName}Service {
 		this.publisher.publishEvent(new ${endpoint.entityName}Event(event, conversionService.convert(entity, ${endpoint.pojoName}.class)));
 	}
 
-    private void publishDeleteEvent(String event, Long resourceId) {
+    private void publishDeleteEvent(String event, String resourceId) {
         this.publisher.publishEvent(new ${endpoint.entityName}Event(event, ${endpoint.pojoName}.builder().resourceId(resourceId).build()));
     }
 }
