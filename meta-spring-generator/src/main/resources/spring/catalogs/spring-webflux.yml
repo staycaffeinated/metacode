@@ -50,6 +50,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/config/WebFluxConfiguration.java"
       context: "project"
   - entry:
+      template: "/spring/common/main/config/LocalDateConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/LocalDateConverter.java"
+      context: "project"
+  - entry:
       template: "/spring/common/main/math/SecureRandomSeries.ftl"
       destination: "src/main/java/{{basePackagePath}}/math/SecureRandomSeries.java"
       context: "project"
@@ -100,6 +104,10 @@ catalog:
   - entry:
       template: "/spring/webflux/test/endpoint/root/RootServiceTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/root/RootServiceTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/test/config/LocalDateConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/config/LocalDateConverterTests.java"
       context: "project"
   - entry:
       template: "/spring/common/test/math/SecureRandomSeriesTests.ftl"

@@ -47,6 +47,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/config/WebMvcConfiguration.java"
       context: "project"
   - entry:
+      template: "/spring/common/main/config/LocalDateConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/LocalDateConverter.java"
+      context: "project"
+  - entry:
       template: "/spring/webmvc/main/filter/SecurityResponseHeadersFilter.ftl"
       destination: "src/main/java/{{basePackagePath}}/filter/SecurityResponseHeadersFilter.java"
       context: "project"
@@ -144,6 +148,10 @@ catalog:
   - entry:
       template: "/spring/common/test/math/SecureRandomSeriesTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/math/SecureRandomSeriesTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/test/config/LocalDateConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/config/LocalDateConverterTests.java"
       context: "project"
   - entry:
       template: "/spring/common/test/validation/AlphabeticValidatorTests.ftl"
