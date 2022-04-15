@@ -95,6 +95,7 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private String sonarqubeVersion;
     private String spotlessVersion;
     private String reactorTestVersion;
+    private String h2Version;
 
     /**
      * Apply the entries from the {@code dependencyCatalog} to the

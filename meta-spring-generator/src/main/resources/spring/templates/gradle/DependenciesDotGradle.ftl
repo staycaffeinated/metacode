@@ -1,6 +1,7 @@
 ext {
     versions = [
         assertJ                : '${project.assertJVersion}',             // Assertion library for test cases
+        h2                     : '${project.h2Version}',
         junitSystemRules       : '${project.junitSystemRulesVersion}',    // JUnit extensions
         junit                  : '${project.junitVersion}',               // JUnit Jupiter
         liquibase              : '${project.liquibaseVersion}',           // Database schema initialization & evolution
@@ -21,7 +22,7 @@ ext {
 <#noparse>
     libs = [
         assertJ                     : "org.assertj:assertj-core:$versions.assertJ",
-        h2                          : "com.h2database:h2",
+        h2                          : "com.h2database:h2:$versions.h2",
         jacksonDatatypeJsr310       : "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
         junitBillOfMaterial         : "org.junit:junit-bom:$versions.junit",
         junitJupiter                : "org.junit.jupiter:junit-jupiter",
@@ -34,7 +35,8 @@ ext {
         lombok                      : "org.projectlombok:lombok:$versions.lombok",
         liquibaseCore               : "org.liquibase:liquibase-core:$versions.liquibase",
         mockito                     : "org.mockito:mockito-core:$versions.mockito",
-        r2dbc_h2                    : "io.r2dbc:r2dbc-h2:$versions.r2dbc_h2",
+        r2dbcH2                     : "io.r2dbc:r2dbc-h2:$versions.r2dbc_h2",
+        r2dbcSpi                    : "io.r2dbc:r2dbc-spi:$versions.r2dbc_h2",
         postgresql                  : "org.postgresql:postgresql",
         problemSpringWeb            : "org.zalando:problem-spring-web-starter:$versions.problemSpringWeb",
         problemSpringWebFlux        : "org.zalando:problem-spring-webflux:$versions.problemSpringWeb",

@@ -4,7 +4,8 @@
 
 ## [0.1.8] - 2022-04-15
 * Generated code uses latest dependency versions
-* Resource IDs now have 160-bit entropy
+* Refactor Resource IDs to have 160-bit entropy
+* Generate a LocalDateConverter to demonstrate handling LocalDate query parameters
 
 ## [0.1.7] - 2022-04-01
 * Bug fix: Spring WebMvc projects were producing Spring WebFlux code

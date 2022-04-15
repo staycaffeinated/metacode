@@ -4,7 +4,8 @@ dependencies {
     developmentOnly libs.springDevTools
 
     implementation libs.jacksonDatatypeJsr310
-    implementation libs.r2dbc_h2
+    implementation libs.r2dbcH2
+    implementation libs.r2dbcSpi
     implementation libs.springBootStarterDataR2dbc
     implementation libs.springBootStarterAop
     implementation libs.springBootStarterActuator
