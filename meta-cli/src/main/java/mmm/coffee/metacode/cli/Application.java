@@ -34,10 +34,9 @@ import picocli.CommandLine;
 @CommandLine.Command(
         name="metacode",
         description="A code generator",
-        version = "0.1.9",
+        versionProvider = ManifestVersionProvider.class,
         mixinStandardHelpOptions = true,
         subcommands = { GenerateCompletion.class, CreateCommand.class }
-
 )
 @Generated // exclude this class from code coverage
 public class Application implements CallTrait {
