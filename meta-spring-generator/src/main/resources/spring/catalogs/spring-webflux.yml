@@ -98,6 +98,10 @@ catalog:
       destination: "src/main/resources/application.properties"
       context: "project"
   - entry:
+      template: "/spring/common/main/resources/ValidationMessages.ftl"
+      destination: "src/main/resources/ValidationMessages.properties"
+      context: "project"
+  - entry:
       template: "/spring/webflux/test/endpoint/root/RootControllerTest.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/root/RootControllerTest.java"
       context: "project"
