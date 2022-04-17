@@ -19,7 +19,6 @@ dependencies {
     implementation libs.jmustache
     implementation libs.picocli
     implementation libs.freemarker
-    implementation libs.snakeYaml
     implementation libs.guice
     implementation libs.guava
     implementation libs.jacksonYaml

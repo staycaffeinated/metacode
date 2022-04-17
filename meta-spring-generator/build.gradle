@@ -18,8 +18,8 @@ dependencies {
     implementation libs.commonsLang3
     implementation libs.jmustache
     implementation libs.freemarker
-    implementation libs.snakeYaml
     implementation libs.guice
+    implementation libs.jacksonYaml
 
     testImplementation project (path: ':meta-common' )
     testImplementation project (path: ':meta-annotations')
