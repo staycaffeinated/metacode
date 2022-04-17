@@ -60,8 +60,8 @@ class DependencyCatalogTests {
      */
     @Test
     void shouldThrowRuntimeApplicationError() throws Exception {
-        var mockReader = Mockito.mock(DependencyCatalogReader.class);
-        when(mockReader.readLibraryCatalog(any())).thenThrow(IOException.class);
+        var mockReader = Mockito.mock(DependencyFileReader.class);
+        when(mockReader.readDependencyFile(any())).thenThrow(IOException.class);
 
         DependencyCatalog catalog = new DependencyCatalog(TEST_CATALOG, mockReader);
 
@@ -70,7 +70,7 @@ class DependencyCatalogTests {
 
     @Test
     void shouldThrowExceptionWhenAnyArgumentIsNull() {
-        var mockReader = Mockito.mock(DependencyCatalogReader.class);
+        var mockReader = Mockito.mock(DependencyFileReader.class);
         // If the resourceName is null, expect an NPE
         assertThrows(NullPointerException.class, () -> new DependencyCatalog(null, mockReader));
 

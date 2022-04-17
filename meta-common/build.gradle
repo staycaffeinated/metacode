@@ -22,6 +22,7 @@ dependencies {
     implementation libs.snakeYaml
     implementation libs.guice
     implementation libs.guava
+    implementation libs.jacksonYaml
     
     testImplementation(platform(libs.junitBillOfMaterial))
     testImplementation(libs.junitJupiter)

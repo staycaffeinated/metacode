@@ -5,72 +5,72 @@
 # that are present for this purpose.)
 #
 dependencies:
-  - dependency:
-      name: "java"
-      version: "17"
-  - dependency:
-      name:  "assertJ"
-      version:  "3.22.0"
-  - dependency:
-      name: "benManesPlugin"
-      version: "0.42.0"
-  - dependency:
-      name: "problemJacksonDataType"
-      version: "0.27.1"
-  - dependency:
-      name: "jibPlugin"
-      version: "3.2.1"
-  - dependency:
-      name: "junitSystemRules"
-      version: "1.19.0"
-  - dependency:
-      name: "junit"
-      version: "5.8.2"
-  - dependency:
-      name: "liquibase"
-      version: "4.9.1"
-  - dependency:
-      name: "lombok"
-      version: "1.18.22"
-  - dependency:
-      name: "lombokPlugin"
-      version: "6.4.2"
-  - dependency:
-      name: "log4j"
-      version: "2.17.2"
-  - dependency:
-      name: "mockito"
-      version: "4.4.0"
-  - dependency:
-      name: "r2dbc_h2"
-      version: "0.9.1.RELEASE"
-  - dependency:
-      name: "sonarqube"
-      version: "3.3"
-  - dependency:
-      name: "spotless"
-      version: "6.4.2"
-  - dependency:
-      name: "springBoot"
-      version: "2.6.6"
-  - dependency:
-      name: "springCloud"
-      version: "3.1.1"
-  - dependency:
-      name: "springDependencyManagement"
-      version: "1.0.11.RELEASE"
-  - dependency:
-      name: "problemSpringWeb"
-      version: "0.27.0"
-  - dependency:
-      name: "reactorTest"
-      version: "3.4.17"
-  - dependency:
-      name: "testContainers"
-      version: "1.16.3"
-  - dependency:
-      name: "truth"
-      version: "1.1.3"
-  - dependency:
-      name: "h2"
-      version: "2.1.212"
+  # Default Java version
+  - name: "java"
+    version: "17"
+  # AssertJ
+  - name:  "assertJ"
+    version:  "3.22.0"
+  # Ben Manes Update plugin
+  - name: "benManesPlugin"
+    version: "0.42.0"
+  # Google Truth
+  - name: "truth"
+    version: "1.1.3"
+  # H2 Database
+  - name: "h2"
+    version: "2.1.212"
+  # Jib plugin for generating Docker images
+  - name: "jibPlugin"
+    version: "3.2.1"
+  # JUnit System Rules
+  - name: "junitSystemRules"
+    version: "1.19.0"
+  # JUnit
+  - name: "junit"
+    version: "5.8.2"
+  # Liquibase
+  - name: "liquibase"
+    version: "4.9.1"
+  # Lombok
+  - name: "lombok"
+    version: "1.18.22"
+  # Lombok Gradle plugin
+  - name: "lombokPlugin"
+    version: "6.4.2"
+  # Log4J
+  - name: "log4j"
+    version: "2.17.2"
+  # Mockito
+  - name: "mockito"
+    version: "4.4.0"
+  # Problem Jackson Data Type
+  - name: "problemJacksonDataType"
+    version: "0.27.1"
+  # Problem SpringWeb
+  - name: "problemSpringWeb"
+    version: "0.27.0"
+  # Reactor Test
+  - name: "reactorTest"
+    version: "3.4.17"
+  # R2DBC
+  - name: "r2dbc_h2"
+    version: "0.9.1.RELEASE"
+  # Sonarqube
+  - name: "sonarqube"
+    version: "3.3"
+  # Spotless code formatter gradle plugin
+  - name: "spotless"
+    version: "6.4.2"
+  # Spring Boot
+  - name: "springBoot"
+    version: "2.6.6"
+  # Spring Cloud
+  - name: "springCloud"
+    version: "3.1.1"
+  # Spring Dependency Management gradle plugin
+  - name: "springDependencyManagement"
+    version: "1.0.11.RELEASE"
+  # TestContainers
+  - name: "testContainers"
+    version: "1.16.3"

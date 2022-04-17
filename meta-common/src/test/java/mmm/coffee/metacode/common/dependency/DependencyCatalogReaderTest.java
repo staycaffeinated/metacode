@@ -29,16 +29,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class DependencyCatalogReaderTest {
     private final static String TEST_CATALOG = "/test-dependencies.yml";
 
-    DependencyCatalogReader readerUnderTest;
+    DependencyFileReader readerUnderTest;
 
     @BeforeEach
     public void setUp() {
-        readerUnderTest = new DependencyCatalogReader();
+        readerUnderTest = new DependencyFileReader();
     }
 
     @Test
     void shouldDisallowNullCatalog() {
-        assertThrows (NullPointerException.class,() ->  readerUnderTest.readLibraryCatalog(null));
+        assertThrows (NullPointerException.class,() ->  readerUnderTest.readDependencyFile(null));
     }
 
     /**
@@ -47,7 +47,7 @@ class DependencyCatalogReaderTest {
      */
     @Test
     void shouldReturnWellFormedCatalogEntries() throws Exception {
-        List<Dependency> entries = readerUnderTest.readLibraryCatalog(TEST_CATALOG);
+        List<Dependency> entries = readerUnderTest.readDependencyFile(TEST_CATALOG).getDependencies();
 
         assertThat(entries).isNotEmpty();
 

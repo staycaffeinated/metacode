@@ -1,43 +1,39 @@
+#
+# Sample dependencies
+# The library names and versions do not need to be accurate
+# This file exists to validate the _reading_ of dependencies.yml file
+#
 dependencies:
-  - dependency:
-      name: "java"
-      version: "11"
-  - dependency:
-      name:  "assertJ"
-      version:  "3.15.0"
-  - dependency:
-      name: "junitSystemRules"
-      version: "1.19.0"
-  - dependency:
-      name: "junit"
-      version: "5.7.0"
-  - dependency:
-      name: "liquibase"
-      version: "4.2.2"
-  - dependency:
-      name: "lombok"
-      version: "1.18.16"
-  - dependency:
-      name: "log4j"
-      version: "2.14.0"
-  - dependency:
-      name: "mockito"
-      version: "3.10.0"
-  - dependency:
-      name: "springBoot"
-      version: "2.2.4.RELEASE"
-  - dependency:
-      name: "springCloud"
-      version: "2.2.5.RELEASE"
-  - dependency:
-      name: "springDependencyManagement"
-      version: "1.0.10.RELEASE"
-  - dependency:
-      name: "problemSpringWeb"
-      version: "0.26.2"
-  - dependency:
-      name: "testContainers"
-      version: "1.15.1"
-  - dependency:
-      name: "truth"
-      version: "1.1"
+  - name: "java"
+    version: "11"
+# AssertJ library
+  - name:  "assertJ"
+    version:  "3.15.0"
+# JUnit System Rules
+  - name: "junitSystemRules"
+    version: "1.19.0"
+# JUnit
+  - name: "junit"
+    version: "5.7.0"
+# Liquibase
+  - name: "liquibase"
+    version: "4.2.2"
+# Lombok
+  - name: "lombok"
+    version: "1.18.16"
+  - name: "log4j"
+    version: "2.14.0"
+  - name: "mockito"
+    version: "3.10.0"
+  - name: "springBoot"
+    version: "2.2.4.RELEASE"
+  - name: "springCloud"
+    version: "2.2.5.RELEASE"
+  - name: "springDependencyManagement"
+    version: "1.0.10.RELEASE"
+  - name: "problemSpringWeb"
+    version: "0.26.2"
+  - name: "testContainers"
+    version: "1.15.1"
+  - name: "truth"
+    version: "1.1"

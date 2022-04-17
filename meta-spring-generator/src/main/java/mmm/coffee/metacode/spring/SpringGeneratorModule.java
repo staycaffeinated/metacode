@@ -62,7 +62,7 @@ import org.apache.commons.configuration2.builder.fluent.Configurations;
 @Generated // Ignore code coverage for this class
 public final class SpringGeneratorModule extends AbstractModule {
 
-    private static final String DEPENDENCY_FILE = "/spring/dependencies/dependencies.yml";
+    private static final String DEPENDENCY_FILE = "/spring/dependencies/libraries.yml";
     private static final String TEMPLATE_DIRECTORY = "/spring/templates/";
 
     @Provides
