@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## [0.1.9] - 2022-04-18
+* Bug: forgot to generate ValidationMessages.properties in webflux projects
+
 ## [0.1.8] - 2022-04-15
 * Generated code uses latest dependency versions
 * Refactor Resource IDs to have 160-bit entropy
