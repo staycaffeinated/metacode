@@ -31,7 +31,8 @@ def ignoredClasses =
         '**/*Application.java,' +
         '**/test/**.java,' +
         '**/stereotype/**,' +
-        '**/WebMvcTemplateModel.java'
+        '**/WebMvcTemplateModel.java,' +
+        '**/Library.java'
 
 sonarqube {
     properties {
