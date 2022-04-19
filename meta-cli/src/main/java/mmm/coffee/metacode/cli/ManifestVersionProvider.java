@@ -52,7 +52,12 @@ public class ManifestVersionProvider implements CommandLine.IVersionProvider {
                 return new String[]{"Unable to read from " + url + ": " + ex};
             }
         }
-        return new String[0];
+        // Ok, being a little snarky returning 'latest',
+        // but this will help indicate that no manifest file
+        // was found that contains the expected Impl-Title and Impl-Version.
+        String[] arr = new String[1];
+        arr[0] = "latest";
+        return arr;
     }
 
     private boolean isApplicableManifest(Manifest manifest) {
