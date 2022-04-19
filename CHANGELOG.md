@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## [0.1.10] - 2022-04-19
+* Bug: version was not showing when using '--version' option
+
 ## [0.1.9] - 2022-04-18
 * Bug: forgot to generate ValidationMessages.properties in webflux projects
 
