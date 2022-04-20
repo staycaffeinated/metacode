@@ -133,8 +133,12 @@ catalog:
   # Endpoint entries
   # 
   - entry:
-      template: "/spring/webflux/main/config/DatabaseTableInitializer.ftl"
-      destination: "src/main/java/{{basePackagePath}}/config/{{entityName}}TableInitializer.java"
+      template: "/spring/webflux/main/database/DatabaseTableInitializer.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}TableInitializer.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/DatabaseTablePopulator.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}TablePopulator.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/main/endpoint/EndpointConfig.ftl"

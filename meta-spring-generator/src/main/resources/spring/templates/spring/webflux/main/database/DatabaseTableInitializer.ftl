@@ -1,5 +1,5 @@
 <#include "/common/Copyright.ftl">
-package ${endpoint.basePackage}.config;
+package ${endpoint.basePackage}.database;
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,7 +26,6 @@ public class ${endpoint.entityName}TableInitializer {
 
 		var populator = new CompositeDatabasePopulator();
 		populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("database/${endpoint.entityVarName}-schema.sql")));
-		populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("database/${endpoint.entityVarName}-data.sql")));
 		initializer.setDatabasePopulator(populator);
 		return initializer;
 	}
