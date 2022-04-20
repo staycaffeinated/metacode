@@ -27,9 +27,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Integration tests of ${endpoint.entityName}Controller
  */
 @Slf4j
-   @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-   @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class ${endpoint.entityName}ControllerTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+class ${endpoint.entityName}ControllerIntegrationTest {
 
    @LocalServerPort
    int port;

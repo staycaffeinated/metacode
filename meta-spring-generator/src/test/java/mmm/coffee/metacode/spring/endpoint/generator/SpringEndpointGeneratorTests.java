@@ -136,7 +136,7 @@ class SpringEndpointGeneratorTests {
             CatalogEntry e2 = buildEntry("Controller.ftl", "Controller.java", null);
             CatalogEntry e3 = buildEntry("Repository.ftl", "Repository.java", null);
             CatalogEntry e4 = buildEntry("ServiceTest.ftl","ServiceTest.java", null);
-            CatalogEntry e5 = buildEntry("ControllerTest.ftl","ControllerTest.java", null);
+            CatalogEntry e5 = buildEntry("ControllerIT.ftl","ControllerTest.java", null);
 
             return List.of(e1, e2, e3, e4, e5);
         }
