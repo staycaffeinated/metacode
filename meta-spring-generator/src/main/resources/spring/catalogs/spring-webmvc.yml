@@ -194,6 +194,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
       context: "endpoint"
   - entry:
+      template: "/spring/webmvc/main/database/DatabaseTablePopulator.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}TablePopulator.java"
+      context: "endpoint"
+  - entry:
       template: "/spring/webmvc/test/BeanToResourceConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverterTests.java"
       context: "endpoint"
