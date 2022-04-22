@@ -53,10 +53,10 @@ class GlobalExceptionHandlerTests {
         EntityNotFoundException ex = new EntityNotFoundException("some entity");
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleEntityNotFound(ex);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
 
         // Check the problem body for a status field matching the http status code
-        assertThat(response.getBody().getStatus()).isEqualTo(Status.BAD_REQUEST);
+        assertThat(response.getBody().getStatus()).isEqualTo(Status.UNPROCESSABLE_ENTITY);
     }
 
 
@@ -72,8 +72,8 @@ class GlobalExceptionHandlerTests {
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleDataIntegrityViolationException(ex);
 
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
-        assertThat(response.getBody().getStatus()).isEqualTo(Status.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+        assertThat(response.getBody().getStatus()).isEqualTo(Status.UNPROCESSABLE_ENTITY);
         assertThat(response.getBody().getTitle()).isNotEmpty();
     }
 
@@ -102,7 +102,7 @@ class GlobalExceptionHandlerTests {
 
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMethodArgumentTypeMismatch(ex, webRequest);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -117,7 +117,7 @@ class GlobalExceptionHandlerTests {
         when(ex.getErrorCode()).thenReturn(1234);
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleSQLException(ex, mockWebRequest);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
         assertThat(response.getBody().getStatus()).isEqualTo(Status.SERVICE_UNAVAILABLE);
         assertThat(response.getBody().getTitle()).isNotEmpty();
     }
@@ -130,7 +130,7 @@ class GlobalExceptionHandlerTests {
 
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleUnprocessableRequestException(ex);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
         assertThat(response.getBody().getTitle()).isNotBlank();
     }
 
@@ -141,7 +141,7 @@ class GlobalExceptionHandlerTests {
 
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMissingServletRequestParameter(ex);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
         assertThat(response.getBody().getTitle()).isNotBlank();
     }
 
@@ -156,7 +156,7 @@ class GlobalExceptionHandlerTests {
 
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMethodArgumentTypeMismatch(ex, webRequest);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @Test
@@ -170,7 +170,7 @@ class GlobalExceptionHandlerTests {
 
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMethodArgumentTypeMismatch(ex, webRequest);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @Test
@@ -184,6 +184,6 @@ class GlobalExceptionHandlerTests {
 
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleMethodArgumentTypeMismatch(ex, webRequest);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

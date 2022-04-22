@@ -91,18 +91,18 @@ public class GlobalExceptionHandler implements ProblemHandling {
      */
     protected ResponseEntity<Problem> handleMissingServletRequestParameter(MissingServletRequestParameterException ex) {
         String error = String.format("The parameter '%s' is missing", ex.getParameterName());
-        return problemDescription (error, ex, Status.BAD_REQUEST);
+        return problemDescription (error, ex, Status.UNPROCESSABLE_ENTITY);
     }
 
 
     /**
-     * Build a Problem/JSON description with HttpStatus: 400 (bad request)
+     * Build a Problem/JSON description with HttpStatus: 422 (unprocessable entity)
      *
      * @param throwable the exception received by the handler
      * @return a ResponseEntity with a body containing the problem description
      */
     private ResponseEntity<Problem> problemDescription(String title, Throwable throwable) {
-        return problemDescription(title, throwable, Status.BAD_REQUEST);
+        return problemDescription(title, throwable, Status.UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -118,7 +118,7 @@ public class GlobalExceptionHandler implements ProblemHandling {
                 .withTitle(title)
                 .build();
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problem);
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(problem);
     }
 }
 
