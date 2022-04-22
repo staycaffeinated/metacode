@@ -1,6 +1,7 @@
 <#include "/common/Copyright.ftl">
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.exception.UnprocessableEntityException;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 import ${endpoint.basePackage}.validation.ResourceId;
@@ -73,6 +74,9 @@ public class ${endpoint.entityName}Controller {
      */
     @PutMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, produces = MediaType.APPLICATION_JSON_VALUE )
     public ResponseEntity<${endpoint.pojoName}> update${endpoint.entityName}(@PathVariable @ResourceId String id, @RequestBody @Validated(OnUpdate.class) ${endpoint.pojoName} ${endpoint.entityVarName}) {
+        if (!id.equals(${endpoint.entityVarName}.getResourceId())) {
+            throw new UnprocessableEntityException("The identifier in the query string and request body do not match");
+        }
         Optional<${endpoint.pojoName}> optional = ${endpoint.entityVarName}Service.update${endpoint.entityName}( ${endpoint.entityVarName} );
         return optional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }

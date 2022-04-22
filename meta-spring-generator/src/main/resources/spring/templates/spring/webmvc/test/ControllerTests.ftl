@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(${endpoint.entityName}Controller.class)
 @ActiveProfiles("test")
-class ${endpoint.entityName}ControllerTest {
+class ${endpoint.entityName}ControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -171,6 +171,26 @@ class ${endpoint.entityName}ControllerTest {
                     .content(objectMapper.writeValueAsString( resource )))
                     .andExpect(status().isNotFound());
 
+        }
+
+        /**
+         * When the Ids in the query string and request body do not match, expect
+         * an 'Unprocessable Entity' response code
+         */
+        @Test
+        void shouldReturn422WhenIdsMismatch() throws Exception {
+            // given
+            String resourceId = randomSeries.nextResourceId();
+            String mismatchingId = randomSeries.nextResourceId();
+            given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(resourceId)).willReturn(Optional.empty());
+
+            // when the ID in the request body does not match the ID in the query string...
+            ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(mismatchingId).text("updated text").build();
+
+            // expect an UnprocessableEntity status code
+            mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, resourceId).contentType(MediaType.APPLICATION_JSON)
+                   .content(objectMapper.writeValueAsString(resource)))
+                   .andExpect(status().isUnprocessableEntity());
         }
     }
 
