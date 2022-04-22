@@ -109,7 +109,7 @@ class ${endpoint.entityName}ServiceTests {
             // given
             Pageable pageable = PageRequest.of(1,20);
             int start = (int) pageable.getOffset();
-            int end = (Math.min((start + pageable.getPageSize()), ${endpoint.entityVarName}List.size()));
+            int end = Math.min((start + pageable.getPageSize()), ${endpoint.entityVarName}List.size());
             Page<${endpoint.ejbName}> page = new PageImpl<>(${endpoint.entityVarName}List, pageable, ${endpoint.entityVarName}List.size());
 
             // we're not validating what text gets passed to the repo, only that a result set comes back
