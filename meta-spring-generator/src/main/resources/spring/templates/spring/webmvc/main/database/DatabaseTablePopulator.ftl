@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Component
 @Slf4j
-public class PetTablePopulator implements ApplicationListener<ApplicationReadyEvent> {
+public class ${endpoint.entityName}TablePopulator implements ApplicationListener<ApplicationReadyEvent> {
 
     private final ${endpoint.entityName}Repository repository;
     private final SecureRandomSeries randomSeries;
