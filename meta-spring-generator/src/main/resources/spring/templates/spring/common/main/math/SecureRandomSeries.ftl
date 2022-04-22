@@ -79,8 +79,7 @@ public class SecureRandomSeries {
      * @return a secure random value
      */
     public Long nextLong() {
-        byte[] buffer = randomBytes();
-        return ByteBuffer.wrap(buffer).getLong();
+        return random.nextLong();
     }
     
     /**
