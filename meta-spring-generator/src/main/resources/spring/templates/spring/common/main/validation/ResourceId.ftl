@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = ResourceIdValidator.class)
 @Documented
 public @interface ResourceId {
-String message() default "{resourceId.invalid}";
+String message() default "{ResourceId.invalid}";
 
 Class<?>[] groups() default {};
 
