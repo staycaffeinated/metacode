@@ -60,13 +60,20 @@ public class ${endpoint.entityName}Controller {
     @PostMapping (value=${endpoint.entityName}Routes.${endpoint.routeConstants.create}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<${endpoint.pojoName}> create${endpoint.entityName}(@RequestBody @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
-        ${endpoint.pojoName} savedResource = ${endpoint.entityVarName}Service.create${endpoint.entityName} ( resource );
-        URI uri = ServletUriComponentsBuilder
-                        .fromCurrentRequest()
-                        .path("/{id}")
-                        .buildAndExpand(savedResource.getResourceId())
-                        .toUri();
-        return ResponseEntity.created(uri).body(savedResource);
+        try {
+            ${endpoint.pojoName} savedResource = ${endpoint.entityVarName}Service.create${endpoint.entityName} ( resource );
+            URI uri = ServletUriComponentsBuilder
+                            .fromCurrentRequest()
+                            .path("/{id}")
+                            .buildAndExpand(savedResource.getResourceId())
+                            .toUri();
+            return ResponseEntity.created(uri).body(savedResource);
+        }
+        // if, for example, a database constraint prevents writing the data...
+        catch (org.springframework.transaction.TransactionSystemException e) {
+            log.error(e.getMessage());
+            throw new UnprocessableEntityException();
+        }
     }
     
     /*
