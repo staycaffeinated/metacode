@@ -5,7 +5,7 @@ package ${endpoint.packageName};
  * Routes to ${endpoint.entityName} resources
  */
 @SuppressWarnings({"java:S1075"})
-public class ${endpoint.entityName}Routes {
+public final class ${endpoint.entityName}Routes {
 
     private ${endpoint.entityName}Routes() {}
 

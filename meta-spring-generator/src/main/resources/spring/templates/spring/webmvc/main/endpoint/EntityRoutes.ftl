@@ -6,7 +6,7 @@ package ${endpoint.packageName};
  */
 @SuppressWarnings({"java:S1075"})
 // S1075: let basePath be hard-coded
-public class ${endpoint.entityName}Routes {
+public final class ${endpoint.entityName}Routes {
 
     private ${endpoint.entityName}Routes() {}
 
