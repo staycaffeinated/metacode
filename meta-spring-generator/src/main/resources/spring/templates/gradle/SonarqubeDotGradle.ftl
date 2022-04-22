@@ -20,5 +20,3 @@ sonarqube {
         property 'sonar.coverage.exclusions', '**/*Exception.java,**/*Test*.java,**/*IT.java,**/RestfulResource.java,**/*Application.java,**/ServletInitializer.java,**/ResourceIdentity.java,**/*Config.java,**/*Configuration.java,**/*Initializer.java'
     }
 }
-tasks['sonarqube'].dependsOn test
-tasks['sonarqube'].dependsOn integrationTest
