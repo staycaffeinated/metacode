@@ -63,7 +63,7 @@ class ${endpoint.entityName}BeanToResourceConverterTests {
 		List<${endpoint.pojoName}> results = converterUnderTest.convert(list);
 
 		// Then expect the fields of the converted items to match the original items
-		assertThat(results.size()).isEqualTo(list.size());
+		assertThat(results).hasSameSizeAs(list);
 		assertThat(fieldsMatch(itemOne, results.get(0))).isTrue();
 		assertThat(fieldsMatch(itemTwo, results.get(1))).isTrue();
 		assertThat(fieldsMatch(itemThree, results.get(2))).isTrue();
