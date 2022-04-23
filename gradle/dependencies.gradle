@@ -1,6 +1,6 @@
 ext {
     versions = [
-            assertJ:            '3.20.2',
+            assertJ:            '3.22.0',
             commonsBeanUtils:   '1.9.4',
             commonsConfig:      '2.7',
             commonsIo:          '2.11.0',
@@ -12,9 +12,9 @@ ext {
             jacksonYaml:        '2.13.2',
             jmustache:          '1.15',
             junit:              '5.8.2',
-            log4j:              '2.14.0',
-            lombok:             '1.18.22',
-            mockito:            '4.4.0',
+            log4j:              '2.17.2',
+            lombok:             '1.18.24',
+            mockito:            '4.5.1',
             picocli:            '4.6.3',
             slf4jApi:           '1.7.30',
             slf4jLog4j:         '1.1.7.30',
