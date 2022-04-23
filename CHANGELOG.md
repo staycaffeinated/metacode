@@ -1,8 +1,10 @@
 
 
 ## [Unreleased]
-* Feature: add database populators to webmvc projects (webflux projects already have them)
-* Refactor: improvements to generated code motivated by code analyzer reports
+
+## [0.2.0] - 2022-04-23
+* Feature: Add database populators to webmvc projects (webflux projects already have them)
+* Refactor: Improvements to generated code motivated by code analyzer reports
 
 ## [0.1.10] - 2022-04-19
 * Bug: version was not showing when using '--version' option
