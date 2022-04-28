@@ -8,14 +8,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.TransactionSystemException;
 import org.zalando.problem.jackson.ProblemModule;
 import org.zalando.problem.violations.ConstraintViolationProblemModule;
 
@@ -133,7 +132,18 @@ class ${endpoint.entityName}ControllerTests {
                     .andExpect(jsonPath("$.resourceId", notNullValue()))
                     .andExpect(jsonPath("$.text", is(resourceAfterSave.getText())))
             ;
+        }
 
+        @Test
+        void whenDatabaseThrowsException_expectUnprocessableEntityResponse() throws Exception {
+            // given the database throws an exception when the entity is saved
+            given(${endpoint.entityVarName}Service.create${endpoint.entityName}( any(${endpoint.pojoName}.class))).willThrow(TransactionSystemException.class);
+            ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().build();
+
+            mockMvc.perform(post(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(resource)))
+                    .andExpect(status().isUnprocessableEntity());
         }
     }
 
