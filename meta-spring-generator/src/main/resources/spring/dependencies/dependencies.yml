@@ -34,10 +34,10 @@ dependencies:
     version: "4.9.1"
   # Lombok
   - name: "lombok"
-    version: "1.18.22"
+    version: "1.18.24"
   # Lombok Gradle plugin
   - name: "lombokPlugin"
-    version: "6.4.2"
+    version: "6.4.3"
   # Log4J
   - name: "log4j"
     version: "2.17.2"
@@ -52,7 +52,7 @@ dependencies:
     version: "0.27.0"
   # Reactor Test
   - name: "reactorTest"
-    version: "3.4.17"
+    version: "3.4.18"
   # R2DBC
   - name: "r2dbc_h2"
     version: "0.9.1.RELEASE"
@@ -61,16 +61,16 @@ dependencies:
     version: "3.3"
   # Spotless code formatter gradle plugin
   - name: "spotless"
-    version: "6.4.2"
+    version: "6.5.2"
   # Spring Boot
   - name: "springBoot"
-    version: "2.6.6"
+    version: "2.6.7"
   # Spring Cloud
   - name: "springCloud"
-    version: "3.1.1"
+    version: "3.1.2"
   # Spring Dependency Management gradle plugin
   - name: "springDependencyManagement"
     version: "1.0.11.RELEASE"
   # TestContainers
   - name: "testContainers"
-    version: "1.16.3"
+    version: "1.17.1"
