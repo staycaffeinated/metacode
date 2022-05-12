@@ -59,6 +59,9 @@ dependencies:
   # R2DBC
   - name: "r2dbc_h2"
     version: "0.9.1.RELEASE"
+  # R2DBC SPI
+  - name: "r2dbc_spi"
+    version: "1.0.0.RELEASE"
   # Sonarqube
   - name: "sonarqube"
     version: "3.3"

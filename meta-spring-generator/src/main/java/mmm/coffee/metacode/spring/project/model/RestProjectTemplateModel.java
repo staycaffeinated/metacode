@@ -92,6 +92,7 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private String truthVersion;
     private String mockitoVersion;
     private String R2dbc_h2Version;
+    private String R2dbc_spiVersion;
     private String sonarqubeVersion;
     private String spotlessVersion;
     private String reactorTestVersion;
