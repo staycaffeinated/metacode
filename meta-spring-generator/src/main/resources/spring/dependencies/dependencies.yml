@@ -44,6 +44,9 @@ dependencies:
   # Mockito
   - name: "mockito"
     version: "4.4.0"
+  # Postres
+  - name: "postgresql"
+    version: "42.3.5"
   # Problem Jackson Data Type
   - name: "problemJacksonDataType"
     version: "0.27.1"

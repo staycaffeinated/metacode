@@ -96,6 +96,7 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private String spotlessVersion;
     private String reactorTestVersion;
     private String h2Version;
+    private String postgresqlVersion;
 
     /**
      * Apply the entries from the {@code dependencyCatalog} to the
@@ -117,7 +118,7 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
             method.invoke(this, value);
         }
         catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
-            throw new RuntimeApplicationError(String.format("No setter method found for %s", prefix), e);
+            throw new RuntimeApplicationError(String.format("No setter method found for '%s' in %s", prefix, this.getClass().getName()), e);
         }
     }
     // Visible for testing

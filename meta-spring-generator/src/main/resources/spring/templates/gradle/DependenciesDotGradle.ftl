@@ -8,6 +8,7 @@ ext {
         lombok                 : '${project.lombokVersion}',              // Lombok annotation processor
         log4j                  : '${project.log4jVersion}',               // Logging
         mockito                : '${project.mockitoVersion}',             // Mocking library
+        postgresql             : '${project.postgresqlVersion}',          // PostgreSQL library
         r2dbc_h2               : '${project.r2dbc_h2Version}',             // r2dbc-h2
         springBoot             : '${project.springBootVersion}',          // Spring Boot
         springCloud            : '${project.springCloudVersion}',         // Spring Cloud
@@ -37,7 +38,7 @@ ext {
         mockito                     : "org.mockito:mockito-core:$versions.mockito",
         r2dbcH2                     : "io.r2dbc:r2dbc-h2:$versions.r2dbc_h2",
         r2dbcSpi                    : "io.r2dbc:r2dbc-spi:$versions.r2dbc_h2",
-        postgresql                  : "org.postgresql:postgresql",
+        postgresql                  : "org.postgresql:postgresql:$versions.postgresql",
         problemSpringWeb            : "org.zalando:problem-spring-web-starter:$versions.problemSpringWeb",
         problemSpringWebFlux        : "org.zalando:problem-spring-webflux:$versions.problemSpringWeb",
         problemJacksonDataType      : "org.zalando:jackson-datatype-problem:$versions.problemJacksonDataType",
