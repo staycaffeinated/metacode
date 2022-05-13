@@ -31,6 +31,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Unit test
+ *
+ * NB: There are some redundant tests. Jacoco is having trouble
+ * mapping tests within nested classes to line coverage metrics.
+ * When you come across a test within a nested class that covers
+ * the same condition as some other test, that's from my attempts
+ * to figure out Jacoco's idiosyncratic behavior.
  */
 class SpringWebMvcTemplateCatalogTest {
 
@@ -42,8 +48,14 @@ class SpringWebMvcTemplateCatalogTest {
         catalogUnderTest = new SpringWebMvcTemplateCatalog(catalogFileReader);
     }
 
+    /**
+     * The SpringWebMvcTemplateCatalog class contains a hard-coded
+     * path to the catalog file that it reads.  When ``collect`` is
+     * called, that catalog file is loaded and its content is returned
+     * as a List of CatalogEntry's.
+     */
     @Test
-    void shouldReadTemplates() {
+    void shouldCollectCatalogEntries() {
         List<CatalogEntry> resultSet = catalogUnderTest.collect();
         assertThat(resultSet).isNotNull();
         assertThat(resultSet.size()).isGreaterThan(0);
@@ -67,7 +79,15 @@ class SpringWebMvcTemplateCatalogTest {
     }
 
     @Test
-    void shouldInstantiateSuccessfully() {
+    void shouldAlsoThrowExceptionOnNullArg() {
+        assertThrows(NullPointerException.class, () -> {
+            ICatalogReader nullReader = null;
+            new SpringWebMvcTemplateCatalog(nullReader);
+        });
+    }
+
+    @Test
+    void shouldConstructAnInstance() {
         var mockCatalogReader = Mockito.mock(ICatalogReader.class);
         var obj = new SpringWebMvcTemplateCatalog(mockCatalogReader);
         assertThat(obj).isNotNull();
