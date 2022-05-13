@@ -70,9 +70,7 @@ class SpringWebFluxTemplateCatalogTest {
     @Test
     void shouldThrowExceptionWhenCatalogPathIsNull() {
         var obj = new FakeTemplateCatalog(new CatalogFileReader());
-        assertThrows(NullPointerException.class, () -> {
-            obj.invokeCollectGeneralCatalogsAndThisOne();
-        });
+        assertThrows(NullPointerException.class, obj::invokeCollectGeneralCatalogsAndThisOne);
     }
 
     @Nested
@@ -90,7 +88,7 @@ class SpringWebFluxTemplateCatalogTest {
         }
     }
 
-    private class FakeTemplateCatalog extends SpringTemplateCatalog {
+    private static class FakeTemplateCatalog extends SpringTemplateCatalog {
 
         public FakeTemplateCatalog(ICatalogReader reader) {
             super(reader);

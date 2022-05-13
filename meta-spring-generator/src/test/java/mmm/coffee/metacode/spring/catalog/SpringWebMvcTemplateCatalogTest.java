@@ -50,19 +50,6 @@ class SpringWebMvcTemplateCatalogTest {
     }
 
     /*
-     * This is a white box test of the {@code SpringTemplateCatalog}
-     * constructor.  Our fake subclass's constructor invokes
-     * the super's constructor with a null argument to verify
-     * an NPE is thrown.
-     */
-    @Test
-    void shouldThrowExceptionWhenCatalogReaderArgIsNull() {
-        assertThrows(NullPointerException.class, () -> {
-            new FakeTemplateCatalog(null);
-        });
-    }
-
-    /*
      * This is a white box test of the
      * {@code collectGeneralCatalogsAndThisOne} method.
      * This test calls that method with a {@code null}
@@ -71,11 +58,21 @@ class SpringWebMvcTemplateCatalogTest {
     @Test
     void shouldThrowExceptionWhenCatalogPathIsNull() {
         var obj = new FakeTemplateCatalog(new CatalogFileReader());
-        assertThrows(NullPointerException.class, () -> {
-            obj.invokeCollectGeneralCatalogsAndThisOne();
-        });
+        assertThrows(NullPointerException.class, obj::invokeCollectGeneralCatalogsAndThisOne);
     }
-    
+
+    @Test
+    void shouldThrowExceptionWhenReaderArgIsNull() {
+        assertThrows(NullPointerException.class, () -> new SpringWebMvcTemplateCatalog(null));
+    }
+
+    @Test
+    void shouldInstantiateSuccessfully() {
+        var mockCatalogReader = Mockito.mock(ICatalogReader.class);
+        var obj = new SpringWebMvcTemplateCatalog(mockCatalogReader);
+        assertThat(obj).isNotNull();
+    }
+
 
     @Nested
     class ConstructorTests {
@@ -128,7 +125,7 @@ class SpringWebMvcTemplateCatalogTest {
     //
     // -----------------------------------------------------------------------------
 
-    private class FakeTemplateCatalog extends SpringTemplateCatalog {
+    private static class FakeTemplateCatalog extends SpringWebMvcTemplateCatalog {
 
         public FakeTemplateCatalog(ICatalogReader reader) {
             super(reader);

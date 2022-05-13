@@ -112,28 +112,28 @@ class SubcommandCreateSpringWebMvcProjectTests {
 
     @Test
     void shouldAcceptPostgresSupportOption() {
-        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --support postgres");
+        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --add postgres");
         int rc = commandLine.execute(argv);
         assertThat(rc).isEqualTo(ExitCodes.OK);
     }
 
     @Test
     void shouldAcceptLiquibaseSupportOption() {
-        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --support liquibase");
+        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --add liquibase");
         int rc = commandLine.execute(argv);
         assertThat(rc).isEqualTo(ExitCodes.OK);
     }
 
     @Test
     void shouldAcceptTestContainersSupportOption() {
-        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --support testcontainers");
+        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --add testcontainers");
         int rc = commandLine.execute(argv);
         assertThat(rc).isEqualTo(ExitCodes.OK);
     }
 
     @Test
     void shouldAcceptMultipleSupportOption() {
-        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --support postgres testcontainers");
+        String[] argv = StringHelper.toArgV("--name petstore --package acme.petstore --group org.acme.petstore --add postgres testcontainers");
         int rc = commandLine.execute(argv);
         assertThat(rc).isEqualTo(ExitCodes.OK);
     }

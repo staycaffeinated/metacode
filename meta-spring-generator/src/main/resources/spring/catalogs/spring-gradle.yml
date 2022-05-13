@@ -15,7 +15,7 @@
 # when the declared feature (i.e., library integration) was specified. For example,
 # some templates are only applicable when PostgreSQL support is wanted.  Features
 # come into play when the '-s' ('--suport') option is given on the command line.
-# For instance, ``rest-api create-project --package org.example --support postgres``
+# For instance, ``rest-api create-project --package org.example --add postgres``
 #
 catalog:
   - entry:

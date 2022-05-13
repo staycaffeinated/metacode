@@ -29,11 +29,8 @@ class SpringTemplateCatalogTests {
 
         SimpleTemplateCatalog catalog = new SimpleTemplateCatalog(mockReader);
         assertThrows(RuntimeApplicationError.class, () -> catalog.collectGeneralCatalogsAndThisOne("") );
-
     }
-
-
-
+    
     // -----------------------------------------------------------
     // Helper methods and classes
     // -----------------------------------------------------------

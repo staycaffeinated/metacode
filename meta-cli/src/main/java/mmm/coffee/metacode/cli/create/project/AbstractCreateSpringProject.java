@@ -28,7 +28,7 @@ public class AbstractCreateSpringProject extends AbstractCreateRestProject {
     // The declaration the additional library options
     // For example, ```--add postgres liquibase```
     // What about -i --integrations? so, for example, `-i postgres testcontainers`
-    @CommandLine.Option(names={"-s", "--support"},
+    @CommandLine.Option(names={"-a", "--add"},
             arity="0..*",
             paramLabel = "LIBRARY",
             description = { "Add the support of additional libraries to the project. Currently supported libraries are: ${COMPLETION-CANDIDATES}." }
