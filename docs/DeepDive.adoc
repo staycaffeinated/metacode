@@ -1,0 +1,162 @@
+
+== Sonarqube Reports
+
+The Gradle Sonarqube plugin is included in the build.gradle file.
+The Sonarqube report for the Pet Store example looks like this:
+
+[#img-sonarqube-overview]
+.Sonarqube: Summary Report for the Pet Store
+image:docs/images/sonarqube-petstore-main.png["The Dashboard Overview"]
+
+[#img-sonarqube-overall-code]
+.Sonarqube: Quality Overview for the Pet Store
+image:docs/images/sonarqube-petstore-overall-code.png["The Overall Code View"]
+
+[#img-sonarqube-code-measures]
+.Sonarqube: Code Measure Report for the Pet Store
+image:docs/images/sonarqube-petstore-measures.png["The Code Measures View"]
+
+== The Generated Code: A Deep Dive
+
+This `tree` output shows the inventory of classes generated for the base project and the Pet resource. 
+
+[%hardbreaks]
+[literal]
+  1 .
+  2 ├── README.md
+  3 ├── build.gradle
+  4 ├── gradle
+  5 │   ├── dependencies.gradle
+  6 │   ├── docker.gradle
+  7 │   ├── lint.gradle
+  8 │   ├── sonarqube.gradle
+  9 │   ├── spotless.gradle
+ 10 │   ├── standard-setup.gradle
+ 11 │   └── wrapper
+ 12 │       ├── gradle-wrapper.jar
+ 13 │       └── gradle-wrapper.properties
+ 14 ├── gradle.properties
+ 15 ├── gradlew
+ 16 ├── gradlew.bat
+ 17 ├── lombok.config
+ 18 ├── metacode.properties
+ 19 ├── settings.gradle
+ 20 ├── src
+ 21 │   ├── integration
+ 22 │   │   └── java
+ 23 │   │       └── acme
+ 24 │   │           └── petstore
+ 25 │   │               ├── ApplicationTests.java
+ 26 │   │               ├── common
+ 27 │   │               │   └── AbstractIntegrationTest.java
+ 28 │   │               └── endpoint
+ 29 │   │                   ├── pet
+ 30 │   │                   │   ├── PetControllerIT.java
+ 31 │   │                   │   └── PetExceptionHandlingIT.java
+ 32 │   │                   └── root
+ 33 │   │                       ├── RootControllerIT.java
+ 34 │   │                       └── RootExceptionHandlingIT.java
+ 35 │   ├── main
+ 36 │   │   ├── docker-compose
+ 37 │   │   │   └── docker-compose.yaml
+ 38 │   │   ├── java
+ 39 │   │   │   └── acme
+ 40 │   │   │       └── petstore
+ 41 │   │   │           ├── Application.java
+ 42 │   │   │           ├── advice
+ 43 │   │   │           │   └── GlobalExceptionHandler.java
+ 44 │   │   │           ├── common
+ 45 │   │   │           │   └── Constants.java
+ 46 │   │   │           ├── config
+ 47 │   │   │           │   ├── DateTimeFormatConfiguration.java
+ 48 │   │   │           │   ├── LocalDateConverter.java
+ 49 │   │   │           │   ├── ProblemConfiguration.java
+ 50 │   │   │           │   └── WebMvcConfiguration.java
+ 51 │   │   │           ├── database
+ 52 │   │   │           │   └── PetTablePopulator.java
+ 53 │   │   │           ├── endpoint
+ 54 │   │   │           │   ├── pet
+ 55 │   │   │           │   │   ├── Pet.java
+ 56 │   │   │           │   │   ├── PetBeanToResourceConverter.java
+ 57 │   │   │           │   │   ├── PetController.java
+ 58 │   │   │           │   │   ├── PetEntityBean.java
+ 59 │   │   │           │   │   ├── PetRepository.java
+ 60 │   │   │           │   │   ├── PetResourceToBeanConverter.java
+ 61 │   │   │           │   │   ├── PetRoutes.java
+ 62 │   │   │           │   │   └── PetService.java
+ 63 │   │   │           │   └── root
+ 64 │   │   │           │       ├── RootController.java
+ 65 │   │   │           │       └── RootService.java
+ 66 │   │   │           ├── exception
+ 67 │   │   │           │   └── UnprocessableEntityException.java
+ 68 │   │   │           ├── math
+ 69 │   │   │           │   └── SecureRandomSeries.java
+ 70 │   │   │           ├── stereotype
+ 71 │   │   │           │   └── RestfulResource.java
+ 72 │   │   │           └── validation
+ 73 │   │   │               ├── Alphabetic.java
+ 74 │   │   │               ├── AlphabeticValidator.java
+ 75 │   │   │               ├── OnCreate.java
+ 76 │   │   │               ├── OnUpdate.java
+ 77 │   │   │               ├── ResourceId.java
+ 78 │   │   │               └── ResourceIdValidator.java
+ 79 │   │   └── resources
+ 80 │   │       ├── ValidationMessages.properties
+ 81 │   │       └── application.properties
+ 82 │   └── test
+ 83 │       ├── java
+ 84 │       │   └── acme
+ 85 │       │       └── petstore
+ 86 │       │           ├── advice
+ 87 │       │           │   └── GlobalExceptionHandlerTests.java
+ 88 │       │           ├── config
+ 89 │       │           │   └── LocalDateConverterTests.java
+ 90 │       │           ├── endpoint
+ 91 │       │           │   ├── pet
+ 92 │       │           │   │   ├── FakeConversionService.java
+ 93 │       │           │   │   ├── PetBeanToResourceConverterTests.java
+ 94 │       │           │   │   ├── PetControllerTests.java
+ 95 │       │           │   │   ├── PetResourceToBeanConverterTests.java
+ 96 │       │           │   │   └── PetServiceTests.java
+ 97 │       │           │   └── root
+ 98 │       │           │       ├── RootControllerTest.java
+ 99 │       │           │       └── RootServiceTest.java
+100 │       │           ├── math
+101 │       │           │   └── SecureRandomSeriesTests.java
+102 │       │           └── validation
+103 │       │               ├── AlphabeticValidatorTests.java
+104 │       │               └── ResourceIdValidatorTests.java
+105 │       └── resources
+106 │           └── application-test.yaml
+
+=== What Are All These Files?
+
+Some of the generated files are self-explanatory for those with
+any Spring or Java experience. The less obvious files are
+described here.
+
+.Gradle Directory Content
+|===
+|File|Description
+
+|dependencies.gradle|the inventory of third party libraries used
+|docker.gradle|the JIB plugin's configuration, which affects the building of Docker files
+|lint.gradle|lint configuration for the Java compiler
+|sonarqube.gradle|SonarQube configuration
+|spotless.gradle|Spotless code formatter configuration
+|standard-setup.gradle|imports the other Gradle scripts into a single file
+|===
+
+.The Pet Package Content
+|===
+|File|Description
+
+|Pet.java|The POJO representing the Pet entity
+|PetBeanToResourceConverter.java|Converts an EJB into a POJO
+|PetController.java|Handles HTTP requests and responses
+|PetEntityBean.java|The EJB for the Pet entity
+|PetRepository.java|The JPA Repository for Pet entities
+|PetResourceToBeanConverter.java|Converts POJOs into EJBs
+|PetRoutes.java|Defines various URLs for Pets
+|PetService.java|Implements the business logic
+|===

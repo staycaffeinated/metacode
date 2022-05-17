@@ -1,7 +1,6 @@
 :toc: auto
 = MetaCode Code Generator
 
-
 == Features:
 
 * Generates a working Spring WebMvc or Spring WebFlux application
@@ -14,6 +13,19 @@
 ** Liquibase
 
 With Postgres integration, the JPA properties within `application.properties` reference Postgres JDBC drivers. With TestContainers integration, the test cases use TestContainers to emulate the database. When both Postgres and TestContainers are used, the tests use the Postgres flavor of the test container. With Liquibase, a simple configuration is generated as a starting point.
+
+== Homebrew Install
+
+Metacode is available on Homebrew. To install it, run these commands:
+
+```[bash]
+$ brew tap staycaffeinated/tap
+$ brew install metacode
+```
+
+Metacode is compiled with Java 11 as the target JVM,
+so you will need Java 11 to run it.
+
 
 == Quick Start Guide
 
@@ -130,3 +142,5 @@ $ http localhost:8080/petstore/owners/findAll
 $ http localhost:8080/petstore/pets
 $ http localhost:8080/petstore/pets/[resourceId]
 ----
+
+include::docs/DeepDive.adoc[]
