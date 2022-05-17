@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-05-17
+
+A minimum, lovable product has been achieved.
+
+* Docs: 
+  * Improved the README
+  * Added a LICENSE file
+* Refactor: 
+  * Renamed the `--support` command-line option to `--add`
+  * Added explicit version for PostgreSQL library instead of letting the Spring Gradle plugin decide the version
+* Bugs: 
+  * Fixed spelling error in a ValidationMessages.properties file
+
 ## [0.2.0] - 2022-04-23
 * Feature: Add database populators to webmvc projects (webflux projects already have them)
 * Refactor: Improvements to generated code motivated by code analyzer reports

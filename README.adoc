@@ -1,7 +1,7 @@
 :toc: auto
 = MetaCode Code Generator
 
-== Features:
+== Features
 
 * Generates a working Spring WebMvc or Spring WebFlux application
 ** A project with a single controller will have about 600 lines of code and about 80 tests generated
@@ -24,7 +24,7 @@ $ brew install metacode
 ```
 
 Metacode is compiled with Java 11 as the target JVM,
-so you will need Java 11 to run it.
+so you will need at least Java 11 to run it.
 
 
 == Quick Start Guide
