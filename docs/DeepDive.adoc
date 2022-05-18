@@ -6,15 +6,15 @@ The Sonarqube report for the Pet Store example looks like this:
 
 [#img-sonarqube-overview]
 .Sonarqube: Summary Report for the Pet Store
-image:docs/images/sonarqube-petstore-main.png["The Dashboard Overview"]
+image:images/sonarqube-petstore-main.png["The Dashboard Overview"]
 
 [#img-sonarqube-overall-code]
 .Sonarqube: Quality Overview for the Pet Store
-image:docs/images/sonarqube-petstore-overall-code.png["The Overall Code View"]
+image:images/sonarqube-petstore-overall-code.png["The Overall Code View"]
 
 [#img-sonarqube-code-measures]
 .Sonarqube: Code Measure Report for the Pet Store
-image:docs/images/sonarqube-petstore-measures.png["The Code Measures View"]
+image:images/sonarqube-petstore-measures.png["The Code Measures View"]
 
 [sidebar]
 
