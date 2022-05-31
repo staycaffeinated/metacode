@@ -81,6 +81,7 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private String problemSpringWebVersion;
     private String assertJVersion;
     private String benManesPluginVersion;
+    private String coditoryPluginVersion;
     private String junitSystemRulesVersion;
     private String junitVersion;
     private String jibPluginVersion;
