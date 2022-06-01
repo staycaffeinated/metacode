@@ -6,8 +6,8 @@
 
 * Bugs:
   * Added property for Coditory integration plugin
-* Maintenance: 
-  * Bump the dependency versions consumed by the generated code 
+* Maintenance:
+  * Bump the dependency versions consumed by the generated code
 
 ## [1.0.0] - 2022-05-17
 
