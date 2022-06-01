@@ -2,17 +2,24 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2022-06-01
+
+* Bugs:
+  * Added property for Coditory integration plugin
+* Maintenance: 
+  * Bump the dependency versions consumed by the generated code 
+
 ## [1.0.0] - 2022-05-17
 
 A minimum, lovable product has been achieved.
 
-* Docs: 
+* Docs:
   * Improved the README
   * Added a LICENSE file
-* Refactor: 
+* Refactor:
   * Renamed the `--support` command-line option to `--add`
   * Added explicit version for PostgreSQL library instead of letting the Spring Gradle plugin decide the version
-* Bugs: 
+* Bugs:
   * Fixed spelling error in a ValidationMessages.properties file
 
 ## [0.2.0] - 2022-04-23
