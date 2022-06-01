@@ -294,6 +294,7 @@ class TemplateRenditionTests {
         return RestProjectTemplateModel.builder()
                 .applicationName("petstore")
                 .benManesPluginVersion("1.0")
+                .coditoryPluginVersion("1.4")
                 .javaVersion("11")
                 .springBootVersion("2.5")
                 .springDependencyManagementVersion("1.1")
