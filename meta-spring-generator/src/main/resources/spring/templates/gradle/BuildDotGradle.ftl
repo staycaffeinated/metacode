@@ -73,6 +73,6 @@ tasks.withType(Test) {
 jib {
     to {
         image = '${project.applicationName}'
-        tags = [ 'snapshot', '0.0.1' ]
+        tags = [ '0.0.1' ]
     }
 }
