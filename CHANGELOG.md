@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [1.2.0] - 2022-06-25
+* Maintenance
+  * Bump the dependency versions consumed by the generated code
+  * Transition a deprecated Spring class to its replacement
+
 ## [1.1.0] - 2022-06-01
 
 * Bugs:
