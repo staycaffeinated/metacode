@@ -27,28 +27,41 @@ package mmm.coffee.metacode.cli.validation;
  */
 public class DisallowedWords {
 
-    private static final String[] reserved;
+    private static final String[] DISALLOWED;
 
     /* a private constructor to prevent instantiation */
     private DisallowedWords() {}
 
     /**
-     * Check whether the given {@code word} is a reserved word.
+     * Check whether the given {@code word} is a disallowed word.
      * This check also excludes the String "null",
      * @param word the candidate value to test
      * @return if {@code word} is a reserved word, or is the String "null".
      */
     public static boolean isDisallowedWord(String word) {
-        for (String s: reserved) {
+        for (String s: DISALLOWED) {
+            // Future task: log an error to the console, maybe with a specific reason.
             if (s.equalsIgnoreCase(word)) return true;
         }
-        return false;
+       return false;
     }
 
     /*
-     * The disallowed words
+     * These are resource names that have been found to cause errors
+     * in the generated code. The errors may be compile-time errors
+     * or runtime errors. The general idea is, if the end-user wants
+     * to create a resource or entity with a name that'll prevent the
+     * generated code from working out-of-the-box, let's warn the end-user
+     * about those rather than generate broken code.
      */
     static {
-        reserved = new String[] { "test" };
+        // When the database table name is 'User' (or equivalent),
+        // Hibernate generates invalid SQL, in the form 'Invalid syntax: identifier expected: [*].User'.
+        // I don't know why a table named 'User' is a problem.
+        // The work-around: use something like `UserInfo` or `UserDetail`
+        //
+        // Using `Test` causes collisions with the JUnit `Test` class.
+        //
+        DISALLOWED = new String[] { "test", "user" };
     }
 }

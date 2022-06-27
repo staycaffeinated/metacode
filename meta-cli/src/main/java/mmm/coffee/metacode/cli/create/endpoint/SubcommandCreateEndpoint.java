@@ -84,7 +84,10 @@ public class SubcommandCreateEndpoint implements Callable<Integer> {
     private void validateInputs() {
         if ( !ResourceNameValidator.isValid(resourceName)) {
             throw new CommandLine.ParameterException( commandSpec.commandLine(),
-                    String.format("%nERROR: %n\tThe resource name '%s' cannot be used. Resource names that lead to uncompilable code are not supported.", resourceName));
+                    String.format("%nERROR: %n\tThe resource name '%s' cannot be used. " +
+                    "Resource names that lead to compile-time errors or " +
+                            "obscure runtime errors are not supported.\n" +
+                            "\tSuggestion: try something like '%sInfo' or '%sDetail', for example.", resourceName, resourceName, resourceName));
         }
     }
 
