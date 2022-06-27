@@ -1,9 +1,12 @@
 
 
 ## [Unreleased]
+
+## [1.2.1] - 2022-06-27
 * Bug
-  * Added 'User' to the list of disallowed words. Hibernate generates invalid SQL 
-    when the table name is 'User'; the SQL errors prevent integration tests from running.
+  * Added 'User' to the list of disallowed words. Hibernate generates invalid SQL
+    when the table name is 'User'; the SQL error prevents the corresponding database
+    table from being created, which subsequently causes integration tests to fail
 
 ## [1.2.0] - 2022-06-25
 * Maintenance
