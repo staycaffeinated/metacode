@@ -1,6 +1,11 @@
 
 
 ## [Unreleased]
+* Features
+  * Add property to hold CORS `allowed origins` pattern.
+    The property can be set with an environment variable
+    or in the application.yml/properties file.
+
 
 ## [1.2.1] - 2022-06-27
 * Bug
