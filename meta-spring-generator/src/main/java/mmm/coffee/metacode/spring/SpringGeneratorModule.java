@@ -34,6 +34,7 @@ import mmm.coffee.metacode.common.io.MetaPropertiesWriter;
 import mmm.coffee.metacode.common.stereotype.DependencyCollector;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.common.writer.ContentToFileWriter;
+import mmm.coffee.metacode.spring.catalog.SpringBootTemplateCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringEndpointCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
 import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
@@ -45,10 +46,7 @@ import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelTo
 import mmm.coffee.metacode.spring.endpoint.mustache.MustacheEndpointDecoder;
 import mmm.coffee.metacode.spring.endpoint.generator.SpringEndpointGenerator;
 import mmm.coffee.metacode.spring.endpoint.io.SpringEndpointMetaPropertiesHandler;
-import mmm.coffee.metacode.spring.project.converter.DescriptorToMetaProperties;
-import mmm.coffee.metacode.spring.project.converter.DescriptorToPredicateConverter;
-import mmm.coffee.metacode.spring.project.converter.DescriptorToTemplateModelConverter;
-import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.project.converter.*;
 import mmm.coffee.metacode.spring.project.mustache.MustacheDecoder;
 import mmm.coffee.metacode.spring.project.generator.SpringCodeGenerator;
 import mmm.coffee.metacode.spring.project.io.SpringMetaPropertiesHandler;
@@ -56,7 +54,15 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 
 /**
- * Module for SpringWebMvc Project generator
+ * Module for the Spring Project generator
+ *
+ * IMPORTANT:
+ * If a new `provides` method is added here, make sure a matching method
+ * is added to the SpringTestModule class. Otherwise, you will encounter
+ * runtime errors during testing, like 'picocli.CommandLine$InitializationException: Could not inject spec'.
+ * The SpringTestModule is used by the integration tests to fake some of the dependencies
+ * For example, to prevent the tests from writing files to the file system, a NullWriter is wired
+ * into the SpringTestModule, while a real Writer is wired into this class, the SpringGeneratorModule.
  */
 @SuppressWarnings("java:S1452") // S1452: allow generic wildcards for the moment
 @Generated // Ignore code coverage for this class
@@ -67,7 +73,7 @@ public final class SpringGeneratorModule extends AbstractModule {
 
     @Provides
     @SpringWebMvc
-    ICodeGenerator<RestProjectDescriptor> provideSpringWebMvcGenerator() {
+    ICodeGenerator<RestProjectDescriptor> providesSpringWebMvcGenerator() {
         return SpringCodeGenerator.builder()
                 .collector(new SpringWebMvcTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToTemplateModelConverter())
@@ -87,6 +93,23 @@ public final class SpringGeneratorModule extends AbstractModule {
     ICodeGenerator<RestProjectDescriptor> providesSpringWebFluxGenerator() {
         return SpringCodeGenerator.builder()
                 .collector(new SpringWebFluxTemplateCatalog(new CatalogFileReader()))
+                .descriptor2templateModel(new DescriptorToTemplateModelConverter())
+                .descriptor2predicate(new DescriptorToPredicateConverter())
+                .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
+                .outputHandler(new ContentToFileWriter())
+                .dependencyCatalog(new DependencyCatalog(DEPENDENCY_FILE))
+                .mustacheDecoder(
+                        MustacheDecoder.builder()
+                                .converter(new RestTemplateModelToMapConverter()).build())
+                .metaPropertiesHandler(providesMetaPropertiesHandler())
+                .build();
+    }
+
+    @Provides
+    @SpringBootProvider
+    ICodeGenerator<RestProjectDescriptor> providesSpringBootGenerator() {
+        return SpringCodeGenerator.builder()
+                .collector(new SpringBootTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))

@@ -14,6 +14,7 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
 public enum Framework {
     SPRING_WEBMVC("WEBMVC"),
     SPRING_WEBFLUX("WEBFLUX"),
+    SPRING_BOOT("SPRING-BOOT"),
     UNDEFINED("UNDEFINED");
     // Future frameworks include: Micronaut, Quarkus, VueJS, and React
 

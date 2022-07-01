@@ -16,10 +16,7 @@
 package mmm.coffee.metacode.cli;
 
 import com.google.inject.*;
-import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
-import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
-import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
-import mmm.coffee.metacode.annotations.guice.WriteOutputProvider;
+import mmm.coffee.metacode.annotations.guice.*;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
@@ -127,7 +124,11 @@ class ApplicationTest {
         ICodeGenerator<RestProjectDescriptor> providesSpringWebFluxGenerator() {
             return new FakeSpringCodeGenerator();
         }
-        
+
+        @Provides
+        @SpringBootProvider
+        ICodeGenerator<RestProjectDescriptor> providesSpringBootGenerator() { return new FakeSpringCodeGenerator(); }
+
         /**
          * The code generator needs a class that will handle writing content to a file.
          * Specifically, once a template is parsed and rendered as a String, that String
