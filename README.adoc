@@ -29,7 +29,7 @@ so you will need at least Java 11 to run it.
 
 == Quick Start Guide
 
-To demostrate how to generate a project with MetaCode, we'll walk through generating Spring's Pet Store example, 
+To demonstrate how to generate a project with MetaCode, we'll walk through generating Spring's Pet Store example,
 with three endpoints: pets, owners, and stores.
 
 === The Spring Pet Store in Spring WebFlux 
@@ -87,6 +87,8 @@ $ http localhost:8080/petstore/stores/findAll
 $ http localhost:8080/petstore/owners/findAll
 $ http localhost:8080/petstore/pets
 $ http localhost:8080/petstore/pets/[resourceId]
+$ http localhost:8080/petstore/_internal/health
+$ http localhost:8080/petstore/_internal/health/liveness
 ----
 
 === The Spring Pet Store in Spring WebMvc 
@@ -141,6 +143,22 @@ $ http localhost:8080/petstore/stores/findAll
 $ http localhost:8080/petstore/owners/findAll
 $ http localhost:8080/petstore/pets
 $ http localhost:8080/petstore/pets/[resourceId]
+$ http localhost:8080/petstore/_internal/health
+$ http localhost:8080/petstore/_internal/health/liveness
+----
+
+=== Generate a Spring Boot project
+
+When you only want the bare minimum of code generated, the `spring-boot` template is available.
+The `spring-boot` template generates an `Application.java`, some helper classes, and an
+`ApplicationTests.java`.
+
+To create such a project, following this recipe:
+[source,bash]
+----
+$ mkdir basic-springboot
+$ cd basic-springboot
+$ metacode create project spring-boot --name hello-world --package acme.greeting --base-path /greeting
 ----
 
 include::docs/DeepDive.adoc[]
