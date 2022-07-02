@@ -27,8 +27,8 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/config/LocalDateConverter.java"
       context: "project"
   - entry:
-      template: "/spring/boot/main/common/Constants.ftl"
-      destination: "src/main/java/{{basePackagePath}}/common/Constants.java"
+      template: "/spring/common/main/common/SpringProfiles.ftl"
+      destination: "src/main/java/{{basePackagePath}}/common/SpringProfiles.java"
       context: "project"
   - entry:
       template: "/spring/common/main/math/SecureRandomSeries.ftl"

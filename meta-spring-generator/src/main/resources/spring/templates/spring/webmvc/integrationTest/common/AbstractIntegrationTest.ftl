@@ -1,8 +1,8 @@
 <#include "/common/Copyright.ftl">
 package ${project.basePackage}.common;
 
-import static ${project.basePackage}.common.Constants.PROFILE_IT;
-import static ${project.basePackage}.common.Constants.PROFILE_TEST;
+import static ${project.basePackage}.common.SpringProfiles.INTEGRATION_TEST;
+import static ${project.basePackage}.common.SpringProfiles.TEST;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +19,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.containers.PostgreSQLContainer;
 </#if>
 
-@ActiveProfiles({PROFILE_TEST, PROFILE_IT})
+@ActiveProfiles({TEST, INTEGRATION_TEST})
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
 <#if (project.testcontainers)??>
