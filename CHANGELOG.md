@@ -5,7 +5,10 @@
   * Add property to hold CORS `allowed origins` pattern.
     The property can be set with an environment variable
     or in the application.yml/properties file.
-
+* Refactored
+  * The generated class, `Constants.java` is renamed to `SpringProfiles.java`.
+    Within that class, the constants `PROFILE_IT` and `PROFILE_TEST` are renamed
+    to `INTEGRATION_TEST` and `TEST`, respectively.
 
 ## [1.2.1] - 2022-06-27
 * Bug
