@@ -29,7 +29,7 @@ import picocli.CommandLine;
         name="spring-boot",
         mixinStandardHelpOptions = true,
         headerHeading = "%nSynopsis:%n",
-        header = "  Generate a Spring-Boot project",
+        header = "  Generate a Spring Boot project",
         descriptionHeading = "%nDescription:%n",
         description="  Creates a simple Spring-Boot project",
         synopsisHeading = "%nUsage:%n",
