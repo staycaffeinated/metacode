@@ -1,6 +1,8 @@
 
 
 ## [Unreleased]
+
+## [2.0.0] - 2022-07-02 
 * Features
   * Add property to hold CORS `allowed origins` pattern.
     The property can be set with an environment variable
