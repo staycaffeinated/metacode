@@ -22,7 +22,7 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * Unit test the SpringGeneratorModule
  */
-public class SpringGeneratorModuleTest {
+class SpringGeneratorModuleTest {
 
     SpringGeneratorModule moduleUnderTest = new SpringGeneratorModule();
 
