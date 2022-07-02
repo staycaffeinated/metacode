@@ -75,7 +75,7 @@ dependencies:
     version: "3.4.0.2513"
   # Spotless code formatter gradle plugin
   - name: "spotless"
-    version: "6.7.2"
+    version: "6.8.0"
   # Spring Boot
   - name: "springBoot"
     version: "2.7.1"
@@ -84,7 +84,7 @@ dependencies:
     version: "3.1.3"
   # Spring Dependency Management gradle plugin
   - name: "springDependencyManagement"
-    version: "1.0.11.RELEASE"
+    version: "1.0.12.RELEASE"
   # TestContainers
   - name: "testContainers"
     version: "1.17.2"

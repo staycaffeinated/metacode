@@ -9,6 +9,8 @@
   * The generated class, `Constants.java` is renamed to `SpringProfiles.java`.
     Within that class, the constants `PROFILE_IT` and `PROFILE_TEST` are renamed
     to `INTEGRATION_TEST` and `TEST`, respectively.
+* Maintenance
+  * Bump the dependency versions consumed by the generated code
 
 ## [1.2.1] - 2022-06-27
 * Bug
