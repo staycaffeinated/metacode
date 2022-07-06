@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+* Maintenance
+  * Bump the dependency versions consumed by the generated code 
+
 ## [2.0.0] - 2022-07-02 
 * Features
   * Add property to hold CORS `allowed origins` pattern.
