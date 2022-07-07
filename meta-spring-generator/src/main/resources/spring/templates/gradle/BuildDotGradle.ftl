@@ -54,8 +54,10 @@ repositories {
 // --------------------------------------------------------------------------------
 <#if (project.isWebFlux())>
     <#include "SpringWebFluxDependencies.ftl">
-<#else>
+<#elseif (project.isWebMvc())>
     <#include "SpringWebMvcDependencies.ftl">
+<#else>
+    <#include "SpringBootDependencies.ftl">
 </#if>
 
 

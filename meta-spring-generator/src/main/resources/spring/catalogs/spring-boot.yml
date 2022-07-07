@@ -23,28 +23,8 @@ catalog:
         destination: "src/main/java/{{basePackagePath}}/Application.java"
         context: "project"
   - entry:
-      template: "/spring/common/main/config/LocalDateConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/config/LocalDateConverter.java"
-      context: "project"
-  - entry:
       template: "/spring/common/main/common/SpringProfiles.ftl"
       destination: "src/main/java/{{basePackagePath}}/common/SpringProfiles.java"
-      context: "project"
-  - entry:
-      template: "/spring/common/main/math/SecureRandomSeries.ftl"
-      destination: "src/main/java/{{basePackagePath}}/math/SecureRandomSeries.java"
-      context: "project"
-  - entry:
-      template: "/spring/common/main/resources/ValidationMessages.ftl"
-      destination: "src/main/resources/ValidationMessages.properties"
-      context: "project"
-  - entry:
-      template: "/spring/common/test/math/SecureRandomSeriesTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/math/SecureRandomSeriesTests.java"
-      context: "project"
-  - entry:
-      template: "/spring/common/test/config/LocalDateConverterTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/config/LocalDateConverterTests.java"
       context: "project"
   - entry:
       template: "/spring/boot/integrationTest/ApplicationIT.ftl"
@@ -53,4 +33,8 @@ catalog:
   - entry:
       template: "/spring/boot/integrationTest/common/AbstractIntegrationTest.ftl"
       destination: "src/integration/java/{{basePackagePath}}/AbstractIntegrationTest.java"
+      context: "project"
+  - entry:
+      template: "/spring/boot/main/resources/ApplicationDotProperties.ftl"
+      destination: "src/main/resources/application.properties"
       context: "project"
