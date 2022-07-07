@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
 import mmm.coffee.metacode.cli.mixin.DryRunOption;
 import mmm.coffee.metacode.cli.validation.ResourceNameValidator;
+import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;
@@ -78,7 +79,13 @@ public class SubcommandCreateEndpoint implements Callable<Integer> {
     @Override public Integer call() {
         validateInputs();
         var spec = buildRestEndpointDescriptor();
-        return codeGenerator.doPreprocessing(spec).generateCode(spec);
+        var exitCode =  codeGenerator.doPreprocessing(spec).generateCode(spec);
+        if (exitCode == ExitCodes.ENDPOINTS_ARE_NOT_SUPPORTED_BY_THE_FRAMEWORK) {
+            System.out.println("\nError:");
+            System.out.println("\tCreating endpoints is not supported by this project template.");
+            System.out.println("\tUse either the `spring-webflux` or `spring-webmvc` project template if you want to create endpoints.");
+        }
+        return exitCode;
     }
 
     private void validateInputs() {

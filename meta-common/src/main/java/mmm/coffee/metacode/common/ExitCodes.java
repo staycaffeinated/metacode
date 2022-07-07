@@ -26,6 +26,8 @@ public class ExitCodes {
     public static final int OK = 0;
     public static final int INVALID_INPUT = 2;
 
+    public static final int ENDPOINTS_ARE_NOT_SUPPORTED_BY_THE_FRAMEWORK = 3;
+
     /* Hidden constructor */
     private ExitCodes() {}
 }

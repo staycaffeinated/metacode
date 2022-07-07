@@ -7,6 +7,7 @@ import com.google.common.base.Predicate;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import mmm.coffee.metacode.common.io.MetaProperties;
@@ -19,6 +20,8 @@ import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import mmm.coffee.metacode.spring.endpoint.mustache.MustacheEndpointDecoder;
 import org.apache.commons.configuration2.Configuration;
+
+import java.awt.*;
 
 /**
  * SpringEndpointGenerator
@@ -74,6 +77,10 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
      */
     @Override
     public int generateCode(RestEndpointDescriptor descriptor) {
+        if (!frameworkIsSupported(descriptor.getFramework())) {
+            return ExitCodes.ENDPOINTS_ARE_NOT_SUPPORTED_BY_THE_FRAMEWORK;
+        }
+
         // Build the TemplateModel consumed by Freemarker to resolve template variables
         var templateModel = descriptor2templateModel.convert(descriptor);
 
@@ -94,5 +101,15 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         });
 
         return ExitCodes.OK;
+    }
+
+    /**
+     * Verify the endpoint is being created within a project template that supports endpoints.
+     */
+    boolean frameworkIsSupported(final String framework) {
+        // It only makes sense to generate endpoints for WebMvc and WebFlux projects.
+        // For the SpringBoot template, too many expected classes would be missing for this to work.
+        return (framework.equalsIgnoreCase(Framework.SPRING_WEBMVC.frameworkName()) ||
+            framework.equalsIgnoreCase(Framework.SPRING_WEBFLUX.frameworkName()));
     }
 }
