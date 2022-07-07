@@ -2,10 +2,16 @@
 
 ## [Unreleased]
 
+* Refactor
+  * When generating a project using the `spring-boot` template,
+    * the SecureRandomSeries class is no longer there
+    * the LocalDateConverter class is no longer there
+    * an application.properties file is now present
+    * the build.gradle dependencies stanza is cleaner
 * Maintenance
-  * Bump the dependency versions consumed by the generated code 
+  * Bump the dependency versions consumed by the generated code
 
-## [2.0.0] - 2022-07-02 
+## [2.0.0] - 2022-07-02
 * Features
   * Add property to hold CORS `allowed origins` pattern.
     The property can be set with an environment variable
