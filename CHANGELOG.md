@@ -10,6 +10,9 @@
     * the build.gradle dependencies stanza is cleaner
 * Maintenance
   * Bump the dependency versions consumed by the generated code
+* Bugs
+  * Disallow creating endpoints within a spring-boot project template
+    (endpoints only make sense with spring-webmvc and spring-webflux projects)
 
 ## [2.0.0] - 2022-07-02
 * Features
