@@ -52,7 +52,7 @@ dependencies {
     implementation project (path: ':meta-annotations')
     implementation libs.picocli
     implementation libs.guice
-
+    
     testImplementation ( platform(libs.junitBillOfMaterial) )
     testImplementation ( libs.junitJupiter )
     testImplementation ( libs.junitSystemRules )

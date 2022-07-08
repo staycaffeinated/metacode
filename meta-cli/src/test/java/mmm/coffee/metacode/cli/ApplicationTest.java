@@ -93,7 +93,7 @@ class ApplicationTest {
         int rc = commandLine.execute(argv);
         assertThat(rc).isEqualTo(ExitCodes.OK);
     }
-
+    
     /**
      * The following classes configure Guice to use fake classes for testing
      */

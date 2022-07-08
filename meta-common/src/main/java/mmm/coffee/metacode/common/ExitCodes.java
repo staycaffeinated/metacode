@@ -26,6 +26,10 @@ public class ExitCodes {
     public static final int OK = 0;
     public static final int INVALID_INPUT = 2;
 
+    // When the command `create endpoint` is issued but not supported
+    // by the project framework, this exit code is returned.
+    // For example, if the user issues the command `create project spring-boot ...`,
+    // the user cannot then issue `create endpoint ...`.
     public static final int ENDPOINTS_ARE_NOT_SUPPORTED_BY_THE_FRAMEWORK = 3;
 
     /* Hidden constructor */

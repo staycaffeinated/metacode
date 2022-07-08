@@ -20,6 +20,7 @@ import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.StringHelper;
+import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
@@ -28,11 +29,14 @@ import org.junit.contrib.java.lang.system.SystemErrRule;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import picocli.CommandLine;
 
 import static com.google.common.truth.Truth.assertThat;
 import static mmm.coffee.metacode.common.ExitCodes.INVALID_INPUT;
 import static mmm.coffee.metacode.common.ExitCodes.OK;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test
@@ -54,7 +58,6 @@ class SubcommandCreateEndpointTests {
 
     // Create our commandLine instance, using Guice to inject components as needed
     final CommandLine commandLine = new CommandLine(command, guiceFactory);
-
 
     @BeforeEach
     public void setUp() {
@@ -121,6 +124,7 @@ class SubcommandCreateEndpointTests {
         int rc = commandLine.execute(argv);
         assertThat(rc).isEqualTo(INVALID_INPUT);
     }
+    
 
     // ------------------------------------------------------------------------------
     //
