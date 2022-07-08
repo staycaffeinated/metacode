@@ -58,8 +58,8 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/math/SecureRandomSeries.java"
       context: "project"
   - entry:
-      template: "/spring/webflux/main/stereotype/RestfulResource.ftl"
-      destination: "src/main/java/{{basePackagePath}}/stereotype/RestfulResource.java"
+      template: "/spring/webflux/main/trait/ResourceIdTrait.ftl"
+      destination: "src/main/java/{{basePackagePath}}/trait/ResourceIdTrait.java"
       context: "project"
   - entry:
       template: "/spring/common/main/validation/Alphabetic.ftl"

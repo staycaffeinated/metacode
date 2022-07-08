@@ -103,7 +103,7 @@ This `tree` output shows the inventory of classes generated for the base project
  67 │   │   │           │   └── UnprocessableEntityException.java
  68 │   │   │           ├── math
  69 │   │   │           │   └── SecureRandomSeries.java
- 70 │   │   │           ├── stereotype
+ 70 │   │   │           ├── trait
  71 │   │   │           │   └── RestfulResource.java
  72 │   │   │           └── validation
  73 │   │   │               ├── Alphabetic.java

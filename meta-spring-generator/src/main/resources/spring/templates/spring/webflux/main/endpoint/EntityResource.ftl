@@ -4,7 +4,7 @@ package ${endpoint.packageName};
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.Builder;
-import ${endpoint.basePackage}.stereotype.*;
+import ${endpoint.basePackage}.trait.*;
 import ${endpoint.basePackage}.validation.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -20,7 +20,7 @@ import javax.validation.constraints.Null;
 // See https://www.thecuriousdev.org/lombok-builder-with-jackson/
 @JsonDeserialize(builder = ${endpoint.pojoName}.DefaultBuilder.class)
 @Builder(builderClassName = "DefaultBuilder", toBuilder = true)
-public class ${endpoint.pojoName} implements RestfulResource<String> {
+public class ${endpoint.pojoName} implements ResourceIdTrait<String> {
 
     @Null(groups = OnCreate.class)
     @NotNull(groups = OnUpdate.class)

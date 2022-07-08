@@ -18,7 +18,7 @@ def ignoredClasses =
         '**/Exception.java,' +
         '**/*Test*.java,' +
         '**/*IT.java,' +
-        '**/RestfulResource.java,' +
+        '**/ResourceIdTrait.java,' +
         '**/ResourceIdentity.java,' +
         '**/*Application.java,' +
         '**/*TablePopulator.java,' +

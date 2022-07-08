@@ -29,7 +29,7 @@ public class ${endpoint.entityName}ResourceToBeanConverter implements Converter<
     }
 
     /**
-     * Convert a list of RestfulResource objects into EJBs
+     * Convert a list of POJOs into EJBs
      */
     public List<${endpoint.ejbName}> convert (@NonNull List<${endpoint.pojoName}> sourceList) {
         return sourceList.stream().map(this::convert).toList();
