@@ -8,6 +8,12 @@
     * the LocalDateConverter class is no longer there
     * an application.properties file is now present
     * the build.gradle dependencies stanza is cleaner
+  * In Spring WebMvc and Spring WebFlux projects, the RestfulResource
+    interface was renamed to ResourceIdTrait, and the `stereotype`
+    package was renamed to `trait`. This is a breaking change _if_
+    you run `create endpoint` within a project created with a previous
+    version of Metacode. Specifically, compile errors will occur that
+    have to be fixed manually.
 * Maintenance
   * Bump the dependency versions consumed by the generated code
 * Bugs

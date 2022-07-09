@@ -104,8 +104,8 @@ This `tree` output shows the inventory of classes generated for the base project
  68 │   │   │           ├── math
  69 │   │   │           │   └── SecureRandomSeries.java
  70 │   │   │           ├── trait
- 71 │   │   │           │   └── RestfulResource.java
- 72 │   │   │           └── validation
+ 71 │   │   │           │   └── ResourceIdTrait.java
+ 72 │   │   │           └── validation
  73 │   │   │               ├── Alphabetic.java
  74 │   │   │               ├── AlphabeticValidator.java
  75 │   │   │               ├── OnCreate.java
