@@ -13,9 +13,9 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ${endpoint.entityName}BeanToResourceConverterTests {
+class ${endpoint.entityName}EntityToPojoConverterTests {
 
-    ${endpoint.entityName}BeanToResourceConverter converterUnderTest = new ${endpoint.entityName}BeanToResourceConverter();
+    ${endpoint.entityName}EntityToPojoConverter converterUnderTest = new ${endpoint.entityName}EntityToPojoConverter();
 
     final SecureRandomSeries randomSeries = new SecureRandomSeries();
 

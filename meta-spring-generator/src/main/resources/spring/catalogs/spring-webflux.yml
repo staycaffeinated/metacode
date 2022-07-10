@@ -166,7 +166,7 @@ catalog:
       context: "endpoint"
   - entry:
       template: "/spring/webflux/main/endpoint/PojoToEntityConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverter.java"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}PojoToEntityConverter.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/main/endpoint/RestController.ftl"
@@ -214,9 +214,9 @@ catalog:
       context: "endpoint"
   - entry:
       template: "/spring/webflux/test/endpoint/EntityToPojoConverterTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverterTests.java"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EntityToPojogConverterTests.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/test/endpoint/PojoToEntityConverterTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverterTests.java"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}PojoToEntityConverterTests.java"
       context: "endpoint"

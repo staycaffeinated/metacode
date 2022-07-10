@@ -11,8 +11,8 @@ public class FakeConversionService {
 
     static ConversionService build() {
         DefaultConversionService service = new DefaultConversionService();
-        service.addConverter(new ${endpoint.entityName}BeanToResourceConverter());
-        service.addConverter(new ${endpoint.entityName}ResourceToBeanConverter());
+        service.addConverter(new ${endpoint.entityName}EntityToPojoConverter());
+        service.addConverter(new ${endpoint.entityName}PojoToEntityConverter());
         return service;
     }
 }

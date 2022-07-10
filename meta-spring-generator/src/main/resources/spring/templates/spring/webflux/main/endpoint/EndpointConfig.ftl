@@ -18,12 +18,12 @@ import java.util.Set;
 @Configuration
 public class ${endpoint.entityName}Config {
 
-	  @Bean("${endpoint.entityVarName}Converter")
+	@Bean("${endpoint.entityVarName}Converter")
     ConversionService conversionService() {
 		    var factory = new ConversionServiceFactoryBean();
 		    Set<Converter<?, ?>> convSet = new HashSet<>();
-		    convSet.add(new ${endpoint.entityName}BeanToResourceConverter());
-		    convSet.add(new ${endpoint.entityName}ResourceToBeanConverter());
+		    convSet.add(new ${endpoint.entityName}EntityToPojoConverter());
+		    convSet.add(new ${endpoint.entityName}PojoToEntityConverter());
 		    factory.setConverters(convSet);
 		    factory.afterPropertiesSet();
 		    return factory.getObject();
