@@ -166,8 +166,8 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{ejbName}}.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/endpoint/EntityBeanToResourceConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverter.java"
+      template: "/spring/webmvc/main/endpoint/EntityToPojoConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EntityToPojoConverter.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/main/endpoint/EntityResource.ftl"
@@ -178,8 +178,8 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/endpoint/ResourceToEntityBeanConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverter.java"
+      template: "/spring/webmvc/main/endpoint/PojoToEntityConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}PojoToEntityConverter.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/main/endpoint/RestController.ftl"
@@ -198,8 +198,8 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}TablePopulator.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/test/BeanToResourceConverterTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverterTests.java"
+      template: "/spring/webmvc/test/EntityToPojoConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EntityToPojoConverterTests.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/test/ControllerTests.ftl"
@@ -210,8 +210,8 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/FakeConversionService.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/test/ResourceToBeanConverterTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverterTests.java"
+      template: "/spring/webmvc/test/PojoToEntityConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}PojoToEntityConverterTests.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/test/ServiceTests.ftl"

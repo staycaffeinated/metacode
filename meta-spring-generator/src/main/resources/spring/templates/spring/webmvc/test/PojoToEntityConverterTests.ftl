@@ -12,9 +12,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ${endpoint.entityName}ResourceToBeanConverterTests {
+class ${endpoint.entityName}PojoToEntityConverterTests {
 
-    ${endpoint.entityName}ResourceToBeanConverter converter = new ${endpoint.entityName}ResourceToBeanConverter();
+    ${endpoint.entityName}PojoToEntityConverter converter = new ${endpoint.entityName}PojoToEntityConverter();
 
     final SecureRandomSeries randomSeries = new SecureRandomSeries();
 

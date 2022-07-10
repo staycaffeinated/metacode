@@ -104,7 +104,7 @@ public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest 
         @Test
         void shouldUpdate${endpoint.entityName}() throws Exception {
             ${endpoint.ejbName} ${endpoint.entityVarName} = ${endpoint.entityVarName}List.get(0);
-            ${endpoint.pojoName} resource = new ${endpoint.entityName}BeanToResourceConverter().convert(${endpoint.entityVarName});
+            ${endpoint.pojoName} resource = new ${endpoint.entityName}EntityToPojoConverter().convert(${endpoint.entityVarName});
 
             mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, ${endpoint.entityVarName}.getResourceId())
                     .contentType(MediaType.APPLICATION_JSON)

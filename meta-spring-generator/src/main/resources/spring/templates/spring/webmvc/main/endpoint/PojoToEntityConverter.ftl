@@ -12,7 +12,7 @@ import java.util.List;
  * Converts Drink entity beans into DrinkResource objects
  */
 @Component
-public class ${endpoint.entityName}ResourceToBeanConverter implements Converter<${endpoint.pojoName}, ${endpoint.ejbName}> {
+public class ${endpoint.entityName}PojoToEntityConverter implements Converter<${endpoint.pojoName}, ${endpoint.ejbName}> {
     /**
      * Convert the source object of type {@code ${endpoint.pojoName}} to target type {@code ${endpoint.ejbName}}.
      *

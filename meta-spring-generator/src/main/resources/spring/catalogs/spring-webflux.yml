@@ -149,8 +149,8 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{ejbName}}.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webflux/main/endpoint/EntityBeanToResourceConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverter.java"
+      template: "/spring/webflux/main/endpoint/EntityToPojoConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EntityToPojoConverter.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/main/endpoint/EntityEvent.ftl"
@@ -165,7 +165,7 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webflux/main/endpoint/ResourceToEntityBeanConverter.ftl"
+      template: "/spring/webflux/main/endpoint/PojoToEntityConverter.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverter.java"
       context: "endpoint"
   - entry:
@@ -213,10 +213,10 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EventTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webflux/test/endpoint/BeanToResourceConverterTests.ftl"
+      template: "/spring/webflux/test/endpoint/EntityToPojoConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}BeanToResourceConverterTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webflux/test/endpoint/ResourceToBeanConverterTests.ftl"
+      template: "/spring/webflux/test/endpoint/PojoToEntityConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ResourceToBeanConverterTests.java"
       context: "endpoint"

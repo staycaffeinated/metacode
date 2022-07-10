@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ${endpoint.entityName}BeanToResourceConverter implements Converter<${endpoint.ejbName}, ${endpoint.pojoName}> {
+public class ${endpoint.entityName}EntityToPojoConverter implements Converter<${endpoint.ejbName}, ${endpoint.pojoName}> {
 
     /**
      * Convert the source object of type {@code ${endpoint.ejbName}} to target type {@code ${endpoint.pojoName}}.

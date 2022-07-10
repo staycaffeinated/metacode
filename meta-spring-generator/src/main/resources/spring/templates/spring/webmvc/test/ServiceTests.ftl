@@ -50,10 +50,10 @@ class ${endpoint.entityName}ServiceTests {
     final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
     @Spy
-    private final ${endpoint.entityName}ResourceToBeanConverter ${endpoint.entityVarName}ResourceToBeanConverter = new ${endpoint.entityName}ResourceToBeanConverter();
+    private final ${endpoint.entityName}PojoToEntityConverter ${endpoint.entityVarName}PojoToEntityConverter = new ${endpoint.entityName}PojoToEntityConverter();
 
     @Spy
-    private final ${endpoint.entityName}BeanToResourceConverter ${endpoint.entityVarName}BeanToResourceConverter = new ${endpoint.entityName}BeanToResourceConverter();
+    private final ${endpoint.entityName}EntityToPojoConverter ${endpoint.entityVarName}EntityToPojoConverter = new ${endpoint.entityName}EntityToPojoConverter();
 
     @Spy
     private final ConversionService conversionService = FakeConversionService.build();
@@ -212,7 +212,7 @@ class ${endpoint.entityName}ServiceTests {
             String resourceId = randomSeries.nextResourceId();
             ${endpoint.pojoName} changedVersion = ${endpoint.pojoName}.builder().resourceId(resourceId).text("new text").build();
             ${endpoint.ejbName} originalEJB = new ${endpoint.ejbName} (1L, resourceId, "old text");
-            ${endpoint.ejbName} updatedEJB = ${endpoint.entityVarName}ResourceToBeanConverter.convert (changedVersion);
+            ${endpoint.ejbName} updatedEJB = ${endpoint.entityVarName}PojoToEntityConverter.convert (changedVersion);
             given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.of(originalEJB));
             given(${endpoint.entityVarName}Repository.save(any())).willReturn(updatedEJB);
 
