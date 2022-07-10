@@ -4,6 +4,7 @@
 package mmm.coffee.metacode.spring.converter;
 
 import lombok.NonNull;
+import mmm.coffee.metacode.common.rule.NamingRule;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
@@ -21,7 +22,7 @@ import java.util.Locale;
  */
 public class NameConverter {
 
-    private static final String EJB_SUFFIX = "EntityBean";
+    private static final String EJB_SUFFIX = NamingRule.EJB_SUFFIX;
 
     /**
      * Default constructor

@@ -193,9 +193,9 @@ public class NamingRuleTest {
         @ParameterizedTest
         @CsvSource({
                 // testValue,   expectedResult
-                "pet, PetEntityBean",
-                "petOwner, PetOwnerEntityBean",
-                "account, AccountEntityBean"
+                "pet, PetEntity",
+                "petOwner, PetOwnerEntity",
+                "account, AccountEntity"
         })
         void shouldConvertJavaPackageToFileSystemPath(String testValue, String expectedResult) {
             assertThat(NamingRule.toEjbClassName(testValue)).isEqualTo(expectedResult);

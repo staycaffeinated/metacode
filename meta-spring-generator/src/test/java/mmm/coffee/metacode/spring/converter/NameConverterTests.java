@@ -229,10 +229,10 @@ class NameConverterTests {
         @ParameterizedTest
         @CsvSource({
                 // resourceName,   ejbClassName
-                "Pet,               PetEntityBean",
-                "PET,               PETEntityBean",
-                "pet,               PetEntityBean",
-                "PetStore,          PetStoreEntityBean"
+                "Pet,               PetEntity",
+                "PET,               PETEntity",
+                "pet,               PetEntity",
+                "PetStore,          PetStoreEntity"
         })
         void shouldConvertSuccessfully(String resourceName, String expectedValue) {
             assertThat(converterUnderTest.toEjbClassName(resourceName)).isEqualTo(expectedValue);

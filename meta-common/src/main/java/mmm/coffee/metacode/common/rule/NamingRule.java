@@ -25,7 +25,11 @@ import java.util.Locale;
  * to provide consistent naming conventions
  */
 public class NamingRule {
-    private static final String EJB_SUFFIX = "EntityBean";
+    /**
+     * This is the suffix applied to the entity bean class.
+     * For example, for the 'Pet' object, the entity bean class is 'PetEntity'.
+     */
+    public static final String EJB_SUFFIX = "Entity";
 
     // Hidden constructor
     private NamingRule() {}
