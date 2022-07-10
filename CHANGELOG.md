@@ -14,6 +14,9 @@
     you run `create endpoint` within a project created with a previous
     version of Metacode. Specifically, compile errors will occur that
     have to be fixed manually.
+  * Renaming of generated classes:
+    * The EntityBean class to simply, Entity. For example, 
+      the generated code will now have PetEntity.java instead of PetEntityBean.java
 * Maintenance
   * Bump the dependency versions consumed by the generated code
 * Bugs
