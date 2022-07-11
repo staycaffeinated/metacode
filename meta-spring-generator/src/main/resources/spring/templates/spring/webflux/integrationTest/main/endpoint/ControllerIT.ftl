@@ -4,6 +4,8 @@ package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.common.ResourceIdentity;
 
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,5 @@
 <#include "/common/Copyright.ftl">
-package ${endpoint.packageName};
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 import reactor.core.publisher.Flux;

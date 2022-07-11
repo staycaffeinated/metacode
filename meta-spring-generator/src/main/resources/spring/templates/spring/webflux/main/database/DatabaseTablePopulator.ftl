@@ -1,8 +1,6 @@
 <#include "/common/Copyright.ftl">
-package ${endpoint.basePackage}.database;
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
-import ${endpoint.packageName}.${endpoint.ejbName};
-import ${endpoint.packageName}.${endpoint.entityName}Repository;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

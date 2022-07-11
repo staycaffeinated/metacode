@@ -1,6 +1,7 @@
 <#include "/common/Copyright.ftl">
-package ${endpoint.packageName};
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter;
 
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import lombok.NonNull;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

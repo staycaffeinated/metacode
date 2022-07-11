@@ -131,43 +131,50 @@ catalog:
       context: "project"
   #
   # Endpoint entries
-  # 
+  #
+  # --- Database package
+  #
   - entry:
       template: "/spring/webflux/main/database/DatabaseTableInitializer.ftl"
-      destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}TableInitializer.java"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}TableInitializer.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/main/database/DatabaseTablePopulator.ftl"
-      destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}TablePopulator.java"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}TablePopulator.java"
       context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/converter/EntityToPojoConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}EntityToPojoConverter.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/converter/PojoToEntityConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverter.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/Entity.ftl"
+      destination: "src/main/java/{{basePackagePath}}/databae/{{lowerCaseEntityName}}/{{ejbName}}.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/EntityResource.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{pojoName}}.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/Repository.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
+      context: "endpoint"
+
+#
+# -- Endpoint package
+#
   - entry:
       template: "/spring/webflux/main/endpoint/EndpointConfig.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Config.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webflux/main/endpoint/Entity.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{ejbName}}.java"
-      context: "endpoint"
-  - entry:
-      template: "/spring/webflux/main/endpoint/EntityToPojoConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EntityToPojoConverter.java"
-      context: "endpoint"
-  - entry:
       template: "/spring/webflux/main/endpoint/EntityEvent.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Event.java"
       context: "endpoint"
-  - entry:
-      template: "/spring/webflux/main/endpoint/EntityResource.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{pojoName}}.java"
-      context: "endpoint"
-  - entry:
-      template: "/spring/webflux/main/endpoint/Repository.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
-      context: "endpoint"
-  - entry:
-      template: "/spring/webflux/main/endpoint/PojoToEntityConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}PojoToEntityConverter.java"
-      context: "endpoint"
+
   - entry:
       template: "/spring/webflux/main/endpoint/RestController.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Controller.java"
@@ -180,6 +187,9 @@ catalog:
       template: "/spring/webflux/main/endpoint/EntityRoutes.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
       context: "endpoint"
+#
+# - integration tests
+#
   - entry:
       template: "/spring/webflux/integrationTest/main/endpoint/ControllerIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIntegrationTest.java"
@@ -188,6 +198,9 @@ catalog:
       template: "/spring/webflux/integrationTest/main/endpoint/EntityGenerator.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Generator.java"
       context: "endpoint"
+#
+# -- resource files
+#
   - entry:
       template: "/spring/webflux/main/resources/database/EntitySchema.ftl"
       destination: "src/main/resources/database/{{lowerCaseEntityName}}-schema.sql"
@@ -196,6 +209,9 @@ catalog:
       template: "/spring/webflux/main/resources/database/EntityData.ftl"
       destination: "src/main/resources/database/{{lowerCaseEntityName}}-data.sql"
       context: "endpoint"
+#
+# -- Unit tests
+#
   - entry:
       template: "/spring/webflux/test/endpoint/ControllerTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
@@ -213,10 +229,10 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EventTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webflux/test/endpoint/EntityToPojoConverterTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EntityToPojogConverterTests.java"
+      template: "/spring/webflux/test/database/converter/EntityToPojoConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}EntityToPojoConverterTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webflux/test/endpoint/PojoToEntityConverterTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}PojoToEntityConverterTests.java"
+      template: "/spring/webflux/test/database/converter/PojoToEntityConverterTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverterTests.java"
       context: "endpoint"

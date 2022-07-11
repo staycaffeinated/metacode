@@ -4,6 +4,8 @@ package ${endpoint.packageName};
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;

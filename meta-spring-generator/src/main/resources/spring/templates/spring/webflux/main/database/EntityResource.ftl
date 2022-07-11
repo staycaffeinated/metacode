@@ -1,5 +1,5 @@
 <#include "/common/Copyright.ftl">
-package ${endpoint.packageName};
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

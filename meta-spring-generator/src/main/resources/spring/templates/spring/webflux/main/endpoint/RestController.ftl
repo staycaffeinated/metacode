@@ -3,6 +3,7 @@ package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.exception.*;
 import ${endpoint.basePackage}.common.ResourceIdentity;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 import ${endpoint.basePackage}.validation.ResourceId;

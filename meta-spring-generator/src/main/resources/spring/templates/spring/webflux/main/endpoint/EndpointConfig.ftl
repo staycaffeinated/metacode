@@ -3,6 +3,7 @@
 package ${endpoint.packageName};
 
 
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ConversionServiceFactoryBean;

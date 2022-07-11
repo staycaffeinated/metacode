@@ -1,5 +1,5 @@
 <#include "/common/Copyright.ftl">
-package ${endpoint.basePackage}.database;
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
