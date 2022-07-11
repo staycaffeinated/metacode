@@ -2,6 +2,7 @@
 package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.common.AbstractIntegrationTest;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 
 import org.junit.jupiter.api.Nested;

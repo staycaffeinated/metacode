@@ -3,6 +3,8 @@
 package ${endpoint.packageName};
 
 
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

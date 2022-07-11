@@ -1,6 +1,6 @@
 <#include "/common/Copyright.ftl">
 
-package ${endpoint.packageName};
+package ${endpoint.packageName}.database.${lowerCaseEntityName}.converter;
 
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.Test;

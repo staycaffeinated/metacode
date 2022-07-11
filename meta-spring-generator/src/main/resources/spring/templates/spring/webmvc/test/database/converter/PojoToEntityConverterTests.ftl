@@ -1,7 +1,8 @@
 <#include "/common/Copyright.ftl">
 
-package ${endpoint.packageName};
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter;
 
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 
 import org.assertj.core.util.Lists;

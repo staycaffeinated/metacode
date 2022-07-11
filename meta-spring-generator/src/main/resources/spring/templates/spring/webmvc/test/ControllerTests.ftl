@@ -2,6 +2,8 @@
 
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;

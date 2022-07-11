@@ -3,6 +3,8 @@
 package ${endpoint.packageName};
 
 import lombok.NonNull;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 

@@ -1,6 +1,6 @@
 <#include "/common/Copyright.ftl">
 
-package ${endpoint.packageName};
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
