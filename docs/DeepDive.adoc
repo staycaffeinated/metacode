@@ -34,112 +34,167 @@ This `tree` output shows the inventory of classes generated for the base project
 
 [%hardbreaks]
 [literal]
-  1 .
-  2 ├── README.md
-  3 ├── build.gradle
-  4 ├── gradle
-  5 │   ├── dependencies.gradle
-  6 │   ├── docker.gradle
-  7 │   ├── lint.gradle
-  8 │   ├── sonarqube.gradle
-  9 │   ├── spotless.gradle
- 10 │   ├── standard-setup.gradle
- 11 │   └── wrapper
- 12 │       ├── gradle-wrapper.jar
- 13 │       └── gradle-wrapper.properties
- 14 ├── gradle.properties
- 15 ├── gradlew
- 16 ├── gradlew.bat
- 17 ├── lombok.config
- 18 ├── metacode.properties
- 19 ├── settings.gradle
- 20 ├── src
- 21 │   ├── integration
- 22 │   │   └── java
- 23 │   │       └── acme
- 24 │   │           └── petstore
- 25 │   │               ├── ApplicationTests.java
- 26 │   │               ├── common
- 27 │   │               │   └── AbstractIntegrationTest.java
- 28 │   │               └── endpoint
- 29 │   │                   ├── pet
- 30 │   │                   │   ├── PetControllerIT.java
- 31 │   │                   │   └── PetExceptionHandlingIT.java
- 32 │   │                   └── root
- 33 │   │                       ├── RootControllerIT.java
- 34 │   │                       └── RootExceptionHandlingIT.java
- 35 │   ├── main
- 36 │   │   ├── docker-compose
- 37 │   │   │   └── docker-compose.yaml
- 38 │   │   ├── java
- 39 │   │   │   └── acme
- 40 │   │   │       └── petstore
- 41 │   │   │           ├── Application.java
- 42 │   │   │           ├── advice
- 43 │   │   │           │   └── GlobalExceptionHandler.java
- 44 │   │   │           ├── common
- 45 │   │   │           │   └── Constants.java
- 46 │   │   │           ├── config
- 47 │   │   │           │   ├── DateTimeFormatConfiguration.java
- 48 │   │   │           │   ├── LocalDateConverter.java
- 49 │   │   │           │   ├── ProblemConfiguration.java
- 50 │   │   │           │   └── WebMvcConfiguration.java
- 51 │   │   │           ├── database
- 52 │   │   │           │   └── PetTablePopulator.java
- 53 │   │   │           ├── endpoint
- 54 │   │   │           │   ├── pet
- 55 │   │   │           │   │   ├── Pet.java
- 56 │   │   │           │   │   ├── PetBeanToResourceConverter.java
- 57 │   │   │           │   │   ├── PetController.java
- 58 │   │   │           │   │   ├── PetEntityBean.java
- 59 │   │   │           │   │   ├── PetRepository.java
- 60 │   │   │           │   │   ├── PetResourceToBeanConverter.java
- 61 │   │   │           │   │   ├── PetRoutes.java
- 62 │   │   │           │   │   └── PetService.java
- 63 │   │   │           │   └── root
- 64 │   │   │           │       ├── RootController.java
- 65 │   │   │           │       └── RootService.java
- 66 │   │   │           ├── exception
- 67 │   │   │           │   └── UnprocessableEntityException.java
- 68 │   │   │           ├── math
- 69 │   │   │           │   └── SecureRandomSeries.java
- 70 │   │   │           ├── trait
- 71 │   │   │           │   └── ResourceIdTrait.java
- 72 │   │   │           └── validation
- 73 │   │   │               ├── Alphabetic.java
- 74 │   │   │               ├── AlphabeticValidator.java
- 75 │   │   │               ├── OnCreate.java
- 76 │   │   │               ├── OnUpdate.java
- 77 │   │   │               ├── ResourceId.java
- 78 │   │   │               └── ResourceIdValidator.java
- 79 │   │   └── resources
- 80 │   │       ├── ValidationMessages.properties
- 81 │   │       └── application.properties
- 82 │   └── test
- 83 │       ├── java
- 84 │       │   └── acme
- 85 │       │       └── petstore
- 86 │       │           ├── advice
- 87 │       │           │   └── GlobalExceptionHandlerTests.java
- 88 │       │           ├── config
- 89 │       │           │   └── LocalDateConverterTests.java
- 90 │       │           ├── endpoint
- 91 │       │           │   ├── pet
- 92 │       │           │   │   ├── FakeConversionService.java
- 93 │       │           │   │   ├── PetBeanToResourceConverterTests.java
- 94 │       │           │   │   ├── PetControllerTests.java
- 95 │       │           │   │   ├── PetResourceToBeanConverterTests.java
- 96 │       │           │   │   └── PetServiceTests.java
- 97 │       │           │   └── root
- 98 │       │           │       ├── RootControllerTest.java
- 99 │       │           │       └── RootServiceTest.java
-100 │       │           ├── math
-101 │       │           │   └── SecureRandomSeriesTests.java
-102 │       │           └── validation
-103 │       │               ├── AlphabeticValidatorTests.java
-104 │       │               └── ResourceIdValidatorTests.java
-105 │       └── resources
-106 │           └── application-test.yaml
+.
+|-- README.md
+|-- build.gradle
+|-- gradle
+|   |-- dependencies.gradle
+|   |-- docker.gradle
+|   |-- lint.gradle
+|   |-- sonarqube.gradle
+|   |-- spotless.gradle
+|   |-- standard-setup.gradle
+|   `-- wrapper
+|       |-- gradle-wrapper.jar
+|       `-- gradle-wrapper.properties
+|-- gradle.properties
+|-- gradlew
+|-- gradlew.bat
+|-- lombok.config
+|-- metacode.properties
+|-- settings.gradle
+|-- src
+|   |-- integration
+|   |   `-- java
+|   |       `-- acme
+|   |           `-- petstore
+|   |               |-- ApplicationTests.java
+|   |               |-- common
+|   |               |   `-- AbstractIntegrationTest.java
+|   |               `-- endpoint
+|   |                   |-- owner
+|   |                   |   |-- OwnerControllerIT.java
+|   |                   |   `-- OwnerExceptionHandlingIT.java
+|   |                   |-- pet
+|   |                   |   |-- PetControllerIT.java
+|   |                   |   `-- PetExceptionHandlingIT.java
+|   |                   |-- root
+|   |                   |   |-- RootControllerIT.java
+|   |                   |   `-- RootExceptionHandlingIT.java
+|   |                   `-- store
+|   |                       |-- StoreControllerIT.java
+|   |                       `-- StoreExceptionHandlingIT.java
+|   |-- main
+|   |   |-- docker-compose
+|   |   |   `-- docker-compose.yaml
+|   |   |-- java
+|   |   |   `-- acme
+|   |   |       `-- petstore
+|   |   |           |-- Application.java
+|   |   |           |-- advice
+|   |   |           |   `-- GlobalExceptionHandler.java
+|   |   |           |-- common
+|   |   |           |   `-- SpringProfiles.java
+|   |   |           |-- config
+|   |   |           |   |-- DateTimeFormatConfiguration.java
+|   |   |           |   |-- LocalDateConverter.java
+|   |   |           |   |-- ProblemConfiguration.java
+|   |   |           |   `-- WebMvcConfiguration.java
+|   |   |           |-- database
+|   |   |           |   |-- owner
+|   |   |           |   |   |-- Owner.java
+|   |   |           |   |   |-- OwnerEntity.java
+|   |   |           |   |   |-- OwnerRepository.java
+|   |   |           |   |   |-- OwnerTablePopulator.java
+|   |   |           |   |   `-- converter
+|   |   |           |   |       |-- OwnerEntityToPojoConverter.java
+|   |   |           |   |       `-- OwnerPojoToEntityConverter.java
+|   |   |           |   |-- pet
+|   |   |           |   |   |-- Pet.java
+|   |   |           |   |   |-- PetEntity.java
+|   |   |           |   |   |-- PetRepository.java
+|   |   |           |   |   |-- PetTablePopulator.java
+|   |   |           |   |   `-- converter
+|   |   |           |   |       |-- PetEntityToPojoConverter.java
+|   |   |           |   |       `-- PetPojoToEntityConverter.java
+|   |   |           |   `-- store
+|   |   |           |       |-- Store.java
+|   |   |           |       |-- StoreEntity.java
+|   |   |           |       |-- StoreRepository.java
+|   |   |           |       |-- StoreTablePopulator.java
+|   |   |           |       `-- converter
+|   |   |           |           |-- StoreEntityToPojoConverter.java
+|   |   |           |           `-- StorePojoToEntityConverter.java
+|   |   |           |-- endpoint
+|   |   |           |   |-- owner
+|   |   |           |   |   |-- OwnerController.java
+|   |   |           |   |   |-- OwnerRoutes.java
+|   |   |           |   |   `-- OwnerService.java
+|   |   |           |   |-- pet
+|   |   |           |   |   |-- PetController.java
+|   |   |           |   |   |-- PetRoutes.java
+|   |   |           |   |   `-- PetService.java
+|   |   |           |   |-- root
+|   |   |           |   |   |-- RootController.java
+|   |   |           |   |   `-- RootService.java
+|   |   |           |   `-- store
+|   |   |           |       |-- StoreController.java
+|   |   |           |       |-- StoreRoutes.java
+|   |   |           |       `-- StoreService.java
+|   |   |           |-- exception
+|   |   |           |   `-- UnprocessableEntityException.java
+|   |   |           |-- math
+|   |   |           |   `-- SecureRandomSeries.java
+|   |   |           |-- trait
+|   |   |           |   `-- ResourceIdTrait.java
+|   |   |           `-- validation
+|   |   |               |-- Alphabetic.java
+|   |   |               |-- AlphabeticValidator.java
+|   |   |               |-- OnCreate.java
+|   |   |               |-- OnUpdate.java
+|   |   |               |-- ResourceId.java
+|   |   |               `-- ResourceIdValidator.java
+|   |   `-- resources
+|   |       |-- ValidationMessages.properties
+|   |       `-- application.properties
+|   `-- test
+|       |-- java
+|       |   `-- acme
+|       |       `-- petstore
+|       |           |-- advice
+|       |           |   `-- GlobalExceptionHandlerTests.java
+|       |           |-- config
+|       |           |   `-- LocalDateConverterTests.java
+|       |           |-- database
+|       |           |   |-- owner
+|       |           |   |   `-- converter
+|       |           |   |       |-- OwnerEntityToPojoConverterTests.java
+|       |           |   |       `-- OwnerPojoToEntityConverterTests.java
+|       |           |   |-- pet
+|       |           |   |   `-- converter
+|       |           |   |       |-- PetEntityToPojoConverterTests.java
+|       |           |   |       `-- PetPojoToEntityConverterTests.java
+|       |           |   `-- store
+|       |           |       `-- converter
+|       |           |           |-- StoreEntityToPojoConverterTests.java
+|       |           |           `-- StorePojoToEntityConverterTests.java
+|       |           |-- endpoint
+|       |           |   |-- owner
+|       |           |   |   |-- FakeConversionService.java
+|       |           |   |   |-- OwnerControllerTests.java
+|       |           |   |   `-- OwnerServiceTests.java
+|       |           |   |-- pet
+|       |           |   |   |-- FakeConversionService.java
+|       |           |   |   |-- PetControllerTests.java
+|       |           |   |   `-- PetServiceTests.java
+|       |           |   |-- root
+|       |           |   |   |-- RootControllerTest.java
+|       |           |   |   `-- RootServiceTest.java
+|       |           |   `-- store
+|       |           |       |-- FakeConversionService.java
+|       |           |       |-- StoreControllerTests.java
+|       |           |       `-- StoreServiceTests.java
+|       |           |-- math
+|       |           |   `-- SecureRandomSeriesTests.java
+|       |           `-- validation
+|       |               |-- AlphabeticValidatorTests.java
+|       |               `-- ResourceIdValidatorTests.java
+|       `-- resources
+|           `-- application-test.yaml
+`-- tree-report.txt
+
+59 directories, 98 files
+
 
 === What Are All These Files?
 
@@ -164,11 +219,11 @@ described here.
 |File|Description
 
 |Pet.java|The POJO representing the Pet entity
-|PetBeanToResourceConverter.java|Converts an EJB into a POJO
-|PetController.java|Handles HTTP requests and responses
-|PetEntityBean.java|The EJB for the Pet entity
+|PetEntity.java|The EJB for the Pet entity
 |PetRepository.java|The JPA Repository for Pet entities
-|PetResourceToBeanConverter.java|Converts POJOs into EJBs
+|PetEntityToPojoConverter.java|Converts a Pet EJB into a POJO
+|PetPojoToEntityConverter.java|Converts a Pet POJO into an EJB
+|PetController.java|Handles HTTP requests and responses
 |PetRoutes.java|Defines various URLs for Pets
 |PetService.java|Implements the business logic
 |===
