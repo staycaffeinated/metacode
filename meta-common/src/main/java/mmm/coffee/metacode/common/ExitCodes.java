@@ -19,11 +19,18 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
  * Exit codes
+ *
+ * This is used as our rough guide: https://tldp.org/LDP/abs/html/exitcodes.html, where:
+ * 0 = Success
+ * 1 = Catch-all for general errors
+ * 2 = Usage error
  */
 @Generated // jacoco should ignore this class in code coverage
 public class ExitCodes {
 
     public static final int OK = 0;
+
+    // 2 = Usage Errors
     public static final int INVALID_INPUT = 2;
 
     // When the command `create endpoint` is issued but not supported

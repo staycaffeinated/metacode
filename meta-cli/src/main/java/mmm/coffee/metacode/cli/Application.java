@@ -51,6 +51,7 @@ public class Application implements CallTrait {
         exitCode = new CommandLine(new Application(), new GuiceFactory())
                 .setUsageHelpAutoWidth(true) // take advantage of wide terminals when available
                 .setExecutionExceptionHandler(new PrintExceptionMessageHandler())
+                .setParameterExceptionHandler(new ParameterExceptionHandler())
                 .execute(args);
     }
 

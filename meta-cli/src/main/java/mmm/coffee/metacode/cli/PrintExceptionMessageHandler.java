@@ -34,7 +34,7 @@ public class PrintExceptionMessageHandler implements CommandLine.IExecutionExcep
     @Override
     public int handleExecutionException(Exception ex, CommandLine commandLine, CommandLine.ParseResult parseResult) throws Exception {
         if (ex instanceof CreateEndpointUnsupportedException) {
-            commandLine.getErr().println("\nError:");
+            commandLine.getErr().println("\nERROR:");
             commandLine.getErr().println("\tCreating endpoints is not supported by this project template.");
             commandLine.getErr().println("\tUse either the `spring-webflux` or `spring-webmvc` project template if you want to create endpoints.");
         }
