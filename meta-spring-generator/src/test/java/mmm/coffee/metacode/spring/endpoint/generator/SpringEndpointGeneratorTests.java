@@ -7,6 +7,7 @@ import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
+import mmm.coffee.metacode.common.exception.CreateEndpointUnsupportedException;
 import mmm.coffee.metacode.common.io.MetaProperties;
 import mmm.coffee.metacode.common.io.MetaPropertiesHandler;
 import mmm.coffee.metacode.common.stereotype.Collector;
@@ -27,6 +28,7 @@ import org.mockito.Mockito;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -38,9 +40,10 @@ import static org.mockito.Mockito.when;
 @SuppressWarnings("unchecked")
 class SpringEndpointGeneratorTests {
 
-    final String BASE_PATH = "/petstore";
-    final String BASE_PACKAGE = "org.acme.petstore";
-    final String FRAMEWORK = Framework.SPRING_WEBFLUX.frameworkName();
+    final static String BASE_PATH = "/petstore";
+    final static String BASE_PACKAGE = "org.acme.petstore";
+    final static String WEBFLUX_FRAMEWORK = Framework.SPRING_WEBFLUX.frameworkName();
+    final static String WEBMVC_FRAMEWORK = Framework.SPRING_WEBMVC.frameworkName();
 
     SpringEndpointGenerator generatorUnderTest;
 
@@ -48,14 +51,52 @@ class SpringEndpointGeneratorTests {
 
     MetaPropertiesHandler<RestEndpointDescriptor> mockMetaPropHandler;
 
+
+
+    @Test
+    void givenWebFluxFramework_shouldGenerateCode() {
+        generatorUnderTest = setUpGenerator(WEBFLUX_FRAMEWORK);
+        var descriptor = RestEndpointDescriptor.builder().resource("Pet").route("/pet").build();
+
+        int rc = generatorUnderTest.doPreprocessing(descriptor).generateCode(descriptor);
+        assertThat(rc).isEqualTo(ExitCodes.OK);
+    }
+
+    @Test
+    void givenWebMvcFramework_shouldGenerateCode() {
+        generatorUnderTest = setUpGenerator(WEBMVC_FRAMEWORK);
+        var descriptor = RestEndpointDescriptor.builder().resource("Pet").route("/pet").build();
+
+        int rc = generatorUnderTest.doPreprocessing(descriptor).generateCode(descriptor);
+        assertThat(rc).isEqualTo(ExitCodes.OK);
+
+    }
+
+    @Test
+    void whenFrameworkDoesNotSupportCreateEndpoint_expectCreateEndpointUnsupportedException()
+    {
+        SpringEndpointGenerator springBootGenerator = setUpSpringBootGenerator();
+        var descriptor = RestEndpointDescriptor.builder().resource("Pet").route("/pet").build();
+
+        assertThrows(CreateEndpointUnsupportedException.class, () -> {
+            springBootGenerator.doPreprocessing(descriptor).generateCode(descriptor);
+        });
+
+    }
+
+    // -------------------------------------------------------------------------------------
+    //
+    // Helper Methods
+    //
+    // -------------------------------------------------------------------------------------
+
     /**
-     * Configure a SpringEndpointGenerator with suitably mocked components.
+     * Configures a SpringEndpointGenerator with suitably mocked components.
      * A code generator is, basically, a pipeline assembly consisting of
      * a handful of components that are assembled into the pipeline that
-     * provides flow: templates -> rendered content -> output files
+     * provides this flow: templates -> rendered content -> output files
      */
-    @BeforeEach
-    public void setUp() {
+    private SpringEndpointGenerator setUpGenerator(String frameworkToUse) {
         // In the TemplateResolver, we just need the
         // {@code render} method to return a non-null String.
         // For these tests, we want to confirm the Generator's
@@ -72,7 +113,7 @@ class SpringEndpointGeneratorTests {
         Configuration mockConfig = Mockito.mock(Configuration.class);
         when(mockConfig.getString(MetaProperties.BASE_PATH)).thenReturn(BASE_PATH);
         when(mockConfig.getString(MetaProperties.BASE_PACKAGE)).thenReturn(BASE_PACKAGE);
-        when(mockConfig.getString(MetaProperties.FRAMEWORK)).thenReturn(FRAMEWORK);
+        when(mockConfig.getString(MetaProperties.FRAMEWORK)).thenReturn(frameworkToUse);
 
         // Set up the MetaPropertiesHandler. We only have to mock reading;
         // endpoint code generation never writes to the metacode.properties file.
@@ -88,7 +129,7 @@ class SpringEndpointGeneratorTests {
         doNothing().when(mockOutputHandler).writeOutput(anyString(),anyString());
 
         // Finally, assemble the above components into a code generator
-        generatorUnderTest = SpringEndpointGenerator.builder()
+        return SpringEndpointGenerator.builder()
                 .collector(new FakeCollector())
                 .descriptor2predicate(new RestEndpointDescriptorToPredicateConverter())
                 .descriptor2templateModel(new RestEndpointDescriptorToTemplateModelConverter(new NameConverter(), new RouteConstantsConverter()))
@@ -99,20 +140,10 @@ class SpringEndpointGeneratorTests {
                 .build();
     }
 
-    @Test
-    void givenBasicInputs_shouldGenerateCode() {
-        var descriptor = RestEndpointDescriptor.builder().resource("Pet").route("/pet").build();
-
-        int rc = generatorUnderTest.doPreprocessing(descriptor).generateCode(descriptor);
-        assertThat(rc).isEqualTo(ExitCodes.OK);
+    private SpringEndpointGenerator setUpSpringBootGenerator() {
+        return setUpGenerator(Framework.SPRING_BOOT.name());
     }
-
-    // -------------------------------------------------------------------------------------
-    //
-    // Helper Methods
-    //
-    // -------------------------------------------------------------------------------------
-
+    
     /**
      * A fake Collector suitable for unit test usage
      */
