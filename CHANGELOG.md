@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+
+## [3.0.0] - 2022-07-15
+
 * Refactor
   * When generating a project using the `spring-boot` template,
     * the SecureRandomSeries class is no longer there
@@ -19,6 +22,8 @@
       the generated code will now have PetEntity.java instead of PetEntityBean.java
     * The BeanToResourceConverter is now EntityToPojoConverter
     * The ResourceToBeanConverter is now PojoToEntityConverter
+  * In Spring WebFlux and Spring WebMvc projects, the package structure
+    is improved. 
 * Maintenance
   * Bump the dependency versions consumed by the generated code
 * Bugs
