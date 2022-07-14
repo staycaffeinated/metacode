@@ -73,17 +73,12 @@ class SpringBootTemplateCatalogTest {
         assertThrows(NullPointerException.class, obj::invokeCollectGeneralCatalogsAndThisOne);
     }
 
+    // See this for another idea:
+    // https://stackoverflow.com/questions/63124975/lombok-nonnull-annotation-with-builder-not-reflecting-in-test-coverage
+    // Technically, _our_ code is covered, but the lombok-generated code is not. 
     @Test
     void shouldThrowExceptionWhenReaderArgIsNull() {
         assertThrows(NullPointerException.class, () -> new SpringBootTemplateCatalog(null));
-    }
-
-    @Test
-    void shouldAlsoThrowExceptionOnNullArg() {
-        assertThrows(NullPointerException.class, () -> {
-            ICatalogReader nullReader = null;
-            new SpringBootTemplateCatalog(nullReader);
-        });
     }
 
     @Test
@@ -93,9 +88,33 @@ class SpringBootTemplateCatalogTest {
         assertThat(obj).isNotNull();
     }
 
-
     @Nested
     class ConstructorTests {
+        /**
+         * Note:  Jacoco seems to have trouble detecting null-handling tests in constructors.
+         * If the constructor method is, say, `public Widget(@NonNull String value) {..}`, there are
+         * two scenarios to cover: `value` is null and `value` is not null. The code to test
+         * these two scenarios is trivial; for instance:
+         * <code>
+         *     var scenario1 = new Widget(null);
+         *     var scenario2 = new Widget("something");
+         * </code>
+         * Even with this, Jacoco will report that the first condition, `value` is null, was never tested.
+         * <p>
+         * This lapse in line coverage analysis seems to be specific to constructor methods.
+         * Instance methods that use `@NonNull` are not a victim of this bug. Take this method,
+         * for example:
+         * <code>
+         *     public void setName(@NonNull String name);
+         * </code>
+         * Again, we write two tests, one for `name` is null, and one where `name` is not null.
+         * Jacoco will report that _both_ conditions were indeed covered by tests. It seems to me
+         * that only constructor methods are tripping up Jacoco.
+         * </p><p>
+         * Of course, _technically_, those null/not-null tests are exercising Lombok's code, not ours.
+         * Since its rather trivial to write those null/not-null tests, my tendency is to go ahead and
+         * add them, even if the improvement in code coverage is only cosmetic.
+         */
         @Test
         void shouldThrowExceptionWhenReaderArgIsNull() {
             assertThrows(NullPointerException.class, () -> new SpringBootTemplateCatalog(null));

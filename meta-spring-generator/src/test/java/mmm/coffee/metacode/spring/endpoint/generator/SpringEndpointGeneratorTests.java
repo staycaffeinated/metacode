@@ -78,8 +78,11 @@ class SpringEndpointGeneratorTests {
         SpringEndpointGenerator springBootGenerator = setUpSpringBootGenerator();
         var descriptor = RestEndpointDescriptor.builder().resource("Pet").route("/pet").build();
 
+        // We want the lambda to have only one method invoked that could possibly throw a runtime exception,
+        // so part of the code happens outside the `assertThrows`.
+        var generator = springBootGenerator.doPreprocessing(descriptor);
         assertThrows(CreateEndpointUnsupportedException.class, () -> {
-            springBootGenerator.doPreprocessing(descriptor).generateCode(descriptor);
+            generator.generateCode(descriptor);
         });
 
     }
