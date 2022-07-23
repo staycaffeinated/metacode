@@ -45,7 +45,7 @@ dependencies:
     version: "1.18.24"
   # Lombok Gradle plugin
   - name: "lombokPlugin"
-    version: "6.5.0.2"
+    version: "6.5.0.3"
   # Log4J
   - name: "log4j"
     version: "2.17.2"
@@ -63,7 +63,7 @@ dependencies:
     version: "0.27.0"
   # Reactor Test
   - name: "reactorTest"
-    version: "3.4.19"
+    version: "3.4.21"
   # R2DBC
   - name: "r2dbc_h2"
     version: "0.9.1.RELEASE"
@@ -78,7 +78,7 @@ dependencies:
     version: "6.8.0"
   # Spring Boot
   - name: "springBoot"
-    version: "2.7.1"
+    version: "2.7.2"
   # Spring Cloud
   - name: "springCloud"
     version: "3.1.3"
