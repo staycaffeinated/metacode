@@ -36,7 +36,7 @@ dependencies:
     version: "1.19.0"
   # JUnit
   - name: "junit"
-    version: "5.8.2"
+    version: "5.9.0"
   # Liquibase
   - name: "liquibase"
     version: "4.12.0"
@@ -75,7 +75,7 @@ dependencies:
     version: "3.4.0.2513"
   # Spotless code formatter gradle plugin
   - name: "spotless"
-    version: "6.8.0"
+    version: "6.9.0"
   # Spring Boot
   - name: "springBoot"
     version: "2.7.2"
