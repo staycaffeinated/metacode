@@ -218,10 +218,10 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/integrationTest/ExceptionHandlingIT.ftl"
+      template: "/spring/webmvc/integrationTest/endpoint/ExceptionHandlingIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ExceptionHandlingIT.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/integrationTest/ControllerIT.ftl"
+      template: "/spring/webmvc/integrationTest/endpoint/ControllerIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
       context: "endpoint"
