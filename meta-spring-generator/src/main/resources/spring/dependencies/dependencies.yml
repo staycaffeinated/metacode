@@ -75,7 +75,7 @@ dependencies:
     version: "3.4.0.2513"
   # Spotless code formatter gradle plugin
   - name: "spotless"
-    version: "6.9.0"
+    version: "6.9.1"
   # Spring Boot
   - name: "springBoot"
     version: "2.7.2"
