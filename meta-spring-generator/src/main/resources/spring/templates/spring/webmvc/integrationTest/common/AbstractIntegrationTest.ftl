@@ -7,9 +7,11 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 <#if (project.testcontainers)??>
 import org.testcontainers.junit.jupiter.Container;
@@ -22,9 +24,16 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @ActiveProfiles({TEST, INTEGRATION_TEST})
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 <#if (project.testcontainers)??>
 @Testcontainers
 @SuppressWarnings({"rawtypes"})
+</#if>
+<#if (project.postgres)??>
+@TestPropertySource(properties = {
+    "spring.datasource.url=jdbc:tc:postgresql:13.2-alpine:///public",
+    "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",
+    "spring.jpa.hibernate.ddl-auto=create-drop"})
 </#if>
 public abstract class AbstractIntegrationTest {
     @Autowired
