@@ -229,3 +229,7 @@ catalog:
       template: "/spring/webmvc/integrationTest/endpoint/ServiceIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIT.java"
       context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/integrationTest/database/endpoint/RepositoryIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
+      context: "endpoint"

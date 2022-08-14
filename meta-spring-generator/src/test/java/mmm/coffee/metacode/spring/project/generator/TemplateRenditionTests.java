@@ -178,7 +178,7 @@ class TemplateRenditionTests {
         final String template = "/spring/webmvc/main/resources/ApplicationDotProperties.ftl";
 
         @Test
-        void whenPostgresFlagEnabled_expectPostgresJdbcDriver() {
+        void whenPostgresTrue_expectPostgresJdbcDriver() {
             RestProjectTemplateModel templateModel = buildBasicModel();
             templateModel.setWithPostgres(true);
             templateModel.setWebMvc(true);
@@ -189,7 +189,7 @@ class TemplateRenditionTests {
             assertThat(content).contains("spring.datasource.url=jdbc:postgresql:");
             assertThat(content).contains("spring.datasource.driver-class-name=org.postgresql.Driver");
         }
-
+        
         @Test
         void whenPostgresFlagIsNotEnabled_expectH2JdbcDriver() {
             RestProjectTemplateModel templateModel = buildBasicModel();
@@ -225,7 +225,8 @@ class TemplateRenditionTests {
             assertThat(content).isNotNull();
             assertThat(content).contains("driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver");
             assertThat(content).contains("url: jdbc:tc:postgresql:9.6.8:///testdb?currentSchema=public");
-            assertThat(content).contains("database-platform: org.hibernate.dialect.PostgreSQLDialect");
+            assertThat(content).contains("dialect: org.hibernate.dialect.PostgreSQLDialect");
+            assertThat(content).contains("database: POSTGRESQL");
         }
 
         @Test

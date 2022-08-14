@@ -105,4 +105,8 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
      * which, by default, are Major severity.
      */
     private RouteConstants routeConstants;
+
+    private boolean withTestContainers = true;
+
+    private boolean withPostgres = true;
 }

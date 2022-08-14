@@ -54,7 +54,7 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private String basePackagePath;
     private String groupId;
 
-    // Booleans to indicate the integrations to accomodate
+    // Booleans to indicate the integrations to accommodate
     // The Setter annotation instructs Lombok to include a 'setX'
     // for these. Otherwise, they're only visible within the Builder
     @Setter

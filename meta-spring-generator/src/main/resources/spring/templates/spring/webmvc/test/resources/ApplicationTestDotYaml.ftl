@@ -13,7 +13,13 @@ spring:
         initialization-mode: embedded
     </#noparse>
     jpa:
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        database: POSTGRESQL
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                id:
+                    new_generator_mappings: false
+        show-sql: true
         generate-ddl: true
 <#else> <#-- H2 configuration -->
     datasource:
