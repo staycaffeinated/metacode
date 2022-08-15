@@ -170,6 +170,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}EntityToPojoConverter.java"
       context: "endpoint"
   - entry:
+      template: "/spring/webmvc/main/database/predicate/EntityWithText.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/predicate/{{entityName}}WithText.java"
+      context: "endpoint"
+  - entry:
       template: "/spring/webmvc/main/database/EntityResource.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{pojoName}}.java"
       context: "endpoint"
