@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+* Features
+  * Generate an integration test for the Service class under each endpoint
+  * Generate an integration test for the Repository class under each endpoint
+  * Improve AbstractIntegrationTest class
+
+* Maintenance
+  * Bumped versions of SpringBoot Gradle plugin, Reactor-test, and Lombok Gradle plugin.
+    These are consumed by the generated code.
+
 
 ## [3.0.0] - 2022-07-15
 
@@ -23,7 +32,7 @@
     * The BeanToResourceConverter is now EntityToPojoConverter
     * The ResourceToBeanConverter is now PojoToEntityConverter
   * In Spring WebFlux and Spring WebMvc projects, the package structure
-    is improved. 
+    is improved.
 * Maintenance
   * Bump the dependency versions consumed by the generated code
 * Bugs
