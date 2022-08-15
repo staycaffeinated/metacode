@@ -17,6 +17,7 @@ package mmm.coffee.metacode.common.descriptor;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
@@ -31,6 +32,7 @@ import java.util.Set;
 @Data
 @SuperBuilder
 @Generated // exclude from code coverage reports
+@ToString
 public class RestProjectDescriptor implements Descriptor {
     private String basePackage;
     private String applicationName;

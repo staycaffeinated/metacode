@@ -24,13 +24,6 @@ public class MetaPropertiesWriter {
     private final PropertiesConfiguration configuration;
 
     public void saveProperties(Map<String, Object> properties) {
-        // FOR DEBUGGING
-        try {
-            throw new RuntimeException("In saveProperties");
-        }
-        catch (RuntimeException e) {
-            e.printStackTrace();
-        }
         try {
             // Only copy properties needed for endpoint generation.
             // The incoming {@code properties} could contain many values,

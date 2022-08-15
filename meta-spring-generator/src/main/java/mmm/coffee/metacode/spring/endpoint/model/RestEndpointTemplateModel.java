@@ -3,8 +3,7 @@
  */
 package mmm.coffee.metacode.spring.endpoint.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.spring.project.model.SpringTemplateModel;
@@ -106,7 +105,13 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
      */
     private RouteConstants routeConstants;
 
-    private boolean withTestContainers = true;
+    @Setter(AccessLevel.PUBLIC)
+    private boolean isWithTestContainers;
 
-    private boolean withPostgres = true;
+    @Setter(AccessLevel.PUBLIC)
+    private boolean isWithPostgres;
+
+    @Setter(AccessLevel.PUBLIC)
+    private boolean isWithLiquibase;
+
 }

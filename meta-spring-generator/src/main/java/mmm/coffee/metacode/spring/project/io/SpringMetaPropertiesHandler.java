@@ -29,9 +29,7 @@ public class SpringMetaPropertiesHandler implements MetaPropertiesHandler<RestPr
      * @param data provides the property values of the keys written to the metacode.properties file
      */
     @Override
-    public void writeMetaProperties(RestProjectDescriptor data) {
-        writer.saveProperties(converter.convert(data));
-    }
+    public void writeMetaProperties(RestProjectDescriptor data) { writer.saveProperties(converter.convert(data)); }
 
 
     /**
