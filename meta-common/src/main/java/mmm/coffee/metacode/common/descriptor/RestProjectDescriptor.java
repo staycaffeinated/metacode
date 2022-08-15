@@ -79,7 +79,7 @@ public class RestProjectDescriptor implements Descriptor {
      * The @Singular creates an immutable list; the collection must be
      * populated before build() is called; after build() is called, the
      * collection becomes immutable.  With @Builder.Default, we
-     * initialize the collection, and lobmok does not generate methods
+     * initialize the collection, and lombok does not generate methods
      * to add to the collection while building the object. After build()
      * is called, we can call getIntegration().add(...), and we do
      * have a mutable collection.

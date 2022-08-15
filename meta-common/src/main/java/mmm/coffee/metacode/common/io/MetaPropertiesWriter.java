@@ -7,6 +7,7 @@ import lombok.Builder;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -23,6 +24,13 @@ public class MetaPropertiesWriter {
     private final PropertiesConfiguration configuration;
 
     public void saveProperties(Map<String, Object> properties) {
+        // FOR DEBUGGING
+        try {
+            throw new RuntimeException("In saveProperties");
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+        }
         try {
             // Only copy properties needed for endpoint generation.
             // The incoming {@code properties} could contain many values,
@@ -32,6 +40,16 @@ public class MetaPropertiesWriter {
             configuration.setProperty(MetaProperties.BASE_PATH, properties.get(MetaProperties.BASE_PATH));
             configuration.setProperty(MetaProperties.BASE_PACKAGE, properties.get(MetaProperties.BASE_PACKAGE));
             configuration.setProperty(MetaProperties.FRAMEWORK, properties.get(MetaProperties.FRAMEWORK));
+
+            if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_LIQUIBASE))) {
+                configuration.setProperty(MetaProperties.ADD_LIQUIBASE, "true");
+            }
+            if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_POSTGRESQL))) {
+                configuration.setProperty(MetaProperties.ADD_POSTGRESQL, "true");
+            }
+            if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_TESTCONTAINERS))) {
+                configuration.setProperty(MetaProperties.ADD_TESTCONTAINERS, "true");
+            }
 
             writeConfiguration(configuration);
         } catch (IOException | ConfigurationException e) {

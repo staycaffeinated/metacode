@@ -7,13 +7,16 @@ import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mockito;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -28,20 +31,8 @@ class MetaPropertiesWriterTests {
 
     MetaPropertiesWriter writerUnderTest;
 
-    /**
-     * Builds a Map of sample values suitable for testing
-     *
-     * @return a map of sample values
-     */
-    static Map<String, Object> buildSampleProperties() {
-        var map = new HashMap<String, Object>();
 
-        map.put(MetaProperties.BASE_PACKAGE, TestValues.BASE_PACKAGE);
-        map.put(MetaProperties.BASE_PATH, TestValues.BASE_PATH);
-        map.put(MetaProperties.FRAMEWORK, TestValues.FRAMEWORK);
 
-        return map;
-    }
 
     @Test
     void shouldWriteProperties() throws Exception {
@@ -63,6 +54,76 @@ class MetaPropertiesWriterTests {
         File f = new File(fakeDestination);
         assertThat(f.exists()).isTrue();
     }
+
+    @Test
+    void whenUsingTestContainers_expectTestContainersEnabledInPropertiesFile() throws Exception {
+        TemporaryFolder temporaryFolder = new TemporaryFolder();
+        temporaryFolder.create();
+
+        // and given: a hypothetical filename
+        String fakeDestination = temporaryFolder.getRoot().getAbsolutePath() + "/" + MetaProperties.DEFAULT_FILENAME;
+
+        MetaPropertiesWriter writer = MetaPropertiesWriter.builder()
+                .destinationFile(fakeDestination)
+                .configuration(new PropertiesConfiguration())
+                .build();
+
+        // when: saving the properties
+        writer.saveProperties(buildSamplePropertiesWithTestContainersEnabled());
+
+        File f = new File(fakeDestination);
+        assertThat(f.exists()).isTrue();
+        List<String> content = FileUtils.readLines(f, StandardCharsets.UTF_8);
+        String expectedProperty = MetaProperties.ADD_TESTCONTAINERS+"=true";
+        assertThat(content.contains(expectedProperty));
+    }
+
+    @Test
+    void whenUsingPostgres_expectPostgresEnabledInPropertiesFile() throws Exception {
+        TemporaryFolder temporaryFolder = new TemporaryFolder();
+        temporaryFolder.create();
+
+        // and given: a hypothetical filename
+        String fakeDestination = temporaryFolder.getRoot().getAbsolutePath() + "/" + MetaProperties.DEFAULT_FILENAME;
+
+        MetaPropertiesWriter writer = MetaPropertiesWriter.builder()
+                .destinationFile(fakeDestination)
+                .configuration(new PropertiesConfiguration())
+                .build();
+
+        // when: saving the properties
+        writer.saveProperties(buildSamplePropertiesWithPostgresEnabled());
+
+        File f = new File(fakeDestination);
+        assertThat(f.exists()).isTrue();
+        List<String> content = FileUtils.readLines(f, StandardCharsets.UTF_8);
+        String expectedProperty = MetaProperties.ADD_POSTGRESQL+"=true";
+        assertThat(content.contains(expectedProperty));
+    }
+
+    @Test
+    void whenUsingLiquibase_expectLiquibaseEnabledInPropertiesFile() throws Exception {
+        TemporaryFolder temporaryFolder = new TemporaryFolder();
+        temporaryFolder.create();
+
+        // and given: a hypothetical filename
+        String fakeDestination = temporaryFolder.getRoot().getAbsolutePath() + "/" + MetaProperties.DEFAULT_FILENAME;
+
+        MetaPropertiesWriter writer = MetaPropertiesWriter.builder()
+                .destinationFile(fakeDestination)
+                .configuration(new PropertiesConfiguration())
+                .build();
+
+        // when: saving the properties
+        writer.saveProperties(buildSamplePropertiesWithPostgresEnabled());
+
+        File f = new File(fakeDestination);
+        assertThat(f.exists()).isTrue();
+        List<String> content = FileUtils.readLines(f, StandardCharsets.UTF_8);
+        String expectedProperty = MetaProperties.ADD_LIQUIBASE+"=true";
+        assertThat(content.contains(expectedProperty));
+    }
+
 
     @Test
     void shouldRethrowConfigurationExceptionAsRuntimeApplicationError() throws Exception {
@@ -102,6 +163,39 @@ class MetaPropertiesWriterTests {
     // Helper Methods
     //
     // ------------------------------------------------------------------------------------
+
+    /**
+     * Builds a Map of sample values suitable for testing
+     *
+     * @return a map of sample values
+     */
+    static Map<String, Object> buildSampleProperties() {
+        var map = new HashMap<String, Object>();
+
+        map.put(MetaProperties.BASE_PACKAGE, TestValues.BASE_PACKAGE);
+        map.put(MetaProperties.BASE_PATH, TestValues.BASE_PATH);
+        map.put(MetaProperties.FRAMEWORK, TestValues.FRAMEWORK);
+
+        return map;
+    }
+
+    static Map<String,Object> buildSamplePropertiesWithTestContainersEnabled() {
+        var map = buildSampleProperties();
+        map.put(MetaProperties.ADD_TESTCONTAINERS, Boolean.TRUE);
+        return map;
+    }
+
+    static Map<String,Object> buildSamplePropertiesWithPostgresEnabled() {
+        var map = buildSampleProperties();
+        map.put(MetaProperties.ADD_POSTGRESQL, Boolean.TRUE);
+        return map;
+    }
+
+    static Map<String,Object> buildSamplePropertiesWithLiquibaseEnabled() {
+        var map = buildSampleProperties();
+        map.put(MetaProperties.ADD_LIQUIBASE, Boolean.TRUE);
+        return map;
+    }
 
     public static class TestValues {
         public static final String BASE_PACKAGE = "org.acme.petstore";

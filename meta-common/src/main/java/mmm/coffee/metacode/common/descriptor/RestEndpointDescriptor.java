@@ -52,6 +52,9 @@ public class RestEndpointDescriptor {
      */
     private String framework;
 
+    private boolean withPostgres;
+    private boolean withTestContainers;
+
 
     public final String getFramework() {
         if (framework != null) {
