@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -49,6 +51,7 @@ class ${endpoint.entityName}ControllerTests {
     private ObjectMapper objectMapper;
 
     private List<${endpoint.pojoName}> ${endpoint.entityVarName}List;
+    private Page<${endpoint.pojoName}> pageOfData;
 
     private final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
@@ -61,6 +64,8 @@ class ${endpoint.entityName}ControllerTests {
 
         objectMapper.registerModule(new ProblemModule());
         objectMapper.registerModule(new ConstraintViolationProblemModule());
+
+        pageOfData = new PageImpl<>(${endpoint.entityVarName}List);
     }
 
     @AfterEach
@@ -238,7 +243,7 @@ class ${endpoint.entityName}ControllerTests {
     class SearchByTextTests {
         @Test
         void shouldReturnListWhenMatchesAreFound() throws Exception {
-            given (${endpoint.entityVarName}Service.findByText(anyString(), any(Pageable.class))).willReturn(${endpoint.entityVarName}List);
+            given (${endpoint.entityVarName}Service.findByText(anyString(), any(Pageable.class))).willReturn(pageOfData);
 
             // when/then (the default Pageable in the controller is sufficient for testing)
             mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search})

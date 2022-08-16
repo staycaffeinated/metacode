@@ -10,6 +10,7 @@ import ${endpoint.basePackage}.validation.ResourceId;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -115,12 +116,12 @@ public class ${endpoint.entityName}Controller {
      * Find by text
      */
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.search}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<${endpoint.pojoName}>> searchByText (
+    public Page<${endpoint.pojoName}> searchByText (
                         @RequestParam(name="text", required = true) String text,
                         @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
                         @SortDefault.SortDefaults(
                             {@SortDefault(sort = "text", direction = Sort.Direction.ASC)}) Pageable pageable)
     {
-        return ResponseEntity.ok(${endpoint.entityVarName}Service.findByText(text, pageable));
+        return ${endpoint.entityVarName}Service.findByText(text, pageable);
     }
 }

@@ -11,6 +11,7 @@ import ${endpoint.basePackage}.validation.OnUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -67,12 +68,13 @@ public class ${endpoint.entityName}Service {
     /*
      * findByText
      */
-    public List<${endpoint.pojoName}> findByText(@NonNull String text, Pageable pageable) {
+    public Page<${endpoint.pojoName}> findByText(@NonNull String text, Pageable pageable) {
             Specification<${endpoint.ejbName}> where = Specification.where(new ${endpoint.entityName}WithText(text));
             Page<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findAll(where, pageable);
-            return resultSet.stream()
+            List<${endpoint.pojoName}> list = resultSet.stream()
                             .map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class))
                             .toList();
+            return new PageImpl<>(list, pageable, list.size());
     }
 
     /**

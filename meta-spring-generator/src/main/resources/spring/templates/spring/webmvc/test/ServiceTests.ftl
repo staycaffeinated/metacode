@@ -62,6 +62,7 @@ class ${endpoint.entityName}ServiceTests {
     private final ConversionService conversionService = FakeConversionService.build();
 
     private List<${endpoint.ejbName}> ${endpoint.entityVarName}List;
+    private Page<${endpoint.ejbName}> pageOfData;
 
     @BeforeEach
     void setUpEachTime() {
@@ -118,12 +119,12 @@ class ${endpoint.entityName}ServiceTests {
             given(${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn(page);
 
             // when/then
-            List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("text", pageable);
+            Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("text", pageable);
 
             then(result).isNotNull();       // must never return null
 
             // depending on which is smaller, the sample size or the page size, we expect that many rows back
-            then(result.size()).isEqualTo(Math.min(${endpoint.entityVarName}List.size(), pageable.getPageSize()));
+            then(result.getContent().size()).isEqualTo(Math.min(${endpoint.entityVarName}List.size(), pageable.getPageSize()));
         }
 
         @Test
@@ -132,10 +133,10 @@ class ${endpoint.entityName}ServiceTests {
             given( ${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn( Page.empty() );
 
             Pageable pageable = PageRequest.of(1,10);
-            List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("foo", pageable);
+            Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("foo", pageable);
 
             then(result).isNotNull();       // must never get null back
-            then(result.size()).isZero();   // must have no content for this edge case
+            then(result.hasContent()).isFalse();   // must have no content for this edge case
         }
 
         @Test
