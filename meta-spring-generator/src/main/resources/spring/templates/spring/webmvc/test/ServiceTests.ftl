@@ -127,6 +127,7 @@ class ${endpoint.entityName}ServiceTests {
         }
 
         @Test
+        @SuppressWarnings("unchecked")
         void shouldReturnEmptyListWhenNoDataFound() {
             given( ${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn( Page.empty() );
 
