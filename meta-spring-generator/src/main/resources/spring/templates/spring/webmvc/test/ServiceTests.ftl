@@ -118,7 +118,7 @@ class ${endpoint.entityName}ServiceTests {
             given(${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn(page);
 
             // when/then
-            List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("text", 1, 20);
+            List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("text", pageable);
 
             then(result).isNotNull();       // must never return null
 
@@ -131,7 +131,8 @@ class ${endpoint.entityName}ServiceTests {
         void shouldReturnEmptyListWhenNoDataFound() {
             given( ${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn( Page.empty() );
 
-            List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("foo", 1, 100);
+            Pageable pageable = PageRequest.of(1,10);
+            List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("foo", pageable);
 
             then(result).isNotNull();       // must never get null back
             then(result.size()).isZero();   // must have no content for this edge case
@@ -140,7 +141,8 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         @SuppressWarnings("all")
         void shouldThrowNullPointerExceptionWhen${endpoint.entityName}IsNull() {
-            assertThrows (NullPointerException.class, () ->  ${endpoint.entityVarName}Service.findByText(null, 1, 100));
+            Pageable pageable = PageRequest.of(0,20);
+            assertThrows (NullPointerException.class, () ->  ${endpoint.entityVarName}Service.findByText(null, pageable));
         }
     }
 

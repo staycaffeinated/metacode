@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -237,7 +238,7 @@ class ${endpoint.entityName}ControllerTests {
     class SearchByTextTests {
         @Test
         void shouldReturnListWhenMatchesAreFound() throws Exception {
-            given (${endpoint.entityVarName}Service.findByText(anyString(), anyInt(), anyInt())).willReturn(${endpoint.entityVarName}List);
+            given (${endpoint.entityVarName}Service.findByText(anyString(), any(Pageable.class))).willReturn(${endpoint.entityVarName}List);
 
             // when/then
             mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search})

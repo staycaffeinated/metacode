@@ -10,6 +10,8 @@ import ${endpoint.basePackage}.validation.ResourceId;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -112,6 +114,7 @@ public class ${endpoint.entityName}Controller {
                                          @RequestParam(name="page", required = false, defaultValue = "1") int pageNumber,
                                          @RequestParam(name="size", required = false, defaultValue = "20") Integer pageSize)
     {
-        return ResponseEntity.ok(${endpoint.entityVarName}Service.findByText(text, pageNumber, pageSize));
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return ResponseEntity.ok(${endpoint.entityVarName}Service.findByText(text, pageable));
     }
 }

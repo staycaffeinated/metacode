@@ -67,9 +67,7 @@ public class ${endpoint.entityName}Service {
     /*
      * findByText
      */
-    public List<${endpoint.pojoName}> findByText(@NonNull String text, @Min(value=0) int pageNumber, @Min(value=20) int pageSize) {
-            Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(text).ascending());
-
+    public List<${endpoint.pojoName}> findByText(@NonNull String text, Pageable pageable) {
             Specification<${endpoint.ejbName}> where = Specification.where(new ${endpoint.entityName}WithText(text));
             Page<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findAll(where, pageable);
             return resultSet.stream()
