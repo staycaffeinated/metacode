@@ -15,6 +15,9 @@ import javax.persistence.criteria.Root;
  */
 public class ${endpoint.entityName}WithText implements Specification<${endpoint.ejbName}> {
 
+    // This is a 'user-defined' UID; feel free to have your IDE inject a better value
+    private static final long serialVersionUID = 1L;
+
     private final String text;
 
     public ${endpoint.entityName}WithText(final String text) {
