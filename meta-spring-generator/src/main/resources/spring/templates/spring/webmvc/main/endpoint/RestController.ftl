@@ -12,6 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,9 @@ import java.net.URI;
 @Slf4j
 @Validated
 public class ${endpoint.entityName}Controller {
+
+    private static final int DEFAULT_PAGE_NUMBER = 0;
+    private static final int DEFAULT_PAGE_SIZE = 25;
 
     private final ${endpoint.entityName}Service ${endpoint.entityVarName}Service;
 
@@ -110,11 +116,11 @@ public class ${endpoint.entityName}Controller {
      */
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.search}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<${endpoint.pojoName}>> searchByText (
-                                         @RequestParam(name="text", required = true) String text,
-                                         @RequestParam(name="page", required = false, defaultValue = "1") int pageNumber,
-                                         @RequestParam(name="size", required = false, defaultValue = "20") Integer pageSize)
+                        @RequestParam(name="text", required = true) String text,
+                        @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
+                        @SortDefault.SortDefaults(
+                            {@SortDefault(sort = "text", direction = Sort.Direction.ASC)}) Pageable pageable)
     {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return ResponseEntity.ok(${endpoint.entityVarName}Service.findByText(text, pageable));
     }
 }

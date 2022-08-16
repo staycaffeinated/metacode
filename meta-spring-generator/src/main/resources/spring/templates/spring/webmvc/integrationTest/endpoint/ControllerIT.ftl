@@ -9,6 +9,7 @@ import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,21 @@ public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest 
     public void tearDownEachTime() {
         ${endpoint.entityVarName}Repository.deleteAll();
     }
+
+    @Nested
+    public class ValidateFindByText {
+        @Test
+        void whenSearchFindsHits_expectOkAndMatchingRecords() throws Exception {
+            searchByText("First").andExpect(status().isOk()).andExpect(jsonPath("$.content.length()", is(1)))
+                .andExpect(jsonPath("$.content[0].text", is("First ${endpoint.entityName}")));
+        }
+
+        @Test
+        void whenSearchComesUpEmpty_expectOkButNoRecords() throws Exception {
+            searchByText("xyzzy").andExpect(status().isOk()).andExpect(jsonPath("$.content.length()", is(0)));
+        }
+    }
+
 
     /*
      * FindById
@@ -132,4 +148,15 @@ public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest 
                     .andExpect(jsonPath("$.text", is(${endpoint.entityVarName}.getText())));
         }
     }
+
+    // ---------------------------------------------------------------------------------------------------------------
+    //
+    // Helper methods
+    //
+    // ---------------------------------------------------------------------------------------------------------------
+
+    protected ResultActions searchByText(String text) throws Exception {
+        return mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search}).param("text", text));
+    }
+
 }
