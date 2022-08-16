@@ -4,7 +4,7 @@ package ${endpoint.packageName}.database.${endpoint.lowerCaseEntityName};
 
 import ${endpoint.basePackage}.common.AbstractIntegrationTest;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
-import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -94,6 +94,25 @@ public class ${endpoint.entityName}RepositoryIT {
 
             assertThat(page).isNotNull();
             assertThat(page.hasContent()).isTrue();
+        }
+    }
+
+    @Nested
+    public class ValidatePredicates {
+        @Test
+        void shouldIgnoreCase() {
+            ${endpoint.entityName}WithText spec = new ${endpoint.entityName}WithText("first value");
+            List<${endpoint.ejbName}> list = repositoryUnderTest.findAll(spec);
+            assertThat(list).isNotNull();
+            assertThat(list.size()).isEqualTo(1);
+        }
+
+        @Test
+        void shouldFindAllWhenValueIsEmpty() {
+            ${endpoint.entityName}WithText spec = new ${endpoint.entityName}WithText("");
+            List<${endpoint.ejbName}> list = repositoryUnderTest.findAll(spec);
+            assertThat(list).isNotNull();
+            assertThat(list.size()).isEqualTo(3);
         }
     }
 
