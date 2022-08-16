@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -107,15 +108,14 @@ class ${endpoint.entityName}ServiceTests {
          * Happy path - some rows match the given text
          */
         @Test
+        @SuppressWarnings("unchecked")
         void shouldReturnRowsWhenRowsWithTextExists() {
             // given
-            Pageable pageable = PageRequest.of(1,20);
-            int start = (int) pageable.getOffset();
-            int end = Math.min((start + pageable.getPageSize()), ${endpoint.entityVarName}List.size());
+            Pageable pageable = PageRequest.of(0,25);
             Page<${endpoint.ejbName}> page = new PageImpl<>(${endpoint.entityVarName}List, pageable, ${endpoint.entityVarName}List.size());
 
             // we're not validating what text gets passed to the repo, only that a result set comes back
-            given(${endpoint.entityVarName}Repository.findByText(any(), any(Pageable.class))).willReturn(page);
+            given(${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn(page);
 
             // when/then
             List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("text", 1, 20);
@@ -128,7 +128,7 @@ class ${endpoint.entityName}ServiceTests {
 
         @Test
         void shouldReturnEmptyListWhenNoDataFound() {
-            given( ${endpoint.entityVarName}Repository.findByText(any(), any(Pageable.class))).willReturn( Page.empty() );
+            given( ${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn( Page.empty() );
 
             List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("foo", 1, 100);
 
@@ -137,6 +137,7 @@ class ${endpoint.entityName}ServiceTests {
         }
 
         @Test
+        @SuppressWarnings("all")
         void shouldThrowNullPointerExceptionWhen${endpoint.entityName}IsNull() {
             assertThrows (NullPointerException.class, () ->  ${endpoint.entityVarName}Service.findByText(null, 1, 100));
         }
@@ -198,6 +199,7 @@ class ${endpoint.entityName}ServiceTests {
         }
 
         @Test
+        @SuppressWarnings("all")
         void shouldThrowNullPointerExceptionWhen${endpoint.entityName}IsNull() {
             Exception exception = assertThrows (NullPointerException.class, () ->  ${endpoint.entityVarName}Service.create${endpoint.entityName}(null));
         }
@@ -243,6 +245,7 @@ class ${endpoint.entityName}ServiceTests {
         }
 
         @Test
+        @SuppressWarnings("all")
         void shouldThrowExceptionWhenArgumentIsNull() {
             assertThrows(NullPointerException.class, () -> ${endpoint.entityVarName}Service.update${endpoint.entityName}(null));
         }
@@ -279,6 +282,7 @@ class ${endpoint.entityName}ServiceTests {
         }
 
         @Test
+        @SuppressWarnings("all")
         void shouldThrowExceptionWhenArgumentIsNull() {
             assertThrows(NullPointerException.class, () -> ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(null));
         }

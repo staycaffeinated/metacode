@@ -4,6 +4,7 @@ package ${endpoint.packageName};
 
 import lombok.NonNull;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
+import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -67,7 +69,9 @@ public class ${endpoint.entityName}Service {
      */
     public List<${endpoint.pojoName}> findByText(@NonNull String text, @Min(value=0) int pageNumber, @Min(value=20) int pageSize) {
             Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(text).ascending());
-            Page<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findByText(text, pageable);
+
+            Specification<${endpoint.ejbName}> where = Specification.where(new ${endpoint.entityName}WithText(text));
+            Page<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findAll(where, pageable);
             return resultSet.stream()
                             .map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class))
                             .toList();
