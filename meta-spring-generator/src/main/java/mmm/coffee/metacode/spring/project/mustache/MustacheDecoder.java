@@ -8,8 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import mmm.coffee.metacode.common.mustache.MustacheExpressionResolver;
-import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
 import mmm.coffee.metacode.spring.project.converter.RestTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.project.model.RestProjectTemplateModel;
 
 import java.util.Map;
 

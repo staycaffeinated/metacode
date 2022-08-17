@@ -5,8 +5,8 @@ package mmm.coffee.metacode.spring.endpoint.mustache;
 
 import lombok.*;
 import mmm.coffee.metacode.common.mustache.MustacheExpressionResolver;
-import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 
 import java.util.Map;
 

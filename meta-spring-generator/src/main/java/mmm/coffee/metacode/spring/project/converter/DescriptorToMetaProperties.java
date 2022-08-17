@@ -8,7 +8,6 @@ import mmm.coffee.metacode.common.io.MetaProperties;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 

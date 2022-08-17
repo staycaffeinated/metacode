@@ -21,7 +21,6 @@ import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToTem
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
 import mmm.coffee.metacode.spring.endpoint.mustache.MustacheEndpointDecoder;
 import org.apache.commons.configuration2.Configuration;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

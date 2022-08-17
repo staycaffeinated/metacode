@@ -3,8 +3,8 @@
  */
 package mmm.coffee.metacode.spring.endpoint.mustache;
 
-import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointTemplateModelToMapConverter;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -3,7 +3,10 @@
  */
 package mmm.coffee.metacode.spring.endpoint.model;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.spring.project.model.SpringTemplateModel;

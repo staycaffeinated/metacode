@@ -4,7 +4,6 @@
 package mmm.coffee.metacode.spring.endpoint.io;
 
 import mmm.coffee.metacode.common.descriptor.Framework;
-import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.io.MetaProperties;
 import mmm.coffee.metacode.common.io.MetaPropertiesReader;
 import org.apache.commons.configuration2.Configuration;
