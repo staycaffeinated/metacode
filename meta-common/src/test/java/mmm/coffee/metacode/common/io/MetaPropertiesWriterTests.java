@@ -3,6 +3,7 @@
  */
 package mmm.coffee.metacode.common.io;
 
+import com.google.common.truth.IterableSubject;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.apache.commons.configuration2.PropertiesConfiguration;
@@ -15,10 +16,10 @@ import org.mockito.Mockito;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.StreamSupport;
 
+import static com.google.common.collect.Sets.newHashSet;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -73,9 +74,6 @@ class MetaPropertiesWriterTests {
 
         File f = new File(fakeDestination);
         assertThat(f.exists()).isTrue();
-        List<String> content = FileUtils.readLines(f, StandardCharsets.UTF_8);
-        String expectedProperty = MetaProperties.ADD_TESTCONTAINERS+"=true";
-        assertThat(content.contains(expectedProperty));
     }
 
     @Test
@@ -96,9 +94,6 @@ class MetaPropertiesWriterTests {
 
         File f = new File(fakeDestination);
         assertThat(f.exists()).isTrue();
-        List<String> content = FileUtils.readLines(f, StandardCharsets.UTF_8);
-        String expectedProperty = MetaProperties.ADD_POSTGRESQL+"=true";
-        assertThat(content.contains(expectedProperty));
     }
 
     @Test
@@ -119,9 +114,6 @@ class MetaPropertiesWriterTests {
 
         File f = new File(fakeDestination);
         assertThat(f.exists()).isTrue();
-        List<String> content = FileUtils.readLines(f, StandardCharsets.UTF_8);
-        String expectedProperty = MetaProperties.ADD_LIQUIBASE+"=true";
-        assertThat(content.contains(expectedProperty));
     }
 
 
