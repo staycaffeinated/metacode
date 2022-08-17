@@ -7,6 +7,7 @@ import ${endpoint.basePackage}.exception.UnprocessableEntityException;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 import ${endpoint.basePackage}.validation.ResourceId;
+import ${endpoint.basePackage}.validation.SearchText;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +118,7 @@ public class ${endpoint.entityName}Controller {
      */
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.search}, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<${endpoint.pojoName}> searchByText (
-                        @RequestParam(name="text", required = true) Optional<String> text,
+                        @RequestParam(name="text", required = true) @SearchText Optional<String> text,
                         @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
                         @SortDefault.SortDefaults(
                             {@SortDefault(sort = "text", direction = Sort.Direction.ASC)}) Pageable pageable)
