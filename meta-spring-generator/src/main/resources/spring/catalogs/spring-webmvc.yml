@@ -88,6 +88,14 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/validation/ResourceIdValidator.java"
       context: "project"
   - entry:
+      template: "/spring/common/main/validation/SearchText.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/SearchText.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/main/validation/SearchTextValidator.ftl"
+      destination: "src/main/java/{{basePackagePath}}/validation/SearchTextValidator.java"
+      context: "project"
+  - entry:
       template:  "/spring/webmvc/main/endpoint-root/RootController.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/root/RootController.java"
       context: "project"
@@ -160,6 +168,10 @@ catalog:
   - entry:
       template: "/spring/common/test/validation/ResourceIdValidatorTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/validation/ResourceIdValidatorTests.java"
+      context: "project"
+  - entry:
+      template: "/spring/common/test/validation/SearchTextValidatorTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/validation/SearchTextValidatorTests.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/database/Entity.ftl"
