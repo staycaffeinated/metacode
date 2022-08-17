@@ -119,7 +119,7 @@ class ${endpoint.entityName}ServiceTests {
             given(${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn(page);
 
             // when/then
-            Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("text", pageable);
+            Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText(Optional.of("text"), pageable);
 
             then(result).isNotNull();       // must never return null
 
@@ -133,7 +133,7 @@ class ${endpoint.entityName}ServiceTests {
             given( ${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn( Page.empty() );
 
             Pageable pageable = PageRequest.of(1,10);
-            Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText("foo", pageable);
+            Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText(Optional.of("foo"), pageable);
 
             then(result).isNotNull();       // must never get null back
             then(result.hasContent()).isFalse();   // must have no content for this edge case

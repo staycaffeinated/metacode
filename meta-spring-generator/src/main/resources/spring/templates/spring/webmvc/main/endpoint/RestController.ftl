@@ -117,7 +117,7 @@ public class ${endpoint.entityName}Controller {
      */
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.search}, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<${endpoint.pojoName}> searchByText (
-                        @RequestParam(name="text", required = true) String text,
+                        @RequestParam(name="text", required = true) Optional<String> text,
                         @PageableDefault(page = DEFAULT_PAGE_NUMBER, size = DEFAULT_PAGE_SIZE)
                         @SortDefault.SortDefaults(
                             {@SortDefault(sort = "text", direction = Sort.Direction.ASC)}) Pageable pageable)

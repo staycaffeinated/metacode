@@ -243,7 +243,7 @@ class ${endpoint.entityName}ControllerTests {
     class SearchByTextTests {
         @Test
         void shouldReturnListWhenMatchesAreFound() throws Exception {
-            given (${endpoint.entityVarName}Service.findByText(anyString(), any(Pageable.class))).willReturn(pageOfData);
+            given (${endpoint.entityVarName}Service.findByText(any(Optional.class), any(Pageable.class))).willReturn(pageOfData);
 
             // when/then (the default Pageable in the controller is sufficient for testing)
             mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search})

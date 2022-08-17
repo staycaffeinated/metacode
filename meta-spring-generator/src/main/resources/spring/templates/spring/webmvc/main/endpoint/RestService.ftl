@@ -65,8 +65,8 @@ public class ${endpoint.entityName}Service {
     /*
      * findByText
      */
-    public Page<${endpoint.pojoName}> findByText(@NonNull String text, Pageable pageable) {
-            Specification<${endpoint.ejbName}> where = Specification.where(new ${endpoint.entityName}WithText(text));
+    public Page<${endpoint.pojoName}> findByText(@NonNull Optional<String> text, Pageable pageable) {
+            Specification<${endpoint.ejbName}> where = Specification.where(new ${endpoint.entityName}WithText(text.orElse("")));
             Page<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findAll(where, pageable);
             List<${endpoint.pojoName}> list = resultSet.stream()
                             .map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class))
