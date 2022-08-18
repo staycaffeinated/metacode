@@ -72,6 +72,10 @@ class DescriptorToTemplateModelConverterTest {
         assertThat(context.getApplicationName()).isEqualTo(webMvcRestProject.getApplicationName());
         assertThat(context.getBasePackage()).isEqualTo(webMvcRestProject.getBasePackage());
         assertThat(context.getBasePath()).isEqualTo(webMvcRestProject.getBasePath());
+        // the following should remain in their default, 'off' position
+        assertThat(context.isWithLiquibase()).isFalse();
+        assertThat(context.isWithPostgres()).isFalse();
+        assertThat(context.isWithTestContainers()).isFalse();
     }
 
     @Test
@@ -84,6 +88,9 @@ class DescriptorToTemplateModelConverterTest {
 
         // the 'withPostgres' flag should be 'true'
         assertThat(templateModel.isWithPostgres()).isTrue();
+        // the other integration flags should remain in their 'off' position
+        assertThat(templateModel.isWithLiquibase()).isFalse();
+        assertThat(templateModel.isWithTestContainers()).isFalse();
     }
 
     @Test
@@ -96,6 +103,8 @@ class DescriptorToTemplateModelConverterTest {
 
         // the 'withTestcontainers' flag should be 'true'
         assertThat(templateModel.isWithTestContainers()).isTrue();
+        assertThat(templateModel.isWithLiquibase()).isFalse();
+        assertThat(templateModel.isWithPostgres()).isFalse();
     }
 
     @Test
@@ -108,6 +117,9 @@ class DescriptorToTemplateModelConverterTest {
 
         // the 'withLiquibase' flag should be 'true'
         assertThat(templateModel.isWithLiquibase()).isTrue();
+        // the other options should remain in their 'off' position
+        assertThat(templateModel.isWithTestContainers()).isFalse();
+        assertThat(templateModel.isWithPostgres()).isFalse();
     }
 
     @Test
@@ -122,6 +134,7 @@ class DescriptorToTemplateModelConverterTest {
         // expect: withTestContainers and withPostgres flags are both 'true'
         assertThat(templateModel.isWithTestContainers()).isTrue();
         assertThat(templateModel.isWithPostgres()).isTrue();
+        assertThat(templateModel.isWithLiquibase()).isFalse();
     }
 
     @Test

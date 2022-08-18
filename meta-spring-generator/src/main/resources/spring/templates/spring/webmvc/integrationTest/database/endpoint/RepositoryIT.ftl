@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-<#if (endpoint.isWithTestContainers())?? && (endpoint.isWithPostgres())??>
+<#if (endpoint.isWithTestContainers()) && (endpoint.isWithPostgres())>
 @TestPropertySource(properties = {
     "spring.datasource.url=jdbc:tc:postgresql:13.2-alpine:///public",
     "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",

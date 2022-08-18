@@ -8,7 +8,9 @@ import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import mmm.coffee.metacode.spring.converter.NameConverter;
 import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
+import mmm.coffee.metacode.spring.endpoint.model.RestEndpointTemplateModel;
 import mmm.coffee.metacode.spring.endpoint.model.RouteConstants;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -147,4 +149,110 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
         assertThat(routeConstants.getUpdate()).contains("UPDATE");
     }
 
+    @Nested
+    class WithOptionTests {
+        @Test
+        void whenNoDatabaseDefined_expectTestContainersIsOff_andPostgresIsOff() {
+            RestEndpointDescriptor descriptor = newDescriptor().basePackage("acme.petstore")
+                    .basePath("/petstore")
+                    .framework(Framework.SPRING_WEBMVC.frameworkName())
+                    .resource("Pet")
+                    .route("/pets")
+                    .withPostgres(false)
+                    .withTestContainers(false)
+                    .build();
+
+            RestEndpointTemplateModel model = converterUnderTest.convert(descriptor);
+
+            assertThat(model.isWithLiquibase()).isFalse();
+            assertThat(model.isWithPostgres()).isFalse();
+            assertThat(model.isWithTestContainers()).isFalse();
+        }
+
+        @Test
+        void whenDefaultDatabaseOptions_expectDatabaseOptionsAreOff() {
+            RestEndpointDescriptor descriptor = newDescriptor().basePackage("acme.petstore")
+                    .basePath("/petstore")
+                    .framework(Framework.SPRING_WEBMVC.frameworkName())
+                    .resource("Pet")
+                    .route("/pets")
+                    .build();
+
+            RestEndpointTemplateModel model = converterUnderTest.convert(descriptor);
+
+            assertThat(model.isWithLiquibase()).isFalse();
+            assertThat(model.isWithPostgres()).isFalse();
+            assertThat(model.isWithTestContainers()).isFalse();
+
+        }
+
+        @Test
+        void whenPostgresIsDefined_expectPostgresIsOn() {
+            // given
+            RestEndpointDescriptor descriptor = newDescriptor().basePackage("acme.petstore")
+                    .basePath("/petstore")
+                    .framework(Framework.SPRING_WEBMVC.frameworkName())
+                    .resource("Pet")
+                    .route("/pets")
+                    .withPostgres(true)
+                    .build();
+
+            // when that descriptor is converted...
+            RestEndpointTemplateModel model = converterUnderTest.convert(descriptor);
+
+            // expect
+            assertThat(model.isWithPostgres()).isTrue();
+
+            assertThat(model.isWithLiquibase()).isFalse();
+            assertThat(model.isWithTestContainers()).isFalse();
+        }
+
+        @Test
+        void whenTestContainersIsDefined_expectTestContainersIsOn() {
+            RestEndpointDescriptor descriptor = newDescriptor().basePackage("acme.petstore")
+                    .basePath("/petstore")
+                    .framework(Framework.SPRING_WEBMVC.frameworkName())
+                    .resource("Pet")
+                    .route("/pets")
+                    .withTestContainers(true)
+                    .build();
+
+            // when that descriptor is converted...
+            RestEndpointTemplateModel model = converterUnderTest.convert(descriptor);
+
+            // expect
+            assertThat(model.isWithTestContainers()).isTrue();
+
+            assertThat(model.isWithLiquibase()).isFalse();
+            assertThat(model.isWithPostgres()).isFalse();
+        }
+
+        @Test
+        void whenTestContainersAndPostgresAreDefined_expectBothAreTurnedOn() {
+            RestEndpointDescriptor descriptor = newDescriptor().basePackage("acme.petstore")
+                    .basePath("/petstore")
+                    .framework(Framework.SPRING_WEBMVC.frameworkName())
+                    .resource("Pet")
+                    .route("/pets")
+                    .withPostgres(true)
+                    .withTestContainers(true)
+                    .build();
+
+            // when that descriptor is converted...
+            RestEndpointTemplateModel model = converterUnderTest.convert(descriptor);
+
+            // expect
+            assertThat(model.isWithPostgres()).isTrue();
+            assertThat(model.isWithTestContainers()).isTrue();
+
+            assertThat(model.isWithLiquibase()).isFalse();
+        }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------
+    // Helper methods
+    // ------------------------------------------------------------------------------------------------------------
+    private RestEndpointDescriptor.RestEndpointDescriptorBuilder newDescriptor() {
+        return RestEndpointDescriptor.builder();
+    }
 }

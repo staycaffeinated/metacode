@@ -16,6 +16,7 @@
 package mmm.coffee.metacode.common.descriptor;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
@@ -54,6 +55,7 @@ public class RestEndpointDescriptor {
 
     private boolean withPostgres;
     private boolean withTestContainers;
+    private boolean withLiquibase;
 
 
     public final String getFramework() {
