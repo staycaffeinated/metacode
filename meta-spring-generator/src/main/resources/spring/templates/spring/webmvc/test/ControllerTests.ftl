@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.TransactionSystemException;
 import org.zalando.problem.jackson.ProblemModule;
 import org.zalando.problem.violations.ConstraintViolationProblemModule;
@@ -246,10 +247,29 @@ class ${endpoint.entityName}ControllerTests {
             given (${endpoint.entityVarName}Service.findByText(any(Optional.class), any(Pageable.class))).willReturn(pageOfData);
 
             // when/then (the default Pageable in the controller is sufficient for testing)
-            mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search})
-                    .param("text", "sample"))
-                    .andExpect(status().isOk())
-            ;
+            searchByText("text").andExpect(status().isOk());
         }
+    }
+
+    @Nested
+    class SearchTextValidationTests {
+        @Test
+        void whenTextIsTooLong_expectError() throws Exception {
+            searchByText("supercalifragilisticexpialidocious").andExpect(status().is4xxClientError());
+        }
+        @Test
+        void whenTextContainsInvalidCharacters_expectError() throws Exception {
+            searchByText("192.168.0.0<555").andExpect(status().is4xxClientError());
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------
+    //
+    // Helper methods
+    //
+    // ---------------------------------------------------------------------------------------------------------------
+
+    protected ResultActions searchByText(String text) throws Exception {
+        return mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search}).param("text", text));
     }
 }
