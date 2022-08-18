@@ -2,6 +2,7 @@
 package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate;
 
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
+import lombok.Getter;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.ObjectUtils;
 
@@ -13,6 +14,7 @@ import javax.persistence.criteria.Root;
 /**
  * Specification for ${endpoint.ejbName} with a given text value
  */
+@Getter
 public class ${endpoint.entityName}WithText implements Specification<${endpoint.ejbName}> {
 
     // This is a 'user-defined' UID; feel free to improve it.
