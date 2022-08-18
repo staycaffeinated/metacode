@@ -134,13 +134,9 @@ class ${endpoint.entityName}ControllerTests {
             given(${endpoint.entityVarName}Service.create${endpoint.entityName}( any(${endpoint.pojoName}.class))).willReturn(resourceAfterSave);
 
             // when/then
-            mockMvc.perform(post(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(resource)))
-                    .andExpect(status().isCreated())
+            createEntity(resource).andExpect(status().isCreated())
                     .andExpect(jsonPath("$.resourceId", notNullValue()))
-                    .andExpect(jsonPath("$.text", is(resourceAfterSave.getText())))
-            ;
+                    .andExpect(jsonPath("$.text", is(resourceAfterSave.getText())));
         }
 
         @Test
@@ -149,10 +145,7 @@ class ${endpoint.entityName}ControllerTests {
             given(${endpoint.entityVarName}Service.create${endpoint.entityName}( any(${endpoint.pojoName}.class))).willThrow(TransactionSystemException.class);
             ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().build();
 
-            mockMvc.perform(post(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(resource)))
-                    .andExpect(status().isUnprocessableEntity());
+            createEntity(resource).andExpect(status().isUnprocessableEntity());
         }
     }
 
@@ -167,13 +160,8 @@ class ${endpoint.entityName}ControllerTests {
             given(${endpoint.entityVarName}Service.update${endpoint.entityName}(any(${endpoint.pojoName}.class))).willReturn(Optional.of(${endpoint.entityVarName}));
 
             // when/then
-            mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, ${endpoint.entityVarName}.getResourceId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(${endpoint.entityVarName})))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.text", is(${endpoint.entityVarName}.getText())))
-                    ;
-
+            updateEntity(${endpoint.entityVarName}).andExpect(status().isOk())
+                    .andExpect(jsonPath("$.text", is(${endpoint.entityVarName}.getText())));
         }
 
         @Test
@@ -185,11 +173,8 @@ class ${endpoint.entityName}ControllerTests {
             // when/then
             ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(resourceId).text("updated text").build();
 
-            mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, resourceId)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString( resource )))
-                    .andExpect(status().isNotFound());
-
+            // Attempt to update an entity that does not exist
+            updateEntity(resource).andExpect(status().isNotFound());
         }
 
         /**
@@ -206,10 +191,9 @@ class ${endpoint.entityName}ControllerTests {
             // when the ID in the request body does not match the ID in the query string...
             ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().resourceId(mismatchingId).text("updated text").build();
 
-            // expect an UnprocessableEntity status code
-            mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, resourceId).contentType(MediaType.APPLICATION_JSON)
-                   .content(objectMapper.writeValueAsString(resource)))
-                   .andExpect(status().isUnprocessableEntity());
+            // Submit an update request, with the ID in the URL not matching the ID in the body.
+            // Expect back an UnprocessableEntity status code
+            updateEntity(resourceId, resource).andExpect(status().isUnprocessableEntity());
         }
     }
 
@@ -224,10 +208,8 @@ class ${endpoint.entityName}ControllerTests {
             doNothing().when(${endpoint.entityVarName}Service).delete${endpoint.entityName}ByResourceId(${endpoint.entityVarName}.getResourceId());
 
             // when/then
-            mockMvc.perform(delete(${endpoint.entityName}Routes.${endpoint.routeConstants.delete}, resourceId))
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.text", is(${endpoint.entityVarName}.getText())))
-                    ;
+            deleteEntity(resourceId).andExpect(status().isOk())
+                    .andExpect(jsonPath("$.text", is(${endpoint.entityVarName}.getText())));
         }
 
         @Test
@@ -235,14 +217,14 @@ class ${endpoint.entityName}ControllerTests {
             String resourceId = randomSeries.nextResourceId();
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(resourceId)).willReturn(Optional.empty());
 
-            mockMvc.perform(delete(${endpoint.entityName}Routes.${endpoint.routeConstants.delete},resourceId))
-                    .andExpect(status().isNotFound());
+            deleteEntity(resourceId).andExpect(status().isNotFound());
         }
     }
 
     @Nested
     class SearchByTextTests {
         @Test
+        @SuppressWarnings("unchecked")
         void shouldReturnListWhenMatchesAreFound() throws Exception {
             given (${endpoint.entityVarName}Service.findByText(any(Optional.class), any(Pageable.class))).willReturn(pageOfData);
 
@@ -269,7 +251,44 @@ class ${endpoint.entityName}ControllerTests {
     //
     // ---------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Submits a search request
+     */
     protected ResultActions searchByText(String text) throws Exception {
         return mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search}).param("text", text));
+    }
+
+    /**
+     * Submits a Delete request
+     */
+    protected ResultActions deleteEntity(String resourceId) throws Exception {
+        return mockMvc.perform(delete(${endpoint.entityName}Routes.${endpoint.routeConstants.delete},resourceId));
+    }
+
+    /**
+     * To support the use case of a well-formed update request
+     */
+    protected ResultActions updateEntity(${endpoint.pojoName} ${endpoint.entityVarName}) throws Exception {
+        return mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, ${endpoint.entityVarName}.getResourceId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(${endpoint.entityVarName})));
+    }
+
+    /**
+     * To support the use case of the ID in the query string not matching the ID in the payload
+     */
+    protected ResultActions updateEntity(String resourceId, ${endpoint.pojoName} ${endpoint.entityVarName}) throws Exception {
+        return mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, resourceId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(${endpoint.entityVarName})));
+    }
+
+    /**
+     * Submits a Post request
+     */
+    protected ResultActions createEntity(${endpoint.pojoName} ${endpoint.entityVarName}) throws Exception {
+        return mockMvc.perform(post(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(${endpoint.entityVarName})));
     }
 }
