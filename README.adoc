@@ -145,6 +145,8 @@ $ http localhost:8080/petstore/pets
 $ http localhost:8080/petstore/pets/[resourceId]
 $ http localhost:8080/petstore/_internal/health
 $ http localhost:8080/petstore/_internal/health/liveness
+# Quotes are needed to prevent shell evaluation at the '=' sign
+$ http "localhost:8080/petstore/search?text=Five"
 ----
 
 === Generate a Spring Boot project
