@@ -109,12 +109,21 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
     private RouteConstants routeConstants;
 
     @Setter(AccessLevel.PUBLIC)
-    private boolean isWithTestContainers;
+    private boolean withTestContainers;
 
     @Setter(AccessLevel.PUBLIC)
-    private boolean isWithPostgres;
+    private boolean withPostgres;
 
     @Setter(AccessLevel.PUBLIC)
-    private boolean isWithLiquibase;
+    private boolean withLiquibase;
+
+    //
+    // These get methods are added because Freemarker templates
+    // can get confused by Lombok naming conventions
+    //
+    public boolean getPostgresFlag() { return withPostgres; }
+    public boolean getTestContainersFlag() { return withTestContainers; }
+
+    public boolean getLiquibaseFlag() { return withLiquibase; }
 
 }

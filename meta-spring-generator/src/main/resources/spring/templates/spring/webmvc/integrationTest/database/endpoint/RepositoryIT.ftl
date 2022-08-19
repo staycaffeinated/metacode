@@ -2,7 +2,6 @@
 
 package ${endpoint.packageName}.database.${endpoint.lowerCaseEntityName};
 
-import ${endpoint.basePackage}.common.AbstractIntegrationTest;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
@@ -35,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-<#if (endpoint.isWithTestContainers()) && (endpoint.isWithPostgres())>
+<#if ((endpoint.postgresFlag) && (endpoint.testContainersFlag))>
 @TestPropertySource(properties = {
     "spring.datasource.url=jdbc:tc:postgresql:13.2-alpine:///public",
     "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",

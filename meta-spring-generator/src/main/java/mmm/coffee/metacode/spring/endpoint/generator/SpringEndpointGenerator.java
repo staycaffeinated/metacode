@@ -62,6 +62,9 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         spec.setBasePackage(config.getString(MetaProperties.BASE_PACKAGE));
         spec.setBasePath(config.getString(MetaProperties.BASE_PATH));
         spec.setFramework(config.getString(MetaProperties.FRAMEWORK));
+        spec.setWithLiquibase(config.getBoolean(MetaProperties.ADD_LIQUIBASE, false));
+        spec.setWithPostgres(config.getBoolean(MetaProperties.ADD_POSTGRESQL, false));
+        spec.setWithTestContainers(config.getBoolean(MetaProperties.ADD_TESTCONTAINERS, false));
 
         return this;
     }
@@ -82,7 +85,7 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
 
         // Build the TemplateModel consumed by Freemarker to resolve template variables
         var templateModel = descriptor2templateModel.convert(descriptor);
-
+        
         // Create a predicate to determine which template's to render
         Predicate<CatalogEntry> keepThese = descriptor2predicate.convert(descriptor);
 

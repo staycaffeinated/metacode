@@ -5,7 +5,6 @@ package mmm.coffee.metacode.spring.endpoint.converter;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
 import mmm.coffee.metacode.spring.converter.NameConverter;
@@ -69,9 +68,9 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
                 .tableName(nameConverter.toTableName(resourceName))
                 .isWebFlux(fromType.isWebFlux())
                 .isWebMvc(fromType.isWebMvc())
-                .isWithPostgres(fromType.isWithPostgres())
-                .isWithTestContainers(fromType.isWithTestContainers())
-                .isWithLiquibase(fromType.isWithLiquibase())
+                .withPostgres(fromType.isWithPostgres())
+                .withTestContainers(fromType.isWithTestContainers())
+                .withLiquibase(fromType.isWithLiquibase())
                 .routeConstants(constants)
                 .build();
     }

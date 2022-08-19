@@ -183,7 +183,6 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
             assertThat(model.isWithLiquibase()).isFalse();
             assertThat(model.isWithPostgres()).isFalse();
             assertThat(model.isWithTestContainers()).isFalse();
-
         }
 
         @Test
