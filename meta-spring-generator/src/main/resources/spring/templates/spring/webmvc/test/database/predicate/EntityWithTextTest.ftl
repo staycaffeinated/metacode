@@ -55,7 +55,7 @@ public class ${endpoint.entityName}WithTextTest {
         @Test
         void shouldSupportEmptyString() {
             ${endpoint.entityName}WithText spec = new ${endpoint.entityName}WithText("");
-            assertThat(spec.getText()).isEqualTo("");
+            assertThat(spec.getText()).isEmpty();
         }
     }
 
