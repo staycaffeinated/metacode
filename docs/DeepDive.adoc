@@ -6,15 +6,15 @@ The Sonarqube report for the Pet Store example looks like this:
 
 [#img-sonarqube-overview]
 .Sonarqube: Summary Report for the Pet Store
-image:images/sonarqube-petstore-main.png["The Dashboard Overview"]
+image:images/sonarqube-petstore-main-v4.png["The Dashboard Overview"]
 
 [#img-sonarqube-overall-code]
 .Sonarqube: Quality Overview for the Pet Store
-image:images/sonarqube-petstore-overall-code.png["The Overall Code View"]
+image:images/sonarqube-petstore-overall-code-v4.png["The Overall Code View"]
 
 [#img-sonarqube-code-measures]
 .Sonarqube: Code Measure Report for the Pet Store
-image:images/sonarqube-petstore-measures.png["The Code Measures View"]
+image:images/sonarqube-petstore-measures-v4 .png["The Code Measures View"]
 
 [NOTE]
 ====
@@ -36,111 +36,6 @@ This `tree` output shows the inventory of classes generated for the base project
 [literal]
 .
 ├── README.md
-├── _sample.adoc
-├── build
-│   ├── bootJarMainClassName
-│   ├── bootRunMainClassName
-│   ├── classes
-│   │   └── java
-│   │       ├── integration
-│   │       │   └── acme
-│   │       │       └── orders
-│   │       │           ├── ApplicationTests.class
-│   │       │           └── common
-│   │       │               └── AbstractIntegrationTest.class
-│   │       └── main
-│   │           └── acme
-│   │               └── orders
-│   │                   ├── Application.class
-│   │                   └── common
-│   │                       └── SpringProfiles.class
-│   ├── generated
-│   │   └── sources
-│   │       ├── annotationProcessor
-│   │       │   └── java
-│   │       │       ├── integration
-│   │       │       └── main
-│   │       └── headers
-│   │           └── java
-│   │               ├── integration
-│   │               └── main
-│   ├── jacoco
-│   │   └── integrationTest.exec
-│   ├── libs
-│   │   ├── order-service-0.0.1-plain.jar
-│   │   └── order-service-0.0.1.jar
-│   ├── lombok
-│   │   └── effective-config
-│   │       ├── lombok-integration.config
-│   │       ├── lombok-main.config
-│   │       └── lombok-test.config
-│   ├── reports
-│   │   └── tests
-│   │       └── integrationTest
-│   │           ├── classes
-│   │           │   └── acme.orders.ApplicationTests.html
-│   │           ├── css
-│   │           │   ├── base-style.css
-│   │           │   └── style.css
-│   │           ├── index.html
-│   │           ├── js
-│   │           │   └── report.js
-│   │           └── packages
-│   │               └── acme.orders.html
-│   ├── resources
-│   │   └── main
-│   │       └── application.properties
-│   ├── spotless
-│   │   ├── spotlessJava
-│   │   │   └── src
-│   │   │       ├── integration
-│   │   │       │   └── java
-│   │   │       │       └── acme
-│   │   │       │           └── orders
-│   │   │       │               ├── AbstractIntegrationTest.java
-│   │   │       │               └── ApplicationTests.java
-│   │   │       └── main
-│   │   │           └── java
-│   │   │               └── acme
-│   │   │                   └── orders
-│   │   │                       ├── Application.java
-│   │   │                       └── common
-│   │   │                           └── SpringProfiles.java
-│   │   └── spotlessMisc
-│   │       └── README.md
-│   ├── test-results
-│   │   └── integrationTest
-│   │       ├── TEST-acme.orders.ApplicationTests.xml
-│   │       └── binary
-│   │           ├── output.bin
-│   │           ├── output.bin.idx
-│   │           └── results.bin
-│   └── tmp
-│       ├── bootJar
-│       │   └── MANIFEST.MF
-│       ├── compileIntegrationJava
-│       │   └── previous-compilation-data.bin
-│       ├── compileJava
-│       │   └── previous-compilation-data.bin
-│       ├── expandedArchives
-│       │   └── org.jacoco.agent-0.8.7.jar_3a83c50b4a016f281c4e9f3500d16b55
-│       │       ├── META-INF
-│       │       │   ├── MANIFEST.MF
-│       │       │   └── maven
-│       │       │       └── org.jacoco
-│       │       │           └── org.jacoco.agent
-│       │       │               ├── pom.properties
-│       │       │               └── pom.xml
-│       │       ├── about.html
-│       │       ├── jacocoagent.jar
-│       │       └── org
-│       │           └── jacoco
-│       │               └── agent
-│       │                   └── AgentJar.class
-│       ├── integrationTest
-│       ├── jar
-│       │   └── MANIFEST.MF
-│       └── spotless-register-dependencies
 ├── build.gradle
 ├── gradle
 │   ├── dependencies.gradle
@@ -162,21 +57,110 @@ This `tree` output shows the inventory of classes generated for the base project
 │   ├── integration
 │   │   └── java
 │   │       └── acme
-│   │           └── orders
-│   │               ├── AbstractIntegrationTest.java
-│   │               └── ApplicationTests.java
-│   └── main
-│       ├── docker-compose
-│       │   └── docker-compose.yaml
+│   │           └── petstore
+│   │               ├── ApplicationTests.java
+│   │               ├── common
+│   │               │   └── AbstractIntegrationTest.java
+│   │               ├── database
+│   │               │   └── pet
+│   │               │       └── PetRepositoryIT.java
+│   │               └── endpoint
+│   │                   ├── pet
+│   │                   │   ├── PetControllerIT.java
+│   │                   │   ├── PetExceptionHandlingIT.java
+│   │                   │   └── PetServiceIT.java
+│   │                   └── root
+│   │                       ├── RootControllerIT.java
+│   │                       └── RootExceptionHandlingIT.java
+│   ├── main
+│   │   ├── docker-compose
+│   │   │   └── docker-compose.yaml
+│   │   ├── java
+│   │   │   └── acme
+│   │   │       └── petstore
+│   │   │           ├── Application.java
+│   │   │           ├── advice
+│   │   │           │   └── GlobalExceptionHandler.java
+│   │   │           ├── common
+│   │   │           │   └── SpringProfiles.java
+│   │   │           ├── config
+│   │   │           │   ├── DateTimeFormatConfiguration.java
+│   │   │           │   ├── LocalDateConverter.java
+│   │   │           │   ├── ProblemConfiguration.java
+│   │   │           │   └── WebMvcConfiguration.java
+│   │   │           ├── database
+│   │   │           │   └── pet
+│   │   │           │       ├── Pet.java
+│   │   │           │       ├── PetEntity.java
+│   │   │           │       ├── PetRepository.java
+│   │   │           │       ├── PetTablePopulator.java
+│   │   │           │       ├── converter
+│   │   │           │       │   ├── PetEntityToPojoConverter.java
+│   │   │           │       │   └── PetPojoToEntityConverter.java
+│   │   │           │       └── predicate
+│   │   │           │           └── PetWithText.java
+│   │   │           ├── endpoint
+│   │   │           │   ├── pet
+│   │   │           │   │   ├── PetController.java
+│   │   │           │   │   ├── PetRoutes.java
+│   │   │           │   │   └── PetService.java
+│   │   │           │   └── root
+│   │   │           │       ├── RootController.java
+│   │   │           │       └── RootService.java
+│   │   │           ├── exception
+│   │   │           │   └── UnprocessableEntityException.java
+│   │   │           ├── math
+│   │   │           │   └── SecureRandomSeries.java
+│   │   │           ├── trait
+│   │   │           │   └── ResourceIdTrait.java
+│   │   │           └── validation
+│   │   │               ├── Alphabetic.java
+│   │   │               ├── AlphabeticValidator.java
+│   │   │               ├── OnCreate.java
+│   │   │               ├── OnUpdate.java
+│   │   │               ├── ResourceId.java
+│   │   │               ├── ResourceIdValidator.java
+│   │   │               ├── SearchText.java
+│   │   │               └── SearchTextValidator.java
+│   │   └── resources
+│   │       ├── ValidationMessages.properties
+│   │       └── application.properties
+│   └── test
 │       ├── java
 │       │   └── acme
-│       │       └── orders
-│       │           ├── Application.java
-│       │           └── common
-│       │               └── SpringProfiles.java
+│       │       └── petstore
+│       │           ├── advice
+│       │           │   └── GlobalExceptionHandlerTests.java
+│       │           ├── config
+│       │           │   └── LocalDateConverterTests.java
+│       │           ├── database
+│       │           │   └── pet
+│       │           │       ├── converter
+│       │           │       │   ├── PetEntityToPojoConverterTests.java
+│       │           │       │   └── PetPojoToEntityConverterTests.java
+│       │           │       └── predicate
+│       │           │           └── PetWithTextTest.java
+│       │           ├── endpoint
+│       │           │   ├── pet
+│       │           │   │   ├── FakeConversionService.java
+│       │           │   │   ├── PetControllerTests.java
+│       │           │   │   └── PetServiceTests.java
+│       │           │   └── root
+│       │           │       ├── RootControllerTest.java
+│       │           │       └── RootServiceTest.java
+│       │           ├── math
+│       │           │   └── SecureRandomSeriesTests.java
+│       │           └── validation
+│       │               ├── AlphabeticValidatorTests.java
+│       │               ├── ResourceIdValidatorTests.java
+│       │               └── SearchTextValidatorTests.java
 │       └── resources
-│           └── application.properties
-59 directories, 98 files
+│           └── application-test.yaml
+└── tree-mvc-petstore-v4.txt
+
+49 directories, 73 files
+
+
 
 
 === What Are All These Files?
