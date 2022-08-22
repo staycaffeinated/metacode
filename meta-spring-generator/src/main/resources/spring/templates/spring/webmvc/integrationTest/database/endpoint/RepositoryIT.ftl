@@ -1,6 +1,6 @@
 <#include "/common/Copyright.ftl">
 
-package ${endpoint.packageName}.database.${endpoint.lowerCaseEntityName};
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
