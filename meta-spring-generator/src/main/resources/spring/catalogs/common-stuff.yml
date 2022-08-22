@@ -20,7 +20,7 @@
 catalog:
   - entry:
       template: "/common/README.ftl"
-      destination: "README.md"
+      destination: "README.adoc"
       context: "project"
   - entry:
       template:  "/docker/DockerCompose.ftl"
