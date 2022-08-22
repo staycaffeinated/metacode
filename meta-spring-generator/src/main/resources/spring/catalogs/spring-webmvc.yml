@@ -128,6 +128,10 @@ catalog:
       destination: "src/integration/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
       context: "project"
   - entry:
+      template: "/spring/webmvc/integrationTest/common/AbstractDataJpaTest.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/common/AbstractDataJpaTest.java"
+      context: "project"
+  - entry:
       template: "/spring/webmvc/integrationTest/ApplicationIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
