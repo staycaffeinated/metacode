@@ -19,9 +19,9 @@
 #
 catalog:
   - entry:
-        template: "/spring/boot/main/Application.ftl"
-        destination: "src/main/java/{{basePackagePath}}/Application.java"
-        context: "project"
+      template: "/spring/boot/main/Application.ftl"
+      destination: "src/main/java/{{basePackagePath}}/Application.java"
+      context: "project"
   - entry:
       template: "/spring/common/main/common/SpringProfiles.ftl"
       destination: "src/main/java/{{basePackagePath}}/common/SpringProfiles.java"
@@ -37,4 +37,8 @@ catalog:
   - entry:
       template: "/spring/boot/main/resources/ApplicationDotProperties.ftl"
       destination: "src/main/resources/application.properties"
+      context: "project"
+  - entry:
+      template: "/spring/boot/test/PlaceholderTest.ftl"
+      destination: "src/test/java/{{basePackagePath}}/PlaceholderTest.java"
       context: "project"
