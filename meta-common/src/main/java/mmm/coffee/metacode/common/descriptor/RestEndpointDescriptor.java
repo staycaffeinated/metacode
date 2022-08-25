@@ -16,7 +16,6 @@
 package mmm.coffee.metacode.common.descriptor;
 
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 
 /**
