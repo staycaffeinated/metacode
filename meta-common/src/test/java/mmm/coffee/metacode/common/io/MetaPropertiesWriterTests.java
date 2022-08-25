@@ -110,7 +110,7 @@ class MetaPropertiesWriterTests {
                 .build();
 
         // when: saving the properties
-        writer.saveProperties(buildSamplePropertiesWithPostgresEnabled());
+        writer.saveProperties(buildSamplePropertiesWithLiquibaseEnabled());
 
         File f = new File(fakeDestination);
         assertThat(f.exists()).isTrue();
