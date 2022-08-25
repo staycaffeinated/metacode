@@ -39,12 +39,25 @@ for your environment.  Then run this command:
 ./gradlew jibDockerBuild
 ```
 
-==== Run the application in Docker (locally)
+==== Run the application in Docker
 
 ```[shell]
-./gradlew bootBuildImage
+# build the docker image, if you haven't already
+./gradlew jibDockerBuild
+
+# navigate to the docker-compose subdirectory
 cd docker-compose
+
+# run docker-compose to launch the container
 docker-compose up -d
+```
+
+==== Check for the latest dependency updates
+Ben Manes' `versions` plugin is included in the `build.gradle` file.
+This plugin checks for new versions of any dependencies. To check, run
+
+```[shell]
+./gradlew dependencyUpdates
 ```
 
 ==== Setting Up SonarQube
@@ -52,13 +65,17 @@ docker-compose up -d
 Before code metrics can be exported to Sonarqube, the `gradle.properties` file
 in this project must be updated with configuration values that match your environment.class
 
-A local Sonarqube Docker container can be used. Generally, this command will suffice
+A local Sonarqube Docker container can be used. Generally, this command will suffice:
 
 ```[shell]
 docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
 ```
 
-Once Sonarqube is running, login to https://localhost:9000 using the default credentials admin/admin.
+Besides this default Sonarqube image, another good choice is the Bitnami image:
+https://hub.docker.com/r/bitnami/sonarqube[Bitnami Sonarqube on DockerHub]
+
+Once Sonarqube is running, login to https://localhost:9000 using the provider's credentials
+(usually admin/admin for Sonarqube's image; admin/bitnami for Bitnami's image).
 
 You will be prompted to change the default password.  Whatever new password you select, update the
 `gradle.properties` file with that password.  When that's done, the code metrics from this project can
@@ -70,11 +87,4 @@ and https://hub.docker.com/_/sonarqube[Running Sonarqube in Docker]
 
 for additional information.
 
-==== Check for the latest dependency updates
-Ben Manes' `versions` plugin is included in the `build.gradle` file.
-This plugin checks for new versions of any dependencies. To check, run
-
-```[shell]
-./gradlew dependencyUpdates
-```
 
