@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
 import javax.persistence.*;
-
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -38,4 +38,17 @@ public class ${endpoint.ejbName} {
     @Column(name="text", nullable = false)
     @NotEmpty(message = "Text cannot be empty")
     private String text;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ${endpoint.ejbName} that = (${endpoint.ejbName}) o;
+        return Objects.equals(resourceId, that.resourceId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(resourceId);
+    }
 }

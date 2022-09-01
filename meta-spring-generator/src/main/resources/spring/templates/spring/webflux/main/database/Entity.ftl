@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.Objects;
 import javax.validation.constraints.NotEmpty;
 
 @Data
@@ -59,4 +60,17 @@ public class ${endpoint.ejbName} {
     @NotEmpty(message = "Text cannot be empty")
     @Column(value = "text")
     private String text;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ${endpoint.ejbName} that = (${endpoint.ejbName}) o;
+        return Objects.equals(resourceId, that.resourceId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(resourceId);
+    }
 }

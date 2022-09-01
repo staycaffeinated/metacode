@@ -214,6 +214,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}/{{entityName}}TablePopulator.java"
       context: "endpoint"
   - entry:
+      template: "/spring/webmvc/test/database/EntityTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTests.java"
+      context: "endpoint"
+  - entry:
       template: "/spring/webmvc/test/database/converter/EntityToPojoConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}EntityToPojoConverterTests.java"
       context: "endpoint"
