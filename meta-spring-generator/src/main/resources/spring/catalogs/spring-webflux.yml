@@ -152,7 +152,7 @@ catalog:
       context: "endpoint"
   - entry:
       template: "/spring/webflux/main/database/Entity.ftl"
-      destination: "src/main/java/{{basePackagePath}}/databae/{{lowerCaseEntityName}}/{{ejbName}}.java"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{ejbName}}.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/main/database/EntityResource.ftl"
@@ -227,6 +227,10 @@ catalog:
   - entry:
       template: "/spring/webflux/test/endpoint/EntityEventTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EventTests.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/test/database/EntityTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTests.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/test/database/converter/EntityToPojoConverterTests.ftl"
