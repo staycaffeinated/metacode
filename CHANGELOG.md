@@ -1,6 +1,12 @@
 
-
 ## [Unreleased]
+
+* Maintenance
+  * Bumped versions of lombok gradle plugin, postgres, jib plugin
+
+
+
+## [4.0.0] - 2022-08-24
 
 * Features
   * Generate an integration test for the Service class under each endpoint
@@ -11,6 +17,8 @@
   * Bumped versions of SpringBoot Gradle plugin, Reactor-test, and Lombok Gradle plugin.
     These are consumed by the generated code.
 
+* Fixes
+  * Generate a unit test folder for spring-boot projects
 
 ## [3.0.0] - 2022-07-15
 
