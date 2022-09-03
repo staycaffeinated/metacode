@@ -15,6 +15,7 @@ public enum Framework {
     SPRING_WEBMVC("WEBMVC"),
     SPRING_WEBFLUX("WEBFLUX"),
     SPRING_BOOT("SPRING-BOOT"),
+    SPRING_BATCH("SPRING-BATCH"),
     UNDEFINED("UNDEFINED");
     // Future frameworks include: Micronaut, Quarkus, VueJS, and React
 

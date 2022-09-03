@@ -24,21 +24,21 @@ import java.util.List;
 /**
  * Reads the catalogs of Spring WebFlux templates
  */
-public class SpringBootTemplateCatalog extends SpringTemplateCatalog {
+public class SpringBatchTemplateCatalog extends SpringTemplateCatalog {
 
-    static final String SPRING_BOOT_CATALOG = "/spring/catalogs/spring-boot.yml";
+    static final String SPRING_BATCH_CATALOG = "/spring/catalogs/spring-batch.yml";
 
     /**
      * Constructor
      *
      * @param reader the CatalogReader
      */
-    public SpringBootTemplateCatalog(@NonNull ICatalogReader reader) {
+    public SpringBatchTemplateCatalog(@NonNull ICatalogReader reader) {
         super(reader);
     }
 
     @Override
     public List<CatalogEntry> collect() {
-        return super.collectGeneralCatalogsAndThisOne(SPRING_BOOT_CATALOG);
+        return super.collectGeneralCatalogsAndThisOne(SPRING_BATCH_CATALOG);
     }
 }

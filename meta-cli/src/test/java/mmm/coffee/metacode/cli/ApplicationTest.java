@@ -129,6 +129,10 @@ class ApplicationTest {
         @SpringBootProvider
         ICodeGenerator<RestProjectDescriptor> providesSpringBootGenerator() { return new FakeSpringCodeGenerator(); }
 
+        @Provides
+        @SpringBatchProvider
+        ICodeGenerator<RestProjectDescriptor> providesSpringBatchGenerator() { return new FakeSpringCodeGenerator(); }
+
         /**
          * The code generator needs a class that will handle writing content to a file.
          * Specifically, once a template is parsed and rendered as a String, that String

@@ -16,6 +16,7 @@
 package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
+import mmm.coffee.metacode.annotations.guice.SpringBatchProvider;
 import mmm.coffee.metacode.annotations.guice.SpringBootProvider;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
@@ -26,19 +27,19 @@ import picocli.CommandLine;
  * CLI to create a Spring Webflux project
  */
 @CommandLine.Command(
-        name="spring-boot",
+        name="spring-batch",
         mixinStandardHelpOptions = true,
         headerHeading = "%nSynopsis:%n",
-        header = "  Generate a Spring Boot project",
+        header = "  Generate a Spring Batch project",
         descriptionHeading = "%nDescription:%n",
-        description="  Creates a simple Spring-Boot project",
+        description="  Creates a simple Spring Batch project",
         synopsisHeading = "%nUsage:%n",
         optionListHeading = "%nOptions:%n"
 )
 @SuppressWarnings({ "java:S1854", "java:S1841", "java:S125" } )
 // S1854, S1841: allow  unused vars for now
 // S125: allow comments that look like code
-public class SubcommandCreateBootProject extends AbstractCreateSpringProject {
+public class SubcommandCreateBatchProject extends AbstractCreateSpringProject {
 
     /**
      * Handle to the code generator
@@ -50,9 +51,12 @@ public class SubcommandCreateBootProject extends AbstractCreateSpringProject {
      * @param codeGenerator the code generator used by this command
      */
     @Inject
-    public SubcommandCreateBootProject(@SpringBootProvider ICodeGenerator<RestProjectDescriptor> codeGenerator) {
+    public SubcommandCreateBatchProject(@SpringBatchProvider ICodeGenerator<RestProjectDescriptor> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
+
+    // TODO: this needs go to away. Guice falls back to this if it can't find a SpringBatchProvider.
+    // public SubcommandCreateBatchProject() { }
 
     /**
      * Lifecycle for PicoCLI commands

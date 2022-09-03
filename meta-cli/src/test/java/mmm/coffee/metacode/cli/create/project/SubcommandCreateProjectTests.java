@@ -16,6 +16,7 @@
 package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.*;
+import mmm.coffee.metacode.annotations.guice.SpringBatchProvider;
 import mmm.coffee.metacode.annotations.guice.SpringBootProvider;
 import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
@@ -107,6 +108,10 @@ class SubcommandCreateProjectTests {
         @Provides
         @SpringBootProvider
         ICodeGenerator<RestProjectDescriptor> providesSpringBootGenerator() { return new FakeCodeGenerator(); }
+
+        @Provides
+        @SpringBatchProvider
+        ICodeGenerator<RestProjectDescriptor> providesSpringBatchGenerator() { return new FakeCodeGenerator(); }
     }
 
     /**

@@ -41,5 +41,6 @@ class SpringGeneratorModuleTest {
         assertThat(moduleUnderTest.providesRestEndpointGenerator()).isNotNull();
         assertThat(moduleUnderTest.providesSpringBootGenerator()).isNotNull();
         assertThat(moduleUnderTest.providesWriteOutput()).isNotNull();
+        assertThat(moduleUnderTest.providesSpringBatchGenerator()).isNotNull();
     }
 }

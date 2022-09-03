@@ -16,10 +16,7 @@
 package mmm.coffee.metacode.cli.create;
 
 import com.google.inject.*;
-import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
-import mmm.coffee.metacode.annotations.guice.SpringBootProvider;
-import mmm.coffee.metacode.annotations.guice.SpringWebFlux;
-import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
+import mmm.coffee.metacode.annotations.guice.*;
 import mmm.coffee.metacode.cli.Application;
 import mmm.coffee.metacode.cli.StringHelper;
 import mmm.coffee.metacode.common.ExitCodes;
@@ -90,6 +87,10 @@ class CreateCommandTest {
         @Provides
         @SpringBootProvider
         ICodeGenerator<RestProjectDescriptor> providesSpringBootGenerator() { return new FakeCodeGenerator(); }
+
+        @Provides
+        @SpringBatchProvider
+        ICodeGenerator<RestProjectDescriptor> providesSpringBatchGenerator() { return new FakeCodeGenerator(); }
 
         @Provides
         @RestEndpointGeneratorProvider

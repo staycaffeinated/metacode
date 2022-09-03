@@ -19,7 +19,7 @@
 #
 catalog:
   - entry:
-      template: "/spring/boot/main/Application.ftl"
+      template: "/spring/batch/main/Application.ftl"
       destination: "src/main/java/{{basePackagePath}}/Application.java"
       context: "project"
   - entry:
@@ -27,18 +27,18 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/common/SpringProfiles.java"
       context: "project"
   - entry:
-      template: "/spring/boot/integrationTest/ApplicationIT.ftl"
+      template: "/spring/batch/integrationTest/ApplicationIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
   - entry:
-      template: "/spring/boot/integrationTest/common/AbstractIntegrationTest.ftl"
+      template: "/spring/batch/integrationTest/common/AbstractIntegrationTest.ftl"
       destination: "src/integration/java/{{basePackagePath}}/AbstractIntegrationTest.java"
       context: "project"
   - entry:
-      template: "/spring/boot/main/resources/ApplicationDotProperties.ftl"
+      template: "/spring/batch/main/resources/ApplicationDotProperties.ftl"
       destination: "src/main/resources/application.properties"
       context: "project"
   - entry:
-      template: "/spring/boot/test/PlaceholderTest.ftl"
+      template: "/spring/batch/test/PlaceholderTest.ftl"
       destination: "src/test/java/{{basePackagePath}}/PlaceholderTest.java"
       context: "project"

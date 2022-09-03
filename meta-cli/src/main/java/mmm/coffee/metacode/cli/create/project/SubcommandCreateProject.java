@@ -32,7 +32,12 @@ import picocli.CommandLine;
         description="Generates the basic project artifacts for an application",
         synopsisHeading = "%nUsage:%n",
         optionListHeading = "%nOptions:%n",
-        subcommands = { SubcommandCreateWebfluxProject.class, SubcommandCreateWebMvcProject.class, SubcommandCreateBootProject.class },
+        subcommands = {
+                SubcommandCreateWebfluxProject.class,
+                SubcommandCreateWebMvcProject.class,
+                SubcommandCreateBootProject.class,
+                SubcommandCreateBatchProject.class
+        },
         commandListHeading = "%nTemplates:%n",
         synopsisSubcommandLabel = "[TEMPLATE]"
 )

@@ -126,6 +126,24 @@ public final class SpringGeneratorModule extends AbstractModule {
     }
 
     @Provides
+    @SpringBatchProvider
+    ICodeGenerator<RestProjectDescriptor> providesSpringBatchGenerator() {
+        // TODO: returns SpringBatchTemplateCatalog
+        return SpringCodeGenerator.builder()
+                .collector(new SpringBootTemplateCatalog(new CatalogFileReader()))
+                .descriptor2templateModel(new DescriptorToTemplateModelConverter())
+                .descriptor2predicate(new DescriptorToPredicateConverter())
+                .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
+                .outputHandler(new ContentToFileWriter())
+                .dependencyCatalog(new DependencyCatalog(DEPENDENCY_FILE))
+                .mustacheDecoder(
+                        MustacheDecoder.builder()
+                                .converter(new RestTemplateModelToMapConverter()).build())
+                .metaPropertiesHandler(providesMetaPropertiesHandler())
+                .build();
+    }
+
+    @Provides
     @FreemarkerConfigurationProvider
     Configuration providesFreemarkerConfiguration() {
         // The resource path to the Freemarker templates will be different for each
