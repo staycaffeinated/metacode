@@ -17,10 +17,8 @@ package mmm.coffee.metacode.cli;
 
 import mmm.coffee.metacode.common.exception.CreateEndpointUnsupportedException;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import picocli.CommandLine;
 

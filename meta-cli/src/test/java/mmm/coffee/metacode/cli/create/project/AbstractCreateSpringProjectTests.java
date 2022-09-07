@@ -3,10 +3,10 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
+import mmm.coffee.metacode.common.descriptor.Framework;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import mmm.coffee.metacode.common.descriptor.Framework;
 
 import static com.google.common.truth.Truth.assertThat;
 
