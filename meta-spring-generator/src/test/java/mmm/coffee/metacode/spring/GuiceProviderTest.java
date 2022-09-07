@@ -15,12 +15,17 @@
  */
 package mmm.coffee.metacode.spring;
 
+import com.google.inject.Binding;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Key;
 import mmm.coffee.metacode.annotations.guice.SpringBatchProvider;
 import mmm.coffee.metacode.annotations.guice.SpringBootProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -29,7 +34,7 @@ import static com.google.common.truth.Truth.assertThat;
  * https://stackoverflow.com/questions/2716993/hidden-features-of-google-guice/2718802#2718802
  * https://stackoverflow.com/questions/2448013/how-do-i-test-guice-injections
  */
-public class GuiceProviderTest {
+class GuiceProviderTest {
 
     Injector injector;
 
@@ -38,14 +43,40 @@ public class GuiceProviderTest {
         injector = Guice.createInjector(new SpringGeneratorModule());
     }
 
-    @Disabled
+    /**
+     * The point of this test is to verify everything Guice needs to bind together
+     * a SpringBatchProvider is defined and configured. With deep dependency graphs,
+     * it can be difficult to track down unbound items. This test is used as a starting
+     * point. If the SpringBatchProvider cannot be bound, then some IoC dependency of
+     * the SpringBatchProvider couldn't be discovered or materialized.
+     */
+    @Test
     void verifySpringBatchProviderIsBound() {
-        var provider = injector.getProvider(SpringBatchProvider.class);
-        assertThat(provider).isNotNull();
+        verifyBindingOf(SpringBatchProvider.class);
     }
-    @Disabled
+    /**
+     * The point of this test is to verify everything Guice needs to bind together
+     * a SpringBootProvider is well-defined and configured.
+     */
+
+    @Test
     void verifySpringBootProviderIsBound() {
-        var provider = injector.getProvider(SpringBootProvider.class);
-        assertThat(provider).isNotNull();
+        verifyBindingOf(SpringBootProvider.class);
+
+    }
+
+    /**
+     * Checks the Bindings that are available and confirms `klass` is one of them.
+     */
+    private void verifyBindingOf (Class<?> klass) {
+        Map<Key<?>, Binding<?>> map = injector.getBindings();
+        map.keySet().forEach(key -> {
+            if (key.getAnnotationType() != null) {
+                if (key.getAnnotationType().equals(klass)) {
+                    Binding<?> binding = injector.getExistingBinding(key);
+                    assertThat(binding).isNotNull();
+                }
+            }
+        });
     }
 }
