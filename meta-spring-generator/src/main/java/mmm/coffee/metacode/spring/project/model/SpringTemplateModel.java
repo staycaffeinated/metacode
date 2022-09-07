@@ -24,6 +24,12 @@ public abstract class SpringTemplateModel implements MetaTemplateModel {
     @Setter(AccessLevel.PUBLIC)
     private boolean isWebMvc;
 
+    @Setter(AccessLevel.PUBLIC)
+    private boolean isSpringBatch;
+
+    @Setter(AccessLevel.PUBLIC)
+    private boolean isSpringBoot;
+
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.NONE)       // we provide a custom getter
     private String framework;       // This is a String because the templates expect a string
@@ -43,12 +49,17 @@ public abstract class SpringTemplateModel implements MetaTemplateModel {
     public final boolean isWebMvc() {
         return isWebMvc;
     }
+
+    public final boolean isSpringBoot() { return isSpringBoot; }
+
+    public final boolean isSpringBatch() { return isSpringBatch; }
     /**
      * Returns the framework (WebMvc or WebFlux).
      * WebFlux is the default framework
      * @return the framework, with WebFlux as the default
      */
     public final String getFramework() {
+        // TODO: Does anything call this? It only has WebFlux and WebMvc. 
         if (isWebMvc) return Framework.WEBMVC.value();
         return Framework.WEBFLUX.value();
     }

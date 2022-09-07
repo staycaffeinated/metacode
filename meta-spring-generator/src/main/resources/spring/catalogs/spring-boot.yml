@@ -31,7 +31,7 @@ catalog:
       destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
   - entry:
-      template: "/spring/boot/integrationTest/common/AbstractIntegrationTest.ftl"
+      template: "/spring/boot/integrationTest/AbstractIntegrationTest.ftl"
       destination: "src/integration/java/{{basePackagePath}}/AbstractIntegrationTest.java"
       context: "project"
   - entry:

@@ -23,6 +23,8 @@ public class DescriptorToTemplateModelConverter implements ConvertTrait<RestProj
                 .basePath(descriptor.getBasePath())
                 .isWebFlux(descriptor.getFramework().equals(Framework.SPRING_WEBFLUX.frameworkName()))
                 .isWebMvc(descriptor.getFramework().equals(Framework.SPRING_WEBMVC.frameworkName()))
+                .isSpringBatch(descriptor.getFramework().equals(Framework.SPRING_BATCH.frameworkName()))
+                .isSpringBoot(descriptor.getFramework().equals(Framework.SPRING_BOOT.frameworkName()))
                 .withPostgres(descriptor.getIntegrations().contains(SpringIntegrations.POSTGRES.name()))
                 .withTestContainers(descriptor.getIntegrations().contains(SpringIntegrations.TESTCONTAINERS.name()))
                 .withLiquibase(descriptor.getIntegrations().contains(SpringIntegrations.LIQUIBASE.name()))

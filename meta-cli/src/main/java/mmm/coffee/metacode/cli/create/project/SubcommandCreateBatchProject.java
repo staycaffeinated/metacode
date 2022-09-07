@@ -54,17 +54,14 @@ public class SubcommandCreateBatchProject extends AbstractCreateSpringProject {
     public SubcommandCreateBatchProject(@SpringBatchProvider ICodeGenerator<RestProjectDescriptor> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
-
-    // TODO: this needs go to away. Guice falls back to this if it can't find a SpringBatchProvider.
-    // public SubcommandCreateBatchProject() { }
-
+    
     /**
      * Lifecycle for PicoCLI commands
      * @return the exit code of the code generator
      */
     @Override public Integer call() {
         super.validateInputs();
-        var descriptor = buildProjectDescriptor(Framework.SPRING_BOOT);
+        var descriptor = buildProjectDescriptor(Framework.SPRING_BATCH);
         return codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);
     }
 }

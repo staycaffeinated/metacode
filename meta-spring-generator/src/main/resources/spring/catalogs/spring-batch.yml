@@ -27,12 +27,12 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/common/SpringProfiles.java"
       context: "project"
   - entry:
-      template: "/spring/batch/integrationTest/ApplicationIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
+      template: "/spring/batch/integrationTest/AbstractIntegrationTest.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/AbstractIntegrationTest.java"
       context: "project"
   - entry:
-      template: "/spring/batch/integrationTest/common/AbstractIntegrationTest.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/AbstractIntegrationTest.java"
+      template: "/spring/batch/integrationTest/ApplicationIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/ApplicationIntegrationTest.java"
       context: "project"
   - entry:
       template: "/spring/batch/main/resources/ApplicationDotProperties.ftl"

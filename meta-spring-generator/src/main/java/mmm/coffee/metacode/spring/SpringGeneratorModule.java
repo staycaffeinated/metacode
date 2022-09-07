@@ -22,6 +22,7 @@ import mmm.coffee.metacode.annotations.guice.*;
 import mmm.coffee.metacode.annotations.jacoco.Generated;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
+import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.freemarker.ConfigurationFactory;
@@ -34,10 +35,7 @@ import mmm.coffee.metacode.common.io.MetaPropertiesWriter;
 import mmm.coffee.metacode.common.stereotype.DependencyCollector;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
 import mmm.coffee.metacode.common.writer.ContentToFileWriter;
-import mmm.coffee.metacode.spring.catalog.SpringBootTemplateCatalog;
-import mmm.coffee.metacode.spring.catalog.SpringEndpointCatalog;
-import mmm.coffee.metacode.spring.catalog.SpringWebFluxTemplateCatalog;
-import mmm.coffee.metacode.spring.catalog.SpringWebMvcTemplateCatalog;
+import mmm.coffee.metacode.spring.catalog.*;
 import mmm.coffee.metacode.spring.converter.NameConverter;
 import mmm.coffee.metacode.spring.converter.RouteConstantsConverter;
 import mmm.coffee.metacode.spring.endpoint.converter.RestEndpointDescriptorToPredicateConverter;
@@ -128,9 +126,8 @@ public final class SpringGeneratorModule extends AbstractModule {
     @Provides
     @SpringBatchProvider
     ICodeGenerator<RestProjectDescriptor> providesSpringBatchGenerator() {
-        // TODO: returns SpringBatchTemplateCatalog
         return SpringCodeGenerator.builder()
-                .collector(new SpringBootTemplateCatalog(new CatalogFileReader()))
+                .collector(new SpringBatchTemplateCatalog(new CatalogFileReader()))
                 .descriptor2templateModel(new DescriptorToTemplateModelConverter())
                 .descriptor2predicate(new DescriptorToPredicateConverter())
                 .templateRenderer(new FreemarkerTemplateResolver(ConfigurationFactory.defaultConfiguration(TEMPLATE_DIRECTORY)))
