@@ -27,6 +27,14 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/common/SpringProfiles.java"
       context: "project"
   - entry:
+      template: "/spring/batch/main/config/BatchConfiguration.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/BatchConfiguration.java"
+      context: "project"
+  - entry:
+      template: "/spring/batch/main/config/JobCompletionNotificationListener.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/JobCompletionNotificationListener.java"
+      context: "project"
+  - entry:
       template: "/spring/batch/integrationTest/AbstractIntegrationTest.ftl"
       destination: "src/integration/java/{{basePackagePath}}/AbstractIntegrationTest.java"
       context: "project"
