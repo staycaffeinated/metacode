@@ -90,7 +90,7 @@ class RestProjectTemplateModelTests {
                 .isWebMvc(true)
                 .build();
 
-        assertThat(model.getFramework()).isEqualTo(MetaTemplateModel.Framework.WEBMVC.value());
+        assertThat(model.isWebMvc()).isTrue();
     }
 
     @Test
@@ -102,7 +102,7 @@ class RestProjectTemplateModelTests {
                 .isWebFlux(true)
                 .build();
 
-        assertThat(model.getFramework()).isEqualTo(MetaTemplateModel.Framework.WEBFLUX.value());
+        assertThat(model.isWebFlux()).isTrue();
     }
 
     /**

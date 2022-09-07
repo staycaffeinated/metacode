@@ -31,9 +31,10 @@ import static com.google.common.truth.Truth.assertThat;
  * Unit tests
  */
 @SuppressWarnings("java:S5976") // S5976: don't refactor tests simply to satisfy sonarqube
-class SubcommandCreateSpringBootProjectTests {
+class SubcommandCreateSpringBatchProjectTests {
 
     protected CommandLine commandLine;
+    SubcommandCreateBatchProject commandUnderTest;
     
     /**
      * Set up
@@ -46,10 +47,10 @@ class SubcommandCreateSpringBootProjectTests {
          * "create project spring-webmvc" has been entered. That's why the
          * command line args in the tests start with the options of the spring-webmvc subcommand.
          */
-        SubcommandCreateBootProject createProjectCommand = new SubcommandCreateBootProject(new FakeCodeGenerator());
-        commandLine = new CommandLine(createProjectCommand);
+        commandUnderTest = new SubcommandCreateBatchProject(new FakeCodeGenerator());
+        commandLine = new CommandLine(commandUnderTest);
     }
-
+    
     /**
      * When all options on the command line are valid, execution should succeed
      */
