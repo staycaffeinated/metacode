@@ -53,14 +53,6 @@ public abstract class SpringTemplateModel implements MetaTemplateModel {
     public final boolean isSpringBoot() { return isSpringBoot; }
 
     public final boolean isSpringBatch() { return isSpringBatch; }
-    /**
-     * Returns the framework (WebMvc or WebFlux).
-     * WebFlux is the default framework
-     * @return the framework, with WebFlux as the default
-     */
-    public final String getFramework() {
-        // TODO: Does anything call this? It only has WebFlux and WebMvc. 
-        if (isWebMvc) return Framework.WEBMVC.value();
-        return Framework.WEBFLUX.value();
-    }
+
+
 }
