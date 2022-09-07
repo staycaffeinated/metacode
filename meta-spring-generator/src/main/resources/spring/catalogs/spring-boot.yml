@@ -27,6 +27,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/common/SpringProfiles.java"
       context: "project"
   - entry:
+      template: "/spring/common/main/config/BatchConfiguration.ftl"
+      destination: "src/main/java/{{basePackagePath}}/config/BatchConfiguration.java"
+      context: "project"
+  - entry:
       template: "/spring/boot/integrationTest/ApplicationIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
