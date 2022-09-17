@@ -60,3 +60,9 @@ spring.datasource.url=jdbc:h2:mem:${project.applicationName}
 spring.datasource.url=jdbc:h2:mem:testdb
     </#if>
 </#if>
+<#if (project.isWithLiquibase())>
+# Liquibase
+# Enabled is 'true' by default; change it to 'false' to turn if off
+spring.liquibase.enabled=true
+spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.yaml
+</#if>

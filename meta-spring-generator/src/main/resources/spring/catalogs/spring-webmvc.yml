@@ -150,7 +150,7 @@ catalog:
       feature: "liquibase"
   - entry:
       template: "/spring/webmvc/main/resources/db/liquibase/db.changelog-001-create-schema.ftl"
-      destination: "src/main/resources/db.changelog/db.changelog-001-create-schema.yaml"
+      destination: "src/main/resources/db/changelog/db.changelog-001-create-schema.sql"
       context: "project"
       feature: "liquibase"
   - entry:
