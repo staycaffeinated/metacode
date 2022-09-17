@@ -3,8 +3,12 @@
 
 == Features
 
-* Generates a working Spring WebMvc or Spring WebFlux application
-** A project with a single controller will have about 600 lines of code and about 80 tests generated
+* Generates a working application of these types:
+** Spring WebMvc
+** Spring WebFlux
+*** For WebFlux and WebMvc, a project with a single controller will have about 600 lines of code and about 80 tests generated
+** Spring Boot
+** Spring Batch
 * Generates unit and integration tests that currently provide 100% code coverage
 * Assigns resource objects unique identifiers that have 160-bit entropy, the highest amount recommended by OAuth2 (160 bits is approximately 1.46 x 10^48^ possible values). 
 * Supported Integrations: 
@@ -25,6 +29,27 @@ $ brew install metacode
 
 Metacode is compiled with Java 11 as the target JVM,
 so you will need at least Java 11 to run it.
+
+== General Usage
+
+To get a general idea of the `metacode` command usage, type:
+
+```[bash]
+metacode --help
+```
+
+You will always start with the `create project` subcommand, which lays down the base code and
+Gradle artifacts of the project.  The `create project` subcommand writes files in your _current_ directory,
+so always be sure to create your new project's working directory, navigate into that directory,
+_then_ run the `create project` subcommand.  For example:
+
+```[bash]
+$ mkdir customer-importer
+$ cd customer-importer
+$ metacode create project spring-batch -n customer-importer -p acme.customer.batch --base-path /customer-importer
+$ gradle wrapper
+$ ./gradlew build
+```
 
 
 == Quick Start Guide
@@ -145,7 +170,10 @@ $ http localhost:8080/petstore/pets
 $ http localhost:8080/petstore/pets/[resourceId]
 $ http localhost:8080/petstore/_internal/health
 $ http localhost:8080/petstore/_internal/health/liveness
-# Quotes are needed to prevent shell evaluation at the '=' sign
+
+# Because the question mark has a special meaning in bash and zsh,
+# use quotes around the URL string, as done here.
+# (See: https://scriptingosx.com/2017/08/special-characters/ )
 $ http "localhost:8080/petstore/search?text=Five"
 ----
 
@@ -162,5 +190,21 @@ $ mkdir basic-springboot
 $ cd basic-springboot
 $ metacode create project spring-boot --name hello-world --package acme.greeting --base-path /greeting
 ----
+
+=== Generate a Spring Batch project
+
+The `spring-batch` subcommand creates a simple Spring Batch application. Mainly, the Application.java
+class, an example JobCompletionNotificationListener.java and a _very_ basic BatchConfiguration.java class.
+From there, the developer has to build out the rest of the application. The BatchConfiguration class
+does include comments with suggested next steps for those new to Spring Batch applications.
+
+To create such a Spring Batch project, following this recipe:
+[source,bash]
+----
+$ mkdir basic-springbatch
+$ cd basic-springbatch
+$ metacode create project spring-batch --name batch-example --package acme.example.batch --base-path /batch-example
+----
+
 
 include::docs/DeepDive.adoc[]
