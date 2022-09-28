@@ -36,7 +36,7 @@ dependencies:
     version: "1.19.0"
   # JUnit
   - name: "junit"
-    version: "5.9.0"
+    version: "5.9.1"
   # Liquibase
   - name: "liquibase"
     version: "4.14.0"
@@ -63,7 +63,7 @@ dependencies:
     version: "0.27.0"
   # Reactor Test
   - name: "reactorTest"
-    version: "3.4.22"
+    version: "3.4.23"
   # R2DBC
   - name: "r2dbc_h2"
     version: "0.9.1.RELEASE"
@@ -78,13 +78,13 @@ dependencies:
     version: "6.11.0"
   # Spring Boot
   - name: "springBoot"
-    version: "2.7.3"
+    version: "2.7.4"
   # Spring Cloud
   - name: "springCloud"
     version: "3.1.4"
   # Spring Dependency Management gradle plugin
   - name: "springDependencyManagement"
-    version: "1.0.13.RELEASE"
+    version: "1.0.14.RELEASE"
   # TestContainers
   - name: "testContainers"
     version: "1.17.3"
