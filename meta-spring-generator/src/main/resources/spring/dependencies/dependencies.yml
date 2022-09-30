@@ -87,4 +87,4 @@ dependencies:
     version: "1.0.14.RELEASE"
   # TestContainers
   - name: "testContainers"
-    version: "1.17.3"
+    version: "1.17.4"
