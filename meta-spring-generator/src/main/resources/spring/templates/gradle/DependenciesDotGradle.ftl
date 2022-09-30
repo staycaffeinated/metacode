@@ -67,3 +67,4 @@ ext {
         ]
 }
 </#noparse>
+ext['junit-jupiter.version'] = '${project.junitVersion}'
