@@ -9,6 +9,12 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.stereotype.Component;
 
+/**
+ * References:
+ *  https://github.com/spring-projects/spring-batch/tree/main/spring-batch-samples
+ *  https://docs.spring.io/spring-batch/docs/current/reference/html/index.html
+ *  https://docs.spring.io/spring-batch/docs/current/reference/html/readersAndWriters.html
+ */
 @Component
 @RequiredArgsConstructor
 public class BatchConfiguration {
@@ -42,8 +48,5 @@ public class BatchConfiguration {
      *                     .flow(step1()).end();
      *    }
      *
-     * References:
-     *  https://docs.spring.io/spring-batch/docs/current/reference/html/readersAndWriters.html
-     *  https://docs.spring.io/spring-batch/docs/current/reference/html/index.html
      */
 }

@@ -43,8 +43,8 @@ catalog:
       destination: "src/integration/java/{{basePackagePath}}/ApplicationIntegrationTest.java"
       context: "project"
   - entry:
-      template: "/spring/batch/main/resources/ApplicationDotProperties.ftl"
-      destination: "src/main/resources/application.properties"
+      template: "/spring/batch/main/resources/ApplicationDotYaml.ftl"
+      destination: "src/main/resources/application.yml"
       context: "project"
   - entry:
       template: "/spring/batch/test/PlaceholderTest.ftl"
