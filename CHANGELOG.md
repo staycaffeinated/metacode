@@ -5,6 +5,36 @@
   * Update to latest versions of Spring Boot, TestContainers, JUnit Jupiter, and
     various Gradle plugins
 
+## [5.1.0] - 2022-10-07
+
+* Fixes:
+  * Fixed issues that prevented Spring Batch applications from running out-of-the-box
+
+* Maintenance:
+  * Bump the dependency versions consumed by the generated code
+
+## [5.0.0] - 2022-09-17
+
+* Features
+  * Added code generator for Spring Batch applications
+
+* Fixes:
+  * Fixed Liquibase changelog templates for Spring WebMVC code 
+
+* Refactor
+  * The package structure for Spring WebMVC and Spring Webflux applications
+    was changed.  Classes concerning persistence have been moved into a 
+    package named ```database```.  This change simplifies the code found within 
+    the ```endpoint``` packages and makes the classes concerned with persistence
+    more obvious.  
+
+  * The generated entity bean classes now contain 
+    ```equals``` and ```hashCode``` methods
+  * For Spring Boot projects, a place-holder unit test is now generated
+
+* Maintenance:
+  * Bump the dependency versions consumed by the generated code
+
 
 ## [4.0.0] - 2022-08-24
 
