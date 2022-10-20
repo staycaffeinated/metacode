@@ -1,9 +1,9 @@
 
 ## [Unreleased]
 
-* Maintenance
-  * Bumped versions of lombok gradle plugin, postgres, jib plugin
-
+* Maintenance:
+  * Update to latest versions of Spring Boot, TestContainers, JUnit Jupiter, and
+    various Gradle plugins
 
 
 ## [4.0.0] - 2022-08-24
