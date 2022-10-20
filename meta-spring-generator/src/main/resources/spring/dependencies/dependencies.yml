@@ -18,7 +18,7 @@ dependencies:
     version:  "3.22.0"
   # Ben Manes Update plugin
   - name: "benManesPlugin"
-    version: "0.42.0"
+    version: "0.43.0"
   # Coditory Integration Plugin
   - name: "coditoryPlugin"
     version: "1.4.4"
@@ -63,7 +63,7 @@ dependencies:
     version: "0.27.0"
   # Reactor Test
   - name: "reactorTest"
-    version: "3.4.23"
+    version: "3.4.24"
   # R2DBC
   - name: "r2dbc_h2"
     version: "0.9.1.RELEASE"
@@ -78,13 +78,13 @@ dependencies:
     version: "6.11.0"
   # Spring Boot
   - name: "springBoot"
-    version: "2.7.4"
+    version: "2.7.5"
   # Spring Cloud
   - name: "springCloud"
     version: "3.1.4"
   # Spring Dependency Management gradle plugin
   - name: "springDependencyManagement"
-    version: "1.0.14.RELEASE"
+    version: "1.1.0"
   # TestContainers
   - name: "testContainers"
-    version: "1.17.4"
+    version: "1.17.5"
