@@ -26,7 +26,7 @@ import picocli.CommandLine;
 @CommandLine.Command(
         name="create",
         descriptionHeading = "%nDescription:%n",
-        description="Create a project or other artifact",
+        description="Create project or endpoint artifacts by way of `create project` or `create endpoint`",
         mixinStandardHelpOptions = true,
         commandListHeading = "%nCommands:%n",
         optionListHeading = "%nOptions:%n",

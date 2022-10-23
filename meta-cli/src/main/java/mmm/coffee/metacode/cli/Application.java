@@ -25,6 +25,8 @@ import mmm.coffee.metacode.spring.SpringGeneratorModule;
 import picocli.AutoComplete.GenerateCompletion;
 import picocli.CommandLine;
 
+import static picocli.CommandLine.Model.UsageMessageSpec.SECTION_KEY_COMMAND_LIST;
+
 /**
  * Main application entry point
  */
@@ -33,7 +35,7 @@ import picocli.CommandLine;
  */
 @CommandLine.Command(
         name="metacode",
-        description="A code generator",
+        description="Metacode is a code generator for Spring applications",
         versionProvider = ManifestVersionProvider.class,
         mixinStandardHelpOptions = true,
         subcommands = { GenerateCompletion.class, CreateCommand.class }
@@ -48,11 +50,12 @@ public class Application implements CallTrait {
      * @param args command line args
      */
     public static void main(String[] args) {
-        exitCode = new CommandLine(new Application(), new GuiceFactory())
+        CommandLine cmdLine = new CommandLine(new Application(), new GuiceFactory())
                 .setUsageHelpAutoWidth(true) // take advantage of wide terminals when available
                 .setExecutionExceptionHandler(new PrintExceptionMessageHandler())
-                .setParameterExceptionHandler(new ParameterExceptionHandler())
-                .execute(args);
+                .setParameterExceptionHandler(new ParameterExceptionHandler());
+        cmdLine.getHelpSectionMap().put(SECTION_KEY_COMMAND_LIST, new CommandHelpRenderer());
+        exitCode = cmdLine.execute(args);
     }
 
     public static int getExitCode() { return exitCode; }
