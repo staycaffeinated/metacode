@@ -1,6 +1,12 @@
 
 ## [Unreleased]
 
+* Docs:
+  * The help message now prints the full hierarchy of commands instead of only
+    printing the next depth of commands.
+
+## [5.1.1] - 2022-10-22
+
 * Maintenance:
   * Update to latest versions of Spring Boot, TestContainers, JUnit Jupiter, and
     various Gradle plugins
@@ -19,16 +25,16 @@
   * Added code generator for Spring Batch applications
 
 * Fixes:
-  * Fixed Liquibase changelog templates for Spring WebMVC code 
+  * Fixed Liquibase changelog templates for Spring WebMVC code
 
 * Refactor
   * The package structure for Spring WebMVC and Spring Webflux applications
-    was changed.  Classes concerning persistence have been moved into a 
-    package named ```database```.  This change simplifies the code found within 
+    was changed.  Classes concerning persistence have been moved into a
+    package named ```database```.  This change simplifies the code found within
     the ```endpoint``` packages and makes the classes concerned with persistence
-    more obvious.  
+    more obvious.
 
-  * The generated entity bean classes now contain 
+  * The generated entity bean classes now contain
     ```equals``` and ```hashCode``` methods
   * For Spring Boot projects, a place-holder unit test is now generated
 
