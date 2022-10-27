@@ -14,7 +14,7 @@ image:images/sonarqube-petstore-overall-code-v4.png["The Overall Code View"]
 
 [#img-sonarqube-code-measures]
 .Sonarqube: Code Measure Report for the Pet Store
-image:images/sonarqube-petstore-measures-v4 .png["The Code Measures View"]
+image:images/sonarqube-petstore-measures-v4.png["The Code Measures View"]
 
 [NOTE]
 ====
