@@ -32,9 +32,10 @@ def ignoredClasses =
         '**/test/**.java,' +
         '**/stereotype/**,' +
         '**/WebMvcTemplateModel.java,' +
-        '**/Library.java'
+        '**/Library.java,' +
+        '**/CommandHelpRenderer.java'
 
-sonarqube {
+sonarqube { 
     properties {
         property 'sonar.sourceEncoding', 'UTF-8'
         property 'sonar.projectName', rootProject.name
