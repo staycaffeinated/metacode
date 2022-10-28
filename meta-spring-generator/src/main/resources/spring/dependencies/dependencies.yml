@@ -30,7 +30,7 @@ dependencies:
     version: "2.1.214"
   # Jib plugin for generating Docker images
   - name: "jibPlugin"
-    version: "3.3.0"
+    version: "3.3.1"
   # JUnit System Rules
   - name: "junitSystemRules"
     version: "1.19.0"
@@ -72,7 +72,7 @@ dependencies:
     version: "1.0.0.RELEASE"
   # Sonarqube
   - name: "sonarqube"
-    version: "3.4.0.2513"
+    version: "3.5.0.2730"
   # Spotless code formatter gradle plugin
   - name: "spotless"
     version: "6.11.0"
