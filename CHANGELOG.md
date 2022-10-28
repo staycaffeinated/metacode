@@ -5,6 +5,9 @@
   * The help message now prints the full hierarchy of commands instead of only
     printing the next depth of commands.
 
+* Maintenance
+  * Update to latest version: Sonarqube and Jib Gradle plugins 
+
 ## [5.1.1] - 2022-10-22
 
 * Maintenance:
