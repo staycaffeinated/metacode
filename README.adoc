@@ -114,6 +114,12 @@ $ http localhost:8080/petstore/pets
 $ http localhost:8080/petstore/pets/[resourceId]
 $ http localhost:8080/petstore/_internal/health
 $ http localhost:8080/petstore/_internal/health/liveness
+
+# Try a resource ID that does not exist
+$ http localhost:8080/petstore/pets/55555
+
+# Attempt a JavaScript injection
+$ http http "localhost:8080/petstore/pets/'<alert>hello</alert>'"
 ----
 
 === The Spring Pet Store in Spring WebMvc 
