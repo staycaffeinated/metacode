@@ -1,6 +1,8 @@
 
 ## [Unreleased]
 
+## [5.3.0] - 2022-11-01
+
 * Fixes:
   * Fixed an issue that allowed a stack trace to leak into the response from a Webflux endpoint
 
