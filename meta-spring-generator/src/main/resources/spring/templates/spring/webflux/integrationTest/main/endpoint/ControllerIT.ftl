@@ -130,7 +130,8 @@ class ${endpoint.entityName}ControllerIntegrationTest {
 	@Test
 	void testResourceNotFoundException() throws Exception {
 		this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id\\}", "12345")).accept(MediaType.APPLICATION_JSON)
-		    .exchange().expectStatus().isNotFound().expectHeader().contentType(MediaType.APPLICATION_JSON);
+		    .exchange().expectStatus().isNotFound().expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody().jsonPath("$.stackTrace").doesNotExist();
 	}
 
     /**

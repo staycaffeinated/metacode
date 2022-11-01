@@ -30,6 +30,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/advice/GlobalExceptionHandler.java"
       context: "project"
   - entry:
+      template: "/spring/webflux/main/advice/ProblemSummary.ftl"
+      destination: "src/main/java/{{basePackagePath}}/advice/ProblemSummary.java"
+      context: "project"
+  - entry:
       template: "/spring/webflux/main/exception/ResourceNotFoundException.ftl"
       destination: "src/main/java/{{basePackagePath}}/exception/ResourceNotFoundException.java"
       context: "project"

@@ -62,9 +62,7 @@ public class GlobalExceptionHandler implements ProblemHandling, ErrorWebExceptio
     }
 
     private Mono<Problem> problemDescription(String title, Throwable throwable, Status status) {
-        Problem problem = Problem.builder().withStatus(status).withDetail(throwable.getMessage())
-            .withTitle(title).build();
-
+        Problem problem = ProblemSummary.builder().status(status).detail(throwable.getMessage()).title(title).build();
   	    return Mono.just(problem);
     }
 }
