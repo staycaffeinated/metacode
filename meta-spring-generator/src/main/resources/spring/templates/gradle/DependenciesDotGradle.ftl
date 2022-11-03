@@ -68,3 +68,4 @@ ext {
 }
 </#noparse>
 ext['junit-jupiter.version'] = '${project.junitVersion}'
+ext['snakeyaml.version'] = '1.33'  // force this upgrade to fix known CVEs
