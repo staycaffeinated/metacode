@@ -75,6 +75,11 @@ tasks.withType(Test) {
 // Jib specific configuration for this application
 // --------------------------------------------------------------------------------
 jib {
+    from {
+        // There is no specific dependency on the Corretto image.
+        // The default OpenJDK image was deprecated, so this image was picked.
+        image = 'amazoncorretto:19-alpine3.16'
+    }
     to {
         image = '${project.applicationName}'
         tags = [ '0.0.1' ]
