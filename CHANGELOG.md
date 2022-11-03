@@ -1,6 +1,12 @@
 
 ## [Unreleased]
 
+* Refactor
+  * Use Amazon Corretto as the base Docker image used by the Jib plugin. 
+    The default base image, OpenJDK, has been deprecated; using a supported
+    base image makes more sense.
+
+
 ## [5.3.0] - 2022-11-01
 
 * Fixes:
