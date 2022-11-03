@@ -2,10 +2,13 @@
 ## [Unreleased]
 
 * Refactor
-  * Use Amazon Corretto as the base Docker image used by the Jib plugin. 
+  * Use Amazon Corretto as the base Docker image used by the Jib plugin.
     The default base image, OpenJDK, has been deprecated; using a supported
     base image makes more sense.
-
+  * Pin the snakeyaml version to fix known CVEs. SpringBoot currently pulls in
+    snakeyaml:1.30 which has a known CVE. We've pinned the version to 1.33 (the
+    latest version at this time). This change can be found at the bottom 
+    of the gradle/dependencies.gradle file. 
 
 ## [5.3.0] - 2022-11-01
 
