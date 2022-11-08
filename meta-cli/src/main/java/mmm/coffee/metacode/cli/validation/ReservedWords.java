@@ -34,7 +34,7 @@ public class ReservedWords {
      * @return if {@code word} is a reserved word, or is the String "null".
      */
     public static boolean isReservedWord(String word) {
-        return Arrays.binarySearch(reserved, word) >= 0;
+        return Arrays.binarySearch(reserved, word.toLowerCase()) >= 0;
     }
 
     /*

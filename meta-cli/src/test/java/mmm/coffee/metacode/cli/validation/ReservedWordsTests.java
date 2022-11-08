@@ -36,4 +36,15 @@ class ReservedWordsTests {
     void shouldRecognizeReservedWords(String identifier) {
         assertThat( ReservedWords.isReservedWord(identifier)).isTrue();
     }
+
+    /**
+     * Verify our check for reserved words does not get tricked by mixed case.
+     * That is, 'public' is a reserved word, so resource names like 'Public' or 'PUBLIC'
+     * should be recognized as reserved words and disallowed as resource names.
+     */
+    @ParameterizedTest
+    @ValueSource( strings = { "Abstract", "Native", "Public", "PUBLIC", "Package", "PACKAGE" })
+    void shouldRecognizeReservedWordsRegardlessOfCase(String identifier) {
+        assertThat( ReservedWords.isReservedWord(identifier)).isTrue();
+    }
 }
