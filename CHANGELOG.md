@@ -1,14 +1,20 @@
 
 ## [Unreleased]
 
+* Fixes: 
+  * Metacode allowed the user to create a resource named 'Public', which is a reserved
+    word in Java. During code generation, the 'Public' resource name gets mapped to a 
+    package named 'public' (for example, say, "acme.cinema.public"), which leads to compile-time errors.
+    This is fixed.
+
 * Refactor
   * Use Amazon Corretto as the base Docker image used by the Jib plugin.
     The default base image, OpenJDK, has been deprecated; using a supported
     base image makes more sense.
   * Pin the snakeyaml version to fix known CVEs. SpringBoot currently pulls in
     snakeyaml:1.30 which has a known CVE. We've pinned the version to 1.33 (the
-    latest version at this time). This change can be found at the bottom 
-    of the gradle/dependencies.gradle file. 
+    latest version at this time). This change can be found at the bottom
+    of the gradle/dependencies.gradle file.
 
 ## [5.3.0] - 2022-11-01
 
