@@ -1,9 +1,11 @@
 
 ## [Unreleased]
 
-* Fixes: 
+## [5.4.0] - 2022-11-09
+
+* Fixes:
   * Metacode allowed the user to create a resource named 'Public', which is a reserved
-    word in Java. During code generation, the 'Public' resource name gets mapped to a 
+    word in Java. During code generation, the 'Public' resource name gets mapped to a
     package named 'public' (for example, say, "acme.cinema.public"), which leads to compile-time errors.
     This is fixed.
 
