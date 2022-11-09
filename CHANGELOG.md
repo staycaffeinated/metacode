@@ -16,6 +16,9 @@
     latest version at this time). This change can be found at the bottom
     of the gradle/dependencies.gradle file.
 
+* Maintenance
+  * Bumped Reactor Test library to v3.5.0
+
 ## [5.3.0] - 2022-11-01
 
 * Fixes:
