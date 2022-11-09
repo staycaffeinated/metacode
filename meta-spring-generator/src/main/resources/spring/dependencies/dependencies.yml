@@ -63,7 +63,7 @@ dependencies:
     version: "0.27.0"
   # Reactor Test
   - name: "reactorTest"
-    version: "3.4.24"
+    version: "3.5.0"
   # R2DBC
   - name: "r2dbc_h2"
     version: "0.9.1.RELEASE"
