@@ -18,7 +18,7 @@ dependencies:
     version:  "3.22.0"
   # Ben Manes Update plugin
   - name: "benManesPlugin"
-    version: "0.43.0"
+    version: "0.44.0"
   # Coditory Integration Plugin
   - name: "coditoryPlugin"
     version: "1.4.4"
@@ -39,7 +39,7 @@ dependencies:
     version: "5.9.1"
   # Liquibase
   - name: "liquibase"
-    version: "4.14.0"
+    version: "4.17.2"
   # Lombok
   - name: "lombok"
     version: "1.18.24"
@@ -81,10 +81,10 @@ dependencies:
     version: "2.7.5"
   # Spring Cloud
   - name: "springCloud"
-    version: "3.1.4"
+    version: "3.1.5"
   # Spring Dependency Management gradle plugin
   - name: "springDependencyManagement"
     version: "1.1.0"
   # TestContainers
   - name: "testContainers"
-    version: "1.17.5"
+    version: "1.17.6"
