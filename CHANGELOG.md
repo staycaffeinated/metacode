@@ -1,6 +1,13 @@
 
 ## [Unreleased]
 
+* Maintenance:
+  * Updated these libraries to their latest versions:
+    * ben manes gradle plugin
+    * spring cloud starter
+    * test containers
+    * liquibase core
+
 ## [5.4.0] - 2022-11-09
 
 * Fixes:
