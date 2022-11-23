@@ -8,6 +8,11 @@
     * test containers
     * liquibase core
 
+* Features:
+  * Added some basic Kafka libraries to the dependencies.gradle file. The goal is
+    to make it easier to start a Kafka application. The build.gradle file is not affected.
+
+
 ## [5.4.0] - 2022-11-09
 
 * Fixes:
