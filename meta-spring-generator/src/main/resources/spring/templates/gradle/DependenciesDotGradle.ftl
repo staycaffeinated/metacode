@@ -32,7 +32,9 @@ ext {
 
         // See https://stefanbirkner.github.io/system-rules/
         junitSystemRules            : "com.github.stefanbirkner:system-rules:$versions.junitSystemRules",
-
+        kafkaClients                : "org.apache.kafka:kafka-clients",
+        kafkaStreams                : "org.apache.kafka:kafka-streams",
+        kafkaStreamsTest            : "org.apache.kafka:kakfa-streams-test-utils",
         log4j                       : "org.apache.logging:log4j:log4j-core:$versions.log4j",
         lombok                      : "org.projectlombok:lombok:$versions.lombok",
         liquibaseCore               : "org.liquibase:liquibase-core:$versions.liquibase",
@@ -60,8 +62,11 @@ ext {
         springBatchTest             : "org.springframework.batch:spring-batch-test",
         springCloud                 : "org.springframework.cloud:spring-cloud-starter:$versions.springCloud",
         springDevTools              : "org.springframework.boot:spring-boot-devtools",
+        springKafka                 : "org.springframework.kafka:spring-kafka",
+        springKafkaTest             : "org.springframework.kafka:spring-kafka-test",
 
         testContainersBom           : "org.testcontainers:testcontainers-bom:$versions.testContainers",
+        testContainersKafka         : "org.testcontainers:kafka",
         testContainersPostgres      : "org.testcontainers:postgresql",
         testContainersJupiter       : "org.testcontainers:junit-jupiter"
         ]
