@@ -7,6 +7,7 @@
     * spring cloud starter
     * test containers
     * liquibase core
+    * postgres jdbc driver
 
 * Features:
   * Added some basic Kafka libraries to the dependencies.gradle file. The goal is
