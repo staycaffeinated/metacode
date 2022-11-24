@@ -1,6 +1,8 @@
 
 ## [Unreleased]
 
+## [5.5.0] - 2022-11-24
+
 * Maintenance:
   * Updated these libraries to their latest versions:
     * ben manes gradle plugin
