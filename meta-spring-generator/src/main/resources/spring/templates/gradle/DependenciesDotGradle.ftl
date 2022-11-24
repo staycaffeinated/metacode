@@ -34,7 +34,7 @@ ext {
         junitSystemRules            : "com.github.stefanbirkner:system-rules:$versions.junitSystemRules",
         kafkaClients                : "org.apache.kafka:kafka-clients",
         kafkaStreams                : "org.apache.kafka:kafka-streams",
-        kafkaStreamsTest            : "org.apache.kafka:kakfa-streams-test-utils",
+        kafkaStreamsTest            : "org.apache.kafka:kafka-streams-test-utils",
         log4j                       : "org.apache.logging:log4j:log4j-core:$versions.log4j",
         lombok                      : "org.projectlombok:lombok:$versions.lombok",
         liquibaseCore               : "org.liquibase:liquibase-core:$versions.liquibase",
