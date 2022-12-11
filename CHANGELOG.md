@@ -1,6 +1,12 @@
 
 ## [Unreleased]
 
+* Features:
+  * Changed the SecureRandomSeries to produce alphanumeric resource Ids instead
+    of all-numeric resource Ids (the method that produces the all-numeric values
+    is still in the SecureRandomSeries class). The required refactoring the 
+    ResourceIdValidator to accept the new values. 
+
 ## [5.5.0] - 2022-11-24
 
 * Maintenance:

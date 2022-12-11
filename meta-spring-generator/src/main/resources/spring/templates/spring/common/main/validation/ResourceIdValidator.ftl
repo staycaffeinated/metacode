@@ -3,6 +3,7 @@ package ${project.basePackage}.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import ${project.basePackage}.math.SecureRandomSeries;
 
 /**
  * This constraint verifies a String value is
@@ -41,8 +42,7 @@ public class ResourceIdValidator implements ConstraintValidator<ResourceId, Stri
         // is used.  If the {@code SecureRandomSeries::nextString()} is used, these checks
         // have to be adjusted.
         return value != null &&
-               value.length() >= 48 &&
-               value.length() <= 49 &&
-               value.chars().allMatch(Character::isDigit);
+               value.length() == SecureRandomSeries.ENTROPY_STRING_LENGTH &&
+               value.chars().allMatch(Character::isLetterOrDigit);
     }
 }

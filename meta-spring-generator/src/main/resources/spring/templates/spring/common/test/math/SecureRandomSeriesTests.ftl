@@ -12,12 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 class SecureRandomSeriesTests {
 
-   /**
-    * For an entropy of 160bits, the string version of a secure random must be at
-    * least 27 characters long
-    */
-    private static final int ENTROPY_MINIMUM_STRING_LENGTH = 27;
-
     static SecureRandomSeries randomSeriesUnderTest;
 
     @BeforeAll
@@ -29,7 +23,7 @@ class SecureRandomSeriesTests {
     void shouldReturnValueWithRequiredEntropy() {
         String value = randomSeriesUnderTest.nextString();
         assertThat(value).isNotNull();
-        assertThat(value.length()).isGreaterThanOrEqualTo(ENTROPY_MINIMUM_STRING_LENGTH);
+        assertThat(value.length()).isGreaterThanOrEqualTo(SecureRandomSeries.ENTROPY_STRING_LENGTH);
     }
 
     /**
@@ -68,10 +62,10 @@ class SecureRandomSeriesTests {
 		      var resourceId = randomSeriesUnderTest.nextResourceId();
 		      
 		      assertThat(resourceId).isNotBlank();
-		      		      
-		      // The range of values is 10^48, so there must be		      
-		      // at least 48 digits, and occasionally 49 digits.
-		      assertThat(resourceId.length()).isBetween(48, 49);
+
+              // For the alphanumeric resource Ids, the string length is constant.
+              // (If nextNumericResourceId() is used, the length is between 48-49 characters long)
+		      assertThat(resourceId.length()).isEqualTo(SecureRandomSeries.ENTROPY_STRING_LENGTH);
 		      
 		      // In our implementation, resourceIds are all digits
 		      resourceId.chars().forEach(ch -> assertThat(Character.isDigit(ch)));

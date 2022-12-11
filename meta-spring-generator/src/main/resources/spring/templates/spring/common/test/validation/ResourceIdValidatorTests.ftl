@@ -15,22 +15,23 @@ class ResourceIdValidatorTests {
     final ResourceIdValidator validationUnderTest = new ResourceIdValidator();
 
     /**
-     * Valid resource Ids are 48 or 49 digits long. Therefore,
-     * - numbers with less than 48 digits are invalid
-     * - alpha-numeric strings are invalid
+     * Valid resource Ids are 24 characters long. Therefore,
+     * - numbers with less than 24 digits are invalid
+     * - strings containing characters not found in the cipher alphabet are invalid
      * - empty strings are invalid (appears in a later test)
      * - blank strings are invalid (appears in a later test)
-     * - values with less that 48 digits are invalid
-     * - values with more than 49 digits are invalid
+     * - values with less that 24 characters are invalid
+     * - values with more than 24 characters are invalid
      */
     @ParameterizedTest
     @CsvSource(value = {
-        "123456",                                               // too short
-        "abcd-34843-abkkcuu4-kkuy4f",                           // alpha-numeric string
-        "85637831860933685547972368108919006136931041174",      // 1 digit too few
-        "14286950711364307339524413794755217854384596615030",   // 1 digit too manu
-        "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvw",    // check against all characters, not digits
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVW"     // another check of all characters, not digits
+    //   123456789.123456789.1234
+        "123456",                       // too short
+        "abcd-34843-abkkcuu4-kkuy",     // contains characters not in the cipher alphabet
+        "PZ4PD3xVOYNFYMJDOrumUCV",      // 1 character too few
+        "NeUDAQPAGP0WbqOB7OHfQTaMM",    // 1 character too many
+        "abcd{34843-}ab#![]%kkuyf"      // contains characters not in the cipher alphabet
+
     })
     void shouldDetectInvalidIds(String candidateId) {
         assertThat(validationUnderTest.isValid(candidateId, null)).isFalse();
@@ -54,15 +55,17 @@ class ResourceIdValidatorTests {
     }
 
     /**
-     * Valid resource IDs are either 48 or 49 digits long.
+     * Valid resource IDs 24 characters long
+     * (from SecureRandomSeries.ENTROPY_STRING_LENGTH).
      */
     @ParameterizedTest
     @CsvSource(value = {
-        "1428695071136430733952441379475521785438459661503",
-        "856378318609336855479723681089190061369310411743",
-        "761298199457596918940941480681377710621764943581",
-        "1037502964891443764016773433562418332624623306209",
-        "869805249448410994558598733914144074320919938157"
+    //   123456789.123456789.1234
+        "PZ4PD3xVOYNFYMJDOrumUCVD",
+        "TvKziJ2az5OyTxz40lasUAZp",
+        "bkVAQFIacs7ey0zHQewIJFBu",
+        "8qdOk3M2GHI5daFIanZjOJoN",
+        "NeUDAQPAGP0WbqOB7OHfQTaM"
     })
     void shouldDetectValidIds(String candidateId) {
         assertThat(validationUnderTest.isValid(candidateId)).isTrue();

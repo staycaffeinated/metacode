@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Base64;
 
 /**
  * This class produces secure random values. The {@code nextString()}
@@ -30,8 +29,23 @@ import java.util.Base64;
 @Component
 public class SecureRandomSeries {
     private SecureRandom random;
-    private static final Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
 
+    // If you want the resource Id to use alphanumeric, this constant
+    // defines the cipher alphabet that will be used. Add other characters as desired.
+    // Be mindful that some characters are not URL-friendly. Refer to https://www.ietf.org/rfc/rfc1738.txt,
+    // which lists the unsafe characters.
+    private static final String CIPHER_ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    // This is the length of the string returned by the nextString() method.
+    // Longer strings will, of course, have higher entropy that shorter ones.
+    // With an alphabet of 62 characters and a string length of 24, or entropy is
+    // 62^24 = 1.04e43, which is within the 128-to-160 bits of entropy
+    // recommended by the OAuth2 standards.
+    // Recall that 128 bits of entropy is about 3.4e38 combinations; 160 bits of entropy is 1.4e48 combinations.
+    // For a shorter string, say, length of 22, the entropy is
+    // 20 characters long = 62^20 = 7.04e35 (7.04 x 10^35) (below the preferred threshold)
+    // 22 characters long = 62^22 = 2.7e39 (2.7 x 10^39)
+    public static final int ENTROPY_STRING_LENGTH = 24;
 
     /**
      * Default constructor, which selects a default algorithm
@@ -62,14 +76,18 @@ public class SecureRandomSeries {
     }
 
     /**
-     * Returns a secure random value with at least 160 bits of entropy.
-     * The returned value is Base64 encoded to make it suitable for URLs.
-     * The returned string happens to be 27 characters long (that length is not guaranteed).
-     * @return a secure random value
+     * Returns a secure random value with about 143 bits of entropy.
+     * The returned value is suitable for usage within URLs.
+     * @return a URL-safe, secure, random String
      */
     public String nextString() {
-        byte[] buffer = randomBytes();
-        return encoder.encodeToString(buffer);
+        // This technique allows a custom cipher alphabet and a fixed length, which are defined above.
+        return random.ints(ENTROPY_STRING_LENGTH, 0, CIPHER_ALPHABET.length()).mapToObj(CIPHER_ALPHABET::charAt)
+            .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+    }
+
+    public String nextResourceId() {
+        return nextString();
     }
 
     /**
@@ -89,7 +107,7 @@ public class SecureRandomSeries {
 	    * that have at least 128-bits of entropy and not more that 160-bits of entropy;
 	    * see https://datatracker.ietf.org/doc/html/rfc6749#section-10.10)
 	    */
-	   public String nextResourceId() {
+	   public String nextNumericResourceId() {
 		      BigInteger bg = new BigInteger(160, 1, random);
 		      return bg.toString();
 	   }
