@@ -111,16 +111,4 @@ public class SecureRandomSeries {
 		      BigInteger bg = new BigInteger(160, 1, random);
 		      return bg.toString();
 	   }
-
-    /**
-     * Build a buffer with random byte values. The returned value has an
-     * entropy of 160 bits (improving on the 122 bit entropy of a UUID).
-     * Of course, the entropy can be increased by adding more bytes to the array.
-     * @return a random series of bytes
-     */
-    private byte[] randomBytes() {
-        byte[] buffer = new byte[20]; // 20x8 = 160 = bits of entropy
-        random.nextBytes(buffer);
-        return buffer;
-    }
 }

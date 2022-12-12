@@ -56,18 +56,25 @@ class SecureRandomSeriesTests {
     void shouldReturnRandomLong() {
         assertThat(randomSeriesUnderTest.nextLong()).isNotNull();
     }
-    
-    @Test
-	   void shouldReturnResourceIds() {
-		      var resourceId = randomSeriesUnderTest.nextResourceId();
-		      
-		      assertThat(resourceId).isNotBlank();
 
-              // For the alphanumeric resource Ids, the string length is constant.
-              // (If nextNumericResourceId() is used, the length is between 48-49 characters long)
-		      assertThat(resourceId.length()).isEqualTo(SecureRandomSeries.ENTROPY_STRING_LENGTH);
-		      
-		      // In our implementation, resourceIds are all digits
-		      resourceId.chars().forEach(ch -> assertThat(Character.isDigit(ch)));
-	   }
+
+    @Test
+    void shouldReturnResourceIds() {
+        var resourceId = randomSeriesUnderTest.nextResourceId();
+
+        // For the alphanumeric resource Ids, the string length is constant.
+        assertThat(resourceId).isNotBlank().hasSize(SecureRandomSeries.ENTROPY_STRING_LENGTH);
+
+        // In our implementation, resourceIds are all digits
+        resourceId.chars().forEach(ch -> assertThat(Character.isDigit(ch)));
+    }
+
+    @Test
+    void whenNumericResourceId_shouldReturnNumericId() {
+        var resourceId = randomSeriesUnderTest.nextNumericResourceId();
+
+        // Our numeric resource Ids have an entropy of 160 bits, so can reach a length of 49 digits.
+        assertThat(resourceId).isNotBlank().hasSizeBetween(SecureRandomSeries.ENTROPY_STRING_LENGTH, 49);
+        resourceId.chars().forEach(ch -> assertThat(Character.isDigit(ch)));
+    }
 }
