@@ -38,14 +38,20 @@ public class SecureRandomSeries {
 
     // This is the length of the string returned by the nextString() method.
     // Longer strings will, of course, have higher entropy that shorter ones.
-    // With an alphabet of 62 characters and a string length of 24, or entropy is
-    // 62^24 = 1.04e43, which is within the 128-to-160 bits of entropy
+    // With an alphabet of 62 characters and a string length of 27, or entropy is
+    // 62^27 = 2.48e48 permutations, which is slightly over the 1.4e48 permutations with 160-bits of entropy
     // recommended by the OAuth2 standards.
     // Recall that 128 bits of entropy is about 3.4e38 combinations; 160 bits of entropy is 1.4e48 combinations.
     // For a shorter string, say, length of 22, the entropy is
-    // 20 characters long = 62^20 = 7.04e35 (7.04 x 10^35) (below the preferred threshold)
+    // 26 characters long = 62^26 = 4.0e46 permutations
+    // 24 characters long = 62^24 = 1.04e43, which is within the 128-to-160 bits of entropy
     // 22 characters long = 62^22 = 2.7e39 (2.7 x 10^39)
-    public static final int ENTROPY_STRING_LENGTH = 24;
+    // 20 characters long = 62^20 = 7.04e35 (7.04 x 10^35) (below the preferred threshold)
+    //
+    public static final int ENTROPY_STRING_LENGTH = 27;
+
+    // If you opt for the numeric resource Ids, this is the max number of digits you'll encounter
+    public static final int ENTROPY_MAX_NUMERIC_LENGTH = 49;
 
     /**
      * Default constructor, which selects a default algorithm
