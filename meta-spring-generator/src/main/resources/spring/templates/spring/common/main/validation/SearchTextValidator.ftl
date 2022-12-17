@@ -4,8 +4,8 @@ package ${project.basePackage}.validation;
 import lombok.NonNull;
 import org.springframework.util.ObjectUtils;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import java.util.Optional;
 import java.util.regex.Pattern;
 

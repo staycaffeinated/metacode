@@ -4,7 +4,6 @@ package ${project.basePackage}.advice;
 import ${project.basePackage}.exception.UnprocessableEntityException;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -14,8 +13,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import org.zalando.problem.spring.web.advice.ProblemHandling;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
 
 import java.sql.SQLException;
@@ -39,14 +36,19 @@ public class GlobalExceptionHandler implements ProblemHandling {
         return problemDescription("The request contains invalid data", exception);
     }
 
+    @ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
+    public ResponseEntity<Problem> handleConstraintViolationException(jakarta.validation.ConstraintViolationException ex) {
+        return problemDescription("Constraint violation", ex);
+    }
+
     /**
-     * Handles EntityNotFoundException. Created to encapsulate errors with more detail than javax.persistence.EntityNotFoundException.
+     * Handles EntityNotFoundException. Created to encapsulate errors with more detail than jakarta.persistence.EntityNotFoundException.
      *
      * @param ex the EntityNotFoundException
      * @return the ApiError object
      */
-    @ExceptionHandler(javax.persistence.EntityNotFoundException.class)
-    public ResponseEntity<Problem> handleEntityNotFound(javax.persistence.EntityNotFoundException ex) {
+    @ExceptionHandler(jakarta.persistence.EntityNotFoundException.class)
+    public ResponseEntity<Problem> handleEntityNotFound(jakarta.persistence.EntityNotFoundException ex) {
         return problemDescription("The requested entity was not found", ex);
     }
 

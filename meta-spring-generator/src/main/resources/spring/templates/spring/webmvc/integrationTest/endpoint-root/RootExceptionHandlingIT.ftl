@@ -40,7 +40,9 @@ class RootExceptionHandlingIT extends AbstractIntegrationTest {
         void shouldNotReturnStackTrace() throws Exception {
             // when/then
             mockMvc.perform(post("/").contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(jsonPath("$.stackTrace").doesNotExist()).andDo((print())).andReturn();
+                    .andExpect(jsonPath("$.stackTrace").doesNotExist()) // sometimes traces come back like this
+                    .andExpect(jsonPath("$.trace").doesNotExist()) // sometimes traces come back like this
+                    .andDo((print())).andReturn();
         }
    
         /**
@@ -62,7 +64,6 @@ class RootExceptionHandlingIT extends AbstractIntegrationTest {
             // when/then
             mockMvc.perform(get("/").contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().is(HttpStatus.METHOD_NOT_ALLOWED.value()))
-                    .andExpect(jsonPath("$.status", is(405)))   // problem/json should return a status:405
                     .andDo(print()).andReturn();
         }
    }

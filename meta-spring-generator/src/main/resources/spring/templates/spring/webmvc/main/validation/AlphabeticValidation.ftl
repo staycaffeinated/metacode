@@ -1,8 +1,8 @@
 <#include "/common/Copyright.ftl">
 package ${project.basePackage}.validation;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * Verifies a value only contains alphabetic characters
