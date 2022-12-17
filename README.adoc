@@ -27,8 +27,8 @@ $ brew tap staycaffeinated/tap
 $ brew install metacode
 ```
 
-Metacode is compiled with Java 11 as the target JVM,
-so you will need at least Java 11 to run it.
+The Metacode CLI requires Java 17 to run. The generated code supports Java 11 and higher.
+
 
 == General Usage
 
@@ -211,6 +211,59 @@ $ mkdir basic-springbatch
 $ cd basic-springbatch
 $ metacode create project spring-batch --name batch-example --package acme.example.batch --base-path /batch-example
 ----
+
+
+== Caveats
+
+If compile errors are encounted after generating endpoint assets, the most likely cause is
+name collisions. For example, if you do this:
+
+
+[source,bash]
+----
+$ metacode create endpoint --resource Controller --route /controller
+----
+
+You will get compile errors because the compile will encounter your Controller class
+and the org.springframework.stereotype.Controller class. Likewise, if you do
+
+
+[source,bash]
+----
+$ metacode create endpoint --resource Test --route /test
+----
+
+You will get compile errors because the compiler will encounter your Test class
+and the org.junit.jupiter.api.Test class.  
+
+The code generator _could_ address this by using fully-qualified class names for 
+all generated classes, but that feels to onerous; the generated code would
+have this style:
+
+[source,java]
+----
+    acme.petstore.database.pet.Pet getPet ( String petId );
+----
+
+and 
+
+[source,java]
+----
+    void savePet (acme.petstore.database.pet.Pet pet) { ... }
+----
+
+which _works_, but becomes tedious to read.  The more reasonable solution is 
+to be aware of this behavior and be prepared to open your IDE to resolve these.
+
+
+
+
+
+
+
+
+
+
 
 
 include::docs/DeepDive.adoc[]
