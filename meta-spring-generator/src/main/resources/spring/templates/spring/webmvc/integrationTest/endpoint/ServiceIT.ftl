@@ -3,6 +3,7 @@
 package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.common.AbstractIntegrationTest;
+import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.DynamicPropertyRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +42,15 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
 
     private ${endpoint.entityName}Service serviceUnderTest;
 
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        DatabaseInitFunction.registerDatabaseProperties(registry);
+    }
+
     @BeforeEach
     void init${endpoint.entityName}Service() {
         serviceUnderTest = new ${endpoint.entityName}Service(${endpoint.entityVarName}Repository, conversionService, randomSeries);
     }
-
 
     @BeforeEach
     void insertTestData() {

@@ -3,12 +3,15 @@
 package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.common.AbstractIntegrationTest;
+import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
@@ -29,6 +32,11 @@ public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest 
     private List<${endpoint.ejbName}> ${endpoint.entityVarName}List = null;
 
     private final SecureRandomSeries randomSeries = new SecureRandomSeries();
+
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        DatabaseInitFunction.registerDatabaseProperties(registry);
+    }
 
     @BeforeEach
     void setUp() {

@@ -2,6 +2,7 @@
 
 package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
+import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
@@ -14,7 +15,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.*;
 import org.springframework.http.MediaType;
 import org.springframework.data.domain.*;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.DynamicPropertyRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-<#if ((endpoint.postgresFlag) && (endpoint.testContainersFlag))>
-@TestPropertySource(properties = {
-    "spring.datasource.url=jdbc:tc:postgresql:13.2-alpine:///public",
-    "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",
-    "spring.jpa.hibernate.ddl-auto=create-drop"})
-</#if>
 public class ${endpoint.entityName}RepositoryIT {
 
     @Autowired
@@ -55,6 +51,11 @@ public class ${endpoint.entityName}RepositoryIT {
     // Increment for rowIds in the database
     private long rowId = 0;
 
+
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        DatabaseInitFunction.registerDatabaseProperties(registry);
+    }
 
     @BeforeEach
     void insertTestData() {
