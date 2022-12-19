@@ -2,9 +2,9 @@
 ## [Unreleased]
 
 * Features:
-  * Upgrade to Spring Boot 3, Spring Framework 6. 
-    Generated code now targets Spring Framework 6 and Spring Boot 3. 
-    Naturally, this required that some other dependencies be updated. 
+  * Upgrade to Spring Boot 3, Spring Framework 6.
+    Generated code now targets Spring Framework 6 and Spring Boot 3.
+    Naturally, this required that some other dependencies be updated.
   * Changed the SecureRandomSeries to produce alphanumeric resource Ids instead
     of all-numeric resource Ids (the method that produces the all-numeric values
     is still in the SecureRandomSeries class). The required refactoring the
@@ -12,12 +12,12 @@
 
 * Maintenance:
   * Updated these libraries and plugins:
-    * spring gradle plugin 
+    * spring gradle plugin
     * lombok gradle plugin
     * spring cloud starter
-    * reactor test 
+    * reactor test
     * test containers
-    * r2dbc:h2 
+    * r2dbc:h2
 
 
 ## [5.5.0] - 2022-11-24

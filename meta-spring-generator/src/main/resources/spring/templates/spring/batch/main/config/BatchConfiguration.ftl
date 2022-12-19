@@ -4,8 +4,8 @@ package ${project.basePackage}.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BatchConfiguration {
 
-    private final JobBuilderFactory jobBuilderFactory;
+    private final JobBuilder jobBuilder;
 
-    private final StepBuilderFactory stepBuilderFactory;
+    private final StepBuilder stepBuilder;
 
     /**
      * Next steps:
@@ -32,7 +32,7 @@ public class BatchConfiguration {
      *    @Bean
      *    @StepScope
      *    public Step step1() {
-     *        return stepBuilderFactory.get("step1")
+     *        return stepBuilder.get("step1")
      *                     .<WidgetIn,WidgetOut>chunk(10)
      *                     .reader(yourItemReaderBean())
      *                     .writer(yourItemWriterBean())
@@ -43,7 +43,7 @@ public class BatchConfiguration {
      * 5. Create a @Bean that returns the Job; for example:
      *    @Bean
      *    public Job job() {
-     *        return jobBuilderFactory.get("job")
+     *        return jobBuilder.get("job")
      *                     .incrementer(new RunIdIncrementer())
      *                     .flow(step1()).end();
      *    }
