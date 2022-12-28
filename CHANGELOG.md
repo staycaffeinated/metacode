@@ -9,6 +9,12 @@
     of all-numeric resource Ids (the method that produces the all-numeric values
     is still in the SecureRandomSeries class). The required refactoring the
     ResourceIdValidator to accept the new values.
+  * Added additional Kafka related libraries to dependencies.gradle:
+    * Apache Kafka
+    * Apache Kafka Client
+    * Spring Cloud Starter Stream Kafka
+    * Spring Cloud Binder Kakfa Streams
+
 
 * Maintenance:
   * Updated these libraries and plugins:
