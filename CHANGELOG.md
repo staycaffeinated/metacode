@@ -7,8 +7,8 @@
     Naturally, this required that some other dependencies be updated.
   * Changed the SecureRandomSeries to produce alphanumeric resource Ids instead
     of all-numeric resource Ids (the method that produces the all-numeric values
-    is still in the SecureRandomSeries class). The required refactoring the
-    ResourceIdValidator to accept the new values.
+    is still in the SecureRandomSeries class). This led to refactoring some 
+    other classes.
   * Added additional Kafka related libraries to dependencies.gradle:
     * Apache Kafka
     * Apache Kafka Client
