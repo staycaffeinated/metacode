@@ -80,7 +80,7 @@ dependencies:
     version: "6.12.0"
   # Spring Boot
   - name: "springBoot"
-    version: "3.0.0"
+    version: "3.0.1"
   # Spring Cloud
   - name: "springCloud"
     version: "4.0.0"
