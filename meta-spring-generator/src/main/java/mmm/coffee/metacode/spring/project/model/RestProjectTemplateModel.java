@@ -74,6 +74,7 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
      * Future Task: create Version class that contains these,
      * and change templates to {{version.springBoot}}
      */
+    private String apacheKafkaVersion;
     private String springBootVersion;
     private String springCloudVersion;
     private String springDependencyManagementVersion;

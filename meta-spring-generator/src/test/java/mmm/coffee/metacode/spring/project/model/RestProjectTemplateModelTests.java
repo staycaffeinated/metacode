@@ -39,6 +39,7 @@ class RestProjectTemplateModelTests {
     DependencyCatalog mockDependencyCatalog;
 
     // Completely hypothetical versions of libraries
+    private static final String APACHE_KAFKA_VERSION = "3.0.0";
     private static final String ASSERTJ_VERSION = "1.2.3";
     private static final String SPRINGBOOT_VERSION = "2.6.3";
     private static final String SPRING_CLOUD_VERSION = "2.5.5";
@@ -64,6 +65,7 @@ class RestProjectTemplateModelTests {
 
     @ParameterizedTest
     @CsvSource( value = {
+            "apacheKafka,setApacheKafkaVersion",
             "springBoot,setSpringBootVersion",
             "springCloud,setSpringCloudVersion",
             "springDependencyManagement,setSpringDependencyManagementVersion",
@@ -117,6 +119,9 @@ class RestProjectTemplateModelTests {
     void shouldSetField() {
         final String expectedVersion = "1.2.3";
 
+        modelUnderTest.setField("apacheKafka", expectedVersion);
+        assertThat(modelUnderTest.getApacheKafkaVersion()).isEqualTo(expectedVersion);
+
         modelUnderTest.setField("springBoot", expectedVersion);
         assertThat(modelUnderTest.getSpringBootVersion()).isEqualTo(expectedVersion);
 
@@ -165,6 +170,7 @@ class RestProjectTemplateModelTests {
 
         // expect: a 1:1 map of each Dependency to a setter method,
         // with the getter method returning the expected value
+        assertThat(modelUnderTest.getApacheKafkaVersion()).isEqualTo(APACHE_KAFKA_VERSION);
         assertThat(modelUnderTest.getAssertJVersion()).isEqualTo(ASSERTJ_VERSION);
         assertThat(modelUnderTest.getSpringBootVersion()).isEqualTo(SPRINGBOOT_VERSION);
         assertThat(modelUnderTest.getSpringCloudVersion()).isEqualTo(SPRING_CLOUD_VERSION);
@@ -185,6 +191,7 @@ class RestProjectTemplateModelTests {
 
     List<Dependency> buildFakeDependencies() {
         List<Dependency> resultSet = new ArrayList<>();
+        resultSet.add(new Dependency("apacheKafka", APACHE_KAFKA_VERSION));
         resultSet.add(new Dependency("springBoot", SPRINGBOOT_VERSION));
         resultSet.add(new Dependency("springCloud", SPRING_CLOUD_VERSION));
         resultSet.add(new Dependency("springDependencyManagement", SPRING_DM_VERSION));

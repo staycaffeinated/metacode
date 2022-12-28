@@ -10,6 +10,8 @@
 # undefined, then update BuildDotGradleTest's fake data.  
 #
 dependencies:
+  - name: "apacheKafka"
+    version: "3.3.1"
   # Default Java version
   - name: "java"
     version: "17"

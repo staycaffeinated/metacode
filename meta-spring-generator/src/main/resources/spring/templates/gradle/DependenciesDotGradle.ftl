@@ -1,5 +1,6 @@
 ext {
     versions = [
+        apacheKafka            : '${project.apacheKafkaVersion}',         // Apache's Kafka libraries
         assertJ                : '${project.assertJVersion}',             // Assertion library for test cases
         h2                     : '${project.h2Version}',
         junitSystemRules       : '${project.junitSystemRulesVersion}',    // JUnit extensions
@@ -23,6 +24,8 @@ ext {
 
 <#noparse>
     libs = [
+        apacheKafka                 : "org.apache.kafka:kafka_2.13:$versions.apacheKafka",
+        apacheKafkaClients          : "org.apache.kafka:kafka-clients:$versions.apacheKafka",
         assertJ                     : "org.assertj:assertj-core:$versions.assertJ",
         h2                          : "com.h2database:h2:$versions.h2",
         jacksonDatatypeJsr310       : "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
