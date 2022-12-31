@@ -1,13 +1,17 @@
 
 ## [Unreleased]
 
+## [6.0.0] - 2022-12-31
+
 * Features:
   * Upgrade to Spring Boot 3, Spring Framework 6.
     Generated code now targets Spring Framework 6 and Spring Boot 3.
     Naturally, this required that some other dependencies be updated.
+    With Spring Framework 6, be aware that the 'jakarta' namespace replaces the 'javax'
+    namespace; for example, 'javax.persistence' is now 'jakarta.persistence'. 
   * Changed the SecureRandomSeries to produce alphanumeric resource Ids instead
     of all-numeric resource Ids (the method that produces the all-numeric values
-    is still in the SecureRandomSeries class). This led to refactoring some 
+    is still in the SecureRandomSeries class). This led to refactoring some
     other classes.
   * Added additional Kafka related libraries to dependencies.gradle:
     * Apache Kafka
