@@ -1,6 +1,10 @@
 
 ## [Unreleased]
 
+* Improvements 
+  * Added jakarta.persistence-api library to WebFlux and WebMvc build.gradle's
+
+
 ## [6.0.0] - 2022-12-31
 
 * Features:
@@ -8,7 +12,7 @@
     Generated code now targets Spring Framework 6 and Spring Boot 3.
     Naturally, this required that some other dependencies be updated.
     With Spring Framework 6, be aware that the 'jakarta' namespace replaces the 'javax'
-    namespace; for example, 'javax.persistence' is now 'jakarta.persistence'. 
+    namespace; for example, 'javax.persistence' is now 'jakarta.persistence'.
   * Changed the SecureRandomSeries to produce alphanumeric resource Ids instead
     of all-numeric resource Ids (the method that produces the all-numeric values
     is still in the SecureRandomSeries class). This led to refactoring some

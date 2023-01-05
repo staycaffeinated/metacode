@@ -28,6 +28,7 @@ ext {
         apacheKafkaClients              : "org.apache.kafka:kafka-clients:$versions.apacheKafka",
         assertJ                         : "org.assertj:assertj-core:$versions.assertJ",
         h2                              : "com.h2database:h2:$versions.h2",
+        jakartaPersistenceApi           : "jakarta.persistence:jakarta.persistence-api",
         jacksonDatatypeJsr310           : "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
         junitBillOfMaterial             : "org.junit:junit-bom:$versions.junit",
         junitJupiter                    : "org.junit.jupiter:junit-jupiter",

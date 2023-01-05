@@ -9,6 +9,7 @@ dependencies {
     implementation libs.springBootStarterValidation
     implementation libs.problemSpringWeb
     implementation libs.problemJacksonDataType
+    implementation libs.jakartaPersistenceApi
 <#if (project.isWithLiquibase())>
     implementation libs.liquibaseCore
 </#if>

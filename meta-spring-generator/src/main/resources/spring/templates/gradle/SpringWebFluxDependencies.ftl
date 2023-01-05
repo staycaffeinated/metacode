@@ -13,6 +13,7 @@ dependencies {
     implementation libs.springBootStarterValidation
     implementation libs.problemSpringWebFlux
     implementation libs.problemJacksonDataType
+    implementation libs.jakartaPersistenceApi
 
     runtimeOnly libs.h2
 
