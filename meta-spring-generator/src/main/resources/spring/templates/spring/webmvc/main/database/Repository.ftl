@@ -3,6 +3,7 @@ package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,11 @@ JpaSpecificationExecutor<${endpoint.ejbName}> {
 
     Optional<${endpoint.ejbName}> findByResourceId ( String id );
 
+    /* This method needs @Transactional since it's a custom query. See
+     * https://stackoverflow.com/questions/39827054/spring-jpa-repository-transactionality
+     * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#transactions
+     */
+    @Transactional
     /* returns the number of entities deleted */
     Long deleteByResourceId( String id );
 
