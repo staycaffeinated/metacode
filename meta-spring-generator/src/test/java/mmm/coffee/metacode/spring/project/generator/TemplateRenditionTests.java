@@ -203,8 +203,6 @@ class TemplateRenditionTests {
             assertThat(content).contains("spring.datasource.url=jdbc:h2:mem");
             assertThat(content).contains("spring.datasource.driver-class-name=org.h2.Driver");
         }
-
-
     }
 
 

@@ -3,11 +3,16 @@
 # must be updated by adding an instance variable to hold the new entry.
 # (Where to add this will be obvious by the many other instance variables
 # that are present for this purpose.)
-# The TemplateRenditionTests may also need to be updated. That suite contains
+#
+# The TemplateRenditionTests may also need to be updated. That test suite contains
 # a nested test, BuildDotGradleTest, that uses fake dependency data.
 # The fake data _may_ need to be updated to provide any new property added
 # here. If the BuildDotGradleTest fails because a template property is
-# undefined, then update BuildDotGradleTest's fake data.  
+# undefined, then update BuildDotGradleTest's fake data.
+#
+# Test failures in the SpringGeneratorIntegrationTest typically indicate the
+# variable name in the DependenciesDotGradle template is misspelled; specifically, the
+# spelling of the template variable does not match the spelling used in this file.
 #
 dependencies:
   - name: "apacheKafka"
@@ -69,6 +74,9 @@ dependencies:
   # R2DBC
   - name: "r2dbc_h2"
     version: "1.0.0.RELEASE"
+  # R2DBC Postgresql
+  - name: "r2dbc_postgres"
+    version: "0.8.13.RELEASE"
   # R2DBC SPI
   - name: "r2dbc_spi"
     version: "1.0.0.RELEASE"
