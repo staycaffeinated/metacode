@@ -133,6 +133,14 @@ catalog:
       template: "/spring/webflux/test/advice/GlobalExceptionHandlerTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/advice/GlobalExceptionHandlerTests.java"
       context: "project"
+  - entry:
+      template: "/spring/webflux/integrationTest/database/DatabaseInitFunction.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/database/DatabaseInitFunction.java"
+      context: "project"
+  - entry:
+      template: "/spring/webflux/integrationTest/database/PostgresTestContainer.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/database/PostgresTestContainer.java"
+      context: "project"
   #
   # Endpoint entries
   #

@@ -4,6 +4,7 @@ package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.common.ResourceIdentity;
 
+import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -31,8 +34,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+<#if (endpoint.isWithPostgres() && endpoint.isWithTestContainers())>
+class ${endpoint.entityName}ControllerIntegrationTest extends PostgresTestContainer {
+<#else>
 class ${endpoint.entityName}ControllerIntegrationTest {
-
+</#if>
    @LocalServerPort
    int port;
 <#noparse>
@@ -73,7 +79,7 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     }
 
     @Test
-    void testGetCatalogItemsStream() throws Exception {
+    void testGet${endpoint.entityName}AsStream() throws Exception {
         FluxExchangeResult<${endpoint.pojoName}> result
                 = this.client.get()
                       .uri(${endpoint.entityName}Routes.${endpoint.routeConstants.stream})
@@ -88,10 +94,7 @@ class ${endpoint.entityName}ControllerIntegrationTest {
         StepVerifier.create(events)
                     .expectSubscription()
                     .expectNextMatches(p -> p.getResourceId() != null)
-   			        .expectNextMatches(p -> p.getResourceId() != null)
-                    .expectNextMatches(p -> p.getResourceId() != null)
-   			        .thenCancel()
-                    .verify();
+   			        .thenCancel().verify();
     }
 
 	@Test

@@ -32,8 +32,6 @@ management.endpoint.health.probes.enabled=true
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.id.new_generator_mappings=false
 
-spring.datasource.username=root
-spring.datasource.password=secret
 <#-- define the jdbc driver -->
 <#if (project.reactiveMongo)??>
 # Reactive MongoDB
@@ -42,17 +40,23 @@ spring.datasource.password=secret
 <#-- define the jdbc url -->
 <#if (project.isWithPostgres())>
     <#if (project.schema)??>
-spring.datasource.url=jdbc:postgresql://localhost:5432/${project.schema}
+spring.r2dbc.url=r2dbc:postgresql://localhost:5432/postgres${project.schema}
     <#else>
-spring.datasource.url=jdbc:postgresql://localhost:5432/testdb
+spring.r2dbc.url=r2dbc:postgresql://localhost:5432/postgres
     </#if>
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.r2dbc.username=postgres
+spring.r2dbc.password=postgres
 <#else>
     <#if (project.schema)??>
-spring.datasource.url=jdbc:h2:mem:${project.schema}
+spring.r2dbc.url=r2dbc:h2:mem:${project.schema}
     <#elseif (project.applicationName)??>
-spring.datasource.url=jdbc:h2:mem:${project.applicationName}
+spring.r2dbc.url=r2dbc:h2:mem:${project.applicationName}
     <#else>
-spring.datasource.url=jdbc:h2:mem:testdb
+spring.r2dbc.url=r2dbc:h2:mem:testdb
     </#if>
+spring.r2dbc.username=root
+spring.r2dbc.password=secret
 </#if>
 
