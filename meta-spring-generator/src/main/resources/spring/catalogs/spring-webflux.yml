@@ -141,6 +141,10 @@ catalog:
       template: "/spring/webflux/integrationTest/database/PostgresTestContainer.ftl"
       destination: "src/integration/java/{{basePackagePath}}/database/PostgresTestContainer.java"
       context: "project"
+  - entry:
+      template: "/spring/webflux/integrationTest/configuration/TestDatabaseConfiguration.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/configuration/TestDatabaseConfiguration.java"
+      context: "project"
   #
   # Endpoint entries
   #
@@ -203,8 +207,16 @@ catalog:
 # - integration tests
 #
   - entry:
+      template: "/spring/webflux/integrationTest/configuration/TestTableInitializer.ftl"
+      destination: "src/main/java/{{basePackagePath}}/configuration/{{lowerCaseEntityName}}/{{entityName}}TestTableInitializer.java"
+      context: "endpoint"
+  - entry:
       template: "/spring/webflux/integrationTest/main/endpoint/ControllerIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIntegrationTest.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/integrationTest/main/endpoint/ServiceIT.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIntegrationTest.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/integrationTest/main/endpoint/EntityGenerator.ftl"
