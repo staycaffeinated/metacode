@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '${project.springDependencyManagementVersion}'
     id 'com.coditory.integration-test' version '${project.coditoryPluginVersion}'
     id 'java'
+    id 'java-test-fixtures'
     id 'idea'
     id 'jacoco'
     id 'org.sonarqube' version '${project.sonarqubeVersion}'
