@@ -264,3 +264,14 @@ catalog:
       template: "/spring/webflux/test/database/converter/PojoToEntityConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverterTests.java"
       context: "endpoint"
+#
+# - Test fixtures
+#
+  - entry:
+      template: "/spring/webflux/testFixtures/database/EjbTestFixtures.ftl"
+      destination: "src/testFixtures/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTestFixtures.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/testFixtures/database/ModelTestFixtures.ftl"
+      destination: "src/testFixtures/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}TestFixtures.java"
+      context: "endpoint"

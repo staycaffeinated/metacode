@@ -40,4 +40,7 @@ dependencies {
     testImplementation (platform( libs.junitBillOfMaterial ))
     testImplementation libs.junitJupiter
     testImplementation libs.reactorTest
+
+    testFixturesImplementation libs.reactorTest
+    testFixturesImplementation libs.springBootStarterDataR2dbc
 }
