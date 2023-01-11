@@ -68,7 +68,7 @@ class ${endpoint.entityName}ServiceTests {
 
     @Test
     void shouldFindAll${endpoint.entityName}s() {
-        Flux<${endpoint.ejbName}> ejbList = convertToFlux(create${endpoint.entityName}List());
+        Flux<${endpoint.ejbName}> ejbList = ${endpoint.ejbName}TestFixtures.FLUX_ITEMS;
         given(mockRepository.findAll()).willReturn(ejbList);
 
         Flux<${endpoint.pojoName}> stream = serviceUnderTest.findAll${endpoint.entityName}s();
@@ -79,17 +79,23 @@ class ${endpoint.entityName}ServiceTests {
 
     @Test
     void shouldFind${endpoint.entityName}ByResourceId() {
-        // Given
-        ${endpoint.ejbName} expectedEJB = create${endpoint.entityName}();
+        /*
+         * Mock the repository finding a given ${endpoint.ejbName}
+         */
+        ${endpoint.ejbName} expectedEJB = ${endpoint.ejbName}TestFixtures.oneWithResourceId();
         String expectedId = randomSeries.nextResourceId();
         expectedEJB.setResourceId(expectedId);
         Mono<${endpoint.ejbName}> rs = Mono.just(expectedEJB);
         given(mockRepository.findByResourceId(any(String.class))).willReturn(rs);
 
-        // When
+        /*
+         * When: the service is asked to find an instance by its resourceId
+         */
         Mono<${endpoint.pojoName}> publisher = serviceUnderTest.find${endpoint.entityName}ByResourceId(expectedId);
 
-        // Then
+        /*
+         * Expect: the returned stream to only contain the resource requested
+         */
         StepVerifier.create(publisher)
                 .expectSubscription()
                 .consumeNextWith(item -> assertThat(Objects.equals(item.getResourceId(), expectedId)))
@@ -99,15 +105,22 @@ class ${endpoint.entityName}ServiceTests {
 
     @Test
     void shouldFindAllByText() {
-        // Given
-        final String expectedText = "Lorim ipsum";
-        List<${endpoint.ejbName}> expectedRows = create${endpoint.entityName}ListHavingSameTextValue(expectedText);
-        given(mockRepository.findAllByText(expectedText)).willReturn(Flux.fromIterable(expectedRows));
+        /*
+         * Mock the repository returning a flux stream of instances that all have matching values
+         * in the column being searched.
+         */
+        final String expectedText = ${endpoint.ejbName}TestFixtures.ALL_WITH_SAME_TEXT.get(0).getText();
+        Flux<${endpoint.ejbName}> expectedRows = Flux.fromIterable(${endpoint.ejbName}TestFixtures.ALL_WITH_SAME_TEXT);
+        given(mockRepository.findAllByText(expectedText)).willReturn(expectedRows);
 
-        // When
+        /*
+         * When: the service is asked to find all instances having the same value in a particular column
+         */
         Flux<${endpoint.pojoName}> publisher = serviceUnderTest.findAllByText(expectedText);
 
-        // Then
+        /*
+         * Expect: the result set to contain the same instances found by the repository
+         */
         StepVerifier.create(publisher)
                 .expectSubscription()
                 .consumeNextWith(item -> assertThat(Objects.equals(item.getText(), expectedText)))
@@ -143,7 +156,7 @@ class ${endpoint.entityName}ServiceTests {
     void shouldUpdate${endpoint.entityName}() {
         // Given
         // what the client submits
-        ${endpoint.pojoName} submittedPOJO = ${endpoint.pojoName}.builder().text("Updated value").resourceId(randomSeries.nextResourceId()).build();
+        ${endpoint.pojoName} submittedPOJO = ${endpoint.pojoName}TestFixtures.oneWithResourceId();
         // what the new persisted value looks like
         ${endpoint.ejbName} persistedObj = conversionService.convert(submittedPOJO, ${endpoint.ejbName}.class);
         Mono<${endpoint.ejbName}> dataStream = Mono.just(persistedObj);
@@ -218,44 +231,4 @@ class ${endpoint.entityName}ServiceTests {
         // when/then
 		assertThrows(UnprocessableEntityException.class, () -> localService.create${endpoint.entityName}(sample));
 	}
-
-    // -----------------------------------------------------------
-    // Helper methods
-    // -----------------------------------------------------------
-
-    private Flux<${endpoint.ejbName}> convertToFlux (List<${endpoint.ejbName}> list) { return Flux.fromIterable(create${endpoint.entityName}List()); }
-
-    private List<${endpoint.pojoName}> convertToPojo(List<${endpoint.ejbName}> list) {
-        return list.stream().map(item -> conversionService.convert(item, ${endpoint.pojoName}.class)).collect(Collectors.toList());
-    }
-
-    private List<${endpoint.ejbName}> create${endpoint.entityName}List() {
-        ${endpoint.ejbName} w1 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Lorim ipsum dolor imit").build();
-        ${endpoint.ejbName} w2 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Duis aute irure dolor in reprehenderit").build();
-        ${endpoint.ejbName} w3 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Excepteur sint occaecat cupidatat non proident").build();
-
-        ArrayList<${endpoint.ejbName}> dataList = new ArrayList<>();
-        dataList.add(w1);
-        dataList.add(w2);
-        dataList.add(w3);
-
-        return dataList;
-    }
-
-    private List<${endpoint.ejbName}> create${endpoint.entityName}ListHavingSameTextValue(final String value) {
-        ${endpoint.ejbName} w1 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text(value).build();
-        ${endpoint.ejbName} w2 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text(value).build();
-        ${endpoint.ejbName} w3 = ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text(value).build();
-
-        ArrayList<${endpoint.ejbName}> dataList = new ArrayList<>();
-        dataList.add(w1);
-        dataList.add(w2);
-        dataList.add(w3);
-
-        return dataList;
-    }
-
-    private ${endpoint.ejbName} create${endpoint.entityName}() {
-        return ${endpoint.ejbName}.builder().resourceId(randomSeries.nextResourceId()).text("Lorim ipsum dolor imit").build();
-    }
 }

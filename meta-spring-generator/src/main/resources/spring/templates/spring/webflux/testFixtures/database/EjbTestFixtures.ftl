@@ -36,9 +36,9 @@ public class ${endpoint.ejbName}TestFixtures {
     /*
      * Useful for query tests where multiple records have the same text
      */
-    private static final PetEntity SAME_TEXT_ONE;
-    private static final PetEntity SAME_TEXT_TWO;
-    private static final PetEntity SAME_TEXT_THREE;
+    private static final ${endpoint.ejbName} SAME_TEXT_ONE;
+    private static final ${endpoint.ejbName} SAME_TEXT_TWO;
+    private static final ${endpoint.ejbName} SAME_TEXT_THREE;
 
     static {
         SAMPLE_ONE = aNew${endpoint.ejbName}("Bingo");
