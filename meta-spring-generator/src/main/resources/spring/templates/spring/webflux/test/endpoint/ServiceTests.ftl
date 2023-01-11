@@ -73,7 +73,7 @@ class ${endpoint.entityName}ServiceTests {
 
         Flux<${endpoint.pojoName}> stream = serviceUnderTest.findAll${endpoint.entityName}s();
 
-        StepVerifier.create(stream).expectSubscription().expectNextCount(3).verifyComplete();
+        StepVerifier.create(stream).expectSubscription().expectNextCount(${endpoint.ejbName}TestFixtures.ALL_ITEMS.size()).verifyComplete();
     }
 
 
