@@ -73,29 +73,75 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     }
 
     @Test
-    void testGetAll${endpoint.entityName}s() {
-        this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findAll}).accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
-            .expectHeader().contentType(MediaType.APPLICATION_JSON).expectBody()
-            .jsonPath("$.[0].text").isNotEmpty()
-            .jsonPath("$.[0].resourceId").isNotEmpty();
-    }
-    
-    @Test
-    void testGetSingle${endpoint.entityName}() {
-        create${endpoint.entityName}();
-
-        this.client.get().uri(replaceId(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}))
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-   			    .expectStatus().isOk().expectHeader()
-                .contentType(MediaType.APPLICATION_JSON)
-                .expectBody()
-   			    .jsonPath("$.resourceId").isNotEmpty()
-                .jsonPath("$.text").isNotEmpty();
+    void shouldGetAll${endpoint.entityName}s() {
+        // @formatter:off
+        sendFindAll${endpoint.entityName}sRequest()
+            .expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody().jsonPath("$.[0].text")
+            .isNotEmpty().jsonPath("$.[0].resourceId").isNotEmpty();
+        // @formatter:on
     }
 
     @Test
-    void testGet${endpoint.entityName}AsStream() throws Exception {
+    void shouldGetExisting${endpoint.entityName}() {
+        // formatter:off
+        sendFindOne${endpoint.entityName}Request(knownResourceId).expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+            .jsonPath("$.resourceId").isNotEmpty()
+            .jsonPath("$.text").isNotEmpty();
+        // formatter:on
+    }
+
+    @Test
+    void shouldCreateNewPet() {
+        ${endpoint.entityName} pojo = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
+
+        // @formatter:off
+        sendCreatePetRequest(pojo)
+            .expectStatus().isCreated()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON);
+        // @formatter:on
+    }
+
+    @Test
+    void shouldUpdateAnExisting${endpoint.entityName}() {
+        // Pick one of the persisted instances for an update.
+        // Any one will do, as long as it's been persisted.
+        ${endpoint.entityName}Entity targetEntity = ${endpoint.entityName}EntityTestFixtures.allItems().get(1);
+
+        // Create an empty POJO and set the fields to update
+        // (in this example, the text field).
+        // The resourceId indicates which instance to update.
+        ${endpoint.entityName} updatedItem = ${endpoint.entityName}.builder().build();
+        updatedItem.setText("My new text");
+        updatedItem.setResourceId(targetEntity.getResourceId());
+
+        sendUpdate${endpoint.entityName}Request(updatedItem).expectStatus().isOk();
+    }
+
+    @Test
+    void shouldQuietlyDeleteExistingEntity() {
+        // Pick one of the persisted instances to delete
+        ${endpoint.ejbName} existingItem = ${endpoint.ejbName}TestFixtures.allItems().get(1);
+        sendDeletePetRequest(existingItem.getResourceId()).expectStatus().isNoContent();
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenResourceDoesNotExist() {
+        // @formatter:off
+        sendFindOne${endpoint.entityName}Request("ThisIdDoesNotExist").expectStatus().isNotFound()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+                // I've seen stack traces could come back with both labels
+                .jsonPath("$.stackTrace").doesNotExist()
+                .jsonPath("$.trace").doesNotExist();
+        // @formatter:on
+    }
+
+    @Test
+    void shouldGet${endpoint.entityName}AsStream() throws Exception {
         FluxExchangeResult<${endpoint.pojoName}> result
                 = this.client.get()
                       .uri(${endpoint.entityName}Routes.${endpoint.routeConstants.stream})
@@ -113,73 +159,33 @@ class ${endpoint.entityName}ControllerIntegrationTest {
    			        .thenCancel().verify();
     }
 
-	@Test
-	void testCreate${endpoint.entityName}() {
-		${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.entityName}Generator.generate${endpoint.entityName}();
-		${endpoint.entityVarName}.setResourceId(null);
-
-		this.client.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
-                    .contentType(MediaType.APPLICATION_JSON)
-				    .body(Mono.just( ${endpoint.entityVarName} ), ${endpoint.pojoName}.class)
-                    .exchange()
-                    .expectStatus().isCreated()
-                    .expectHeader().contentType(MediaType.APPLICATION_JSON);
-	}
-
-    @Test
-	void testUpdate${endpoint.entityName}() {
-		create${endpoint.entityName}();
-
-		${endpoint.entityVarName}.setText("my new text");
-
-		this.client.put().uri(replaceId(${endpoint.entityName}Routes.${endpoint.routeConstants.update}))
-                    .contentType(MediaType.APPLICATION_JSON)
-				    .body(Mono.just(${endpoint.entityVarName}), ${endpoint.pojoName}.class)
-                    .exchange()
-                    .expectStatus().isOk();
-	}
-
-	@Test
-	void testDelete${endpoint.entityName}() {
-		create${endpoint.entityName}();
-
-		this.client.delete().uri(replaceId(${endpoint.entityName}Routes.${endpoint.routeConstants.delete})).exchange().expectStatus().isNoContent();
-	}
-
-	@Test
-	void testResourceNotFoundException() throws Exception {
-		this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id\\}", "12345")).accept(MediaType.APPLICATION_JSON)
-		    .exchange().expectStatus().isNotFound().expectHeader().contentType(MediaType.APPLICATION_JSON)
-            .expectBody().jsonPath("$.stackTrace").doesNotExist();
-	}
-
     /* ---------------------------------------------------------------------------------------------------------
      * Helper methods
      * --------------------------------------------------------------------------------------------------------- */
 
-    WebTestClient.ResponseSpec sendFindOnePetRequest(String id) {
+    WebTestClient.ResponseSpec sendFindOne${endpoint.entityName}Request(String id) {
         return this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id\\}", id))
             .accept(MediaType.APPLICATION_JSON).exchange();
     }
 
-    WebTestClient.ResponseSpec sendFindAllPetsRequest() {
+    WebTestClient.ResponseSpec sendFindAll${endpoint.entityName}sRequest() {
         return this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findAll})
             .accept(MediaType.APPLICATION_JSON).exchange();
     }
 
-    WebTestClient.ResponseSpec sendCreatePetRequest(${endpoint.entityName} pojo) {
+    WebTestClient.ResponseSpec sendCreate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
         return this.client.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
             .contentType(MediaType.APPLICATION_JSON)
             .body(Mono.just(pojo), ${endpoint.entityName}.class).exchange();
     }
 
-    WebTestClient.ResponseSpec sendUpdatePetRequest(${endpoint.entityName} pojo) {
+    WebTestClient.ResponseSpec sendUpdate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
         return this.client.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id\\}", pojo.getResourceId()))
             .contentType(MediaType.APPLICATION_JSON)
             .body(Mono.just(pojo), ${endpoint.entityName}.class).exchange();
     }
 
-    WebTestClient.ResponseSpec sendDeletePetRequest(String resourceId) {
+    WebTestClient.ResponseSpec sendDelete${endpoint.entityName}Request(String resourceId) {
         return this.client.delete().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id\\}", resourceId)).exchange();
     }
 
@@ -202,11 +208,4 @@ class ${endpoint.entityName}ControllerIntegrationTest {
 		${endpoint.entityVarName}.setResourceId(resourceId);
 	}
 
-    /**
-     * Use this to replace the 'id' parameter in the query string
-     * with the resourceId from the instance variable, ${endpoint.entityVarName}
-     */
-	String replaceId(String path) {
-		return path.replaceAll("\\{id\\}", ${endpoint.entityVarName}.getResourceId().toString());
-	}
 }
