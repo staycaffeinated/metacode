@@ -135,6 +135,36 @@ class ${endpoint.entityName}ControllerIntegrationTest {
             .expectBody().jsonPath("$.stackTrace").doesNotExist();
 	}
 
+    /* ---------------------------------------------------------------------------------------------------------
+     * Helper methods
+     * --------------------------------------------------------------------------------------------------------- */
+
+    WebTestClient.ResponseSpec sendFindOnePetRequest(String id) {
+        return this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id\\}", id))
+            .accept(MediaType.APPLICATION_JSON).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendFindAllPetsRequest() {
+        return this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findAll})
+            .accept(MediaType.APPLICATION_JSON).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendCreatePetRequest(${endpoint.entityName} pojo) {
+        return this.client.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(Mono.just(pojo), ${endpoint.entityName}.class).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendUpdatePetRequest(${endpoint.entityName} pojo) {
+        return this.client.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id\\}", pojo.getResourceId()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(Mono.just(pojo), ${endpoint.entityName}.class).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendDeletePetRequest(String resourceId) {
+        return this.client.delete().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id\\}", resourceId)).exchange();
+    }
+
     /**
      * Creates a new ${endpoint.entityName} then updates the resourceId of the instance variable, ${endpoint.entityVarName},
      * with the resourceId of the added ${endpoint.entityName}.

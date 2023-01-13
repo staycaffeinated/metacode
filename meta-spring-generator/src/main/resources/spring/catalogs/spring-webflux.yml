@@ -275,3 +275,7 @@ catalog:
       template: "/spring/webflux/testFixtures/database/ModelTestFixtures.ftl"
       destination: "src/testFixtures/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}TestFixtures.java"
       context: "endpoint"
+  - entry:
+      template: "/spring/webflux/integrationTest/configuration/TestTableInitializer.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/configuration/{{entityName}}TestTableInitializer.java"
+      context: "endpoint"
