@@ -9,6 +9,7 @@ import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+
+import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -49,9 +52,24 @@ class ${endpoint.entityName}ControllerIntegrationTest {
    @Autowired
    private ${endpoint.entityName}Service ${endpoint.entityVarName}Service;
 
+   @Autowired
+   private ${endpoint.entityName}Repository repository;
+
+   /*
+    * Use this to fetch a record known to exist. The underlying database record
+    * is created in the @BeforeEach method.
+    */
+   private String knownResourceId;
+
    	@Autowired
     public void setApplicationContext(ApplicationContext context) {
         this.client = WebTestClient.bindToApplicationContext(context).configureClient().build();
+    }
+
+    @BeforeEach
+    void insertTestRecordsIntoDatabase() {
+        repository.saveAll(${endpoint.entityName}EntityTestFixtures.allItems()).blockLast(Duration.ofSeconds(10));
+        knownResourceId = ${endpoint.entityName}EntityTestFixtures.allItems().get(1).getResourceId();
     }
 
     @Test
