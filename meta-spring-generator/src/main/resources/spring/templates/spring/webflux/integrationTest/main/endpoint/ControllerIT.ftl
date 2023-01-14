@@ -84,11 +84,11 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     }
 
     @Test
-    void shouldCreateNewPet() {
+    void shouldCreateNew${endpoint.entityName}() {
         ${endpoint.entityName} pojo = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
 
         // @formatter:off
-        sendCreatePetRequest(pojo)
+        sendCreate${endpoint.entityName}Request(pojo)
             .expectStatus().isCreated()
             .expectHeader().contentType(MediaType.APPLICATION_JSON);
         // @formatter:on
@@ -114,7 +114,7 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     void shouldQuietlyDeleteExistingEntity() {
         // Pick one of the persisted instances to delete
         ${endpoint.ejbName} existingItem = ${endpoint.ejbName}TestFixtures.allItems().get(1);
-        sendDeletePetRequest(existingItem.getResourceId()).expectStatus().isNoContent();
+        sendDelete${endpoint.entityName}Request(existingItem.getResourceId()).expectStatus().isNoContent();
     }
 
     @Test

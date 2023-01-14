@@ -218,10 +218,6 @@ catalog:
       template: "/spring/webflux/integrationTest/main/endpoint/ServiceIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIntegrationTest.java"
       context: "endpoint"
-  - entry:
-      template: "/spring/webflux/integrationTest/main/endpoint/EntityGenerator.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Generator.java"
-      context: "endpoint"
 #
 # -- resource files
 #

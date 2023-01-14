@@ -57,6 +57,7 @@ public class ${endpoint.entityName}TestFixtures {
         add(SAMPLE_SIX);
         add(SAMPLE_SEVEN);
     }};
+    public static final List<${endpoint.entityName}> allItems() { return ALL_ITEMS; }
 
     public static final Flux<${endpoint.entityName}> FLUX_ITEMS = Flux.fromIterable(ALL_ITEMS);
 

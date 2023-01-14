@@ -2,26 +2,31 @@
 
 package ${endpoint.packageName};
 
+import ${endpoint.basePackage}.configuration.*;
 import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.convert.ConversionService;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.time.Duration;
+
 
 /**
  * Integration test of the service component
  */
-@DataR2dbcTest
+@ComponentScan(basePackageClasses={TestDatabaseConfiguration.class,${endpoint.entityName}TestTableInitializer.class})
+@SpringBootTest
 @Slf4j
 class ${endpoint.entityName}ServiceIntegrationTest extends PostgresTestContainer {
 
@@ -38,16 +43,26 @@ class ${endpoint.entityName}ServiceIntegrationTest extends PostgresTestContainer
     private final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         serviceUnderTest = new ${endpoint.entityName}Service(repository, conversionService, applicationEventPublisher, randomSeries);
+        ${endpoint.entityName}TestFixtures.allItems().forEach(item -> {
+          serviceUnderTest.create${endpoint.entityName}(item).blockOptional(Duration.ofSeconds(1)); 
+        });
+        
     }
 
+    @AfterEach
+    void tearDown() {
+        // empty
+    }
 
     @Test
     void shouldFindResults() {
+        int expectedCount = ${endpoint.ejbName}TestFixtures.allItems().size();
+
         Flux<${endpoint.entityName}> source = serviceUnderTest.findAll${endpoint.entityName}s();
 
-        // Verify something came back.
-        StepVerifier.create(source).expectSubscription().thenCancel().verify();
+        // Expect as many rows back as were inserted by setUp 
+        StepVerifier.create(source).expectSubscription().expectNextCount(expectedCount).thenCancel().verify();
     }
 }
