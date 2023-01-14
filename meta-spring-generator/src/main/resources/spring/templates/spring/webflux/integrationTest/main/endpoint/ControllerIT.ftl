@@ -2,13 +2,10 @@
 
 package ${endpoint.packageName};
 
-import ${endpoint.basePackage}.common.ResourceIdentity;
-
 import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
@@ -28,7 +22,6 @@ import reactor.test.StepVerifier;
 
 import java.time.Duration;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration tests of ${endpoint.entityName}Controller
@@ -47,10 +40,6 @@ class ${endpoint.entityName}ControllerIntegrationTest {
 </#noparse>
    String applicationBasePath;
    private WebTestClient client;
-   private ${endpoint.pojoName} ${endpoint.entityVarName};
-
-   @Autowired
-   private ${endpoint.entityName}Service ${endpoint.entityVarName}Service;
 
    @Autowired
    private ${endpoint.entityName}Repository repository;
@@ -164,7 +153,7 @@ class ${endpoint.entityName}ControllerIntegrationTest {
      * --------------------------------------------------------------------------------------------------------- */
 
     WebTestClient.ResponseSpec sendFindOne${endpoint.entityName}Request(String id) {
-        return this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id\\}", id))
+        return this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id}", id))
             .accept(MediaType.APPLICATION_JSON).exchange();
     }
 
@@ -180,32 +169,12 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     }
 
     WebTestClient.ResponseSpec sendUpdate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
-        return this.client.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id\\}", pojo.getResourceId()))
+        return this.client.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id}", pojo.getResourceId()))
             .contentType(MediaType.APPLICATION_JSON)
             .body(Mono.just(pojo), ${endpoint.entityName}.class).exchange();
     }
 
     WebTestClient.ResponseSpec sendDelete${endpoint.entityName}Request(String resourceId) {
-        return this.client.delete().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id\\}", resourceId)).exchange();
+        return this.client.delete().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id}", resourceId)).exchange();
     }
-
-    /**
-     * Creates a new ${endpoint.entityName} then updates the resourceId of the instance variable, ${endpoint.entityVarName},
-     * with the resourceId of the added ${endpoint.entityName}.
-     */
-	void create${endpoint.entityName}() {
-        ${endpoint.entityVarName} = ${endpoint.entityName}Generator.generate${endpoint.entityName}();
-		${endpoint.entityVarName}.setResourceId(null);
-
-		EntityExchangeResult<ResourceIdentity> result = this.client.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
-				.contentType(MediaType.APPLICATION_JSON).body(Mono.just(${endpoint.entityVarName}), ${endpoint.pojoName}.class).exchange().expectStatus()
-				.isCreated().expectBody(ResourceIdentity.class).returnResult();
-
-		// After the ${endpoint.entityVarName} is created, the endpoint returns the resourceId of the
-		// created book. Here, the resourceId of the instance variable, ${endpoint.entityVarName}, is updated
-		// to enable the current test to acquire the new ${endpoint.entityName}'s resourceId.
-		String resourceId = result.getResponseBody().getResourceId();
-		${endpoint.entityVarName}.setResourceId(resourceId);
-	}
-
 }
