@@ -177,6 +177,9 @@ catalog:
       template: "/spring/webmvc/integrationTest/database/DatabaseInitFunction.ftl"
       destination: "src/integration/java/{{basePackagePath}}/database/DatabaseInitFunction.java"
       context: "project"
+#
+# Endpoint entries
+#
   - entry:
       template: "/spring/webmvc/main/database/Entity.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{ejbName}}.java"
@@ -260,4 +263,15 @@ catalog:
   - entry:
       template: "/spring/webmvc/integrationTest/database/endpoint/RepositoryIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
+      context: "endpoint"
+#
+# Test fixtures
+#
+  - entry:
+      template: "/spring/webmvc/testFixtures/database/WebMvcEjbTestFixtures.ftl"
+      destination: "src/testFixtures/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTestFixtures.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/testFixtures/database/WebMvcModelTestFixtures.ftl"
+      destination: "src/testFixtures/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}TestFixtures.java"
       context: "endpoint"

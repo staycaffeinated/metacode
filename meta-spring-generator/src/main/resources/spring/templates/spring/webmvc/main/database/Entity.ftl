@@ -3,6 +3,7 @@
 package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import jakarta.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ${endpoint.ejbName} {
 
     /*
@@ -24,7 +26,7 @@ public class ${endpoint.ejbName} {
      * database-generated Ids are commonly sequential values that a hacker can easily guess.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     /**
