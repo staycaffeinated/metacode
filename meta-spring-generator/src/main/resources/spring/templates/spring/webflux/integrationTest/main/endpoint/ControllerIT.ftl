@@ -148,9 +148,9 @@ class ${endpoint.entityName}ControllerIntegrationTest {
    			        .thenCancel().verify();
     }
 
-    /* ---------------------------------------------------------------------------------------------------------
+    /* -----------------------------------------------------------------------
      * Helper methods
-     * --------------------------------------------------------------------------------------------------------- */
+     * ----------------------------------------------------------------------- */
 
     WebTestClient.ResponseSpec sendFindOne${endpoint.entityName}Request(String id) {
         return this.client.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id}", id))

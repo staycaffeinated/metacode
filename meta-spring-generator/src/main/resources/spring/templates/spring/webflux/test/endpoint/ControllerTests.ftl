@@ -71,12 +71,13 @@ class ${endpoint.entityName}ControllerTests {
         when(mock${endpoint.entityName}Service.findByResourceId(expectedResourceID)).thenReturn(Mono.just(ejb));
         when(mock${endpoint.entityName}Service.find${endpoint.entityName}ByResourceId(expectedResourceID)).thenReturn(Mono.just(pojo));
 
-        webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, expectedResourceID)
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
+        // @formatter:off
+        sendFindOne${endpoint.entityName}Request(expectedResourceID)
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("$.resourceId").isNotEmpty().jsonPath("$.text").isNotEmpty();
+                .jsonPath("$.resourceId").isNotEmpty()
+                .jsonPath("$.text").isNotEmpty();
+        // @formatter:on         
 
         Mockito.verify(mock${endpoint.entityName}Service, times(1)).find${endpoint.entityName}ByResourceId(expectedResourceID);
     }
@@ -92,9 +93,14 @@ class ${endpoint.entityName}ControllerTests {
         /*
          * Expect: the REST call to return the same instances the service.findAll fetched
          */
-        webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findAll}).accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON).expectBody().jsonPath("$.[0].text").isNotEmpty()
+        // @formatter:off 
+        sendFindAll${endpoint.entityName}sRequest()
+            .expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+                .jsonPath("$.[0].text").isNotEmpty()
                 .jsonPath("$.[0].resourceId").isNotEmpty();
+        // @formatter:on        
     }
 
     @Test
@@ -102,22 +108,24 @@ class ${endpoint.entityName}ControllerTests {
         /*
          * Mock the service returning a ${endpoint.pojoName} and returning a predetermined
          * resourceId (since resourceIds are assigned server-side).
+         */
         ${endpoint.pojoName} pojo = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
         String expectedId = randomSeries.nextResourceId();
 
         when(mock${endpoint.entityName}Service.create${endpoint.entityName}(any(${endpoint.pojoName}.class))).thenReturn(Mono.just(expectedId));
 
-        webClient.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create}).contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(pojo), ${endpoint.pojoName}.class).exchange().expectStatus().isCreated().expectHeader()
-                .contentType(MediaType.APPLICATION_JSON);
+        // @formatter:off
+        sendCreate${endpoint.entityName}Request(pojo)
+            .expectStatus().isCreated()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON);
+        // @formatter:on           
     }
 
     @Test
     void shouldUpdate${endpoint.entityName}() {
         ${endpoint.pojoName} pojo = ${endpoint.entityName}TestFixtures.oneWithResourceId();
-        webClient.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, pojo.getResourceId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(pojo), ${endpoint.pojoName}.class).exchange().expectStatus().isOk();
+        
+        sendUpdate${endpoint.entityName}Request(pojo).expectStatus().isOk();
     }
 
 	@Test
@@ -150,7 +158,9 @@ class ${endpoint.entityName}ControllerTests {
          * When deleting a Pet, expect the response code to be OK. Nothing else is expected;
          * the endpoint does not reveal whether the deleted item was found, or if the delete was successful.
          */
-        webClient.delete().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.delete}, pojo.getResourceId()).exchange().expectStatus().isNoContent();
+        // @formatter:off
+        sendDelete${endpoint.entityName}Request(pojo.getResourceId()).expectStatus().isNoContent(); 
+        // @formatter:on
     }
 
  	@Test
@@ -174,4 +184,35 @@ class ${endpoint.entityName}ControllerTests {
 			assertThat(p.getText()).isNotEmpty();
 		}).thenCancel().verify();
 	}
+		
+    /* -----------------------------------------------------------------------
+     * Helper methods
+     * ----------------------------------------------------------------------- */
+
+    WebTestClient.ResponseSpec sendFindOne${endpoint.entityName}Request(String id) {
+        return webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}.replaceAll("\\{id}", id))
+            .accept(MediaType.APPLICATION_JSON).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendFindAll${endpoint.entityName}sRequest() {
+        return webClient.get().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.findAll})
+            .accept(MediaType.APPLICATION_JSON).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendCreate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
+        return webClient.post().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.create})
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(Mono.just(pojo), ${endpoint.entityName}.class).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendUpdate${endpoint.entityName}Request(${endpoint.entityName} pojo) {
+        return webClient.put().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id}", pojo.getResourceId()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(Mono.just(pojo), ${endpoint.entityName}.class).exchange();
+    }
+
+    WebTestClient.ResponseSpec sendDelete${endpoint.entityName}Request(String resourceId) {
+        return webClient.delete().uri(${endpoint.entityName}Routes.${endpoint.routeConstants.update}.replaceAll("\\{id}", resourceId)).exchange();
+    }
+	
 }

@@ -208,7 +208,7 @@ catalog:
 #
   - entry:
       template: "/spring/webflux/integrationTest/configuration/TestTableInitializer.ftl"
-      destination: "src/main/java/{{basePackagePath}}/configuration/{{lowerCaseEntityName}}/{{entityName}}TestTableInitializer.java"
+      destination: "src/main/java/{{basePackagePath}}/configuration/{{entityName}}TestTableInitializer.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/integrationTest/main/endpoint/ControllerIT.ftl"
