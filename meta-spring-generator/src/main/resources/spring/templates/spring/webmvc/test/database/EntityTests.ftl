@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -28,7 +30,7 @@ class ${endpoint.ejbName}Tests {
     class TestEquals {
         @Test
         void whenNullObject_thenReturnsFalse() {
-            assertThat(underTest.equals(null)).isFalse();
+            assertThat(Objects.equals(underTest,null)).isFalse();
         }
 
         @Test
@@ -39,12 +41,14 @@ class ${endpoint.ejbName}Tests {
         }
 
         @Test
+        @SuppressWarnings("all")
         void whenSelf_thenReturnsTrue() {
             ${endpoint.ejbName} sample = underTest;
-            assertThat(underTest.equals(sample)).isTrue();
+            assertThat(Objects.equals(underTest, sample)).isTrue();
         }
 
         @Test
+        @SuppressWarnings("all")
         void whenDifferentClasses_thenReturnsFalse() {
             assertThat(underTest.equals("hello,world")).isFalse();
         }

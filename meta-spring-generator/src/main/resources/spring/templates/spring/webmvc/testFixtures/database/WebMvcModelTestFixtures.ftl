@@ -72,6 +72,13 @@ public class ${endpoint.entityName}TestFixtures {
      * ${endpoint.entityName} that does not have a resourceId assigned.
      */
     public static ${endpoint.entityName} oneWithoutResourceId() { return ONE_WITH_NO_RESOURCE_ID; }
+    
+    public static ${endpoint.entityName} copyOf(${endpoint.entityName} copy) {
+        return ${endpoint.entityName}.builder()  
+            .resourceId(copy.getResourceId())
+            .text(copy.getText())
+            .build();
+    }
 
     /**
      * Create a sample ${endpoint.entityName}

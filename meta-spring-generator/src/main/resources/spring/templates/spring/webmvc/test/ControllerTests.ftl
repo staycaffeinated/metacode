@@ -58,10 +58,7 @@ class ${endpoint.entityName}ControllerTests {
 
     @BeforeEach
     void setUp() {
-        ${endpoint.entityVarName}List = new ArrayList<>();
-        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("text 1").build());
-        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("text 2").build());
-        ${endpoint.entityVarName}List.add(${endpoint.pojoName}.builder().resourceId(randomSeries.nextResourceId()).text("text 3").build());
+        ${endpoint.entityVarName}List = ${endpoint.entityName}TestFixtures.allItems();
 
         objectMapper.registerModule(new ProblemModule());
         objectMapper.registerModule(new ConstraintViolationProblemModule());
@@ -81,11 +78,12 @@ class ${endpoint.entityName}ControllerTests {
          */
         @Test
         void shouldFetchAll${endpoint.entityName}s() throws Exception {
-            given(${endpoint.entityVarName}Service.findAll${endpoint.entityName}s()).willReturn(${endpoint.entityVarName}List);
+            int expectedSize = ${endpoint.entityName}TestFixtures.allItems().size();
+            given(${endpoint.entityVarName}Service.findAll${endpoint.entityName}s()).willReturn(${endpoint.entityName}TestFixtures.allItems());
 
-            mockMvc.perform(get( ${endpoint.entityName}Routes.${endpoint.routeConstants.findAll} ))
+            findAllEntities()
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()", is(${endpoint.entityVarName}List.size())));
+                .andExpect(jsonPath("$.size()", is(expectedSize)));
         }
     }
 
@@ -97,14 +95,14 @@ class ${endpoint.entityName}ControllerTests {
         @Test
         void shouldFind${endpoint.entityName}ById() throws Exception {
             // given
-            String resourceId = randomSeries.nextResourceId();
-            ${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.pojoName}.builder().resourceId( resourceId ).text("text 1").build();
+            ${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.entityName}TestFixtures.oneWithResourceId();
+            String resourceId = ${endpoint.entityVarName}.getResourceId();
 
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId( resourceId ))
                 .willReturn(Optional.of(${endpoint.entityVarName}));
 
             // when/then
-            mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, resourceId))
+            findSpecificEntity(resourceId)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.text", is(${endpoint.entityVarName}.getText())))
             ;
@@ -118,7 +116,7 @@ class ${endpoint.entityName}ControllerTests {
                     .willReturn(Optional.empty());
 
             // when/then
-            mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, resourceId ))
+            findSpecificEntity(resourceId)
                 .andExpect(status().isNotFound());
 
         }
@@ -129,12 +127,13 @@ class ${endpoint.entityName}ControllerTests {
         @Test
         void shouldCreateNew${endpoint.entityName}() throws Exception {
             // given
-            ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().text("sample").build();
-            ${endpoint.pojoName} resourceAfterSave = ${endpoint.pojoName}.builder().text("sample").resourceId(randomSeries.nextResourceId()).build();
+            ${endpoint.pojoName} resourceBeforeSave = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
+            ${endpoint.pojoName} resourceAfterSave = ${endpoint.entityName}TestFixtures.copyOf(resourceBeforeSave);
+            resourceAfterSave.setResourceId(randomSeries.nextResourceId());
             given(${endpoint.entityVarName}Service.create${endpoint.entityName}( any(${endpoint.pojoName}.class))).willReturn(resourceAfterSave);
 
             // when/then
-            createEntity(resource).andExpect(status().isCreated())
+            createEntity(resourceBeforeSave).andExpect(status().isCreated())
                     .andExpect(jsonPath("$.resourceId", notNullValue()))
                     .andExpect(jsonPath("$.text", is(resourceAfterSave.getText())));
         }
@@ -202,8 +201,10 @@ class ${endpoint.entityName}ControllerTests {
         @Test
         void shouldDelete${endpoint.entityName}() throws Exception {
             // given
-            String resourceId = randomSeries.nextResourceId();
-            ${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.pojoName}.builder().resourceId(resourceId).text("delete me").build();
+            ${endpoint.pojoName} ${endpoint.entityVarName} = ${endpoint.entityName}TestFixtures.oneWithResourceId();
+            String resourceId = ${endpoint.entityVarName}.getResourceId();
+            
+            // Mock the service layer finding the resource being deleted
             given(${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(resourceId)).willReturn(Optional.of(${endpoint.entityVarName}));
             doNothing().when(${endpoint.entityVarName}Service).delete${endpoint.entityName}ByResourceId(${endpoint.entityVarName}.getResourceId());
 
@@ -251,6 +252,21 @@ class ${endpoint.entityName}ControllerTests {
     //
     // ---------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Sends a findAll request
+     */ 
+    protected ResultActions findAllEntities() throws Exception {
+  	    return mockMvc.perform(get( ${endpoint.entityName}Routes.${endpoint.routeConstants.findAll} ));
+	  }
+
+    /**
+     * Sends a findOne request
+     */
+	  protected ResultActions findSpecificEntity(String resourceId) throws Exception {
+		    return mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, resourceId ));
+	  }
+   
+   
     /**
      * Submits a search request
      */

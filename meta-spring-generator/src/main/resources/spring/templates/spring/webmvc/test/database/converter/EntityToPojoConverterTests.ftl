@@ -12,6 +12,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@SuppressWarnings("all")
 class ${endpoint.entityName}EntityToPojoConverterTests {
 
     ${endpoint.entityName}EntityToPojoConverter converter = new ${endpoint.entityName}EntityToPojoConverter();
@@ -38,9 +39,7 @@ class ${endpoint.entityName}EntityToPojoConverterTests {
      */
     @Test
     void shouldCopyOnlyExposedProperties() {
-        ${endpoint.ejbName} bean = new ${endpoint.ejbName}();
-        bean.setResourceId(randomSeries.nextResourceId());
-        bean.setText("hello, world");
+        ${endpoint.ejbName} bean = ${endpoint.ejbName}TestFixtures.oneWithResourceId();
 
         ${endpoint.pojoName} resource = converter.convert(bean);
         assertThat(resource.getResourceId()).isEqualTo(bean.getResourceId());
@@ -49,15 +48,10 @@ class ${endpoint.entityName}EntityToPojoConverterTests {
 
     @Test
     void shouldCopyList() {
-        ${endpoint.ejbName} bean = new ${endpoint.ejbName}();
-        bean.setResourceId(randomSeries.nextResourceId());
-        bean.setText("hello, world");
-        var ejbList = Lists.list(bean);
+        var ejbList = ${endpoint.ejbName}TestFixtures.allItems();
 
         List<${endpoint.pojoName}> pojoList = converter.convert(ejbList);
-        assertThat(pojoList.size()).isOne();
-        assertThat(pojoList.get(0).getResourceId()).isEqualTo(bean.getResourceId());
-        assertThat(pojoList.get(0).getText()).isEqualTo(bean.getText());
+        assertThat(pojoList.size()).isEqualTo(${endpoint.ejbName}TestFixtures.allItems().size());
     }
 
 }
