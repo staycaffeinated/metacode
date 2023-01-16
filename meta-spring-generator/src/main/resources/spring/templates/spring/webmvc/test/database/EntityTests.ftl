@@ -44,7 +44,7 @@ class ${endpoint.ejbName}Tests {
         @SuppressWarnings("all")
         void whenSelf_thenReturnsTrue() {
             ${endpoint.ejbName} sample = underTest;
-            assertThat(Objects.equals(underTest, sample)).isTrue();
+            assertThat(underTest.equals(sample)).isTrue();
         }
 
         @Test
