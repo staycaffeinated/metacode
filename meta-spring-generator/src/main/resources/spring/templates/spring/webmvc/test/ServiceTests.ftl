@@ -66,14 +66,8 @@ class ${endpoint.entityName}ServiceTests {
 
     @BeforeEach
     void setUpEachTime() {
-        ${endpoint.ejbName} item1 = new ${endpoint.ejbName}(1L, randomSeries.nextResourceId(), "text 1");
-        ${endpoint.ejbName} item2 = new ${endpoint.ejbName}(2L, randomSeries.nextResourceId(), "text 2");
-        ${endpoint.ejbName} item3 = new ${endpoint.ejbName}(3L, randomSeries.nextResourceId(), "text 3");
-
-        ${endpoint.entityVarName}List = new LinkedList<>();
-        ${endpoint.entityVarName}List.add( item1 );
-        ${endpoint.entityVarName}List.add( item2 );
-        ${endpoint.entityVarName}List.add( item3 );
+        ${endpoint.entityVarName}List = new ArrayList<>();
+        ${endpoint.entityVarName}List.addAll(${endpoint.ejbName}TestFixtures.allItems());
     }
 
     /**
@@ -189,12 +183,13 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         void shouldCreateOneWhen${endpoint.entityName}IsWellFormed() {
             // given
-            final String sampleText = "sample text";
-            final ${endpoint.ejbName} expectedEJB = new ${endpoint.ejbName}(1L, randomSeries.nextResourceId(), sampleText);
+            final ${endpoint.ejbName} expectedEJB = ${endpoint.ejbName}TestFixtures.oneWithResourceId();
+            final String sampleText = expectedEJB.getText();
+
             given(${endpoint.entityVarName}Repository.save(any())).willReturn(expectedEJB);
 
             // when/then
-            ${endpoint.pojoName} sampleData = ${endpoint.entityName}.builder().text(sampleText).build();
+            ${endpoint.pojoName} sampleData = convertToPojo(expectedEJB);
             ${endpoint.pojoName} actual = ${endpoint.entityVarName}Service.create${endpoint.entityName}(sampleData);
 
             assertThat(actual).isNotNull();
@@ -217,10 +212,11 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         void shouldUpdateWhenEntityIsFound() {
             // given
-            String resourceId = randomSeries.nextResourceId();
-            ${endpoint.pojoName} changedVersion = ${endpoint.pojoName}.builder().resourceId(resourceId).text("new text").build();
-            ${endpoint.ejbName} originalEJB = new ${endpoint.ejbName} (1L, resourceId, "old text");
-            ${endpoint.ejbName} updatedEJB = ${endpoint.entityVarName}PojoToEntityConverter.convert (changedVersion);
+            ${endpoint.pojoName} changedVersion =${endpoint.entityName}TestFixtures.oneWithResourceId();
+            String resourceId = changedVersion.getResourceId();
+
+            ${endpoint.ejbName} originalEJB = convertToEntity(changedVersion);
+            ${endpoint.ejbName} updatedEJB = convertToEntity(changedVersion);
             given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.of(originalEJB));
             given(${endpoint.entityVarName}Repository.save(any())).willReturn(updatedEJB);
 
@@ -230,7 +226,7 @@ class ${endpoint.entityName}ServiceTests {
             then(optional.isPresent()).isTrue();
             if (optional.isPresent()) {
                then (optional.get().getResourceId()).isEqualTo(resourceId);
-               then (optional.get().getText()).isEqualTo("new text");
+               then (optional.get().getText()).isEqualTo(changedVersion.getText());
             }
         }
 
@@ -243,7 +239,7 @@ class ${endpoint.entityName}ServiceTests {
             given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.empty());
 
             // then/when
-            ${endpoint.pojoName} changedVersion = ${endpoint.entityName}.builder().resourceId(randomSeries.nextResourceId()).text("new text").build();
+            ${endpoint.pojoName} changedVersion = ${endpoint.entityName}TestFixtures.oneWithResourceId();
             Optional<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.update${endpoint.entityName}(changedVersion);
             then(result.isEmpty()).isTrue();
         }
@@ -291,4 +287,17 @@ class ${endpoint.entityName}ServiceTests {
             assertThrows(NullPointerException.class, () -> ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(null));
         }
     }
+    
+    
+    /* -------------------------------------------
+	   * Helper methods
+	   * ------------------------------------------- */
+	  protected ${endpoint.entityName} convertToPojo(${endpoint.ejbName} entity) {
+  	    return ${endpoint.entityVarName}EntityToPojoConverter.convert(entity);
+	  }
+	  
+	  protected ${endpoint.ejbName} convertToEntity(${endpoint.entityName} pojo) {
+        return ${endpoint.entityVarName}PojoToEntityConverter.convert(pojo);
+	  }
+    
 }
