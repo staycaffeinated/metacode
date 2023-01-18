@@ -14,6 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
+<#if !(endpoint.isWithTestContainers())>
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.DynamicPropertyRegistry;
+</#if>
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
@@ -21,7 +25,6 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.time.Duration;
-
 
 /**
  * Integration tests of ${endpoint.entityName}Controller
@@ -50,6 +53,13 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     */
    private String knownResourceId;
 
+<#if !endpoint.isWithTestContainers()>
+    @DynamicPropertySource
+    static void registerProperties(DynamicPropertyRegistry registry) {
+        DatabaseInitFunction.registerDatabaseProperties(registry);
+    }
+
+</#if>
    	@Autowired
     public void setApplicationContext(ApplicationContext context) {
         this.client = WebTestClient.bindToApplicationContext(context).configureClient().build();

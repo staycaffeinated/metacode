@@ -50,11 +50,11 @@ spring.r2dbc.username=postgres
 spring.r2dbc.password=postgres
 <#else>
     <#if (project.schema)??>
-spring.r2dbc.url=r2dbc:h2:mem:${project.schema}
+spring.r2dbc.url=r2dbc:h2:mem:///${project.schema}
     <#elseif (project.applicationName)??>
-spring.r2dbc.url=r2dbc:h2:mem:${project.applicationName}
+spring.r2dbc.url=r2dbc:h2:mem:///${project.applicationName}
     <#else>
-spring.r2dbc.url=r2dbc:h2:mem:testdb
+spring.r2dbc.url=r2dbc:h2:mem:///testdb
     </#if>
 spring.r2dbc.username=root
 spring.r2dbc.password=secret
