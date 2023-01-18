@@ -141,6 +141,7 @@ catalog:
       template: "/spring/webflux/integrationTest/database/PostgresTestContainer.ftl"
       destination: "src/integration/java/{{basePackagePath}}/database/PostgresTestContainer.java"
       context: "project"
+      feature: "postgres"
   - entry:
       template: "/spring/webflux/integrationTest/configuration/TestDatabaseConfiguration.ftl"
       destination: "src/integration/java/{{basePackagePath}}/configuration/TestDatabaseConfiguration.java"
