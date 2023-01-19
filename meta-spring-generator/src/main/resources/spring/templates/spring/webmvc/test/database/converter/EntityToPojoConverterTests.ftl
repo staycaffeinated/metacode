@@ -4,7 +4,6 @@ package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.convert
 
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

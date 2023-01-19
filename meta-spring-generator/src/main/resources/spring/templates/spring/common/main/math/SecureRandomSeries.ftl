@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 /**
  * This class produces secure random values. The {@code nextString()}
  * methods returns a text String; the {@code nextResourceId()} returns
- * a numeric String (all the characters are numbers; the {@code nextLong()}
+ * a alpha-numeric String; the {@code nextLong()}
  * returns a Long value. Methods {@code nextString()} and {@code nextResourceId()}
  * return values that have 160-bit entropy, making it difficult to guess
  * the next value.  These have better entropy than UUIDs, which only have

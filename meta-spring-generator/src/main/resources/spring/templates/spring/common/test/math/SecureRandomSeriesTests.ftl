@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Unit tests of the SecureRandomSeries class
  */
+@SuppressWarnings("all")
 class SecureRandomSeriesTests {
 
     static SecureRandomSeries randomSeriesUnderTest;

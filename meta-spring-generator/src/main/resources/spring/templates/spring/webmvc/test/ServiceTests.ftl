@@ -22,7 +22,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ import static org.mockito.Mockito.verify;
  * Unit tests of {@link ${endpoint.entityName}Service }
  */
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"all"})
 class ${endpoint.entityName}ServiceTests {
 
     @InjectMocks

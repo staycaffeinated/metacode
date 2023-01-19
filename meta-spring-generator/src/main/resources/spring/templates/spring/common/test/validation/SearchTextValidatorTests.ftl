@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Unit tests of SearchTextValidator
  */
+@SuppressWarnings("all")
 class SearchTextValidatorTests {
     SearchTextValidator validationUnderTest = new SearchTextValidator();
 
