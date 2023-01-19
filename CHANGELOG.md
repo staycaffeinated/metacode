@@ -1,8 +1,19 @@
 
 ## [Unreleased]
 
-* Improvements 
-  * Added jakarta.persistence-api library to WebFlux and WebMvc build.gradle's
+* Improvements
+  * Added jakarta.persistence-api library to WebFlux and WebMvc build.gradle files. 
+    This fixes a compile-time warning.
+  * Webflux projects now generate integration tests when using PostgreSQL and test containers.
+    The integration tests spin up an instance of the web application and an in-memory instance of
+    a PostgreSQL database using test containers. 
+
+* Maintenance
+  * Updated these libraries and plugins: 
+    * junit 
+    * reactor test 
+    * coditory integration test plugin
+    * spotless plugin
 
 
 ## [6.0.0] - 2022-12-31
