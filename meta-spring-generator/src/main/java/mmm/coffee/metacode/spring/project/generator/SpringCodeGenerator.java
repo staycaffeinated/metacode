@@ -17,6 +17,7 @@ package mmm.coffee.metacode.spring.project.generator;
 
 import com.google.common.base.Predicate;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
@@ -34,6 +35,7 @@ import mmm.coffee.metacode.spring.project.mustache.MustacheDecoder;
 /**
  * Code generator for SpringWebMvc project
  */
+@Slf4j
 @SuperBuilder
 @SuppressWarnings({"java:S1068","java:S1602","java:S125","java:S4738"})
 // S1068: this is a work-in-progress so unused stuff is ok
@@ -75,6 +77,7 @@ public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor
      * @return the exit code, with zero indicating success.
      */
     public int generateCode(RestProjectDescriptor descriptor) {
+        log.debug("generateCode: descriptor: {}", descriptor);
         // Build the TemplateModel consumed by Freemarker to resolve template variables
         var templateModel = descriptor2templateModel.convert(descriptor);
         templateModel.apply(dependencyCatalog);

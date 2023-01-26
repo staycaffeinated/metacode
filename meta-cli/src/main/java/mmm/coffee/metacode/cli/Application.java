@@ -28,25 +28,23 @@ import picocli.CommandLine;
 import static picocli.CommandLine.Model.UsageMessageSpec.SECTION_KEY_COMMAND_LIST;
 
 /**
- * Main application entry point
- */
-/**
- * The main application for the code generator
+ * The application entry point
  */
 @CommandLine.Command(
-        name="metacode",
-        description="Metacode is a code generator for Spring applications",
+        name = "metacode",
+        description = "Metacode is a code generator for Spring applications",
         versionProvider = ManifestVersionProvider.class,
         mixinStandardHelpOptions = true,
-        subcommands = { GenerateCompletion.class, CreateCommand.class }
+        subcommands = {GenerateCompletion.class, CreateCommand.class}
 )
 @Generated // exclude this class from code coverage
 public class Application implements CallTrait {
-    
+
     private static int exitCode;
 
     /**
      * Main entry
+     *
      * @param args command line args
      */
     public static void main(String[] args) {
@@ -58,7 +56,9 @@ public class Application implements CallTrait {
         exitCode = cmdLine.execute(args);
     }
 
-    public static int getExitCode() { return exitCode; }
+    public static int getExitCode() {
+        return exitCode;
+    }
 
     /**
      * The following class configures a factory to enable Guice
@@ -72,8 +72,7 @@ public class Application implements CallTrait {
         public <K> K create(Class<K> aClass) throws Exception {
             try {
                 return injector.getInstance(aClass);
-            }
-            catch (ConfigurationException e) {
+            } catch (ConfigurationException e) {
                 return CommandLine.defaultFactory().create(aClass);
             }
         }

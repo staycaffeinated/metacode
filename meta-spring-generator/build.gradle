@@ -1,5 +1,6 @@
 plugins {
     id "org.kordamp.gradle.integration-test" version "0.48.0"
+    id "io.freefair.lombok" version "6.6.1"
 }
 
 // --------------------------------------------------------------
@@ -20,6 +21,7 @@ dependencies {
     implementation libs.freemarker
     implementation libs.guice
     implementation libs.jacksonYaml
+    implementation libs.slf4jApi
 
     testImplementation project (path: ':meta-common' )
     testImplementation project (path: ':meta-annotations')

@@ -1,5 +1,6 @@
 plugins {
     id "org.kordamp.gradle.integration-test" version "0.48.0"
+    id "io.freefair.lombok" version "6.6.1"
 }
 
 apply plugin: 'application'
@@ -52,7 +53,15 @@ dependencies {
     implementation project (path: ':meta-annotations')
     implementation libs.picocli
     implementation libs.guice
-    
+    implementation libs.slf4jApi
+    implementation libs.logbackClassic
+
+    // https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j
+    // implementation 'org.slf4j:log4j-over-slf4j:2.0.6'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    // implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+
+
     testImplementation ( platform(libs.junitBillOfMaterial) )
     testImplementation ( libs.junitJupiter )
     testImplementation ( libs.junitSystemRules )
