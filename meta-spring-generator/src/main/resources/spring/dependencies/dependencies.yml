@@ -25,7 +25,7 @@ dependencies:
     version:  "3.22.0"
   # Ben Manes Update plugin
   - name: "benManesPlugin"
-    version: "0.44.0"
+    version: "0.45.0"
   # Coditory Integration Plugin
   - name: "coditoryPlugin"
     version: "1.4.5"
@@ -49,7 +49,7 @@ dependencies:
     version: "4.17.2"
   # Lombok
   - name: "lombok"
-    version: "1.18.24"
+    version: "1.18.26"
   # Lombok Gradle plugin
   - name: "lombokPlugin"
     version: "6.6.1"
@@ -61,7 +61,7 @@ dependencies:
     version: "4.4.0"
   # Postres
   - name: "postgresql"
-    version: "42.5.1"
+    version: "42.5.3"
   # Problem Jackson Data Type
   - name: "problemJacksonDataType"
     version: "0.27.1"
@@ -85,13 +85,13 @@ dependencies:
     version: "3.5.0.2730"
   # Spotless code formatter gradle plugin
   - name: "spotless"
-    version: "6.13.0"
+    version: "6.15.0"
   # Spring Boot
   - name: "springBoot"
-    version: "3.0.1"
+    version: "3.0.2"
   # Spring Cloud
   - name: "springCloud"
-    version: "4.0.0"
+    version: "4.0.1"
   # Spring Dependency Management gradle plugin
   - name: "springDependencyManagement"
     version: "1.1.0"
