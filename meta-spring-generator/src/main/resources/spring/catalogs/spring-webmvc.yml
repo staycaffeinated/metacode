@@ -51,6 +51,19 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/config/LocalDateConverter.java"
       context: "project"
   - entry:
+      template: "/spring/webmvc/main/database/CrudAware.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/CrudAware.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/database/CrudDataStore.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/CrudDataStore.java"
+      context: "project"
+  - entry:
+      template: "/spring/webmvc/main/database/DataStore.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/DataStore.java"
+      context: "project"
+
+  - entry:
       template: "/spring/webmvc/main/filter/SecurityResponseHeadersFilter.ftl"
       destination: "src/main/java/{{basePackagePath}}/filter/SecurityResponseHeadersFilter.java"
       context: "project"
