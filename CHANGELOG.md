@@ -1,19 +1,26 @@
 
 ## [Unreleased]
 
+### Maintenance
+
+* Updated these libraries and plugins:
+  ** Ben Manes gradle plugin
+  ** Spring Boot  
+  ** Spring Cloud
+
 ## [6.1.0] - 2023-01-21
 
 ### Added
-  * Added jakarta.persistence-api library to WebFlux and WebMvc build.gradle files. 
+  * Added jakarta.persistence-api library to WebFlux and WebMvc build.gradle files.
     This fixes a compile-time warning.
   * Webflux projects now generate integration tests when using PostgreSQL and test containers.
     The integration tests spin up an instance of the web application and an in-memory instance of
-    a PostgreSQL database using test containers. 
+    a PostgreSQL database using test containers.
 
 ### Maintenance
-  * Updated these libraries and plugins: 
-    * junit 
-    * reactor test 
+  * Updated these libraries and plugins:
+    * junit
+    * reactor test
     * coditory integration test plugin
     * spotless plugin
 
@@ -52,7 +59,7 @@
 ### Added
   * Added some basic Kafka libraries to the dependencies.gradle file. The goal is
     to make it easier to start a Kafka application. The build.gradle file is not affected.
-             
+
 ### Maintenance
   * Updated these libraries to their latest versions:
     * ben manes gradle plugin
@@ -221,14 +228,14 @@ A minimum, lovable product has been achieved.
   * Fixed spelling error in a ValidationMessages.properties file
 
 ## [0.2.0] - 2022-04-23
- 
+
 ### Added
 * Add database populators to webmvc projects (webflux projects already have them)
-### Changed 
+### Changed
 * Improvements to generated code motivated by code analyzer reports
 
 ## [0.1.10] - 2022-04-19
-### Fixed 
+### Fixed
 * Version was not showing when using '--version' option
 
 ## [0.1.9] - 2022-04-18
