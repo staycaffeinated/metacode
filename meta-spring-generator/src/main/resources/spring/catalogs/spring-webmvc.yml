@@ -194,9 +194,18 @@ catalog:
 # Endpoint entries
 #
   - entry:
-      template: "/spring/webmvc/main/database/Entity.ftl"
+      template: "/spring/webmvc/main/database/entity/Entity.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{ejbName}}.java"
       context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/database/entity/ObjectDataStore.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStore.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webmvc/main/database/entity/ObjectDataStoreProvider.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreProvider.java"
+      context: "endpoint"
+
   - entry:
       template: "/spring/webmvc/main/database/converter/EntityToPojoConverter.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}EntityToPojoConverter.java"
@@ -206,11 +215,11 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/predicate/{{entityName}}WithText.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/database/EntityResource.ftl"
+      template: "/spring/webmvc/main/database/entity/EntityResource.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{pojoName}}.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/database/Repository.ftl"
+      template: "/spring/webmvc/main/database/entity/Repository.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
       context: "endpoint"
   - entry:
@@ -230,7 +239,7 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/database/DatabaseTablePopulator.ftl"
+      template: "/spring/webmvc/main/database/entity/DatabaseTablePopulator.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}/{{entityName}}TablePopulator.java"
       context: "endpoint"
   - entry:
