@@ -27,7 +27,9 @@ import java.util.Objects;
 @Transactional
 public class ${endpoint.entityName}Service {
 
-    private final ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
+    private final ${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore;
+
+    // private final ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
 
     private final ConversionService conversionService;
 
@@ -37,11 +39,11 @@ public class ${endpoint.entityName}Service {
      * Constructor
      */
     @Autowired
-    public ${endpoint.entityName}Service(${endpoint.entityName}Repository ${endpoint.entityVarName}Repository,
+    public ${endpoint.entityName}Service(${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore,
                                         ConversionService conversionService,
                                         SecureRandomSeries secureRandom)
     {
-        this.${endpoint.entityVarName}Repository = ${endpoint.entityVarName}Repository;
+        this.${endpoint.entityVarName}DataStore = ${endpoint.entityVarName}DataStore;
         this.conversionService = conversionService;
         this.secureRandom = secureRandom;
     }
@@ -50,60 +52,47 @@ public class ${endpoint.entityName}Service {
      * findAll
      */
     public List<${endpoint.pojoName}> findAll${endpoint.entityName}s() {
-        List<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findAll();
-        return resultSet.stream().map(ejb -> conversionService.convert(ejb,${endpoint.pojoName}.class)).toList();
+        return ${endpoint.entityVarName}DataStore.findAll();
     }
 
     /**
      * findByResourceId
      */
     public Optional<${endpoint.pojoName}> find${endpoint.entityName}ByResourceId(String id) {
-        Optional<${endpoint.ejbName}> optional = ${endpoint.entityVarName}Repository.findByResourceId ( id );
-        return optional.map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class));
+        return ${endpoint.entityVarName}DataStore.findByResourceId ( id );
     }
 
     /*
      * findByText
      */
     public Page<${endpoint.pojoName}> findByText(@NonNull Optional<String> text, Pageable pageable) {
-            Specification<${endpoint.ejbName}> where = Specification.where(new ${endpoint.entityName}WithText(text.orElse("")));
-            Page<${endpoint.ejbName}> resultSet = ${endpoint.entityVarName}Repository.findAll(where, pageable);
-            List<${endpoint.pojoName}> list = resultSet.stream()
-                            .map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class))
-                            .toList();
-            return new PageImpl<>(list, pageable, list.size());
+        // @formatter:off
+        List<${endpoint.pojoName}> list = ${endpoint.entityVarName}DataStore
+                    .findByText(text, pageable)
+                    .stream()
+                    .map(ejb -> conversionService.convert(ejb, ${endpoint.pojoName}.class)).toList();
+        // @formatter:on
+        return new PageImpl<>(list, pageable, list.size());
     }
 
     /**
      * Persists a new resource
      */
     public ${endpoint.pojoName} create${endpoint.entityName}( @NonNull @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
-        resource.setResourceId ( secureRandom.nextResourceId() );
-        ${endpoint.ejbName} entityBean = Objects.requireNonNull(conversionService.convert (resource, ${endpoint.ejbName}.class ));
-        entityBean = ${endpoint.entityVarName}Repository.save ( entityBean );
-        return conversionService.convert(entityBean, ${endpoint.pojoName}.class);
+        return ${endpoint.entityVarName}DataStore.save(resource);
     }
 
     /**
      * Updates an existing resource
      */
     public Optional<${endpoint.pojoName}> update${endpoint.entityName}( @NonNull @Validated(OnUpdate.class) ${endpoint.pojoName} resource ) {
-        Optional<${endpoint.ejbName}> optional = ${endpoint.entityVarName}Repository.findByResourceId ( resource.getResourceId() );
-        if ( optional.isPresent() ){
-            ${endpoint.ejbName} entityBean = optional.get();
-            // Copy all mutable fields of the resource into the entity bean
-            entityBean.setText(resource.getText());
-            // persist the changes
-            entityBean = ${endpoint.entityVarName}Repository.save(entityBean);
-            return Optional.of( Objects.requireNonNull(conversionService.convert(entityBean, ${endpoint.pojoName}.class)));
-        }
-        return Optional.empty();
+        return ${endpoint.entityVarName}DataStore.update(resource);
     }
 
     /**
      * delete
      */
     public void delete${endpoint.entityName}ByResourceId(@NonNull String id) {
-        ${endpoint.entityVarName}Repository.deleteByResourceId(id);
+        ${endpoint.entityVarName}DataStore.deleteByResourceId(id);
     }
 }

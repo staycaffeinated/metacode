@@ -44,7 +44,7 @@ class ${endpoint.entityName}ServiceTests {
     private ${endpoint.entityName}Service ${endpoint.entityVarName}Service;
 
     @Mock
-    private ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
+    private ${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore;
 
     @Mock
     private SecureRandomSeries mockRandomSeries;
@@ -52,21 +52,15 @@ class ${endpoint.entityName}ServiceTests {
     final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
     @Spy
-    private final ${endpoint.entityName}PojoToEntityConverter ${endpoint.entityVarName}PojoToEntityConverter = new ${endpoint.entityName}PojoToEntityConverter();
-
-    @Spy
-    private final ${endpoint.entityName}EntityToPojoConverter ${endpoint.entityVarName}EntityToPojoConverter = new ${endpoint.entityName}EntityToPojoConverter();
-
-    @Spy
     private final ConversionService conversionService = FakeConversionService.build();
 
-    private List<${endpoint.ejbName}> ${endpoint.entityVarName}List;
-    private Page<${endpoint.ejbName}> pageOfData;
+    private List<${endpoint.pojoName}> ${endpoint.entityVarName}List;
+    private Page<${endpoint.pojoName}> pageOfData;
 
     @BeforeEach
     void setUpEachTime() {
         ${endpoint.entityVarName}List = new ArrayList<>();
-        ${endpoint.entityVarName}List.addAll(${endpoint.ejbName}TestFixtures.allItems());
+        ${endpoint.entityVarName}List.addAll(${endpoint.pojoName}TestFixtures.allItems());
     }
 
     /**
@@ -77,7 +71,7 @@ class ${endpoint.entityName}ServiceTests {
 
         @Test
         void shouldReturnAllRowsWhenRepositoryIsNotEmpty() {
-            given(${endpoint.entityVarName}Repository.findAll() ).willReturn( ${endpoint.entityVarName}List );
+            given(${endpoint.entityVarName}DataStore.findAll() ).willReturn( ${endpoint.entityVarName}List );
 
             List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findAll${endpoint.entityName}s();
 
@@ -87,7 +81,7 @@ class ${endpoint.entityName}ServiceTests {
 
         @Test
         void shouldReturnEmptyListWhenRepositoryIsEmpty() {
-            given( ${endpoint.entityVarName}Repository.findAll() ).willReturn( new ArrayList<>() );
+            given( ${endpoint.entityVarName}DataStore.findAll() ).willReturn( new ArrayList<>() );
 
             List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findAll${endpoint.entityName}s();
 
@@ -104,16 +98,15 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         @SuppressWarnings("unchecked")
         void shouldReturnRowsWhenRowsWithTextExists() {
-            // given
+            // given: the datastore contains records that satisfy the search criteria
             Pageable pageable = PageRequest.of(0,25);
-            Page<${endpoint.ejbName}> page = new PageImpl<>(${endpoint.entityVarName}List, pageable, ${endpoint.entityVarName}List.size());
+            Page<${endpoint.pojoName}> page = new PageImpl<>(${endpoint.entityVarName}List, pageable, ${endpoint.entityVarName}List.size());
+            given(${endpoint.entityVarName}DataStore.findByText(any(Optional.class), any(Pageable.class))).willReturn(page);
 
-            // we're not validating what text gets passed to the repo, only that a result set comes back
-            given(${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn(page);
-
-            // when/then
+            // when: findByText searches for records having a known-to-exist text value...
             Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText(Optional.of("text"), pageable);
 
+            // then: a non-empty page of results is returned
             then(result).isNotNull();       // must never return null
 
             // depending on which is smaller, the sample size or the page size, we expect that many rows back
@@ -123,11 +116,14 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         @SuppressWarnings("unchecked")
         void shouldReturnEmptyListWhenNoDataFound() {
-            given( ${endpoint.entityVarName}Repository.findAll(any(Specification.class), any(Pageable.class))).willReturn( Page.empty() );
+            // given: the data store contains no records matching the search criteria
+            given( ${endpoint.entityVarName}DataStore.findByText(any(Optional.class), any(Pageable.class))).willReturn( Page.empty() );
 
+            // when: a search is made
             Pageable pageable = PageRequest.of(1,10);
             Page<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findByText(Optional.of("foo"), pageable);
 
+            // expect: an empty, non-null result is returned
             then(result).isNotNull();       // must never get null back
             then(result.hasContent()).isFalse();   // must have no content for this edge case
         }
@@ -148,9 +144,10 @@ class ${endpoint.entityName}ServiceTests {
         @Test
         void shouldReturnOneWhenRepositoryContainsMatch() {
             // given
-            String expectedId = randomSeries.nextResourceId();
-            Optional<${endpoint.ejbName}> expected = Optional.of(new ${endpoint.ejbName}(1L, expectedId, "sample"));
-            given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(expected);
+            ${endpoint.pojoName} item = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
+            String expectedId = item.getResourceId();
+            Optional<${endpoint.pojoName}> expected = Optional.of(item);
+            given(${endpoint.entityVarName}DataStore.findByResourceId(expectedId)).willReturn(expected);
 
             // when/then
             Optional<${endpoint.pojoName}> actual = ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(expectedId);
@@ -164,7 +161,7 @@ class ${endpoint.entityName}ServiceTests {
          */
         @Test
         void shouldReturnEmptyWhenRepositoryDoesNotContainMatch() {
-            given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.empty());
+            given(${endpoint.entityVarName}DataStore.findByResourceId(any())).willReturn(Optional.empty());
 
             // when/then
             Optional<${endpoint.pojoName}> actual = ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(randomSeries.nextResourceId());
@@ -181,19 +178,19 @@ class ${endpoint.entityName}ServiceTests {
          */
         @Test
         void shouldCreateOneWhen${endpoint.entityName}IsWellFormed() {
-            // given
-            final ${endpoint.ejbName} expectedEJB = ${endpoint.ejbName}TestFixtures.oneWithResourceId();
-            final String sampleText = expectedEJB.getText();
+            // given: when the datastore inserts an item, the persisted version is returned
+            final ${endpoint.pojoName} incoming = ${endpoint.pojoName}TestFixtures.oneWithResourceId();
+            final ${endpoint.pojoName} expected = ${endpoint.pojoName}TestFixtures.copyOf(incoming);
+            expected.setResourceId(randomSeries.nextResourceId());  // because inserted records are assigned a unique resourceId
+            given(${endpoint.entityVarName}DataStore.save(any())).willReturn(expected);
 
-            given(${endpoint.entityVarName}Repository.save(any())).willReturn(expectedEJB);
+            // when: the service inserts a new item
+            ${endpoint.pojoName} actual = ${endpoint.entityVarName}Service.create${endpoint.entityName}(incoming);
 
-            // when/then
-            ${endpoint.pojoName} sampleData = convertToPojo(expectedEJB);
-            ${endpoint.pojoName} actual = ${endpoint.entityVarName}Service.create${endpoint.entityName}(sampleData);
-
+            // expect: the persisted version is not null, has a resourceId, and its general state is preserved
             assertThat(actual).isNotNull();
             assertThat(actual.getResourceId()).isNotNull();
-            assertThat(actual.getText()).isEqualTo(sampleText);
+            assertThat(actual.getText()).isEqualTo(expected.getText());
         }
 
         @Test
@@ -210,17 +207,15 @@ class ${endpoint.entityName}ServiceTests {
          */
         @Test
         void shouldUpdateWhenEntityIsFound() {
-            // given
+            // given: the datastore successfully updates the record (a matching record is found in the database)
             ${endpoint.pojoName} changedVersion =${endpoint.entityName}TestFixtures.oneWithResourceId();
             String resourceId = changedVersion.getResourceId();
+            given(${endpoint.entityVarName}DataStore.update(any(${endpoint.entityName}.class))).willReturn(Optional.of(changedVersion));
 
-            ${endpoint.ejbName} originalEJB = convertToEntity(changedVersion);
-            ${endpoint.ejbName} updatedEJB = convertToEntity(changedVersion);
-            given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.of(originalEJB));
-            given(${endpoint.entityVarName}Repository.save(any())).willReturn(updatedEJB);
-
-            // when/then
+            // when: the service is asked to update the item
             Optional<${endpoint.pojoName}> optional = ${endpoint.entityVarName}Service.update${endpoint.entityName}(changedVersion);
+
+            // then: the updated item is returned, with its fields preserved
             then(optional).isNotNull();
             then(optional.isPresent()).isTrue();
             if (optional.isPresent()) {
@@ -234,12 +229,14 @@ class ${endpoint.entityName}ServiceTests {
          */
         @Test
         void shouldReturnEmptyOptionWhenEntityIsNotFound() {
-            // given no such entity exists in the database...
-            given(${endpoint.entityVarName}Repository.findByResourceId(any())).willReturn(Optional.empty());
+            // given: no such entity exists in the database...
+            given(${endpoint.entityVarName}DataStore.update(any())).willReturn(Optional.empty());
 
-            // then/when
+            // when: the service is asked to update an item that cannot be found in the database
             ${endpoint.pojoName} changedVersion = ${endpoint.entityName}TestFixtures.oneWithResourceId();
             Optional<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.update${endpoint.entityName}(changedVersion);
+
+            // expect: an empty Optional is returned
             then(result.isEmpty()).isTrue();
         }
 
@@ -257,13 +254,11 @@ class ${endpoint.entityName}ServiceTests {
          */
         @Test
         void shouldDeleteWhenEntityExists()  {
-            // given one matching one is found
-            given(${endpoint.entityVarName}Repository.deleteByResourceId(any())).willReturn(1L);
-
-            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(randomSeries.nextResourceId());
+            String knownId = ${endpoint.entityName}TestFixtures.oneWithResourceId().getResourceId();
+            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(knownId);
 
             // Verify the deleteByResourceId method was invoked
-            verify(${endpoint.entityVarName}Repository, times(1)).deleteByResourceId(any());
+            verify(${endpoint.entityVarName}DataStore, times(1)).deleteByResourceId(any(String.class));
         }
 
         /*
@@ -271,13 +266,10 @@ class ${endpoint.entityName}ServiceTests {
          */
         @Test
         void shouldSilentlyReturnWhenEntityDoesNotExist() {
-            // given no matching record is found
-            given(${endpoint.entityVarName}Repository.deleteByResourceId(any())).willReturn(0L);
-
-            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(randomSeries.nextResourceId());
+            ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId("BlueyBingo12345");
 
             // Verify the deleteByResourceId method was invoked
-            verify(${endpoint.entityVarName}Repository, times(1)).deleteByResourceId(any());
+            verify(${endpoint.entityVarName}DataStore, times(1)).deleteByResourceId(any(String.class));
         }
 
         @Test
@@ -286,17 +278,5 @@ class ${endpoint.entityName}ServiceTests {
             assertThrows(NullPointerException.class, () -> ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(null));
         }
     }
-    
-    
-    /* -------------------------------------------
-	   * Helper methods
-	   * ------------------------------------------- */
-	  protected ${endpoint.entityName} convertToPojo(${endpoint.ejbName} entity) {
-  	    return ${endpoint.entityVarName}EntityToPojoConverter.convert(entity);
-	  }
-	  
-	  protected ${endpoint.ejbName} convertToEntity(${endpoint.entityName} pojo) {
-        return ${endpoint.entityVarName}PojoToEntityConverter.convert(pojo);
-	  }
-    
+
 }

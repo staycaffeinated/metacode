@@ -21,6 +21,9 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
     @Autowired
     private ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
 
+    @Autowired
+    private ${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore;
+
     // This holds sample ${endpoint.ejbName}s that will be saved to the database
     private List<${endpoint.ejbName}> ${endpoint.entityVarName}List = null;
 
@@ -37,7 +40,7 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
 
     @BeforeEach
     void init${endpoint.entityName}Service() {
-        serviceUnderTest = new ${endpoint.entityName}Service(${endpoint.entityVarName}Repository, conversionService, randomSeries);
+        serviceUnderTest = new ${endpoint.entityName}Service(${endpoint.entityVarName}DataStore, conversionService, randomSeries);
     }
 
     @BeforeEach
