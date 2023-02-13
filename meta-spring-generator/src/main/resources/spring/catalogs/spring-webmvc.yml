@@ -247,6 +247,10 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTests.java"
       context: "endpoint"
   - entry:
+      template: "/spring/webmvc/test/database/DataStoreTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreTests.java"
+      context: "endpoint"
+  - entry:
       template: "/spring/webmvc/test/database/converter/EntityToPojoConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}EntityToPojoConverterTests.java"
       context: "endpoint"
