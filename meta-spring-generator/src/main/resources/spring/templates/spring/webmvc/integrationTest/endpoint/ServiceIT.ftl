@@ -5,16 +5,15 @@ package ${endpoint.packageName};
 import ${endpoint.basePackage}.common.AbstractIntegrationTest;
 import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
-import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.DynamicPropertyRegistry;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
 
@@ -23,11 +22,6 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
 
     @Autowired
     private ${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore;
-
-    // This holds sample ${endpoint.ejbName}s that will be saved to the database
-    private List<${endpoint.ejbName}> ${endpoint.entityVarName}List = null;
-
-    private final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
     ConversionService conversionService = FakeConversionService.build();
 
@@ -40,20 +34,16 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
 
     @BeforeEach
     void init${endpoint.entityName}Service() {
-        serviceUnderTest = new ${endpoint.entityName}Service(${endpoint.entityVarName}DataStore, conversionService, randomSeries);
+        serviceUnderTest = new ${endpoint.entityName}Service(${endpoint.entityVarName}DataStore, conversionService);
     }
 
     @BeforeEach
     void insertTestData() {
-        ${endpoint.entityVarName}List = new ArrayList<>();
-        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(1L, randomSeries.nextResourceId(), "First ${endpoint.entityName}"));
-        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(2L, randomSeries.nextResourceId(), "Second ${endpoint.entityName}"));
-        ${endpoint.entityVarName}List.add(new ${endpoint.ejbName}(3L, randomSeries.nextResourceId(), "Third ${endpoint.entityName}"));
-        ${endpoint.entityVarName}List = ${endpoint.entityVarName}Repository.saveAll(${endpoint.entityVarName}List);
+        ${endpoint.entityVarName}Repository.saveAll(${endpoint.ejbName}TestFixtures.allItems());
     }
 
     @AfterEach
-    public void tearDownEachTime() {
+    void deleteTestData() {
         ${endpoint.entityVarName}Repository.deleteAll();
     }
 
@@ -61,10 +51,19 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
      * FindById
      */
     @Nested
-    public class ValidateFindById {
+    public class FindByResourceId {
         @Test
+        @SuppressWarnings("all")
         void shouldFind${endpoint.entityName}ById() throws Exception {
-            // TODO: Implement
+            // given: the public ID of an item known to be in the database
+            String expectedId = PetEntityTestFixtures.allItems().get(0).getResourceId();
+
+            // when: the service is asked to find the item
+            Optional<${endpoint.pojoName}> optional = serviceUnderTest.find${endpoint.entityName}ByResourceId(expectedId);
+
+            // expect: the item is found, and has the ID that's expected
+            assertThat(optional).isNotNull().isPresent();
+            assertThat(optional.get().getResourceId()).isEqualTo(expectedId);
         }
     }
 
@@ -72,10 +71,18 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
      * Create method
      */
     @Nested
-    public class ValidateCreate${endpoint.entityName} {
+    public class Create${endpoint.entityName} {
         @Test
         void shouldCreateNew${endpoint.entityName}() throws Exception {
-            // TODO: Implement
+            // given: a new item to be inserted into the database
+            ${endpoint.pojoName} expected = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
+
+            // when: the service is asked to create the item
+            ${endpoint.pojoName} actual = serviceUnderTest.create${endpoint.entityName}(expected);
+
+            // expect: the item is added, and its returned, along with the ID newly assigned to it
+            assertThat(actual).isNotNull().hasNoNullFieldsOrProperties();
+            assertThat(actual.getResourceId()).isNotBlank().isNotEmpty();
         }
     }
 
@@ -84,11 +91,22 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
      * Update method
      */
     @Nested
-    public class ValidateUpdate${endpoint.entityName} {
+    public class Update${endpoint.entityName} {
 
         @Test
+        @SuppressWarnings("all")
         void shouldUpdate${endpoint.entityName}() throws Exception {
-            // TODO: Implement
+            String resourceId = ${endpoint.ejbName}TestFixtures.allItems().get(0).getResourceId();
+            ${endpoint.pojoName} modified = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
+            final String newValue = "modified";
+            modified.setText(newValue);
+            modified.setResourceId(resourceId); // use and ID known to exit
+
+            Optional<${endpoint.pojoName}> option = serviceUnderTest.updatePet(modified);
+
+            assertThat(option).isNotNull().isPresent();
+            assertThat(option.get().getResourceId()).isEqualTo(resourceId);
+            assertThat(option.get().getText()).isEqualTo(newValue);
         }
     }
 
@@ -96,10 +114,18 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
      * Delete method
      */
     @Nested
-    public class ValidateDelete${endpoint.entityName} {
+    public class Delete${endpoint.entityName} {
         @Test
         void shouldDelete${endpoint.entityName}() throws Exception {
-            // TODO: Implement
+            // given: the ID of an item known to exist in the database
+            String knownId = ${endpoint.ejbName}TestFixtures.allItems().get(2).getResourceId();
+
+            // given: the service is asked to delete the item
+            serviceUnderTest.delete${endpoint.entityName}ByResourceId(knownId);
+
+            // expect: a subsequent attempt to find the deleted item comes back empty
+            Optional<${endpoint.pojoName}> option = serviceUnderTest.find${endpoint.entityName}ByResourceId(knownId);
+            assertThat(option).isNotNull().isNotPresent();
         }
     }
 }

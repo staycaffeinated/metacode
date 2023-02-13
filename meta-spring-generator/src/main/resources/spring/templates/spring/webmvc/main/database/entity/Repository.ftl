@@ -1,12 +1,8 @@
 <#include "/common/Copyright.ftl">
 package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
-import java.util.Optional;
-
 import ${endpoint.basePackage}.database.CrudAware;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

@@ -4,7 +4,6 @@ package ${endpoint.packageName};
 
 import lombok.NonNull;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
-import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 
@@ -13,15 +12,12 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import ${endpoint.basePackage}.math.SecureRandomSeries;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -29,23 +25,17 @@ public class ${endpoint.entityName}Service {
 
     private final ${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore;
 
-    // private final ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
-
     private final ConversionService conversionService;
-
-    private final SecureRandomSeries secureRandom;
 
     /*
      * Constructor
      */
     @Autowired
     public ${endpoint.entityName}Service(${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore,
-                                        ConversionService conversionService,
-                                        SecureRandomSeries secureRandom)
+                                        ConversionService conversionService)
     {
         this.${endpoint.entityVarName}DataStore = ${endpoint.entityVarName}DataStore;
         this.conversionService = conversionService;
-        this.secureRandom = secureRandom;
     }
 
     /*
