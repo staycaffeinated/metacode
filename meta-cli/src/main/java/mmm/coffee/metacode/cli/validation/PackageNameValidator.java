@@ -27,26 +27,51 @@ import java.util.StringTokenizer;
  * 2. Cannot contain a hyphen or other special character (underscore is allowed)
  * 3. Cannot contain a reserved word
  */
-public class PackageNameValidator {
+public class PackageNameValidator implements ValidationTrait {
+
+    private final String value;
+    private String errorMessage;
+
+    private boolean evaluated;
 
     // Creating a private constructor to ensure instances of this are not created
-    private PackageNameValidator() {}
+    private PackageNameValidator(String value) {
+        this.value = value;
+    }
+
+    public static PackageNameValidator of(String value) {
+        return new PackageNameValidator(value);
+    }
+
+    public boolean isValid() {
+        return evaluate(this.value);
+    }
+    public boolean isInvalid() {
+        return !isValid();
+    }
+
+    @Override
+    public String errorMessage() {
+        if (!evaluated) evaluate(this.value);
+        return errorMessage;
+    }
 
     /**
      * Checks whether {@code value} represents a valid Java package name
      * @param value the String to check
      * @return true if {@code value} is a valid Java package name
      */
-    public static boolean isValid(String value) {
-        if (value == null || value.isBlank()) return false;
-        return check(value);
-    }
-
-    /**
-     * For times when this is easier to read
-     */
-    public static boolean isNotValid(String value) {
-        return !isValid(value);
+    private boolean evaluate(String value) {
+        evaluated = true;
+        if (value == null || value.isBlank()) {
+            errorMessage = "A Java package name cannot be null nor an empty string.";
+            return false;
+        }
+        boolean flag = check(value);
+        if (!flag) {
+            errorMessage = "A Java package name must not contain reserved words or invalid characters.";
+        }
+        return flag;
     }
 
     /**
@@ -56,14 +81,19 @@ public class PackageNameValidator {
      * @param candidate  the candidate value
      * @return if it can be used as a package name
      */
-    private static boolean check (String candidate) {
+    private boolean check (String candidate) {
         var tokenizer = new StringTokenizer(candidate, ".");
 
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
-            if (ReservedWords.isReservedWord(token))
+            if (ReservedWords.isReservedWord(token)) {
+                errorMessage = String.format("Your Java package name contains the reserved word, '%s', which will cause compile errors.", token);
                 return false;
-            if (!isLegalIdentifier((token))) return false;
+            }
+            if (!isLegalIdentifier((token))) {
+                errorMessage = String.format("Your Java package name contains the illegal identifier, '%s', which will cause compile errors", token);
+                return false;
+            }
         }
         return true;
     }

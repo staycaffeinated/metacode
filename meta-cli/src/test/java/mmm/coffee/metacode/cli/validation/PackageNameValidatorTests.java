@@ -49,7 +49,7 @@ class PackageNameValidatorTests {
             "org.camelCase.foobar",     // packageName may contain upper-case letters
     })
     void shouldAcceptValidPackageNames(String packageName) {
-        assertThat( PackageNameValidator.isValid(packageName) ).isTrue();
+        assertThat( PackageNameValidator.of(packageName).isValid() ).isTrue();
     }
 
     @ParameterizedTest
@@ -61,35 +61,35 @@ class PackageNameValidatorTests {
             "org-kebob-case"                    // packageName cannot contain dashes
     })
     void shouldDetectInvalidPackageNames(String packageName) {
-        assertThat( PackageNameValidator.isValid(packageName)).isFalse();
+        assertThat( PackageNameValidator.of(packageName).isValid()).isFalse();
     }
 
     @Test
     void shouldDetectInvalidPackageName() {
         // a comma is not allowed in the package name
-        assertThat(PackageNameValidator.isNotValid("org.acme,warehouse")).isTrue();
+        assertThat(PackageNameValidator.of("org.acme,warehouse").isInvalid()).isTrue();
 
         // the root package must be alpha
-        assertThat(PackageNameValidator.isNotValid("123.acme.app")).isTrue();
-        assertThat(PackageNameValidator.isValid("123.acme.app")).isFalse();
+        assertThat(PackageNameValidator.of("123.acme.app").isInvalid()).isTrue();
+        assertThat(PackageNameValidator.of("123.acme.app").isValid()).isFalse();
 
         // the package name cannot be blank
-        assertThat(PackageNameValidator.isValid("")).isFalse();
+        assertThat(PackageNameValidator.of("").isValid()).isFalse();
 
         // the package name cannot be null
-        assertThat(PackageNameValidator.isValid(null)).isFalse();
+        assertThat(PackageNameValidator.of(null).isValid()).isFalse();
     }
 
     @Test
     void shouldDetectValidPackageName() {
-        assertThat(PackageNameValidator.isNotValid("acme.app")).isFalse();
-        assertThat(PackageNameValidator.isValid("acme.app")).isTrue();
-        assertThat(PackageNameValidator.isValid("acme.app.v1")).isTrue();
+        assertThat(PackageNameValidator.of("acme.app").isValid()).isTrue();
+        assertThat(PackageNameValidator.of("acme.app").isValid()).isTrue();
+        assertThat(PackageNameValidator.of("acme.app.v1").isValid()).isTrue();
     }
 
     @Test
     void shouldAcceptLongPackageNames() {
-        assertThat(PackageNameValidator.isValid("aa.bb.cc.dd.xx.yy.zz")).isTrue();
+        assertThat(PackageNameValidator.of("aa.bb.cc.dd.xx.yy.zz").isValid()).isTrue();
     }
 
     @Nested

@@ -17,7 +17,7 @@ package mmm.coffee.metacode.cli.create.project;
 
 import mmm.coffee.metacode.cli.mixin.DryRunOption;
 import mmm.coffee.metacode.cli.traits.CallTrait;
-import mmm.coffee.metacode.cli.validation.PackageNameValidator;
+import mmm.coffee.metacode.cli.validation.ValidationTrait;
 import picocli.CommandLine;
 
 /**
@@ -68,10 +68,16 @@ public abstract class AbstractCreateRestProject implements CallTrait {
      * Verify the command line values
      * @throws CommandLine.ParameterException if an error is encountered
      */
-    protected void validateInputs() {
-        if ( PackageNameValidator.isNotValid(packageName)) {
-            throw new CommandLine.ParameterException( commandSpec.commandLine(),
-                    String.format("The package name '%s' is not a valid Java package name", packageName));
+    protected void runValidations(ValidationTrait... validations) {
+        StringBuilder sb = new StringBuilder();
+        for (ValidationTrait validator : validations) {
+            if (validator.isInvalid()) {
+                sb.append(validator.errorMessage()).append("\n");
+            }
+        }
+        // If any errors were found, throw an exception
+        if (sb.length() != 0) {
+            throw new CommandLine.ParameterException( commandSpec.commandLine(), sb.toString());
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Jon Caulfield
+ * Copyright 2020 Jon Caulfield
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mmm.coffee.metacode.spring.constant;
+package mmm.coffee.metacode.cli.validation;
 
 /**
- * Integrations supported by the spring-webmvc code generator
+ * A stereotype for classes supporting this validation API.
+ * Mostly, the various Validators extend this interface.
  */
-public enum SpringIntegrations {
-    POSTGRES ("postgres"),
-    LIQUIBASE ("liquibase"),
-    TESTCONTAINERS ("testcontainers"),
-    MONGODB ("mongodb")
-            ;
+public interface ValidationTrait {
+    boolean isValid();
+    boolean isInvalid();
 
-    // This is the value an end-user enters on the command line.
-    private final String value;
-
-    SpringIntegrations(String name) {
-        this.value = name;
-    }
-
-    @Override
-    public String toString() { return value; }
-
+    /**
+     * If a validation check finds an invalid value, this method
+     * returns the corresponding error message.  If there is no error,
+     * this method returns an empty string.
+     */
+    String errorMessage();
 }

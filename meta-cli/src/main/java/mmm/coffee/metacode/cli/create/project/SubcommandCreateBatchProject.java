@@ -17,6 +17,8 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringBatchProvider;
+import mmm.coffee.metacode.cli.validation.PackageNameValidator;
+import mmm.coffee.metacode.cli.validation.SpringIntegrationValidator;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
@@ -59,7 +61,9 @@ public class SubcommandCreateBatchProject extends AbstractCreateSpringProject {
      * @return the exit code of the code generator
      */
     @Override public Integer call() {
-        super.validateInputs();
+        PackageNameValidator pnv = PackageNameValidator.of(packageName);
+        SpringIntegrationValidator siv = SpringIntegrationValidator.of(features);
+        super.runValidations(pnv, siv);
         var descriptor = buildProjectDescriptor(Framework.SPRING_BATCH);
         return codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);
     }

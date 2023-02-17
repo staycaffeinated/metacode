@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.RestEndpointGeneratorProvider;
 import mmm.coffee.metacode.cli.mixin.DryRunOption;
 import mmm.coffee.metacode.cli.validation.ResourceNameValidator;
+import mmm.coffee.metacode.cli.validation.ValidationTrait;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
 import picocli.CommandLine;
@@ -72,8 +73,7 @@ public class SubcommandCreateEndpoint implements Callable<Integer> {
     public SubcommandCreateEndpoint(@RestEndpointGeneratorProvider ICodeGenerator<RestEndpointDescriptor> codeGenerator) {
         this.codeGenerator = codeGenerator;
     }
-
-
+    
     /* This is never called directly */
     @Override public Integer call() {
         validateInputs();
@@ -82,12 +82,9 @@ public class SubcommandCreateEndpoint implements Callable<Integer> {
     }
 
     private void validateInputs() {
-        if ( !ResourceNameValidator.isValid(resourceName)) {
-            throw new CommandLine.ParameterException( commandSpec.commandLine(),
-                    String.format("%nERROR: %n\tThe resource name '%s' cannot be used. " +
-                    "Resource names that lead to compile-time errors or " +
-                            "obscure runtime errors are not supported.\n" +
-                            "\tSuggestion: try something like '%sInfo' or '%sDetail', for example.", resourceName, resourceName, resourceName));
+        ValidationTrait validator = ResourceNameValidator.of(resourceName);
+        if (validator.isInvalid()) {
+            throw new CommandLine.ParameterException( commandSpec.commandLine(), validator.errorMessage());
         }
     }
 

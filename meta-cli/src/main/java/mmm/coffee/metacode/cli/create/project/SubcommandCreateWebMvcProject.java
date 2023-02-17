@@ -17,6 +17,8 @@ package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
+import mmm.coffee.metacode.cli.validation.PackageNameValidator;
+import mmm.coffee.metacode.cli.validation.SpringIntegrationValidator;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.generator.ICodeGenerator;
@@ -57,7 +59,12 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateSpringProject {
      * @return the exit code
      */
     @Override public Integer call() {
-        super.validateInputs();
+        SpringIntegrationValidator siv = SpringIntegrationValidator.of(features);
+        PackageNameValidator pnv = PackageNameValidator.of(packageName);
+        super.runValidations(pnv, siv);
+
+
+
         var descriptor = buildProjectDescriptor(Framework.SPRING_WEBMVC);
         return codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);
     }
