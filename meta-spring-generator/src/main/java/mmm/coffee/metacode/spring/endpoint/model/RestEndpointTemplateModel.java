@@ -80,6 +80,12 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
     private String ejbName;
 
     /**
+     * The name of the Document class when using NoSQL databases.
+     * Documents have a role equivalent to EJBs
+     */
+    private String documentName;
+
+    /**
      * The package name into which this endpoint's classes are placed.
      * For example, this might look like 'org.acme.petstore.endpoint.pet',
      * with all Pet-related classes placed there, or 'org.acme.petstore.endpoint.owner'
@@ -117,6 +123,9 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
     @Setter(AccessLevel.PUBLIC)
     private boolean withLiquibase;
 
+    @Setter(AccessLevel.PUBLIC)
+    private boolean withMongoDB;
+
     //
     // These get methods are added because Freemarker templates
     // can get confused by Lombok naming conventions
@@ -125,5 +134,7 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
     public boolean getTestContainersFlag() { return withTestContainers; }
 
     public boolean getLiquibaseFlag() { return withLiquibase; }
+
+    public boolean getMongoDbFlag() { return withMongoDB; }
 
 }

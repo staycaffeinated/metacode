@@ -76,6 +76,7 @@ class DescriptorToTemplateModelConverterTest {
         assertThat(context.isWithLiquibase()).isFalse();
         assertThat(context.isWithPostgres()).isFalse();
         assertThat(context.isWithTestContainers()).isFalse();
+        assertThat(context.isWithMongoDb()).isFalse();
     }
 
     @Test
@@ -91,6 +92,7 @@ class DescriptorToTemplateModelConverterTest {
         // the other integration flags should remain in their 'off' position
         assertThat(templateModel.isWithLiquibase()).isFalse();
         assertThat(templateModel.isWithTestContainers()).isFalse();
+        assertThat(templateModel.isWithMongoDb()).isFalse();
     }
 
     @Test
@@ -101,10 +103,11 @@ class DescriptorToTemplateModelConverterTest {
         // When: converting to a template model...
         RestProjectTemplateModel templateModel = converterUnderTest.convert(webMvcRestProject);
 
-        // the 'withTestcontainers' flag should be 'true'
+        // the 'withTestcontainers' flag should be 'true'; others are false
         assertThat(templateModel.isWithTestContainers()).isTrue();
         assertThat(templateModel.isWithLiquibase()).isFalse();
         assertThat(templateModel.isWithPostgres()).isFalse();
+        assertThat(templateModel.isWithMongoDb()).isFalse();
     }
 
     @Test
@@ -120,6 +123,7 @@ class DescriptorToTemplateModelConverterTest {
         // the other options should remain in their 'off' position
         assertThat(templateModel.isWithTestContainers()).isFalse();
         assertThat(templateModel.isWithPostgres()).isFalse();
+        assertThat(templateModel.isWithMongoDb()).isFalse();
     }
 
     @Test
@@ -135,6 +139,24 @@ class DescriptorToTemplateModelConverterTest {
         assertThat(templateModel.isWithTestContainers()).isTrue();
         assertThat(templateModel.isWithPostgres()).isTrue();
         assertThat(templateModel.isWithLiquibase()).isFalse();
+        assertThat(templateModel.isWithMongoDb()).isFalse();
+    }
+
+    @Test
+    void shouldSetMongoDbAndTestContainersIntegrationFlags() {
+        // Given: a project with Postgres & TestContainers integration enabled
+        webMvcRestProject.getIntegrations().add(SpringIntegrations.MONGODB.name());
+        webMvcRestProject.getIntegrations().add(SpringIntegrations.TESTCONTAINERS.name());
+
+        // When: converting to a template model...
+        RestProjectTemplateModel templateModel = converterUnderTest.convert(webMvcRestProject);
+
+        // expect: withTestContainers and withMongoDb flags are both 'true'
+        assertThat(templateModel.isWithTestContainers()).isTrue();
+        assertThat(templateModel.isWithMongoDb()).isTrue();
+        
+        assertThat(templateModel.isWithLiquibase()).isFalse();
+        assertThat(templateModel.isWithPostgres()).isFalse();
     }
 
     @Test
@@ -153,4 +175,19 @@ class DescriptorToTemplateModelConverterTest {
         assertThat(templateModel.isWithPostgres()).isTrue();
         assertThat(templateModel.isWithTestContainers()).isTrue();
     }
+    @Test
+    void shouldSetMongoDbIntegrationFlag() {
+        // Given: a project with TestContainers integration enabled
+        webMvcRestProject.getIntegrations().add(SpringIntegrations.MONGODB.name());
+
+        // When: converting to a template model...
+        RestProjectTemplateModel templateModel = converterUnderTest.convert(webMvcRestProject);
+
+        // the 'withTestcontainers' flag should be 'true'; others are false
+        assertThat(templateModel.isWithMongoDb()).isTrue();
+        assertThat(templateModel.isWithLiquibase()).isFalse();
+        assertThat(templateModel.isWithPostgres()).isFalse();
+        assertThat(templateModel.isWithTestContainers()).isFalse();
+    }
+
 }

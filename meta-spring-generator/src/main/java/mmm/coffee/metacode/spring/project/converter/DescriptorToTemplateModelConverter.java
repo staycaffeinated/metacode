@@ -28,6 +28,7 @@ public class DescriptorToTemplateModelConverter implements ConvertTrait<RestProj
                 .withPostgres(descriptor.getIntegrations().contains(SpringIntegrations.POSTGRES.name()))
                 .withTestContainers(descriptor.getIntegrations().contains(SpringIntegrations.TESTCONTAINERS.name()))
                 .withLiquibase(descriptor.getIntegrations().contains(SpringIntegrations.LIQUIBASE.name()))
+                .withMongoDb(descriptor.getIntegrations().contains(SpringIntegrations.MONGODB.name()))
                 .build();
     }
 }

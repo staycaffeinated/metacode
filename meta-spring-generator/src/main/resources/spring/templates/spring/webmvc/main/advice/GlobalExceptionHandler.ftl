@@ -18,9 +18,9 @@ import org.zalando.problem.spring.web.advice.ProblemHandling;
 import java.sql.SQLException;
 
 /**
-* Handles turning exceptions into RFC-7807 problem/json responses,
-* so instead of an exception and its stack trace leaking back
-* to the client, an RFC-7807 problem description is returned instead.
+ * Handles turning exceptions into RFC-7807 problem/json responses,
+ * so instead of an exception and its stack trace leaking back
+ * to the client, an RFC-7807 problem description is returned instead.
 */
 @SuppressWarnings("unused")
 @ControllerAdvice
@@ -53,12 +53,12 @@ public class GlobalExceptionHandler implements ProblemHandling {
     }
 
     /**
- * Handles SQL exception.
- *
- * @param ex      Exception
- * @param request WebRequest
- * @return ResponseEntity
- */
+     * Handles SQL exception.
+     *
+     * @param ex      Exception
+     * @param request WebRequest
+     * @return ResponseEntity
+     */
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<Problem> handleSQLException(SQLException ex, WebRequest request) {
         String message = String.format("Database Error: %s : %s ", ex.getErrorCode(), ex.getLocalizedMessage());

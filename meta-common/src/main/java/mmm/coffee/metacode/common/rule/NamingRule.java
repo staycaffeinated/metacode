@@ -30,6 +30,7 @@ public class NamingRule {
      * For example, for the 'Pet' object, the entity bean class is 'PetEntity'.
      */
     public static final String EJB_SUFFIX = "Entity";
+    public static final String DOCUMENT_SUFFIX = "Document";
 
     // Hidden constructor
     private NamingRule() {}

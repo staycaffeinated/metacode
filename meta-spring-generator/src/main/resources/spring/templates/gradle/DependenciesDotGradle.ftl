@@ -50,22 +50,24 @@ ext {
         postgresql                      : "org.postgresql:postgresql:$versions.postgresql",
         problemSpringWeb                : "org.zalando:problem-spring-web-starter:$versions.problemSpringWeb",
         problemSpringWebFlux            : "org.zalando:problem-spring-webflux:$versions.problemSpringWeb",
+        problemSpringWebStarter         : "org.zalando:problem-spring-web-starter:$versions.problemSpringWeb",
         problemJacksonDataType          : "org.zalando:jackson-datatype-problem:$versions.problemJacksonDataType",
         reactorTest                     : "io.projectreactor:reactor-test:$versions.reactorTest",
         truth                           : "com.google.truth:truth:$versions.truth",
 
         // Spring's dependency management plugin will auto-resolve the Spring library versions
+        springBatchTest                 : "org.springframework.batch:spring-batch-test",
         springBootConfigProcessor       : "org.springframework.boot:spring-boot-configuration-processor",
         springBootStarterActuator       : "org.springframework.boot:spring-boot-starter-actuator",
         springBootStarterAop            : "org.springframework.boot:spring-boot-starter-aop",
         springBootStarterBatch          : "org.springframework.boot:spring-boot-starter-batch",
-        springBootStarterWeb            : "org.springframework.boot:spring-boot-starter-web",
-        springBootStarterWebFlux        : "org.springframework.boot:spring-boot-starter-webflux",
         springBootStarterDataJpa        : "org.springframework.boot:spring-boot-starter-data-jpa",
+        springBootStarterDataMongoDb    : "org.springframework.boot:spring-boot-starter-data-mongodb",
         springBootStarterDataR2dbc      : "org.springframework.boot:spring-boot-starter-data-r2dbc",
         springBootStarterTest           : "org.springframework.boot:spring-boot-starter-test",
+        springBootStarterWeb            : "org.springframework.boot:spring-boot-starter-web",
+        springBootStarterWebFlux        : "org.springframework.boot:spring-boot-starter-webflux",
         springBootStarterValidation     : "org.springframework.boot:spring-boot-starter-validation",
-        springBatchTest                 : "org.springframework.batch:spring-batch-test",
         springCloud                     : "org.springframework.cloud:spring-cloud-starter:$versions.springCloud",
         springCloudBinderKafkaStreams   : "org.springframework.cloud:spring-cloud-stream-binder-kafka-streams:$versions.springCloud",
         springCloudStarterSteamKafka    : "org.springframework.cloud:spring-cloud-starter-stream-kafka:$versions.springCloud",
@@ -74,9 +76,10 @@ ext {
         springKafkaTest                 : "org.springframework.kafka:spring-kafka-test",
 
         testContainersBom               : "org.testcontainers:testcontainers-bom:$versions.testContainers",
+        testContainersJupiter           : "org.testcontainers:junit-jupiter",
         testContainersKafka             : "org.testcontainers:kafka",
-        testContainersPostgres          : "org.testcontainers:postgresql",
-        testContainersJupiter           : "org.testcontainers:junit-jupiter"
+        testContainersMongoDb           : "org.testcontainers:mongodb",
+        testContainersPostgres          : "org.testcontainers:postgresql"
         ]
 }
 </#noparse>

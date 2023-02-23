@@ -63,6 +63,8 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private boolean withTestContainers;
     @Setter
     private boolean withLiquibase;
+    @Setter
+    private boolean withMongoDb;
     
     /*
      * Library versions

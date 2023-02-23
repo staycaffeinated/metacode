@@ -53,7 +53,7 @@ public class PackageNameValidator implements ValidationTrait {
     @Override
     public String errorMessage() {
         if (!evaluated) evaluate(this.value);
-        return errorMessage;
+        return "";
     }
 
     /**

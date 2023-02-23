@@ -89,7 +89,7 @@ public class SpringCodeGenerator implements ICodeGenerator<RestProjectDescriptor
         mustacheDecoder.configure(templateModel);
 
         // Render the templates
-        collector.collect().stream().filter(keepThese).forEach( it -> {
+        collector.beforeCollection(descriptor).collect().stream().filter(keepThese).forEach( it -> {
             // essentially: it -> { writeIt ( renderIt(it) ) }
             outputHandler.writeOutput (
                     // CatalogEntry's use mustache expressions for destinations;

@@ -18,6 +18,10 @@ package mmm.coffee.metacode.spring.catalog;
 import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
+import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
+import mmm.coffee.metacode.common.stereotype.Collector;
+import mmm.coffee.metacode.spring.constant.SpringIntegrations;
 
 import java.util.List;
 
@@ -27,6 +31,9 @@ import java.util.List;
 public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
 
     public static final String WEBMVC_CATALOG = "/spring/catalogs/spring-webmvc.yml";
+    public static final String WEBMVC_MONGODB_CATALOG = "/spring/catalogs/spring-webmvc-mongodb.yml";
+
+    private String activeCatalog;
 
     /**
      * Constructor
@@ -37,8 +44,30 @@ public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
         super(reader);
     }
 
+    /**
+     * Returns the catalog selected for collection.
+     * This is exposed to make the state available for unit tests.
+     */
+    String getActiveCatalog() {
+        if (activeCatalog == null)
+            return WEBMVC_CATALOG;
+        return activeCatalog;
+    }
+
+    public Collector beforeCollection(Descriptor descriptor) {
+        if (descriptor instanceof RestProjectDescriptor restProjectDescriptor) {
+            if (restProjectDescriptor.getIntegrations().contains(SpringIntegrations.MONGODB.name())) {
+                activeCatalog = WEBMVC_MONGODB_CATALOG;
+            }
+            else {
+                activeCatalog = WEBMVC_CATALOG;
+            }
+        }
+        return this;
+    }
+
     @Override
     public List<CatalogEntry> collect() {
-        return super.collectGeneralCatalogsAndThisOne(WEBMVC_CATALOG);
+        return super.collectGeneralCatalogsAndThisOne(getActiveCatalog());
     }
 }

@@ -23,6 +23,7 @@ import java.util.Locale;
 public class NameConverter {
 
     private static final String EJB_SUFFIX = NamingRule.EJB_SUFFIX;
+    private static final String DOCUMENT_SUFFIX = NamingRule.DOCUMENT_SUFFIX;
 
     /**
      * Default constructor
@@ -89,6 +90,10 @@ public class NameConverter {
      */
     public String toEjbClassName(@NonNull String resourceName) {
         return StringUtils.capitalize(resourceName) + EJB_SUFFIX;
+    }
+
+    public String toDocumentClassName(@NonNull String resourceName) {
+        return StringUtils.capitalize(resourceName) + DOCUMENT_SUFFIX;
     }
 
     /**

@@ -43,6 +43,7 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateSpringProject {
     /**
      * Handle to the code generator
      */
+    @SuppressWarnings("all") // false positive: if this field is made final, injection will not work
     private ICodeGenerator<RestProjectDescriptor> codeGenerator;
 
     /**

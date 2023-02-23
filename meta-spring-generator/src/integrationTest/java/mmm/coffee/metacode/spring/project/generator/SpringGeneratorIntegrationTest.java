@@ -87,7 +87,24 @@ class SpringGeneratorIntegrationTest {
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
-                .basePackage(BASE_PATH)
+                .basePath(BASE_PATH)
+                .framework(Framework.SPRING_WEBMVC)
+                .integrations(integrations)
+                .build();
+
+        // when: generating code, expect success
+        assertThat(generatorUnderTest.generateCode(spec)).isEqualTo(ExitCodes.OK);
+    }
+
+    @Test
+    void whenMongoDbIntegration_shouldRenderTemplates() {
+        // given: MongoDB and TestContainer integration is enabled
+        Set<String> integrations = buildIntegrations(SpringIntegrations.MONGODB.name(),
+                                                     SpringIntegrations.TESTCONTAINERS.name());
+        var spec = RestProjectDescriptor.builder()
+                .applicationName(APP_NAME)
+                .basePackage(BASE_PKG)
+                .basePath(BASE_PATH)
                 .framework(Framework.SPRING_WEBMVC)
                 .integrations(integrations)
                 .build();
@@ -106,7 +123,7 @@ class SpringGeneratorIntegrationTest {
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
-                .basePackage(BASE_PATH)
+                .basePath(BASE_PATH)
                 .framework(Framework.SPRING_WEBMVC)
                 .integrations(integrations)
                 .build();
@@ -127,7 +144,7 @@ class SpringGeneratorIntegrationTest {
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
-                .basePackage(BASE_PATH)
+                .basePath(BASE_PATH)
                 .framework(Framework.SPRING_WEBMVC)
                 .integrations(integrations)
                 .build();
@@ -146,7 +163,7 @@ class SpringGeneratorIntegrationTest {
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
-                .basePackage(BASE_PATH)
+                .basePath(BASE_PATH)
                 .integrations(integrations)
                 .framework(Framework.SPRING_WEBMVC)
                 .build();
@@ -168,7 +185,7 @@ class SpringGeneratorIntegrationTest {
         var spec = RestProjectDescriptor.builder()
                 .applicationName(APP_NAME)
                 .basePackage(BASE_PKG)
-                .basePackage(BASE_PATH)
+                .basePath(BASE_PATH)
                 .integrations(integrations)
                 .framework(Framework.SPRING_WEBMVC)
                 .build();
