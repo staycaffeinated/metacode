@@ -5,6 +5,7 @@ package mmm.coffee.metacode.spring.endpoint.generator;
 
 import com.google.common.base.Predicate;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.ExitCodes;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.descriptor.Framework;
@@ -26,6 +27,7 @@ import org.apache.commons.configuration2.Configuration;
  * SpringEndpointGenerator
  */
 @SuperBuilder
+@Slf4j
 @SuppressWarnings({"java:S4738","java:S1602","java:S125"})
 // S4738: accepting Google Predicate class for now
 // S1602: false positive: comment around line 82 happens to look like a lambda function
@@ -65,6 +67,7 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         spec.setWithLiquibase(config.getBoolean(MetaProperties.ADD_LIQUIBASE, false));
         spec.setWithPostgres(config.getBoolean(MetaProperties.ADD_POSTGRESQL, false));
         spec.setWithTestContainers(config.getBoolean(MetaProperties.ADD_TESTCONTAINERS, false));
+        spec.setWithMongoDb(config.getBoolean(MetaProperties.ADD_MONGODB, false));
 
         return this;
     }
@@ -92,8 +95,10 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         // Provide state to the MustacheDecoder so that mustache variables can be resolved.
         mustacheDecoder.configure(templateModel);
 
+        log.debug("[generateCode] collector is-a {}", collector.getClass().getName());
+
         // Render the templates
-        collector.collect().stream().filter(keepThese).forEach( it -> {
+        collector.beforeCollection(descriptor).collect().stream().filter(keepThese).forEach( it -> {
             // essentially: it -> { writeIt ( renderIt(it) ) }
             outputHandler.writeOutput(
                     // CatalogEntry's use mustache expressions for destinations;

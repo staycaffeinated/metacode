@@ -3,6 +3,7 @@
  */
 package mmm.coffee.metacode.cli.create.project;
 
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.spring.constant.SpringIntegrations;
@@ -12,6 +13,7 @@ import picocli.CommandLine;
  * AbstractCreateSpringProject holds command line options that are common
  * to spring-webflux and spring-webmvc.
  */
+@Slf4j
 public class AbstractCreateSpringProject extends AbstractCreateRestProject {
     //
     // The Support option. These are the added capabilities supported by the generated application.
@@ -40,6 +42,7 @@ public class AbstractCreateSpringProject extends AbstractCreateRestProject {
      * @return a POJO that encapsulates the command-line arguments
      */
     protected RestProjectDescriptor buildProjectDescriptor(Framework framework) {
+        log.info("[buildProjectDescriptor] entered...");
         // Get the basic information
         var descriptor = RestProjectDescriptor
                 .builder()
@@ -53,6 +56,7 @@ public class AbstractCreateSpringProject extends AbstractCreateRestProject {
         // take note of any features/integrations
         if (features != null) {
             for (SpringIntegrations f : features) {
+                log.info("[buildProjectDescriptor] adding integration: {} ", f.name());
                 descriptor.getIntegrations().add(f.name());
             }
         }

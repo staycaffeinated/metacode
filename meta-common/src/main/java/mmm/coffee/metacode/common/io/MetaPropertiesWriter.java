@@ -4,6 +4,7 @@
 package mmm.coffee.metacode.common.io;
 
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -18,12 +19,14 @@ import java.util.Map;
  * MetaPropertiesWriter
  */
 @Builder
+@Slf4j
 public class MetaPropertiesWriter {
 
     private final String destinationFile;
     private final PropertiesConfiguration configuration;
 
     public void saveProperties(Map<String, Object> properties) {
+        log.debug("[saveProperties]", new Exception("Who called me??"));
         try {
             // Only copy properties needed for endpoint generation.
             // The incoming {@code properties} could contain many values,
@@ -42,6 +45,9 @@ public class MetaPropertiesWriter {
             }
             if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_TESTCONTAINERS))) {
                 configuration.setProperty(MetaProperties.ADD_TESTCONTAINERS, "true");
+            }
+            if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_MONGODB))) {
+                configuration.setProperty(MetaProperties.ADD_MONGODB, "true");
             }
 
             writeConfiguration(configuration);

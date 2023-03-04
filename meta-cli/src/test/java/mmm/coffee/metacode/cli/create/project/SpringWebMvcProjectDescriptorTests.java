@@ -55,6 +55,7 @@ class SpringWebMvcProjectDescriptorTests {
      * A simple exercise of the SpringWebMvcProjectDescriptor api
      */
     @Test
+    @SuppressWarnings("all")
     void shouldBuildWellFormedObject() {
         var descriptor = RestProjectDescriptor.builder()
                 .applicationName(APPNAME)
@@ -133,6 +134,7 @@ class SpringWebMvcProjectDescriptorTests {
      */
     @Test
     @Tag("coverage")
+    @SuppressWarnings("all")
     void testBuilderToString() {
         var descriptor = RestProjectDescriptor.builder().toString();
         assertThat(descriptor.toString()).isNotEmpty();

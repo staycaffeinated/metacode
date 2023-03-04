@@ -21,7 +21,7 @@ import jakarta.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Builder
 public class ${endpoint.documentName} {
-    private static final String COLLECTION_NAME = "${endpoint.tableName}"
+    private static final String COLLECTION_NAME = "${endpoint.tableName}";
 
     static String collectionName() {
         return COLLECTION_NAME;

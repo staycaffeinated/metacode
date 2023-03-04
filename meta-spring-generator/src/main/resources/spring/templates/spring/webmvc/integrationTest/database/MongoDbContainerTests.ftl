@@ -1,9 +1,7 @@
 <#include "/common/Copyright.ftl">
-
 package ${project.basePackage}.database;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -21,36 +19,33 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @Slf4j
 @Testcontainers
-public class MongoDbContainerSupport {
+@SuppressWarnings("all")
+public class MongoDbContainerTests {
 
     private static final String IMAGE = "mongo:6.0.4";
 
     // @formatter:off
     @Container
-    private static MongoDBContainer mongoDBContainer = new MongoDBContainer(IMAGE)
+    private static final MongoDBContainer mongoDBContainer = new MongoDBContainer(IMAGE)
         .withReuse(true)
-        .withStartupTimeout(Duration.ofMinutes(2))
+        .withStartupTimeout(Duration.ofMinutes(1))
         .waitingFor(Wait.forListeningPort());
-        // @formatter:on
+    // @formatter:on
+
+    static {
+        mongoDBContainer.start();
+    }
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
-        log.info("MongoDBContainer has started");
-        log.info("Registering database properties...");
         registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+        registry.add("spring.data.mongodb.database", () -> "testdata"); // this property is not required
     }
 
     @Test
     void shouldCreateContainer() {
         assertThat(mongoDBContainer).isNotNull();
         assertThat(mongoDBContainer.isCreated()).isTrue();
-    }
-
-    @BeforeEach
-    void startContainer() {
-        mongoDBContainer.start();
-    }
-    void stopContainer() {
-        mongoDBContainer.stop();
+        assertThat(mongoDBContainer.isRunning()).isTrue();
     }
 }

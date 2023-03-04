@@ -83,6 +83,7 @@ public class CatalogFileReader implements ICatalogReader {
      * @param catalogClassPath the resource path of the catalog.yaml file
      * @return the entries of the catalog, as a list of CatalogEntry
      */
+    @SuppressWarnings("unchecked")
     public List<CatalogEntry> readCatalogFile(@NonNull String catalogClassPath) throws IOException {
         try (InputStream is = this.getClass().getResourceAsStream(catalogClassPath)) {
             // Fail fast if the file isn't found

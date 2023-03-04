@@ -2,7 +2,7 @@
 
 package ${project.basePackage}.database;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Common methods to be supported by the implementor of a DataStore
@@ -19,21 +19,21 @@ public interface CrudAware<B> {
     /**
      * Updates the matching documents; returns the number of documents updated
      */
-    long update(B document);
+    List<B> update(B document);
 
     /**
      * Fetch the entity having the given {@code resourceId}
      */
-    Set<B> findByResourceId(String resourceId);
+    List<B> findByResourceId(String resourceId);
 
     /**
      * Find all of a particular kind of entity
      */
-    Set<B> findAll();
+    List<B> findAll();
 
     /**
-     * Remove the given {@code entity}, if it exists.
-     * Requests to delete an entity that does not exist are quietly ignored.
+     * Remove the given {@code entity}, if it exists. Requests to delete an entity
+     * that does not exist are quietly ignored.
      */
-    void delete(B document);
+    long delete(B document);
 }

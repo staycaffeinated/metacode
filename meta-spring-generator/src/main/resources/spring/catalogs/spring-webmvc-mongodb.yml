@@ -63,11 +63,6 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/DataStore.java"
       context: "project"
   - entry:
-      template: "/spring/webmvc/main/database/MongoDbContainerSupport.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/MongoDbContainerSupport.java"
-      context: "project"
-
-  - entry:
       template: "/spring/webmvc/main/filter/SecurityResponseHeadersFilter.ftl"
       destination: "src/main/java/{{basePackagePath}}/filter/SecurityResponseHeadersFilter.java"
       context: "project"
@@ -149,6 +144,10 @@ catalog:
       destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
   - entry:
+      template: "/spring/webmvc/integrationTest/database/MongoDbContainerTests.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/database/MongoDbContainerTests.java"
+      context: "project"
+  - entry:
       template: "/spring/webmvc/main/resources/MongoDbApplicationDotProperties.ftl"
       destination: "src/main/resources/application.properties"
       context: "project"
@@ -203,13 +202,13 @@ catalog:
       context: "endpoint"
 
   - entry:
-      template: "/spring/webmvc/main/database/converter/EntityToPojoConverter.ftl"
-      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}EntityToPojoConverter.java"
+      template: "/spring/webmvc/main/database/converter/DocumentToPojoConverter.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}DocumentToPojoConverter.java"
       context: "endpoint"
-  - entry:
-      template: "/spring/webmvc/main/database/predicate/EntityWithText.ftl"
-      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/predicate/{{entityName}}WithText.java"
-      context: "endpoint"
+#  - entry:
+#      template: "/spring/webmvc/main/database/predicate/EntityWithText.ftl"
+#      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/predicate/{{entityName}}WithText.java"
+#      context: "endpoint"
   - entry:
       template: "/spring/webmvc/main/database/entity/EntityResource.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{pojoName}}.java"
@@ -235,7 +234,7 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/database/entity/DatabaseTablePopulator.ftl"
+      template: "/spring/webmvc/main/database/entity/MongoDatabaseTablePopulator.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}/{{entityName}}TablePopulator.java"
       context: "endpoint"
   - entry:
@@ -243,17 +242,14 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/test/database/DataStoreTests.ftl"
+      template: "/spring/webmvc/test/database/entity/MongoDataStoreProviderTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreTests.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/test/database/converter/DocumentToPojoConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}DocumentToPojoConverterTests.java"
       context: "endpoint"
-  - entry:
-      template: "/spring/webmvc/test/database/predicate/EntityWithTextTest.ftl"
-      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/predicate/{{entityName}}WithTextTest.java"
-      context: "endpoint"
+
   - entry:
       template: "/spring/webmvc/test/ControllerTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
@@ -271,26 +267,26 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/integrationTest/endpoint/ExceptionHandlingIT.ftl"
+      template: "/spring/webmvc/integrationTest/endpoint/MongoExceptionHandlerIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ExceptionHandlingIT.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/integrationTest/endpoint/ControllerIT.ftl"
+      template: "/spring/webmvc/integrationTest/endpoint/MongoControllerIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/integrationTest/endpoint/ServiceIT.ftl"
+      template: "/spring/webmvc/integrationTest/endpoint/MongoServiceIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIT.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/integrationTest/database/endpoint/RepositoryIT.ftl"
+      template: "/spring/webmvc/integrationTest/database/endpoint/MongoRepositoryIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
       context: "endpoint"
 #
 # Test fixtures
 #
   - entry:
-      template: "/spring/webmvc/testFixtures/database/WebMvcEjbTestFixtures.ftl"
+      template: "/spring/webmvc/testFixtures/database/WebMvcModelTestFixtures.ftl"
       destination: "src/testFixtures/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}TestFixtures.java"
       context: "endpoint"
   - entry:

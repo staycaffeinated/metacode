@@ -32,9 +32,6 @@ class MetaPropertiesWriterTests {
 
     MetaPropertiesWriter writerUnderTest;
 
-
-
-
     @Test
     void shouldWriteProperties() throws Exception {
         // Given: a temporary folder to work with
@@ -116,6 +113,26 @@ class MetaPropertiesWriterTests {
         assertThat(f.exists()).isTrue();
     }
 
+    @Test
+    void whenUsingMongoDb_expectMongoDbEnabledInPropertiesFile() throws Exception {
+        TemporaryFolder temporaryFolder = new TemporaryFolder();
+        temporaryFolder.create();
+
+        // and given: a hypothetical filename
+        String fakeDestination = temporaryFolder.getRoot().getAbsolutePath() + "/" + MetaProperties.DEFAULT_FILENAME;
+
+        MetaPropertiesWriter writer = MetaPropertiesWriter.builder()
+                .destinationFile(fakeDestination)
+                .configuration(new PropertiesConfiguration())
+                .build();
+
+        // when: saving the properties
+        writer.saveProperties(buildSamplePropertiesWithMonboDbEnabled());
+
+        File f = new File(fakeDestination);
+        assertThat(f.exists()).isTrue();
+    }
+
 
     @Test
     void shouldRethrowConfigurationExceptionAsRuntimeApplicationError() throws Exception {
@@ -183,9 +200,16 @@ class MetaPropertiesWriterTests {
         return map;
     }
 
+
     static Map<String,Object> buildSamplePropertiesWithLiquibaseEnabled() {
         var map = buildSampleProperties();
         map.put(MetaProperties.ADD_LIQUIBASE, Boolean.TRUE);
+        return map;
+    }
+
+    static Map<String,Object> buildSamplePropertiesWithMonboDbEnabled() {
+        var map = buildSampleProperties();
+        map.put(MetaProperties.ADD_MONGODB, Boolean.TRUE);
         return map;
     }
 

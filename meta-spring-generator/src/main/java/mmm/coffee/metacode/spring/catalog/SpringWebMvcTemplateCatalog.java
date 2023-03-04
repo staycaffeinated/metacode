@@ -16,9 +16,11 @@
 package mmm.coffee.metacode.spring.catalog;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
 import mmm.coffee.metacode.common.descriptor.Descriptor;
+import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.stereotype.Collector;
 import mmm.coffee.metacode.spring.constant.SpringIntegrations;
@@ -28,6 +30,7 @@ import java.util.List;
 /**
  * Loads the Spring WebMvc template catalog
  */
+@Slf4j
 public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
 
     public static final String WEBMVC_CATALOG = "/spring/catalogs/spring-webmvc.yml";
@@ -55,14 +58,22 @@ public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
     }
 
     public Collector beforeCollection(Descriptor descriptor) {
+        log.debug("[beforeCollection] entered...");
+        boolean useMongoDbCatalog = false;
         if (descriptor instanceof RestProjectDescriptor restProjectDescriptor) {
             if (restProjectDescriptor.getIntegrations().contains(SpringIntegrations.MONGODB.name())) {
-                activeCatalog = WEBMVC_MONGODB_CATALOG;
-            }
-            else {
-                activeCatalog = WEBMVC_CATALOG;
+                useMongoDbCatalog = true;
             }
         }
+        else if (descriptor instanceof RestEndpointDescriptor restEndpointDescriptor) {
+            log.debug("[beforeCollection] isWithMongoDb: {}", restEndpointDescriptor.isWithMongoDb());
+            useMongoDbCatalog = true;
+        }
+        if (useMongoDbCatalog)
+            activeCatalog = WEBMVC_MONGODB_CATALOG;
+        else
+            activeCatalog = WEBMVC_CATALOG;
+
         return this;
     }
 

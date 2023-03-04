@@ -24,7 +24,7 @@ import mmm.coffee.metacode.annotations.jacoco.Generated;
 @Data
 @Builder
 @Generated // exclude from code coverage reports
-public class RestEndpointDescriptor {
+public class RestEndpointDescriptor implements Descriptor {
 
     /**
      * The resource provided by this endpoint, such as Pet or Owner
@@ -55,6 +55,7 @@ public class RestEndpointDescriptor {
     private boolean withPostgres;
     private boolean withTestContainers;
     private boolean withLiquibase;
+    private boolean withMongoDb;
 
 
     public final String getFramework() {

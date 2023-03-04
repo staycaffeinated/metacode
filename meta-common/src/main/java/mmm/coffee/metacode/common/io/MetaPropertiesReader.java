@@ -4,6 +4,7 @@
 package mmm.coffee.metacode.common.io;
 
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -16,6 +17,7 @@ import java.io.File;
  * and returns a {@code Configuration} instance.
  */
 @Builder
+@Slf4j
 public class MetaPropertiesReader {
     /*
      * the file to which the properties are written
@@ -34,6 +36,7 @@ public class MetaPropertiesReader {
      * @return the content o
      */
     public Configuration read() {
+        log.debug("[read]", new Exception("Who called me?"));
         try {
             return configurations.properties(new File(propertyFileName));
         }

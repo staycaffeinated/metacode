@@ -81,7 +81,7 @@ class ${endpoint.entityName}ServiceTests {
 
         @Test
         void shouldReturnEmptyListWhenRepositoryIsEmpty() {
-            given( ${endpoint.entityVarName}DataStore.findAll() ).willReturn( new ArrayList<>() );
+            given( ${endpoint.entityVarName}DataStore.findAll() ).willReturn(List.of());
 
             List<${endpoint.pojoName}> result = ${endpoint.entityVarName}Service.findAll${endpoint.entityName}s();
 

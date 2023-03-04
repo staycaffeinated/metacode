@@ -4,7 +4,7 @@ package ${project.basePackage}.database;
 
 import ${project.basePackage}.exception.*;
 
-import java.util.Set;
+import java.util.List;
 
 /**
 * A generalized NoSQL data store
@@ -13,12 +13,12 @@ public interface DataStore<T> {
     /**
      * Find all documents having a given resourceId
      */
-    Set<T> findByResourceId(String publicId) throws ResourceNotFoundException;
+    List<T> findByResourceId(String publicId) throws ResourceNotFoundException;
 
     /**
      * Find all documents of a given type. The collections searched is at the implementors discretion.
      */
-    Set<T> findAll();
+    List<T> findAll();
 
     /**
      * Insert a new document
@@ -28,10 +28,10 @@ public interface DataStore<T> {
     /**
      * Remove a document
      */
-    void delete (T pojo);
+    long delete (T pojo);
 
     /**
      * Update a document, returning the number of document instances updated
      */
-    long update (T pojo);
+    List<T> update (T pojo);
 }
