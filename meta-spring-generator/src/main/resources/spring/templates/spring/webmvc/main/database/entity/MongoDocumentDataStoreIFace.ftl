@@ -7,11 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * DataStore for ${endpoint.entityName} domain objects. This interface extends the basic
- * {@code DataStore} interface, adding a ${endpoint.entityName}-specific search API.
-*/
+ * A dataStore for ${endpoint.entityName} domain objects. Add custom methods
+ * here, such as ${endpoint.entityName}-specific query methods.
+ */
 public interface ${endpoint.entityName}DataStore extends DataStore<${endpoint.entityName}> {
-    Page<${endpoint.entityName}> findByText(@NonNull String text, Pageable pageable);
-
-    void deleteByResourceId(String resourceId);
 }

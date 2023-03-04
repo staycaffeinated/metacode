@@ -39,8 +39,8 @@ public class ${endpoint.entityName}Service {
     }
 
     /**
-    * findByResourceId
-    */
+     * findByResourceId
+     */
     public Optional<${endpoint.entityName}> find${endpoint.entityName}ByResourceId(String id) {
         return ${endpoint.lowerCaseEntityName}DataStore.findByResourceId(id);
     }

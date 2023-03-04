@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @RequiredArgsConstructor
+@Builder
 public class ${endpoint.entityName}DataStoreProvider implements ${endpoint.entityName}DataStore {
 
     private final ${endpoint.documentName}ToPojoConverter documentConverter;
@@ -75,13 +76,7 @@ public class ${endpoint.entityName}DataStoreProvider implements ${endpoint.entit
     }
 
     @Override
-    public long delete(${endpoint.pojoName} pojo) {
-        Query query = Query.query(Criteria.where(RESOURCE_ID).is(pojo.getResourceId()));
-        mongoTemplate.remove(query, ${endpoint.documentName}.collectionName()).getDeletedCount();
-    }
-
-    @Override
-    public long update(${endpoint.pojoName} pojo) {
+    public List<${endpoint.pojoName}> update(${endpoint.pojoName} pojo) {
         Query query = Query.query(Criteria.where(RESOURCE_ID).is(pojo.getResourceId()));
         // By default, this is only updating the 'text' column.
         // You will want to decide how you want this to actually work and change this.
@@ -107,9 +102,8 @@ public class ${endpoint.entityName}DataStoreProvider implements ${endpoint.entit
     }
 
     @Override
-    public void deleteByResourceId(@NonNull String resourceId) {
+    public long deleteByResourceId(@NonNull String resourceId) {
         Query query = Query.query(Criteria.where(RESOURCE_ID).is(resourceId));
-        mongoTemplate.remove(query, ${endpoint.documentName}.collectionName());
-    }
-                
+        return mongoTemplate.remove(query, ${endpoint.documentName}.collectionName()).getDeletedCount();
+    } 
 }

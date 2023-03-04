@@ -193,7 +193,7 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}Document.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/database/entity/ObjectDataStore.ftl"
+      template: "/spring/webmvc/main/database/entity/MongoDocumentDataStoreIFace.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStore.java"
       context: "endpoint"
   - entry:
@@ -222,11 +222,11 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToDocumentConverter.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/endpoint/RestController.ftl"
+      template: "/spring/webmvc/main/endpoint/MongoRestController.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Controller.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/main/endpoint/RestService.ftl"
+      template: "/spring/webmvc/main/endpoint/MongoRestService.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Service.java"
       context: "endpoint"
   - entry:

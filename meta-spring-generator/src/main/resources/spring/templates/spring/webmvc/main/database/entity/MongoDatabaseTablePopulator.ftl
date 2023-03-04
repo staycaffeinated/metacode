@@ -38,7 +38,7 @@ public class ${endpoint.entityName}TablePopulator implements ApplicationListener
     public void onApplicationEvent(ApplicationReadyEvent event) {
         repository.deleteAll();
         List<${endpoint.documentName}> sampleData = createSampleData();
-        repository.saveAllAndFlush(sampleData);
+        repository.saveAll(sampleData);
     }
 
     /**
