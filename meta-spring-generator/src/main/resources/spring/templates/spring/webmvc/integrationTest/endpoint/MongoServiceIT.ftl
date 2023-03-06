@@ -28,7 +28,7 @@ class ${endpoint.entityName}ServiceIT {
 </#if>
 
     @Autowired
-    private ${endpoint.entityName}DataStore ${endpoint.entityName}DataStore;
+    private ${endpoint.entityName}DataStore dataStore;
 
     private ${endpoint.entityName}Service serviceUnderTest;
 
@@ -36,14 +36,15 @@ class ${endpoint.entityName}ServiceIT {
 
     @BeforeEach
     void init${endpoint.entityName}Service() {
-        serviceUnderTest = new ${endpoint.entityName}Service(${endpoint.entityName}DataStore);
-        ${endpoint.entityName}TestFixtures.allItems().forEach(${endpoint.entityName}DataStore::create);
-        knownPersistedItem = ${endpoint.entityName}DataStore.findAll().get(0);
+        serviceUnderTest = new ${endpoint.entityName}Service(dataStore);
+        ${endpoint.entityName}TestFixtures.allItems().forEach(dataStore::create);
+        knownPersistedItem = dataStore.findAll().get(0);
     }
 
     @AfterEach
     void deleteTestData() {
-        ${endpoint.entityName}TestFixtures.allItems().forEach(${endpoint.entityName}DataStore::delete);
+        ${endpoint.entityName}TestFixtures.allItems().forEach(item ->
+            dataStore.deleteByResourceId(item.getResourceId()));
     }
 
     /*

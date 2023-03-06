@@ -61,7 +61,7 @@ public class ${endpoint.entityName}DataStoreProviderTests {
             .pojoConverter(pojoToDocumentConverter)
             .resourceIdGenerator(randomSeries)
             .mongoTemplate(mockMongoTemplate)
-            .petRepository(mockRepository)
+            .repository(mockRepository)
             .build();
         // @formatter:ono
     }
@@ -111,14 +111,14 @@ public class ${endpoint.entityName}DataStoreProviderTests {
             ${endpoint.documentName}ToPojoConverter mockDocumentToPojoConverter = Mockito.mock(${endpoint.documentName}ToPojoConverter.class);
 
             // Create a DataStore that uses the mock converter
-            ${endpoint.entityName}DataStore storeUnderTest = new ${endpoint.entityName}DataStoreProvider(mockDocumentToPojoConverter, pojoToEjbConverter,
+            ${endpoint.entityName}DataStore storeUnderTest = new ${endpoint.entityName}DataStoreProvider(mockDocumentToPojoConverter, pojoToDocumentConverter,
                 randomSeries, mockMongoTemplate, mockRepository);
 
             // given: the repository is able to find a particular entity
             // but when the entity is converted to a POJO, a NULL value is returned
             ${endpoint.documentName} targetEntity = ${endpoint.documentName}TestFixtures.oneWithResourceId();
             given(mockMongoTemplate.findOne(any(), any(), any())).willReturn(targetEntity);
-            given(mockEjbToPojoConverter.convert(any(${endpoint.documentName}.class))).willReturn(null);
+            given(mockDocumentToPojoConverter.convert(any(${endpoint.documentName}.class))).willReturn(null);
 
             // when:
             Optional<${endpoint.entityName}> actual = storeUnderTest.findByResourceId("12345");
@@ -196,14 +196,19 @@ public class ${endpoint.entityName}DataStoreProviderTests {
          */
         @Test
         void shouldThrowNullPointerExceptionWhenConversionFails() {
-            ${endpoint.entityName}PojoToDocumentConverter mockPojoToEntityConverter = Mockito.mock(${endpoint.entityName}PojoToDocumentConverter.class);
+            ${endpoint.entityName}PojoToDocumentConverter mockPojoToDocumentConverter = Mockito.mock(${endpoint.entityName}PojoToDocumentConverter.class);
 
             // Create a DataStore that uses the mock converter
-            ${endpoint.entityName}DataStore edgeCaseDataStore = new ${endpoint.entityName}DataStoreProvider(documentToPojoConverter, mockPojoToEntityConverter,
-                        randomSeries, mockMongoTemplate, mockRepository);
+            ${endpoint.entityName}DataStore edgeCaseDataStore = ${endpoint.entityName}DataStoreProvider.builder()
+                        .documentConverter(documentToPojoConverter)
+                        .pojoConverter(mockPojoToDocumentConverter)
+                        .resourceIdGenerator(randomSeries)
+                        .mongoTemplate(mockMongoTemplate)
+                        .repository(mockRepository)
+                        .build();
 
             // given: the converter returns a null value
-            given(mockPojoToEntityConverter.convert(any(${endpoint.entityName}.class))).willReturn(null);
+            given(mockPojoToDocumentConverter.convert(any(${endpoint.entityName}.class))).willReturn(null);
 
             assertThrows(NullPointerException.class, () -> {
                 ${endpoint.entityName} result = edgeCaseDataStore.create(${endpoint.entityName}TestFixtures.oneWithoutResourceId());
@@ -220,7 +225,9 @@ public class ${endpoint.entityName}DataStoreProviderTests {
             // comes up empty (the second call occurs after the delete operation;
             // attempts to find deleted records should return empty results)
             ${endpoint.documentName} targetEntity = ${endpoint.documentName}TestFixtures.oneWithResourceId();
-            given(mockMongoTemplate.remove(any(Query.class), any(String.class))).willReturn(null);
+            DeleteResult mockResult = Mockito.mock(DeleteResult.class);
+            given(mockMongoTemplate.remove(any(Query.class), any(String.class))).willReturn(mockResult);
+            given(mockResult.getDeletedCount()).willReturn(1L);
 
             // when
             String targetItem = targetEntity.getResourceId();
@@ -234,7 +241,9 @@ public class ${endpoint.entityName}DataStoreProviderTests {
         @Test
         void shouldQuietlyIgnoreAttemptToDeleteNonExistentItem() {
             // scenario: the repository does not contain the record being deleted
-            given(mockMongoTemplate.remove(any(Query.class), any(String.class))).willReturn(null);
+            DeleteResult mockResult = Mockito.mock(DeleteResult.class);
+            given(mockMongoTemplate.remove(any(Query.class), any(String.class))).willReturn(mockResult);
+            given(mockResult.getDeletedCount()).willReturn(0L);
 
             String targetItem = "12345AbCdE56789xYz";
             // when
@@ -289,7 +298,7 @@ public class ${endpoint.entityName}DataStoreProviderTests {
             when(mockMongoTemplate.remove(any(Query.class), any(String.class))).thenReturn(mockResult);
 
             // when: said item is deleted
-            long count = dataStoreUnderTest.delete(${endpoint.entityName}TestFixtures.sampleOne());
+            long count = dataStoreUnderTest.deleteByResourceId(${endpoint.entityName}TestFixtures.sampleOne().getResourceId());
 
             // expect: the delete count is 1
             assertThat(count).isEqualTo(1);
@@ -306,10 +315,10 @@ public class ${endpoint.entityName}DataStoreProviderTests {
 
         return ${endpoint.entityName}DataStoreProvider.builder()
             .documentConverter(mockConverter)
-            .pojoConverter(pojoToEjbConverter)
+            .pojoConverter(pojoToDocumentConverter)
             .resourceIdGenerator(randomSeries)
             .mongoTemplate(mockMongoTemplate)
-            .petRepository(mockRepository)
+            .repository(mockRepository)
             .build();
     }
 }

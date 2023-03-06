@@ -27,7 +27,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+<#if (project.isWithTestContainers())>
+class RootExceptionHandlingIT extends MongoDbContainerTests {
+<#else>
 class RootExceptionHandlingIT {
+</#if>
 
     @Autowired
     MockMvc mockMvc;

@@ -75,11 +75,10 @@ class ${endpoint.entityName}ControllerIT {
     public class ValidateFindById {
         @Test
         void shouldFind${endpoint.entityName}ById() throws Exception {
-            ${endpoint.documentName} pet = documentList.get(0);
-            String docId = pet.getResourceId();
+            ${endpoint.documentName} item = documentList.get(0);
 
-            mockMvc.perform(get(${endpoint.routeConstants.findOne}, docId)).andExpect(status().isOk())
-                .andExpect(jsonPath("$.text", is(pet.getText())));
+            findOne(item.getResourceId()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.resourceId", is(item.getResourceId())));
         }
     }
 
@@ -92,8 +91,7 @@ class ${endpoint.entityName}ControllerIT {
         void shouldCreateNew${endpoint.pojoName}() throws Exception {
             ${endpoint.pojoName} resource = ${endpoint.pojoName}.builder().text("I am a new resource").build();
 
-            mockMvc.perform(post(${endpoint.routeConstants.create}).contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(resource))).andExpect(status().isCreated())
+            createOne(resource).andExpect(status().isCreated())
                 .andExpect(jsonPath("$.text", is(resource.getText())));
         }
 
@@ -110,8 +108,7 @@ class ${endpoint.entityName}ControllerIT {
             // different outcomes. With H2, the controller's @Validated annotation is
             // applied and a 400 status code is returned. With MongoDB, the @Validated
             // is ignored and a 422 error occurs when the database catches the invalid data.
-            mockMvc.perform(post(${endpoint.routeConstants.create}).content(objectMapper.writeValueAsString(resource)))
-                .andExpect(status().is4xxClientError());
+            createOne(resource).andExpect(status().is4xxClientError());
             }
         }
 
@@ -125,11 +122,10 @@ class ${endpoint.entityName}ControllerIT {
         @SuppressWarnings("all")
         void shouldUpdate${endpoint.entityName}() throws Exception {
             ${endpoint.documentName} doc = documentList.get(0);
-            ${endpoint.pojoName} modified = new {$endpoint.documentName}ToPojoConverter().convert(document);
+            ${endpoint.pojoName} modified = new ${endpoint.documentName}ToPojoConverter().convert(doc);
             modified.setText("modified");
 
-            mockMvc.perform(put(${endpoint.routeConstants.update}, doc.getResourceId()).contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(modified))).andExpect(status().isOk())
+            updateOne(modified).andExpect(status().isOk())
                 .andExpect(jsonPath("$..text").value(modified.getText()));
         }
     }
@@ -143,8 +139,7 @@ class ${endpoint.entityName}ControllerIT {
         void shouldDelete${endpoint.entityName}() throws Exception {
             ${endpoint.documentName} document = documentList.get(0);
 
-            mockMvc.perform(delete(${endpoint.routeConstants.delete}, document.getResourceId())).andExpect(status().isOk())
-            .andExpect(jsonPath("$.text", is(pet.getText())));
+            deleteOne(document.getResourceId()).andExpect(status().isOk());
         }
     }
 
@@ -155,6 +150,24 @@ class ${endpoint.entityName}ControllerIT {
     // ---------------------------------------------------------------------------------------------------------------
 
     protected ResultActions searchByText(String text) throws Exception {
-        return mockMvc.perform(get(${endpoint.routeConstants.search}).param("text", text));
+        return mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.search}).param("text", text));
+    }
+
+    protected ResultActions findOne(String resourceId) throws Exception {
+        return mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, resourceId));
+    }
+
+    protected ResultActions createOne(Pet pojo) throws Exception {
+        return mockMvc.perform(post(${endpoint.entityName}Routes.${endpoint.routeConstants.create}).contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(pojo)));
+    }
+
+    protected ResultActions updateOne(Pet pojo) throws Exception {
+        return mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, pojo.getResourceId()).contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(pojo)));
+    }
+
+    protected ResultActions deleteOne(String resourceId) throws Exception {
+        return mockMvc.perform(delete(${endpoint.entityName}Routes.${endpoint.routeConstants.delete}, resourceId));
     }
 }

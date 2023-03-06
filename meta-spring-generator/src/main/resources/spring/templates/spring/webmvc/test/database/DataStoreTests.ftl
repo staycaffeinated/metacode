@@ -30,6 +30,7 @@ import static org.mockito.Mockito.when;
 * Unit test the ${endpoint.entityName}DataStore
 */
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("all")
 public class ${endpoint.entityName}DataStoreTests {
 
     @Mock

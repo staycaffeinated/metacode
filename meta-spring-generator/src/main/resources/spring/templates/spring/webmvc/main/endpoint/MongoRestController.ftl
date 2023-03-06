@@ -94,7 +94,11 @@ public class ${endpoint.entityName}Controller {
         if (!id.equals(${endpoint.entityVarName}.getResourceId())) {
             throw new UnprocessableEntityException("The identifier in the query string and request body do not match");
         }
-        return ResponseEntity.ok(${endpoint.entityVarName}Service.update${endpoint.entityName}(${endpoint.entityVarName}));
+        List<${endpoint.pojoName}> rs = ${endpoint.entityVarName}Service.update${endpoint.entityName}(${endpoint.entityVarName});
+        if (rs.isEmpty())
+            return ResponseEntity.notFound().build();
+        else
+            return ResponseEntity.ok(rs);
     }
 
     /*

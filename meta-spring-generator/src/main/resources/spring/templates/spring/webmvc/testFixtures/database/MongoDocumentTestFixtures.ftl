@@ -1,5 +1,5 @@
-
-package com.example.demo.database.pet;
+<#include "/common/Copyright.ftl">
+package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import java.util.ArrayList;

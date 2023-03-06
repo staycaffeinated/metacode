@@ -42,7 +42,7 @@ public class ${endpoint.entityName}DataStoreProvider implements ${endpoint.entit
     private static final String RESOURCE_ID = "resourceId";
 
     @Override
-    public Optional<${endpoint.entityName}> findByResourceId(String publicId)  {
+    public Optional<${endpoint.entityName}> findByResourceId(@NonNull String publicId)  {
         Query query = Query.query(Criteria.where(RESOURCE_ID).is(publicId));
         ${endpoint.documentName} document = mongoTemplate.findOne(query, ${endpoint.documentName}.class, ${endpoint.documentName}.collectionName());
         if (document == null)

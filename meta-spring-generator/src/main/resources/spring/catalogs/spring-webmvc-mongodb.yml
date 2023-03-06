@@ -128,7 +128,7 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/advice/GlobalExceptionHandlerTests.java"
       context: "project"
   - entry:
-      template: "/spring/webmvc/integrationTest/endpoint-root/MongoControllerIT.ftl"
+      template: "/spring/webmvc/integrationTest/endpoint-root/MongoRootControllerIT.ftl"
       destination: "src/integration/java/{{basePackagePath}}/endpoint/root/RootControllerIT.java"
       context:  "project"
   - entry:
@@ -238,12 +238,12 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{entityName}}/{{entityName}}TablePopulator.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/test/database/EntityTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTests.java"
+      template: "/spring/webmvc/test/database/MongoDocumentTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DocumentTests.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/test/database/entity/MongoDataStoreProviderTests.ftl"
-      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreTests.java"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreProviderTests.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/test/database/converter/DocumentToPojoConverterTests.ftl"
@@ -251,19 +251,15 @@ catalog:
       context: "endpoint"
 
   - entry:
-      template: "/spring/webmvc/test/ControllerTests.ftl"
+      template: "/spring/webmvc/test/endpoint/MongoControllerTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
-      context: "endpoint"
-  - entry:
-      template: "/spring/webmvc/test/FakeConversionService.ftl"
-      destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/FakeConversionService.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/test/database/converter/PojoToDocumentConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToDocumentConverterTests.java"
       context: "endpoint"
   - entry:
-      template: "/spring/webmvc/test/ServiceTests.ftl"
+      template: "/spring/webmvc/test/endpoint/MongoServiceTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceTests.java"
       context: "endpoint"
   - entry:
