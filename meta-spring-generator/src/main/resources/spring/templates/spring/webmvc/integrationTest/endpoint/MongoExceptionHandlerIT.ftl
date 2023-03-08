@@ -2,7 +2,11 @@
 
 package ${endpoint.packageName};
 
-import ${endpoint.basePackage}.database.*;
+<#if (endpoint.isWithTestContainers())>
+import ${endpoint.basePackage}.database.MongoDbContainerTests;
+<#else>
+import ${endpoint.basePackage}.database.DatabaseConfiguration;
+</#if>
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +17,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+<#if (!endpoint.isWithTestContainers())>
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+</#if>
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -39,6 +47,13 @@ class ${endpoint.entityName}ExceptionHandlingIT {
 
     @MockBean
     private ${endpoint.entityName}Service theService;
+
+<#if (!endpoint.isWithTestContainers())>
+    @DynamicPropertySource
+    static void setProperties(DynamicPropertyRegistry registry) {
+        DatabaseConfiguration.registerDatabaseProperties(registry);
+    }
+</#if>
 
     @Nested
     class ExceptionTests {

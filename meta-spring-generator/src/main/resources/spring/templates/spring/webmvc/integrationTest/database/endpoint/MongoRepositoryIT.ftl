@@ -2,7 +2,11 @@
 
 package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
+<#if (endpoint.isWithTestContainers())>
 import ${endpoint.basePackage}.database.MongoDbContainerTests;
+<#else>
+import ${endpoint.basePackage}.database.DatabaseConfiguration;
+</#if>
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +14,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-
+<#if (!endpoint.isWithTestContainers())>
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+</#if>
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +29,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataMongoTest
 @SuppressWarnings("all")
-public class ${endpoint.entityName}RepositoryIT extends MongoDbContainerTests {
+<#if (endpoint.isWithTestContainers())>
+class ${endpoint.entityName}RepositoryIT extends MongoDbContainerTests {
+<#else>
+class ${endpoint.entityName}RepositoryIT {
+</#if>
 
     @Autowired
     private ${endpoint.entityName}Repository repositoryUnderTest;
@@ -32,6 +43,13 @@ public class ${endpoint.entityName}RepositoryIT extends MongoDbContainerTests {
 
     // Increment for rowIds in the database
     private long rowId = 0;
+
+<#if (!endpoint.isWithTestContainers())>
+    @DynamicPropertySource
+    static void setProperties(DynamicPropertyRegistry registry) {
+        DatabaseConfiguration.registerDatabaseProperties(registry);
+    }
+</#if>
 
     @BeforeEach
     void insertTestData() {

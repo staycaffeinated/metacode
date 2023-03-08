@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SuppressWarnings("all")
-public interface PetRepository
+public interface ${endpoint.entityName}Repository
     extends
         MongoRepository<${endpoint.documentName}, String>,
         PagingAndSortingRepository<${endpoint.documentName}, String> {

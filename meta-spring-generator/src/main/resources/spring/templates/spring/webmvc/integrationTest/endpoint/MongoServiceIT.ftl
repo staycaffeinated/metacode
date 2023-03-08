@@ -2,7 +2,11 @@
 
 package ${endpoint.packageName};
 
+<#if (endpoint.isWithTestContainers())>
 import ${endpoint.basePackage}.database.MongoDbContainerTests;
+<#else>
+import ${endpoint.basePackage}.database.DatabaseConfiguration;
+</#if>
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +18,10 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+<#if (!endpoint.isWithTestContainers())>
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+</#if>
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +41,13 @@ class ${endpoint.entityName}ServiceIT {
     private ${endpoint.entityName}Service serviceUnderTest;
 
     private ${endpoint.entityName} knownPersistedItem;
+
+<#if (!endpoint.isWithTestContainers())>
+    @DynamicPropertySource
+    static void setProperties(DynamicPropertyRegistry registry) {
+        DatabaseConfiguration.registerDatabaseProperties(registry);
+    }
+</#if>
 
     @BeforeEach
     void init${endpoint.entityName}Service() {

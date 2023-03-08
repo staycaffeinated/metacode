@@ -2,7 +2,11 @@
 
 package ${endpoint.packageName};
 
-import ${endpoint.basePackage}.database.*;
+<#if (endpoint.isWithTestContainers())>
+import ${endpoint.basePackage}.database.MongoDbContainerTests;
+<#else>
+import ${endpoint.basePackage}.database.DatabaseConfiguration;
+</#if>
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+<#if (!endpoint.isWithTestContainers())>
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+</#if>
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -43,6 +51,12 @@ class ${endpoint.entityName}ControllerIT {
 
     private List<${endpoint.documentName}> documentList;
 
+<#if (!endpoint.isWithTestContainers())>
+    @DynamicPropertySource
+    static void setProperties(DynamicPropertyRegistry registry) {
+        DatabaseConfiguration.registerDatabaseProperties(registry);
+    }
+</#if>
 
     @BeforeEach
     void setUp() {
@@ -158,12 +172,12 @@ class ${endpoint.entityName}ControllerIT {
         return mockMvc.perform(get(${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, resourceId));
     }
 
-    protected ResultActions createOne(Pet pojo) throws Exception {
+    protected ResultActions createOne(${endpoint.entityName} pojo) throws Exception {
         return mockMvc.perform(post(${endpoint.entityName}Routes.${endpoint.routeConstants.create}).contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(pojo)));
     }
 
-    protected ResultActions updateOne(Pet pojo) throws Exception {
+    protected ResultActions updateOne(${endpoint.entityName} pojo) throws Exception {
         return mockMvc.perform(put(${endpoint.entityName}Routes.${endpoint.routeConstants.update}, pojo.getResourceId()).contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(pojo)));
     }
