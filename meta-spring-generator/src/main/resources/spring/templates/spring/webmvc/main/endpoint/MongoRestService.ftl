@@ -4,6 +4,7 @@ package ${endpoint.packageName};
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
+import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @Slf4j
+@Validated
 public class ${endpoint.entityName}Service {
 
     private final ${endpoint.entityName}DataStore ${endpoint.lowerCaseEntityName}DataStore;
@@ -62,9 +64,8 @@ public class ${endpoint.entityName}Service {
     /**
      * Updates an existing resource
      */
-    public List<${endpoint.entityName}> update${endpoint.entityName}(@NonNull @Validated(OnUpdate.class) ${endpoint.entityName} resource) {
-        List<${endpoint.entityName}> rs = ${endpoint.lowerCaseEntityName}DataStore.update(resource);
-        return rs;
+    public List<${endpoint.entityName}> update${endpoint.entityName}(@NonNull @Validated(OnUpdate.class) @Valid ${endpoint.entityName} resource) {
+        return ${endpoint.lowerCaseEntityName}DataStore.update(resource);
     }
 
     /**

@@ -24,6 +24,8 @@ dependencies {
 
 <#if (project.isWithPostgres())>
     runtimeOnly libs.postgresql
+<#elseif (project.isWithMongoDb())>
+    runtimeOnly libs.mongoDbDriverSync
 <#else>
     runtimeOnly libs.h2
 </#if>

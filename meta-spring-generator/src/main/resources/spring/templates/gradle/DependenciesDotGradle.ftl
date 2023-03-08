@@ -44,6 +44,7 @@ ext {
         lombok                          : "org.projectlombok:lombok:$versions.lombok",
         liquibaseCore                   : "org.liquibase:liquibase-core:$versions.liquibase",
         mockito                         : "org.mockito:mockito-core:$versions.mockito",
+        mongoDbDriverSync               : "org.mongodb:mongodb-driver-sync",
         r2dbcH2                         : "io.r2dbc:r2dbc-h2:$versions.r2dbcH2",
         r2dbcPostgres                   : "io.r2dbc:r2dbc-postgresql:$versions.r2dbcPostgres",
         r2dbcSpi                        : "io.r2dbc:r2dbc-spi:$versions.r2dbcSpi",

@@ -1,7 +1,9 @@
 <#include "/common/Copyright.ftl">
-
 package ${project.basePackage}.endpoint.root;
 
+<#if (project.isWithTestContainers())>
+import ${project.basePackage}.database.MongoDbContainerTests;
+</#if>
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,8 +11,8 @@ server.servlet.context-path=${project.basePath}
 server.servlet.context-path=/
 </#if>
 
-spring.data.mongodb.uri=mongodb://localhost:27017
-spring.datasource.url=jdbc:mongodb://localhost:27017
+spring.data.mongodb.uri=mongodb://localhost:27017/testdb
+spring.data.mongodb.database=testdb
 
-spring.data.mongodb.database=petstore
+logging.level.root=INFO
 
