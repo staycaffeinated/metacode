@@ -55,10 +55,6 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/config/LocalDateConverter.java"
       context: "project"
   - entry:
-      template: "/spring/webmvc/main/database/MongoCrudAware.ftl"
-      destination: "src/main/java/{{basePackagePath}}/database/CrudAware.java"
-      context: "project"
-  - entry:
       template: "/spring/webmvc/main/database/MongoDataStore.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/DataStore.java"
       context: "project"

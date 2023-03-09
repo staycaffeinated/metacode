@@ -55,8 +55,8 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/CustomRepository.java"
       context: "project"
   - entry:
-      template: "/spring/webmvc/main/database/CrudDataStore.ftl"
-      destination: "src/main/java/{{basePackagePath}}/database/CrudDataStore.java"
+      template: "/spring/webmvc/main/database/GenericDataStore.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/GenericDataStore.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/database/DataStore.ftl"

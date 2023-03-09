@@ -22,9 +22,9 @@ import java.util.Optional;
  * <p>{@code B} is the EntityBean type</p>
  * <p>{@code ID} is the primary key data type (e.g., Long or String)</p>
  *
- * For example {@code CrudDataStore<Pet,PetEntity,Long>}.
+ * For example {@code GenericDataStore<Pet,PetEntity,Long>}.
  */
-public abstract class CrudDataStore<D,B,ID> {
+public abstract class GenericDataStore<D,B,ID> {
 
     private final CustomRepository<B,ID> repository;
     private final Converter<B, D> ejbToPojoConverter;
@@ -32,7 +32,7 @@ public abstract class CrudDataStore<D,B,ID> {
 
     private final SecureRandomSeries secureRandomSeries;
 
-    protected CrudDataStore(CustomRepository<B,ID> repository, Converter<B, D> ejbToPojoConverter,
+    protected GenericDataStore(CustomRepository<B,ID> repository, Converter<B, D> ejbToPojoConverter,
         Converter<D, B> pojoToEjbConverter, SecureRandomSeries secureRandomSeries) {
         this.repository = repository;
         this.ejbToPojoConverter = ejbToPojoConverter;

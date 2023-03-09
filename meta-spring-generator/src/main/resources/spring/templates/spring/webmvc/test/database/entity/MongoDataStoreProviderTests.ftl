@@ -305,6 +305,135 @@ public class ${endpoint.entityName}DataStoreProviderTests {
         }
     }
 
+    @Nested
+    class Update {
+        @Test
+        void shouldReturnUpdatedVersionWhenItemExists() {
+            // scenario: the repository contains the item being updated,
+            // so the repository can find it and save it
+            ${endpoint.documentName} expectedDocument = ${endpoint.documentName}TestFixtures.getSampleOne();
+            ${endpoint.pojoName} expectedPojo = documentToPojoConverter.convert(expectedDocument);
+            UpdateResult mockUpdateResult = Mockito.mock(UpdateResult.class);
+            given(mockUpdateResult.getModifiedCount()).willReturn(1L);
+            given(mockMongoTemplate.updateMulti(any(Query.class), any(), any(String.class)))
+            .willReturn(mockUpdateResult);
+            given(mockMongoTemplate.find(any(), any(), any(String.class))).willReturn(List.of(expectedDocument));
+
+            // given
+            List<${endpoint.pojoName}> resultList = dataStoreUnderTest.update(expectedPojo);
+
+            assertThat(resultList).isNotNull();
+            assertThat(resultList.size()).isGreaterThan(0);
+            resultList.forEach(pojo -> {
+                assertThat(pojo.getResourceId()).isEqualTo(expectedDocument.getResourceId());
+                });
+        }
+
+        @Test
+        void shouldReturnEmptyOptionWhenUpdatingNonExistentItem() {
+            // scenario: an attempt is made to update an item that does not exist in the repository
+            UpdateResult mockUpdateResult = Mockito.mock(UpdateResult.class);
+            given(mockUpdateResult.getModifiedCount()).willReturn(0L);
+            given(mockMongoTemplate.updateMulti(any(Query.class), any(), any(String.class))).willReturn(mockUpdateResult);
+
+            // given:
+            List<${endpoint.pojoName}> resultList = dataStoreUnderTest.update(${endpoint.entityName}TestFixtures.oneWithResourceId());
+
+            // expect: a non-null, but empty, result
+            assertThat(resultList).isNotNull().isEmpty();
+        }
+
+        /**
+         * This tests an edge case in timing. Our {@code update} implementation executes the update,
+         * then fetches the items that were updated, to return to the caller.  Its possible for the
+         * updated items to be deleted by another thread in between when the database update occurs and
+         * the fetch of the updated items occurs. This test case verifies that edge case.
+         */
+        @Test
+        void shouldReturnEmptyListWhenUpdatedItemVanishes() {
+            // scenario: an attempt is made to update an item that does not exist in the repository
+            ${endpoint.documentName} expectedDocument = ${endpoint.documentName}TestFixtures.getSampleOne();
+            ${endpoint.pojoName} expectedPojo = documentToPojoConverter.convert(expectedDocument);
+            UpdateResult mockUpdateResult = Mockito.mock(UpdateResult.class);
+            given(mockUpdateResult.getModifiedCount()).willReturn(1L);
+            given(mockMongoTemplate.updateMulti(any(Query.class), any(), any(String.class))).willReturn(mockUpdateResult);
+            // exercise the scenario: the find() yields an empty list
+            given(mockMongoTemplate.find(any(), any(), any(String.class))).willReturn(List.of());
+
+            // given:
+            List<${endpoint.pojoName}> resultList = dataStoreUnderTest.update(${endpoint.entityName}TestFixtures.oneWithResourceId());
+
+            // expect: a non-null, but empty, result
+            assertThat(resultList).isNotNull().isEmpty();
+        }
+
+        /*
+        * Test the unusual scenario that the list of items updated cannot be converted
+        * back into POJOs to be returned to the client.
+        *
+        * The set-up is a bit complicated, since we have to build a DataStoreProvider
+        * that uses a (mock) converter that yields null items, along with all the other
+        * mocked behavior.
+        */
+        @Test
+        void shouldReturnEmptyListWhenConversionToPojoYieldsNullItems() {
+            ${endpoint.documentName} expectedDocument = ${endpoint.documentName}TestFixtures.getSampleOne();
+            ${endpoint.pojoName} expectedPojo = documentToPojoConverter.convert(expectedDocument);
+            UpdateResult mockUpdateResult = Mockito.mock(UpdateResult.class);
+            given(mockUpdateResult.getModifiedCount()).willReturn(1L);
+            given(mockMongoTemplate.updateMulti(any(Query.class), any(), any(String.class))).willReturn(mockUpdateResult);
+            // exercise the scenario: the find() yields an empty list
+            given(mockMongoTemplate.find(any(), any(), any(String.class))).willReturn(List.of());
+
+            // given:
+            List<${endpoint.pojoName}> resultList = dataStoreUnderTest.update(${endpoint.entityName}TestFixtures.oneWithResourceId());
+
+            // expect: a non-null, but empty, result
+            assertThat(resultList).isNotNull().isEmpty();
+        }
+
+        @Test
+        void shouldThrowExceptionOnAttemptToUpdateNullItem() {
+            assertThrows(NullPointerException.class, () -> {
+                dataStoreUnderTest.update(null);
+            });
+        }
+
+        /**
+         * Note: this test has a fairly lengthy set-up to enable verifying a particular
+         * edge case.
+         */
+        @Test
+        void shouldReturnEmptyWhenConversionIsNull() {
+            // Scenario: an update is applied but when the updated items are
+            // converted into a List of domain objects to be returned to the caller,
+            // the converter yields an empty list.
+            ${endpoint.entityName}DataStoreProvider edgeCaseDataStore = aProviderWithAnIffyDocumentConverter();
+
+            UpdateResult mockUpdateResult = Mockito.mock(UpdateResult.class);
+            given(mockUpdateResult.getModifiedCount()).willReturn(1L);
+            given(mockMongoTemplate.updateMulti(any(Query.class), any(), any(String.class)))
+                .willReturn(mockUpdateResult);
+
+            // given: the repository finds the requested record, but the conversion to a
+            // POJO yields a null value
+            ${endpoint.pojoName} targetPojo = ${endpoint.entityName}TestFixtures.oneWithResourceId();
+            ${endpoint.documentName} targetEjb = pojoToDocumentConverter.convert(targetPojo);
+            assert targetEjb != null;
+            when(mockMongoTemplate.find(any(), any(), any(String.class))).thenReturn(List.of(targetEjb));
+
+            // when: an update of a specific Domain object is submitted...
+            List<${endpoint.pojoName}> resultList = edgeCaseDataStore.update(targetPojo);
+
+            // then: in this edge case scenario, an empty list is returned.
+            assertThat(resultList).isNotNull().isEmpty();
+        }
+    }
+
+    // ==================================================================================================
+    // HELPER METHODS
+    // ==================================================================================================
+
     /**
      * Builds a Provider that uses a DocumentToPojo converter whose {@code convert}
      * method returns null.  Used for edge-case testing.

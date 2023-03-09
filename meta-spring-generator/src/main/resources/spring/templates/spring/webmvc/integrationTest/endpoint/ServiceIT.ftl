@@ -56,7 +56,7 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
         @SuppressWarnings("all")
         void shouldFind${endpoint.entityName}ById() throws Exception {
             // given: the public ID of an item known to be in the database
-            String expectedId = PetEntityTestFixtures.allItems().get(0).getResourceId();
+            String expectedId = ${endpoint.entityName}EntityTestFixtures.allItems().get(0).getResourceId();
 
             // when: the service is asked to find the item
             Optional<${endpoint.pojoName}> optional = serviceUnderTest.find${endpoint.entityName}ByResourceId(expectedId);
@@ -102,7 +102,7 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
             modified.setText(newValue);
             modified.setResourceId(resourceId); // use and ID known to exit
 
-            Optional<${endpoint.pojoName}> option = serviceUnderTest.updatePet(modified);
+            Optional<${endpoint.pojoName}> option = serviceUnderTest.update${endpoint.entityName}(modified);
 
             assertThat(option).isNotNull().isPresent();
             assertThat(option.get().getResourceId()).isEqualTo(resourceId);
