@@ -22,7 +22,7 @@ import java.util.Optional;
  * auto-wiring wherever a ${endpoint.entityName}DataStore is needed.
  */
 @Component
-public class ${endpoint.entityName}DataStoreProvider extends CrudDataStore<${endpoint.entityName}, ${endpoint.ejbName}> implements ${endpoint.entityName}DataStore {
+public class ${endpoint.entityName}DataStoreProvider extends CrudDataStore<${endpoint.entityName}, ${endpoint.ejbName}, Long> implements ${endpoint.entityName}DataStore {
 
     /**
      * Constructor
@@ -36,7 +36,7 @@ public class ${endpoint.entityName}DataStoreProvider extends CrudDataStore<${end
      * @param secureRandom
      *            to generate resourceIds
      */
-    public ${endpoint.entityName}DataStoreProvider(CrudAware<${endpoint.ejbName}> repository,
+    public ${endpoint.entityName}DataStoreProvider(${endpoint.entityName}Repository repository,
                                  Converter<${endpoint.ejbName},${endpoint.entityName}> ejbToPojoConverter,
                                  Converter<${endpoint.entityName}, ${endpoint.ejbName}> pojoToEntityConverter,
                                  SecureRandomSeries secureRandom)

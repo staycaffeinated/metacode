@@ -17,20 +17,22 @@ import java.util.Optional;
  * DataStore implements any business rules that need to happen when
  * reading/writing from a Repository. The DataStore mainly exposes Domain
  * objects, and encapsulates the EntityBeans and Repository.
+ * <p>
+ * {@code D} is the Domain object type</p>
+ * <p>{@code B} is the EntityBean type</p>
+ * <p>{@code ID} is the primary key data type (e.g., Long or String)</p>
  *
- * {@code D} is the Domain object type {@code B} is the EntityBean type
- *
- * For example {@code CrudDataStore<Pet,PetEntity>}.
+ * For example {@code CrudDataStore<Pet,PetEntity,Long>}.
  */
-public abstract class CrudDataStore<D, B> {
+public abstract class CrudDataStore<D,B,ID> {
 
-    private final CrudAware<B> repository;
+    private final CustomRepository<B,ID> repository;
     private final Converter<B, D> ejbToPojoConverter;
     private final Converter<D, B> pojoToEjbConverter;
 
     private final SecureRandomSeries secureRandomSeries;
 
-    protected CrudDataStore(CrudAware<B> repository, Converter<B, D> ejbToPojoConverter,
+    protected CrudDataStore(CustomRepository<B,ID> repository, Converter<B, D> ejbToPojoConverter,
         Converter<D, B> pojoToEjbConverter, SecureRandomSeries secureRandomSeries) {
         this.repository = repository;
         this.ejbToPojoConverter = ejbToPojoConverter;
@@ -42,7 +44,7 @@ public abstract class CrudDataStore<D, B> {
      * Returns a handle to the Repository that's enabling the DataStore to
      * read/write to the database.
      */
-    protected CrudAware<B> repository() { return repository; }
+    protected CustomRepository<B,ID> repository() { return repository; }
 
     /**
      * Returns the Converter used to convert an entity bean into a domain object
