@@ -22,7 +22,6 @@ import com.google.inject.Key;
 import mmm.coffee.metacode.annotations.guice.SpringBatchProvider;
 import mmm.coffee.metacode.annotations.guice.SpringBootProvider;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

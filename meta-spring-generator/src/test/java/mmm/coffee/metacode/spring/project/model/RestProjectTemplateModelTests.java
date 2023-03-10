@@ -17,7 +17,6 @@ package mmm.coffee.metacode.spring.project.model;
 
 import mmm.coffee.metacode.common.dependency.Dependency;
 import mmm.coffee.metacode.common.dependency.DependencyCatalog;
-import mmm.coffee.metacode.common.stereotype.MetaTemplateModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
