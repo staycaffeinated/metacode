@@ -43,7 +43,7 @@ public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
      *
      * @param reader the CatalogReader
      */
-    public SpringWebMvcTemplateCatalog(@NonNull ICatalogReader reader) {
+    public SpringWebMvcTemplateCatalog(ICatalogReader reader) {
         super(reader);
     }
 
@@ -57,6 +57,7 @@ public class SpringWebMvcTemplateCatalog extends SpringTemplateCatalog {
         return activeCatalog;
     }
 
+    @Override
     public Collector beforeCollection(Descriptor descriptor) {
         log.debug("[beforeCollection] entered...");
         boolean useMongoDbCatalog = false;

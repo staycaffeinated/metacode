@@ -16,6 +16,7 @@
 package mmm.coffee.metacode.cli.validation;
 
 import mmm.coffee.metacode.spring.constant.SpringIntegrations;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -76,5 +77,23 @@ class SpringIntegrationValidatorTests {
         assertThat(SpringIntegrationValidator.of(bothPostgresAndMongoDb).isValid()).isFalse();
         // When an invalid combination is attempted, there should be an error message
         assertThat(SpringIntegrationValidator.of(bothPostgresAndMongoDb).errorMessage()).isNotEmpty();
+    }
+
+    @Nested
+    class ErrorMessageTests {
+        @Test
+        void shouldReturnNonEmptyErrorWhenInvalidOptions() {
+            var validator = SpringIntegrationValidator.of(bothPostgresAndMongoDb);
+            assertThat(validator.isValid()).isFalse();
+            assertThat(validator.errorMessage()).isNotEmpty();
+
+        }
+
+        @Test
+        void shouldReturnEmptyErrorWhenValidOptions() {
+            var validator = SpringIntegrationValidator.of(onlyPostgres);
+            assertThat(validator.isValid()).isTrue();
+            assertThat(validator.errorMessage()).isEmpty();
+        }
     }
 }

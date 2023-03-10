@@ -100,6 +100,18 @@ class DescriptorToMetaPropertiesTests {
         assertThat(map.get(MetaProperties.ADD_POSTGRESQL)).isEqualTo(Boolean.TRUE);
         assertThat(map.get(MetaProperties.ADD_LIQUIBASE)).isEqualTo(Boolean.TRUE);
     }
+
+    @Test
+    void whenIntegrationWithMongoDb_expectMongoDbPropertyIsSet() {
+        // Given: a RestProject with Postgres integration added
+        RestProjectDescriptor descriptor = newWebMvcProject(SpringIntegrations.MONGODB);
+
+        // When: the RestProjectDescriptor is converted to a Map
+        Map<String, Object> map = converterUnderTest.convert(descriptor);
+
+        // Expect: the Map contains an property for Postgres that's set to 'true'
+        assertThat(map.get(MetaProperties.ADD_MONGODB)).isEqualTo(Boolean.TRUE);
+    }
     
     // ---------------------------------------------------------------------------------------------------------
     // Helper methods

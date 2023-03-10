@@ -243,4 +243,24 @@ class NameConverterTests {
             assertThrows(NullPointerException.class, () -> converterUnderTest.toEjbClassName(null));
         }
     }
+
+    @Nested
+    class ToDocumentClassNameTests {
+        @ParameterizedTest
+        @CsvSource({
+                // testValue,   expectedResult
+                "pet,          PetDocument",
+                "Pet,          PetDocument",
+                "acme,         AcmeDocument"
+        })
+        void shouldHappilyConvertValue(String actual, String expected) {
+            assertThat(converterUnderTest.toDocumentClassName(actual)).isEqualTo(expected);
+        }
+
+        @Test
+        @SuppressWarnings("all")
+        void shouldThrowException() {
+            assertThrows(NullPointerException.class, () -> converterUnderTest.toDocumentClassName(null));
+        }
+    }
 }

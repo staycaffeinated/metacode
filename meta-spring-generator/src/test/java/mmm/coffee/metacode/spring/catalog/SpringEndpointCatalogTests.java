@@ -6,8 +6,10 @@ package mmm.coffee.metacode.spring.catalog;
 import mmm.coffee.metacode.common.catalog.CatalogFileReader;
 import mmm.coffee.metacode.common.descriptor.Framework;
 import mmm.coffee.metacode.common.descriptor.RestEndpointDescriptor;
+import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -29,6 +31,7 @@ class SpringEndpointCatalogTests {
 
     @BeforeEach
     public void setUp() {
+        // @formatter:off
         catalogUnderTest = SpringEndpointCatalog.builder()
                 .reader(new CatalogFileReader())
                 .build();
@@ -41,11 +44,13 @@ class SpringEndpointCatalogTests {
                 .route("/pets")
                 .withMongoDb(true)
                 .build();
+        // @formatter:on
     }
 
     @Test
     void shouldPreProcess() {
-        catalogUnderTest.beforeCollection(endpointDescriptor);
+        var collector = catalogUnderTest.beforeCollection(endpointDescriptor);
+        assertThat(collector).isNotNull();
     }
 
     @Test
@@ -73,6 +78,55 @@ class SpringEndpointCatalogTests {
 
         // When an IOException occurs when collecting templates,
         // then expect a RuntimeApplicationError is thrown instead
-        assertThrows(RuntimeApplicationError.class, () -> catalog.beforeCollection(endpointDescriptor).collect());
+        var collector = catalog.beforeCollection(endpointDescriptor);
+        assertThrows(RuntimeApplicationError.class, collector::collect);
+    }
+
+    /**
+     * Verify the edge case of being handed a Descriptor that's not a RestEndpointDescriptor
+     */
+    @Test
+    void shouldQuietlyIgnoreNonEndpointDescriptor() {
+        RestProjectDescriptor mockDescriptor = Mockito.mock(RestProjectDescriptor.class);
+
+        catalogUnderTest.beforeCollection(mockDescriptor);
+
+        // When generating endpoints, only RestEndpointDescriptors can determine the
+        // catalogs to load.  With a RestProjectDescriptor, the catalog list will be
+        // empty, which means that downstream, there are no templates to render. 
+        assertThat(catalogUnderTest.collect()).isEmpty();
+    }
+
+    @Nested
+    class MongoIntegrationTests {
+        @Test
+        void whenWebMvcWithMongoIntegration() {
+            RestEndpointDescriptor mockDescriptor = Mockito.mock(RestEndpointDescriptor.class);
+            when(mockDescriptor.isWebFlux()).thenReturn(false);
+            when(mockDescriptor.isWithMongoDb()).thenReturn(false);
+
+            catalogUnderTest.beforeCollection(mockDescriptor);
+
+            assertThat(catalogUnderTest.collect()).isNotEmpty();
+        }
+
+        @Test
+        void whenNotWebFluxAndNotMongoDbIntegration() {
+            RestEndpointDescriptor mockDescriptor = Mockito.mock(RestEndpointDescriptor.class);
+            when(mockDescriptor.isWebFlux()).thenReturn(false);
+            when(mockDescriptor.isWithMongoDb()).thenReturn(false);
+
+            catalogUnderTest.beforeCollection(mockDescriptor);
+
+            assertThat(catalogUnderTest.collect()).isNotEmpty();
+        }
+
+        @Test
+        void whenWebFlux() {
+            RestEndpointDescriptor mockDescriptor = Mockito.mock(RestEndpointDescriptor.class);
+            when(mockDescriptor.isWebFlux()).thenReturn(true);
+            catalogUnderTest.beforeCollection(mockDescriptor);
+            assertThat(catalogUnderTest.collect()).isNotEmpty();
+        }
     }
 }

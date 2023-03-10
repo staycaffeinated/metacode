@@ -15,6 +15,7 @@
  */
 package mmm.coffee.metacode.cli.validation;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -74,5 +75,22 @@ class ResourceNameValidatorTests {
     @Test
     void shouldRejectInvalidClassNames() {
         assertThat(ResourceNameValidator.of("Treasure#!Map").isValid()).isFalse();
+    }
+
+    @Nested
+    class ErrorMessageTests {
+        @Test
+        void shouldHaveEmptyErrorMessageWhenResourceNameIsValid() {
+            ResourceNameValidator validator = ResourceNameValidator.of("Pet");
+            assertThat(validator.isValid()).isTrue();
+            assertThat(validator.errorMessage()).isEmpty();
+        }
+
+        @Test
+        void shouldHaveNonEmptyErrorMessageWhenResourceNameIsInvalid() {
+            ResourceNameValidator validator = ResourceNameValidator.of("Pet#!Map");
+            assertThat(validator.isValid()).isFalse();
+            assertThat(validator.errorMessage()).isNotEmpty();
+        }
     }
 }

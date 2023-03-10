@@ -24,12 +24,13 @@ import static com.google.common.truth.Truth.assertThat;
 
 /**
  * Test PackageNameValidator
- *
+ * <p>
  * The package name validator makes its best effort to ensure the package name
  * is allowed by the Java compiler.  Guidelines can be found online for how one
  * _ought_ to name their packages, such as:
- *
- * https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html
+ * </p><p>
+ * <a href="https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html">...</a>
+ * </p>
  *
  */
 class PackageNameValidatorTests {
@@ -101,5 +102,30 @@ class PackageNameValidatorTests {
             assertThat(PackageNameValidator.isLowerCaseLetter('z')).isTrue();
             assertThat(PackageNameValidator.isLowerCaseLetter('{')).isFalse();
         }
+    }
+
+    @Nested
+    class ErrorMessageTests {
+        @Test
+        void shouldReturnErrorMessageForInvalidPackageName() {
+            var validator = PackageNameValidator.of("org,acme,warehouse");
+            assertThat(validator.isValid()).isFalse();
+            assertThat(validator.errorMessage()).isNotEmpty();
+        }
+
+        @Test
+        void verifyBranchCondition_getErrorMessageWithoutCallingIsValid() {
+            var validator = PackageNameValidator.of("org,acme,warehouse");
+            assertThat(validator.errorMessage()).isNotEmpty();
+        }
+
+        @Test
+        void shouldReturnNullErrorMessageWhenPackageNameIsValid() {
+            var validator = PackageNameValidator.of("com.example.petstore");
+            assertThat(validator.isValid()).isTrue();
+            assertThat(validator.errorMessage()).isNull();
+
+        }
+        
     }
 }
