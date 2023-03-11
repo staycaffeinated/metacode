@@ -17,8 +17,8 @@ package mmm.coffee.metacode.common.writer;
 
 import lombok.NonNull;
 import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
+import mmm.coffee.metacode.common.io.FileSystem;
 import mmm.coffee.metacode.common.trait.WriteOutputTrait;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +31,22 @@ import java.util.Objects;
  * writing can be a no-op. 
  */
 public class ContentToFileWriter implements WriteOutputTrait {
+
+    private final FileSystem fileSystem;
+
+    /**
+     * Default constructor
+     */
+    public ContentToFileWriter() {
+        fileSystem = new FileSystem();
+    }
+
+    /**
+     * Constructor
+     */
+    public ContentToFileWriter(FileSystem fileSystem) {
+        this.fileSystem = fileSystem;
+    }
 
     /**
      * Writes {@code content} to the {@code destination}.
@@ -48,8 +64,8 @@ public class ContentToFileWriter implements WriteOutputTrait {
         if (Objects.isNull(content)) return;
         try {
             File fOutput = new File(destination);
-            FileUtils.forceMkdir(fOutput.getParentFile());
-            FileUtils.writeStringToFile(fOutput, content, StandardCharsets.UTF_8);
+            fileSystem.forceMkdir(fOutput.getParentFile());
+            fileSystem.writeStringToFile(fOutput, content, StandardCharsets.UTF_8);
         }
         catch (IOException e) {
             throw new RuntimeApplicationError(e.getMessage(), e);

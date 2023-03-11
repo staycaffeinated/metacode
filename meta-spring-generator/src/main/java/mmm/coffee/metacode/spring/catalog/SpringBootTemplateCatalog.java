@@ -15,7 +15,6 @@
  */
 package mmm.coffee.metacode.spring.catalog;
 
-import lombok.NonNull;
 import mmm.coffee.metacode.common.catalog.CatalogEntry;
 import mmm.coffee.metacode.common.catalog.ICatalogReader;
 
@@ -33,7 +32,7 @@ public class SpringBootTemplateCatalog extends SpringTemplateCatalog {
      *
      * @param reader the CatalogReader
      */
-    public SpringBootTemplateCatalog(@NonNull ICatalogReader reader) {
+    public SpringBootTemplateCatalog(ICatalogReader reader) {
         super(reader);
     }
 

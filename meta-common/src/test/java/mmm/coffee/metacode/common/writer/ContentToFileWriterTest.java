@@ -15,10 +15,14 @@
  */
 package mmm.coffee.metacode.common.writer;
 
+import mmm.coffee.metacode.common.exception.RuntimeApplicationError;
+import mmm.coffee.metacode.common.io.FileSystem;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
+import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +30,9 @@ import java.nio.charset.StandardCharsets;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test
@@ -76,5 +83,22 @@ class ContentToFileWriterTest {
         // but should be empty
         assertThat(tempFile.exists()).isTrue();
         assertThat(FileUtils.sizeOf(tempFile)).isEqualTo(0);
+    }
+
+    @Test
+    void shouldHandleIoException() throws Exception {
+        FileSystem mockFS = Mockito.mock(FileSystem.class);
+        doThrow(IOException.class).when(mockFS).forceMkdir(any(File.class));
+
+        ContentToFileWriter localWriterUnderTest = new ContentToFileWriter(mockFS);
+
+        TemporaryFolder temporaryFolder = new TemporaryFolder();
+        temporaryFolder.create();
+        File tempFile = temporaryFolder.newFile("sample.txt");
+
+        String canonicalPath = tempFile.getCanonicalPath();
+
+        assertThrows(RuntimeApplicationError.class,
+                () -> localWriterUnderTest.writeOutput(canonicalPath, "some content"));
     }
 }
