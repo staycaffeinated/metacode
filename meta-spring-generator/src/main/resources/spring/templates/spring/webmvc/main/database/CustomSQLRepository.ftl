@@ -13,7 +13,8 @@ import java.util.Optional;
  * A composite of the desired repository APIs, with additional custom methods.
  */
 @NoRepositoryBean
-public interface CustomRepository<T, ID> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
+@SuppressWarnings("java:S119") // 'ID' follows Spring convention
+public interface CustomRepository<T,ID> extends JpaRepository<T,ID>, JpaSpecificationExecutor<T> {
     /**
      * Find T by its resourceId
      *

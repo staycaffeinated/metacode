@@ -24,6 +24,7 @@ import java.util.Optional;
  *
  * For example {@code GenericDataStore<Pet,PetEntity,Long>}.
  */
+@SuppressWarnings("java:S119") // 'ID' mimics Spring convention
 public abstract class GenericDataStore<D,B,ID> {
 
     private final CustomRepository<B,ID> repository;
