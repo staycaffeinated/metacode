@@ -7,7 +7,6 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.Duration;
@@ -25,7 +24,9 @@ public class MongoDbContainerTests {
     private static final String IMAGE = "mongo:6.0.4";
 
     // @formatter:off
-    @Container
+    // Note: the container is started as a singleton instead of using the @Container
+    // annotation. When @Container is applied, multiple containers may get started.
+    // When multiple containers are started, tests will hang from socket timeouts.
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer(IMAGE)
         .withReuse(true)
         .withStartupTimeout(Duration.ofMinutes(1))
