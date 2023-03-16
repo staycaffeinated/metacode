@@ -1,11 +1,27 @@
 
 ## [Unreleased]
 
+### Added
+* A DataStore class has been added to encapsulate the business rules around
+  persistence.  The DataStore API deals in Domain objects. Behind the scenes,
+  the DataStore handles the EntityBeans and Repositories that enable reading
+  and writing to the database. The Service components have also been refactored
+  to interface with the DataStore instead of the Repository. The DataStore is
+  only available in the spring-webmvc templates in this first release.
+
+* Added MongoDB support for spring-webmvc projects. Test containers can also be
+  used with MongoDB, but that's still an 'early-access' option, as there is a
+  known problem that's still being investigated.
+
+* Introduced an interface class to define the methods of implemented by the Service class. 
+  This helps enforce a separation-of-concerns between the controller and service
+  classes.
+
 ### Maintenance
 
 * Updated these libraries and plugins:
   ** Ben Manes gradle plugin
-  ** Spring Boot  
+  ** Spring Boot
   ** Spring Cloud
 
 ## [6.1.0] - 2023-01-21

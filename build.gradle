@@ -3,7 +3,7 @@
 // ----------------------------------------------------------------------------
 plugins {
     // See https://github.com/diffplug/spotless-changelog
-    id 'com.diffplug.spotless-changelog' version '2.4.1'
+    // id 'com.diffplug.spotless-changelog' version '2.4.1'
     id 'com.diffplug.spotless' version '6.13.0'
 
     // This plugin helps collate findings between the subprojects

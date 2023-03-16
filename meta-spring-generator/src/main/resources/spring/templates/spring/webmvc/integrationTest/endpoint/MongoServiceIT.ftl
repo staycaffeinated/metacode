@@ -51,7 +51,7 @@ class ${endpoint.entityName}ServiceIT {
 
     @BeforeEach
     void init${endpoint.entityName}Service() {
-        serviceUnderTest = new ${endpoint.entityName}Service(dataStore);
+        serviceUnderTest = new ${endpoint.entityName}ServiceProvider(dataStore);
         ${endpoint.entityName}TestFixtures.allItems().forEach(dataStore::create);
         knownPersistedItem = dataStore.findAll().get(0);
     }

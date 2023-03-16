@@ -43,7 +43,7 @@ class ${endpoint.entityName}ServiceIntegrationTest {
     @MockBean
     ApplicationEventPublisher applicationEventPublisher;
 
-    ${endpoint.entityName}Service serviceUnderTest;
+    ${endpoint.entityName}ServiceProvider serviceUnderTest;
 
     public ConversionService conversionService = FakeConversionService.build();
 
@@ -58,7 +58,7 @@ class ${endpoint.entityName}ServiceIntegrationTest {
 </#if>
     @BeforeEach
     void setUp() {
-        serviceUnderTest = new ${endpoint.entityName}Service(repository, conversionService, applicationEventPublisher, randomSeries);
+        serviceUnderTest = new ${endpoint.entityName}ServiceProvider(repository, conversionService, applicationEventPublisher, randomSeries);
         ${endpoint.entityName}TestFixtures.allItems().forEach(item -> {
           serviceUnderTest.create${endpoint.entityName}(item).blockOptional(Duration.ofSeconds(1)); 
         });

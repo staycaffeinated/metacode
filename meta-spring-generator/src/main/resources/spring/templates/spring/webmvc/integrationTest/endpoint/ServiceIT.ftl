@@ -7,7 +7,6 @@ import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.DynamicPropertyRegistry;
 
@@ -23,9 +22,7 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
     @Autowired
     private ${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore;
 
-    ConversionService conversionService = FakeConversionService.build();
-
-    private ${endpoint.entityName}Service serviceUnderTest;
+    private ${endpoint.entityName}ServiceProvider serviceUnderTest;
 
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {
@@ -34,7 +31,7 @@ public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
 
     @BeforeEach
     void init${endpoint.entityName}Service() {
-        serviceUnderTest = new ${endpoint.entityName}Service(${endpoint.entityVarName}DataStore, conversionService);
+        serviceUnderTest = new ${endpoint.entityName}ServiceProvider(${endpoint.entityVarName}DataStore);
     }
 
     @BeforeEach

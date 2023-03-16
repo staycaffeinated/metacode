@@ -231,6 +231,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Service.java"
       context: "endpoint"
   - entry:
+      template: "/spring/webmvc/main/endpoint/MongoRestServiceProvider.ftl"
+      destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceProvider.java"
+      context: "endpoint"
+  - entry:
       template: "/spring/webmvc/main/endpoint/EntityRoutes.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
       context: "endpoint"

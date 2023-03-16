@@ -41,7 +41,7 @@ import static org.mockito.Mockito.verify;
 class ${endpoint.entityName}ServiceTests {
 
     @InjectMocks
-    private ${endpoint.entityName}Service serviceUnderTest;
+    private ${endpoint.entityName}ServiceProvider serviceUnderTest;
 
     @Mock
     private ${endpoint.entityName}DataStore mockDataStore;
