@@ -52,7 +52,7 @@ public class ${endpoint.entityName}Controller {
      */
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, produces = MediaType.APPLICATION_JSON_VALUE )
     public Mono<${endpoint.pojoName}> get${endpoint.entityName}ById(@PathVariable @ResourceId String id) {
-        return ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(id);
+        return ${endpoint.entityVarName}Service.findByResourceId(id);
     }
     
     /**
@@ -101,7 +101,7 @@ public class ${endpoint.entityName}Controller {
     @DeleteMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.delete})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete${endpoint.entityName}(@PathVariable @ResourceId String id) {
-        Mono<${endpoint.pojoName}> resource = ${endpoint.entityVarName}Service.find${endpoint.entityName}ByResourceId(id);
+        Mono<${endpoint.pojoName}> resource = ${endpoint.entityVarName}Service.findByResourceId(id);
         resource.subscribe(value -> ${endpoint.entityVarName}Service.delete${endpoint.entityName}ByResourceId(id));
     }
 }

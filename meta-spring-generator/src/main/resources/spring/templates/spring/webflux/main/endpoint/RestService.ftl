@@ -17,11 +17,6 @@ public interface ${endpoint.entityName}Service {
      */
     Flux<${endpoint.pojoName}> findAll${endpoint.entityName}s();
 
-    /**
-     * findByResourceId
-     */
-    Mono<${endpoint.pojoName}> find${endpoint.entityName}ByResourceId(String id) throws ResourceNotFoundException;
-
     /*
      * findAllByText
      */
@@ -35,16 +30,16 @@ public interface ${endpoint.entityName}Service {
     /**
      * Update
      */
-    void update${endpoint.entityName}(${endpoint.pojoName} resource );
+    Mono<${endpoint.entityName}> update${endpoint.entityName}(${endpoint.pojoName} resource );
 
     /**
      * Delete
      */
-    void delete${endpoint.entityName}ByResourceId(String id);
+    Mono<Long> delete${endpoint.entityName}ByResourceId(String id);
 
     /**
-     * Find the EJB having the given resourceId
+     * Find the POJO having the given resourceId
      */
-    Mono<${endpoint.ejbName}> findByResourceId(String id) throws ResourceNotFoundException;
+    Mono<${endpoint.entityName}> findByResourceId(String id) throws ResourceNotFoundException;
 
 }

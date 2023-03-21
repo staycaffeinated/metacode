@@ -6,6 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -57,6 +58,15 @@ public class ${endpoint.entityName}TestFixtures {
         add(SAMPLE_SIX);
         add(SAMPLE_SEVEN);
     }};
+    private static final List<${endpoint.entityName}> ALL_ITEMS_WITH_SAME_TEXT = Collections.unmodifiableList(new ArrayList<>() {
+        {
+            add( aNew${endpoint.entityName}("Hello world" ));
+            add( aNew${endpoint.entityName}("Hello world"));
+            add( aNew${endpoint.entityName}("Hello world"));
+            }
+        });
+    public static List<${endpoint.entityName}> allItemsWithSameText() { return ALL_ITEMS_WITH_SAME_TEXT; }
+
     public static final List<${endpoint.entityName}> allItems() { return ALL_ITEMS; }
 
     public static final Flux<${endpoint.entityName}> FLUX_ITEMS = Flux.fromIterable(ALL_ITEMS);

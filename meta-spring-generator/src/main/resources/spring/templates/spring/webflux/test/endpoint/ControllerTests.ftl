@@ -19,9 +19,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -60,26 +57,22 @@ class ${endpoint.entityName}ControllerTests {
         /*
          * Create a mock-up of the service.findByResourceId returning a known instance
          */
-        final String expectedResourceID = randomSeries.nextResourceId();
         ${endpoint.pojoName} pojo = ${endpoint.pojoName}TestFixtures.oneWithResourceId();
-        // because the EJB and POJO should look the same...
-        ${endpoint.ejbName} ejb = ${endpoint.ejbName}.builder().resourceId(expectedResourceID).text(pojo.getText()).build();
 
         /*
          * When a REST call is made to fetch a ${endpoint.entityName} by its ID, expect to get back the mocked instance
          */
-        when(mock${endpoint.entityName}Service.findByResourceId(expectedResourceID)).thenReturn(Mono.just(ejb));
-        when(mock${endpoint.entityName}Service.find${endpoint.entityName}ByResourceId(expectedResourceID)).thenReturn(Mono.just(pojo));
+        when(mock${endpoint.entityName}Service.findByResourceId(any(String.class))).thenReturn(Mono.just(pojo));
 
         // @formatter:off
-        sendFindOne${endpoint.entityName}Request(expectedResourceID)
+        sendFindOne${endpoint.entityName}Request(pojo.getResourceId())
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.resourceId").isNotEmpty()
                 .jsonPath("$.text").isNotEmpty();
         // @formatter:on         
 
-        Mockito.verify(mock${endpoint.entityName}Service, times(1)).find${endpoint.entityName}ByResourceId(expectedResourceID);
+        Mockito.verify(mock${endpoint.entityName}Service, times(1)).findByResourceId(pojo.getResourceId());
     }
 
     @Test
@@ -152,7 +145,7 @@ class ${endpoint.entityName}ControllerTests {
          * to emulate deleting a ${endpoint.pojoName} that does exist.
          */
         ${endpoint.pojoName} pojo = ${endpoint.entityName}TestFixtures.oneWithResourceId();
-        when(mock${endpoint.entityName}Service.find${endpoint.entityName}ByResourceId(pojo.getResourceId())).thenReturn(Mono.just(pojo));
+        when(mock${endpoint.entityName}Service.findByResourceId(pojo.getResourceId())).thenReturn(Mono.just(pojo));
 
         /*
          * When deleting a Pet, expect the response code to be OK. Nothing else is expected;

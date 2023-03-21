@@ -34,6 +34,10 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/advice/ProblemSummary.java"
       context: "project"
   - entry:
+      template: "/spring/webflux/main/database/DataStore.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/DataStore.java"
+      context: "project"
+  - entry:
       template: "/spring/webflux/main/exception/ResourceNotFoundException.ftl"
       destination: "src/main/java/{{basePackagePath}}/exception/ResourceNotFoundException.java"
       context: "project"
@@ -178,6 +182,14 @@ catalog:
   - entry:
       template: "/spring/webflux/main/database/Repository.ftl"
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}Repository.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/DataStoreInterface.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStore.java"
+      context: "endpoint"
+  - entry:
+      template: "/spring/webflux/main/database/DataStoreProvider.ftl"
+      destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreProvider.java"
       context: "endpoint"
 
 #

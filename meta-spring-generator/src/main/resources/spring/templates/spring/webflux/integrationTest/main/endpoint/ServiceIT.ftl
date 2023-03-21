@@ -17,9 +17,7 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 </#if>
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.convert.ConversionService;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
@@ -38,16 +36,9 @@ class ${endpoint.entityName}ServiceIntegrationTest {
 </#if>
 
     @Autowired
-    ${endpoint.entityName}Repository repository;
-
-    @MockBean
-    ApplicationEventPublisher applicationEventPublisher;
+    ${endpoint.entityName}DataStore dataStore;
 
     ${endpoint.entityName}ServiceProvider serviceUnderTest;
-
-    public ConversionService conversionService = FakeConversionService.build();
-
-    private final SecureRandomSeries randomSeries = new SecureRandomSeries();
 
 <#if !endpoint.isWithTestContainers()>
     @DynamicPropertySource
@@ -58,7 +49,7 @@ class ${endpoint.entityName}ServiceIntegrationTest {
 </#if>
     @BeforeEach
     void setUp() {
-        serviceUnderTest = new ${endpoint.entityName}ServiceProvider(repository, conversionService, applicationEventPublisher, randomSeries);
+        serviceUnderTest = new ${endpoint.entityName}ServiceProvider(dataStore);
         ${endpoint.entityName}TestFixtures.allItems().forEach(item -> {
           serviceUnderTest.create${endpoint.entityName}(item).blockOptional(Duration.ofSeconds(1)); 
         });

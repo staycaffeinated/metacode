@@ -73,4 +73,11 @@ public class ${endpoint.ejbName} {
     public int hashCode() {
         return Objects.hash(resourceId);
     }
+    
+
+    public ${endpoint.ejbName} copyMutableFieldsFrom(${endpoint.pojoName} pojo) {
+      this.text = pojo.getText();
+      return this;    
+    }
+    
 }

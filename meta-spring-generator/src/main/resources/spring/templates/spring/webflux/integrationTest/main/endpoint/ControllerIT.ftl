@@ -108,7 +108,7 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     void shouldUpdateAnExisting${endpoint.entityName}() {
         // Pick one of the persisted instances for an update.
         // Any one will do, as long as it's been persisted.
-        ${endpoint.entityName}Entity targetEntity = ${endpoint.entityName}EntityTestFixtures.allItems().get(1);
+        ${endpoint.entityName}Entity targetEntity = ${endpoint.entityName}EntityTestFixtures.allItems().get(0);
 
         // Create an empty POJO and set the fields to update
         // (in this example, the text field).
