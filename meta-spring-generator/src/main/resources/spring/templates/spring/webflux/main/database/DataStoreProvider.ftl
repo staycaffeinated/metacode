@@ -32,10 +32,9 @@ public class ${endpoint.entityName}DataStoreProvider implements ${endpoint.entit
      */
     public Mono<String> create${endpoint.entityName}(${endpoint.pojoName} pojo) {
         ${endpoint.ejbName} entity = pojoToEjbConverter.convert(pojo);
-        if (entity == null) {
-            log.error("This POJO yielded a null value when converted to an entity bean: {}", pojo);
-            throw new UnprocessableEntityException();
-        }
+		    if (entity == null) {
+			      return Mono.error(new UnprocessableEntityException());
+  		  }
         entity.setResourceId(secureRandom.nextResourceId());
         return repository.save(entity).flatMap(item -> Mono.just(item.getResourceId()));
     }

@@ -3,7 +3,6 @@ package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
-import ${endpoint.basePackage}.exception.ResourceNotFoundException;
 import ${endpoint.basePackage}.exception.UnprocessableEntityException;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 
@@ -17,6 +16,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.time.Duration;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.*;
  * Unit tests of the ${endpoint.entityName} service
  */
 @ExtendWith(MockitoExtension.class)
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"java:1201"})
 class ${endpoint.entityName}ServiceTests {
     @Mock
     private ${endpoint.entityName}DataStore mockDataStore;
@@ -145,7 +146,9 @@ class ${endpoint.entityName}ServiceTests {
         given(mockDataStore.deleteByResourceId(any(String.class))).willReturn(Mono.just(1L));
 
         final String idToDelete = randomSeries.nextResourceId();
-        serviceUnderTest.delete${endpoint.entityName}ByResourceId(idToDelete);
+        Mono<Long> publisher = serviceUnderTest.delete${endpoint.entityName}ByResourceId(idToDelete);
+        
+        StepVerifier.create(publisher).expectSubscription().expectNextCount(1L).verifyComplete();
 
         verify(mockDataStore, times(1)).deleteByResourceId(any(String.class));
     }
@@ -207,8 +210,14 @@ class ${endpoint.entityName}ServiceTests {
 		${endpoint.entityName}Service dodgyService = new ${endpoint.entityName}ServiceProvider(dodgyDataStore);
 
 		${endpoint.pojoName} sample = ${endpoint.entityName}TestFixtures.oneWithoutResourceId();
+		
+		    Mono<String> publisher = dodgyService.create${endpoint.entityName}(sample);
 
         // when/then
-		assertThrows(UnprocessableEntityException.class, () -> dodgyService.create${endpoint.entityName}(sample));
+        // @formatter:off
+    		StepVerifier.create(publisher).expectSubscription()
+				    .expectError(UnprocessableEntityException.class)
+  				  .verify(Duration.ofMillis(1000));
+  		  // @formatter:on		  
 	}
 }

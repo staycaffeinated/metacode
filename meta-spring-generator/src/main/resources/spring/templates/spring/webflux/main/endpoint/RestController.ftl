@@ -26,6 +26,7 @@ import java.time.Duration;
 @RequestMapping("")
 </#noparse>
 @Slf4j
+@Validated
 public class ${endpoint.entityName}Controller {
 
     private final ${endpoint.entityName}Service ${endpoint.entityVarName}Service;
@@ -78,7 +79,8 @@ public class ${endpoint.entityName}Controller {
      */
     @PostMapping (value=${endpoint.entityName}Routes.${endpoint.routeConstants.create}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<ResponseEntity<ResourceIdentity>> create${endpoint.entityName}(@RequestBody @Validated(OnCreate.class) ${endpoint.pojoName} resource ) {
+    @Validated(OnCreate.class) 
+    public Mono<ResponseEntity<ResourceIdentity>> create${endpoint.entityName}(@RequestBody ${endpoint.pojoName} resource ) {
         Mono<String> id = ${endpoint.entityVarName}Service.create${endpoint.entityName}(resource);
         return id.map(value -> ResponseEntity.status(HttpStatus.CREATED).body(new ResourceIdentity(value)));
     }
@@ -87,12 +89,13 @@ public class ${endpoint.entityName}Controller {
      * Update by resourceId
      */
     @PutMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.update}, produces = MediaType.APPLICATION_JSON_VALUE )
-    public void update${endpoint.entityName}(@PathVariable @ResourceId String id, @RequestBody @Validated(OnUpdate.class) ${endpoint.pojoName} ${endpoint.entityVarName}) {
+    @Validated(OnUpdate.class) 
+    public Mono<${endpoint.entityName}> update${endpoint.entityName}(@PathVariable @ResourceId String id, @RequestBody ${endpoint.pojoName} ${endpoint.entityVarName}) {
         if (!Objects.equals(id, ${endpoint.entityVarName}.getResourceId())) {
             log.error("Update declined: mismatch between query string identifier, {}, and resource identifier, {}", id, ${endpoint.entityVarName}.getResourceId());
-            throw new UnprocessableEntityException("Mismatch between the identifiers in the URI and the payload");
+            return Mono.error(new UnprocessableEntityException("Mismatch between the identifiers in the URI and the payload"));
         }
-        ${endpoint.entityVarName}Service.update${endpoint.entityName}(${endpoint.entityVarName});
+        return ${endpoint.entityVarName}Service.update${endpoint.entityName}(${endpoint.entityVarName});
     }
 
     /*

@@ -130,14 +130,27 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     @Test
     void shouldReturnNotFoundWhenResourceDoesNotExist() {
         // @formatter:off
-        sendFindOne${endpoint.entityName}Request("ThisIdDoesNotExist").expectStatus().isNotFound()
+        String validId = ${endpoint.entityName}TestFixtures.oneWithResourceId().getResourceId();
+        sendFindOne${endpoint.entityName}Request(validId).expectStatus().isNotFound()
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-                // I've seen stack traces could come back with both labels
+                // I've seen stack traces come back both ways
                 .jsonPath("$.stackTrace").doesNotExist()
                 .jsonPath("$.trace").doesNotExist();
         // @formatter:on
     }
+    
+    @Test
+    void shouldReturnBadRequestWhenConstraintViolation() {
+        // @formatter:off
+        sendFindOne${endpoint.entityName}Request("iAmABadRequestId").expectStatus().isBadRequest()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+                // I've seen stack traces come back both ways
+                .jsonPath("$.stackTrace").doesNotExist()
+                .jsonPath("$.trace").doesNotExist();
+        // @formatter:on
+    }    
 
     @Test
     void shouldGet${endpoint.entityName}AsStream() throws Exception {

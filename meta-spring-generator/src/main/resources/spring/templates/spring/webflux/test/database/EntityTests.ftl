@@ -45,6 +45,7 @@ class ${endpoint.ejbName}Tests {
         }
 
         @Test
+        @SuppressWarnings("all")
         void whenDifferentClasses_thenReturnsFalse() {
             assertThat(underTest.equals("hello,world")).isFalse();
         }
@@ -60,4 +61,22 @@ class ${endpoint.ejbName}Tests {
             assertThat(sample.hashCode()).isEqualTo(underTest.hashCode());
         }
     }
+    
+    
+	  @Nested
+	  class TestCopyMutableFields {
+		    @Test
+		    void shouldCopyMutableFields() {
+			      ${endpoint.pojoName} pojo = ${endpoint.entityName}TestFixtures.oneWithResourceId();
+
+			      ${endpoint.ejbName} entity = ${endpoint.entityName}EntityTestFixtures.oneWithResourceId();
+			      final String immutableId = entity.getResourceId();
+
+			      ${endpoint.ejbName} actual = entity.copyMutableFieldsFrom(pojo);
+
+			      assertThat(actual.getResourceId()).isEqualTo(immutableId);
+			      assertThat(actual.getText()).isEqualTo(pojo.getText());
+		    }
+	  }    
+    
 }

@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationEvent;
 /**
  * ${endpoint.entityName} events
  */
- @SuppressWarnings({"unused"})
+ @SuppressWarnings({"Java:1102"})
 public class ${endpoint.entityName}Event extends ApplicationEvent {
 
 	public static final String CREATED = "CREATED";

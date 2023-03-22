@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import ${project.basePackage}.exception.ResourceNotFoundException;
 import ${project.basePackage}.exception.UnprocessableEntityException;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,6 +20,8 @@ import org.zalando.problem.Status;
 import org.zalando.problem.spring.webflux.advice.ProblemHandling;
 import reactor.core.publisher.Mono;
 
+import java.util.Set;
+
 /**
  * Handles turning exceptions into RFC-7807 problem/json responses,
  * so instead of an exception and its stack trace leaking back
@@ -27,6 +32,23 @@ import reactor.core.publisher.Mono;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler implements ProblemHandling, ErrorWebExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+	  @ResponseStatus(HttpStatus.BAD_REQUEST)
+	  public Mono<Problem> handleJakartaConstraintViolationException(ConstraintViolationException exception) {
+		    Set<ConstraintViolation<?>> violations = exception.getConstraintViolations();
+		    StringBuilder stringBuilder = new StringBuilder();
+		    for (ConstraintViolation<?> violation : violations) {
+			      stringBuilder.append(violation.getMessage()).append("|");
+		    }
+		 // @formatter:off   
+		 return Mono.just(ProblemSummary.builder()
+		     .title("Constraint Violation")
+		     .detail(stringBuilder.toString())
+				 .status(Status.BAD_REQUEST)
+				 .build());
+		 // @formatter:on		 
+	}
 
     @ExceptionHandler(UnprocessableEntityException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)

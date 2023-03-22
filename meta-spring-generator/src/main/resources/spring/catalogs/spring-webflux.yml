@@ -94,11 +94,11 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/validation/ResourceIdValidator.java"
       context: "project"
   - entry:
-      template:  "/spring/webflux/main/endpoint-root/RootController.ftl"
+      template: "/spring/webflux/main/endpoint-root/RootController.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/root/RootController.java"
       context: "project"
   - entry:
-      template:  "/spring/webflux/main/endpoint-root/RootService.ftl"
+      template: "/spring/webflux/main/endpoint-root/RootService.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/root/RootService.java"
       context: "project"
   - entry:
@@ -192,9 +192,9 @@ catalog:
       destination: "src/main/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreProvider.java"
       context: "endpoint"
 
-#
-# -- Endpoint package
-#
+  #
+  # -- Endpoint package
+  #
   - entry:
       template: "/spring/webflux/main/endpoint/EndpointConfig.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Config.java"
@@ -220,9 +220,9 @@ catalog:
       template: "/spring/webflux/main/endpoint/EntityRoutes.ftl"
       destination: "src/main/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}Routes.java"
       context: "endpoint"
-#
-# - integration tests
-#
+  #
+  # - integration tests
+  #
   - entry:
       template: "/spring/webflux/integrationTest/configuration/TestTableInitializer.ftl"
       destination: "src/main/java/{{basePackagePath}}/configuration/{{entityName}}TestTableInitializer.java"
@@ -238,10 +238,10 @@ catalog:
   - entry:
       template: "/spring/webflux/integrationTest/database/entity/EntityRepositoryIntegrationTest.ftl"
       destination: "src/integration/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIntegrationTest.java"
-      context: "endpoint"      
-#
-# -- resource files
-#
+      context: "endpoint"
+  #
+  # -- resource files
+  #
   - entry:
       template: "/spring/webflux/main/resources/database/EntitySchema.ftl"
       destination: "src/main/resources/database/{{lowerCaseEntityName}}-schema.sql"
@@ -250,9 +250,9 @@ catalog:
       template: "/spring/webflux/main/resources/database/EntityData.ftl"
       destination: "src/main/resources/database/{{lowerCaseEntityName}}-data.sql"
       context: "endpoint"
-#
-# -- Unit tests
-#
+  #
+  # -- Unit tests
+  #
   - entry:
       template: "/spring/webflux/test/endpoint/ControllerTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerTests.java"
@@ -270,6 +270,10 @@ catalog:
       destination: "src/test/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}EventTests.java"
       context: "endpoint"
   - entry:
+      template: "/spring/webflux/test/database/DataStoreProviderTests.ftl"
+      destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}DataStoreProviderTests.java"
+      context: "endpoint"
+  - entry:
       template: "/spring/webflux/test/database/EntityTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTests.java"
       context: "endpoint"
@@ -281,9 +285,9 @@ catalog:
       template: "/spring/webflux/test/database/converter/PojoToEntityConverterTests.ftl"
       destination: "src/test/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/converter/{{entityName}}PojoToEntityConverterTests.java"
       context: "endpoint"
-#
-# - Test fixtures
-#
+  #
+  # - Test fixtures
+  #
   - entry:
       template: "/spring/webflux/testFixtures/database/EjbTestFixtures.ftl"
       destination: "src/testFixtures/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}EntityTestFixtures.java"

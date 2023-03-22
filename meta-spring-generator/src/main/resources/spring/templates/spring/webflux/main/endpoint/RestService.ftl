@@ -4,8 +4,6 @@ package ${endpoint.packageName};
 
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.exception.ResourceNotFoundException;
-import ${endpoint.basePackage}.exception.UnprocessableEntityException;
-
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
