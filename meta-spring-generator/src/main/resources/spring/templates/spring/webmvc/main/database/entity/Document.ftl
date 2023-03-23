@@ -5,6 +5,7 @@ package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Objects;
 
 @Document("${endpoint.tableName}")
+@EqualsAndHashCode(of = {"resourceId"})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,17 +42,4 @@ public class ${endpoint.documentName} {
     private String resourceId;
 
     private String text;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ${endpoint.documentName} that = (${endpoint.documentName}) o;
-        return Objects.equals(resourceId, that.resourceId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(resourceId);
-    }
 }
