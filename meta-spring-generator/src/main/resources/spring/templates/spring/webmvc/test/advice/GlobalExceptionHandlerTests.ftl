@@ -117,9 +117,22 @@ class GlobalExceptionHandlerTests {
         when(ex.getErrorCode()).thenReturn(1234);
         ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleSQLException(ex, mockWebRequest);
         assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
         assertThat(response.getBody().getStatus()).isEqualTo(Status.SERVICE_UNAVAILABLE);
         assertThat(response.getBody().getTitle()).isNotEmpty();
+    }
+
+    /**
+     * Test our catch-all handler
+     */
+    @Test
+    void onRuntimeException_shouldReturnServerError() {
+        RuntimeException exception = new RuntimeException("I am a fake exception");
+
+        ResponseEntity<Problem> response = exceptionHandlerUnderTest.handleUncaughtException(exception);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Test

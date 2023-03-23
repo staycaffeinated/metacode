@@ -86,6 +86,14 @@ public class GlobalExceptionHandler implements ProblemHandling {
     }
 
     /**
+     * Catch anything that falls through
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Problem> handleUncaughtException(RuntimeException ex) {
+        return problemDescription(ex.getMessage(), ex, Status.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
      * Handle MissingServletRequestParameterException. Triggered when a 'required' request parameter is missing.
      *
      * @param ex      MissingServletRequestParameterException
@@ -114,13 +122,14 @@ public class GlobalExceptionHandler implements ProblemHandling {
      * @return a ResponseEntity with a body containing the problem descriptionn
      */
     private ResponseEntity<Problem> problemDescription(String title, Throwable throwable, Status status) {
+        // @formatter:off
         Problem problem = Problem.builder()
                 .withStatus(status)
                 .withDetail(throwable.getMessage())
                 .withTitle(title)
                 .build();
-
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(problem);
+        // @formatter:on
+        return ResponseEntity.status(status.getStatusCode()).body(problem);
     }
 }
 

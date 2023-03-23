@@ -11,6 +11,18 @@ server.servlet.context-path=${project.basePath}
 server.servlet.context-path=/
 </#if>
 
+# -------------------------------------------------------------------------------------------------------
+# These properties are present to handle NoHandlerFoundException
+# which occurs, for instance, if an invalid path is encountered.
+# An invalid path won't resolve to any controller method and thus
+# raise an error that's handled by the DefaultHandlerExceptionResolver.
+# Credit to:
+# https://stackoverflow.com/questions/36733254/spring-boot-rest-how-to-configure-404-resource-not-found
+# https://reflectoring.io/spring-boot-exception-handling/
+# -------------------------------------------------------------------------------------------------------
+spring.mvc.throw-exception-if-not-handler-found=true
+spring.web.resources.add-mappings=false
+
 
 # Obfuscate the /actuator endpoint, which is the default health probe.
 # Health probes enable a liveness check and a readiness check.
