@@ -1,7 +1,6 @@
 <#include "/common/Copyright.ftl">
 package ${project.basePackage}.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,6 @@ import org.zalando.problem.violations.ConstraintViolationProblemModule;
  * with Spring/Jackson, not with the Problem library.
  */
 @Configuration
-@Slf4j
 @SuppressWarnings({"squid:S125"})
 public class ProblemConfiguration implements WebMvcConfigurer {
 

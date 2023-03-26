@@ -10,10 +10,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.zalando.problem.Problem;
@@ -40,11 +36,7 @@ import static org.mockito.Mockito.when;
 class GlobalExceptionHandlerTests {
 
     private final GlobalExceptionHandler exceptionHandlerUnderTest = new GlobalExceptionHandler();
-
-    private final MockHttpServletRequest servletRequest = new MockHttpServletRequest("GET", "/");
-
-    private final MockHttpServletResponse servletResponse = new MockHttpServletResponse();
-    
+ 
     /**
      * Test the condition the server raised an EntityNotFoundException
      */

@@ -3,31 +3,19 @@
 package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 
 import ${endpoint.basePackage}.database.*;
-import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.domain.*;
-import org.springframework.http.MediaType;
 import org.springframework.data.domain.*;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.DynamicPropertyRegistry;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.startsWith;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * These tests verify custom queries added to the repository.
@@ -40,10 +28,6 @@ public class ${endpoint.entityName}RepositoryIT {
 
     @Autowired
     private ${endpoint.entityName}Repository repositoryUnderTest;
-
-    // In case its needed it later... Feel free to remove this.
-    @Autowired
-    private TestEntityManager testEntityManager;
 
     // Generates the public identifier of an entity
     private final SecureRandomSeries randomSeries = new SecureRandomSeries();

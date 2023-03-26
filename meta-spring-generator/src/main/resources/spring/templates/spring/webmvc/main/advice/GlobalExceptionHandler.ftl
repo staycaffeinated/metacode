@@ -4,7 +4,6 @@ package ${project.basePackage}.advice;
 import ${project.basePackage}.exception.UnprocessableEntityException;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,9 +19,9 @@ import java.sql.SQLException;
 /**
  * Handles turning exceptions into RFC-7807 problem/json responses,
  * so instead of an exception and its stack trace leaking back
- * to the client, an RFC-7807 problem description is returned instead.
+ * to the client, an RFC-7807 problem description is returned.
 */
-@SuppressWarnings("unused")
+@SuppressWarnings("java:1102")
 @ControllerAdvice
 public class GlobalExceptionHandler implements ProblemHandling {
 

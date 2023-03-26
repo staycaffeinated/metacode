@@ -8,7 +8,6 @@ import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.${endpoi
 import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,6 @@ public class ${endpoint.entityName}ServiceProvider implements ${endpoint.entityN
     /*
      * Constructor
      */
-    @Autowired
     public ${endpoint.entityName}ServiceProvider(${endpoint.entityName}DataStore ${endpoint.entityVarName}DataStore)
     {
         this.${endpoint.entityVarName}DataStore = ${endpoint.entityVarName}DataStore;
