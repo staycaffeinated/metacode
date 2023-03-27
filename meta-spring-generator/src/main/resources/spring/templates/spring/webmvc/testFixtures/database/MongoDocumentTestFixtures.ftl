@@ -23,11 +23,11 @@ public class ${endpoint.documentName}TestFixtures {
         ONE_WITH_RESOURCE_ID = aNew${endpoint.documentName}("Muffin");
     }
 
-    private static final List<${endpoint.documentName}> ALL_ITEMS = new ArrayList<>() {
-    {
-        add(SAMPLE_ONE);
-        add(SAMPLE_TWO);
-    }};
+    private static final List<${endpoint.documentName}> ALL_ITEMS = new ArrayList<>();
+    static {
+        ALL_ITEMS.add(SAMPLE_ONE);
+        ALL_ITEMS.add(SAMPLE_TWO);
+    }
 
     public static List<${endpoint.documentName}> allItems() { return ALL_ITEMS; }
 

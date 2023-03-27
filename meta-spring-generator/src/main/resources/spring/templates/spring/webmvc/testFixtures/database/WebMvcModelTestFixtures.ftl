@@ -46,15 +46,17 @@ public class ${endpoint.entityName}TestFixtures {
         ONE_WITH_NO_RESOURCE_ID = ${endpoint.entityName}.builder().text("Uncle Stripe").build();
     }
 
-    private static final List<${endpoint.entityName}> ALL_ITEMS = new ArrayList<>() {{
-        add(SAMPLE_ONE);
-        add(SAMPLE_TWO);
-        add(SAMPLE_THREE);
-        add(SAMPLE_FOUR);
-        add(SAMPLE_FIVE);
-        add(SAMPLE_SIX);
-        add(SAMPLE_SEVEN);
-    }};
+    private static final List<${endpoint.entityName}> ALL_ITEMS = new ArrayList<>();
+    static {
+        ALL_ITEMS.add(SAMPLE_ONE);
+        ALL_ITEMS.add(SAMPLE_TWO);
+        ALL_ITEMS.add(SAMPLE_THREE);
+        ALL_ITEMS.add(SAMPLE_FOUR);
+        ALL_ITEMS.add(SAMPLE_FIVE);
+        ALL_ITEMS.add(SAMPLE_SIX);
+        ALL_ITEMS.add(SAMPLE_SEVEN);
+    }
+
     public static final List<${endpoint.entityName}> allItems() { return ALL_ITEMS; }
 
     public static ${endpoint.entityName} sampleOne() { return SAMPLE_ONE; }

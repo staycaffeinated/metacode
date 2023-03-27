@@ -57,15 +57,17 @@ public class ${endpoint.ejbName}TestFixtures {
         SAME_TEXT_THREE = aNew${endpoint.ejbName}("Calypso");
     }
 
-    public static final List<${endpoint.ejbName}> ALL_ITEMS = new ArrayList<>() {{
-        add(SAMPLE_ONE);
-        add(SAMPLE_TWO);
-        add(SAMPLE_THREE);
-        add(SAMPLE_FOUR);
-        add(SAMPLE_FIVE);
-        add(SAMPLE_SIX);
-        add(SAMPLE_SEVEN);
-    }};
+    public static final List<${endpoint.ejbName}> ALL_ITEMS = new ArrayList<>();
+    static {
+        ALL_ITEMS.add(SAMPLE_ONE);
+        ALL_ITEMS.add(SAMPLE_TWO);
+        ALL_ITEMS.add(SAMPLE_THREE);
+        ALL_ITEMS.add(SAMPLE_FOUR);
+        ALL_ITEMS.add(SAMPLE_FIVE);
+        ALL_ITEMS.add(SAMPLE_SIX);
+        ALL_ITEMS.add(SAMPLE_SEVEN);
+    }
+
     public static final List<${endpoint.ejbName}> allItems() { return ALL_ITEMS; }
 
     public static final Flux<${endpoint.ejbName}> FLUX_ITEMS = Flux.fromIterable(ALL_ITEMS);
