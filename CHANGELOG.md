@@ -1,6 +1,8 @@
 
 ## [Unreleased]
 
+## [7.0.0] - 2023-03-28
+
 ### Added
 * A DataStore class has been added to encapsulate the business rules around
   persistence.  The DataStore API deals in Domain objects. Behind the scenes,
@@ -13,14 +15,19 @@
   used with MongoDB, but that's still an 'early-access' option, as there is a
   known problem that's still being investigated.
 
-* Introduced an interface class to define the methods of implemented by the Service class. 
+* Introduced an interface class to define the methods of implemented by the Service class.
   This helps enforce a separation-of-concerns between the controller and service
   classes.
 
 ### Maintenance
 
 * Updated these libraries and plugins:
+  ** AssertJ
   ** Ben Manes gradle plugin
+  ** Lombok
+  ** PostgreSQL driver
+  ** SonarQube plugin
+  ** Spotless plugin
   ** Spring Boot
   ** Spring Cloud
 
