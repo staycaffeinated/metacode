@@ -43,7 +43,7 @@ dependencies:
     version: "1.19.0"
   # JUnit
   - name: "junit"
-    version: "5.9.2"
+    version: "5.9.3"
   # Liquibase
   - name: "liquibase"
     version: "4.17.2"
@@ -52,7 +52,7 @@ dependencies:
     version: "1.18.26"
   # Lombok Gradle plugin
   - name: "lombokPlugin"
-    version: "6.6.3"
+    version: "8.0.1"
   # Log4J
   - name: "log4j"
     version: "2.17.2"
@@ -61,16 +61,16 @@ dependencies:
     version: "4.4.0"
   # Postres
   - name: "postgresql"
-    version: "42.5.4"
+    version: "42.6.0"
   # Problem Jackson Data Type
   - name: "problemJacksonDataType"
     version: "0.27.1"
   # Problem SpringWeb
   - name: "problemSpringWeb"
-    version: "0.27.0"
+    version: "0.29.1"
   # Reactor Test
   - name: "reactorTest"
-    version: "3.5.2"
+    version: "3.5.5"
   # R2DBC
   - name: "r2dbc_h2"
     version: "1.0.0.RELEASE"
@@ -85,16 +85,16 @@ dependencies:
     version: "4.0.0.2929"
   # Spotless code formatter gradle plugin
   - name: "spotless"
-    version: "6.16.0"
+    version: "6.18.0"
   # Spring Boot
   - name: "springBoot"
-    version: "3.0.4"
+    version: "3.0.6"
   # Spring Cloud
   - name: "springCloud"
-    version: "4.0.1"
+    version: "4.0.2"
   # Spring Dependency Management gradle plugin
   - name: "springDependencyManagement"
     version: "1.1.0"
   # TestContainers
   - name: "testContainers"
-    version: "1.17.6"
+    version: "1.18.0"

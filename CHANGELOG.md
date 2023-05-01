@@ -1,6 +1,15 @@
 
 ## [Unreleased]
 
+### Maintenance
+* Updated various libraries and plugins:
+** Spring Boot
+** Lombok
+** JUnit Jupiter
+** Problem Spring Web
+** TestContainers
+
+
 ## [7.0.0] - 2023-03-28
 
 ### Added
