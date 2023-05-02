@@ -89,6 +89,7 @@ class RestProjectTemplateModelTests {
                 .basePackage("acme.petstore")
                 .basePath("/petstore")
                 .isWebMvc(true)
+                .schema("petstore")
                 .build();
 
         assertThat(model.isWebMvc()).isTrue();
@@ -101,6 +102,7 @@ class RestProjectTemplateModelTests {
                 .basePackage("acme.petstore")
                 .basePath("/petstore")
                 .isWebFlux(true)
+                .schema("petstore")
                 .build();
 
         assertThat(model.isWebFlux()).isTrue();

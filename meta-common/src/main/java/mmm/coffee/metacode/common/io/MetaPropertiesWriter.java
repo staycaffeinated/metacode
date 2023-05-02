@@ -36,6 +36,7 @@ public class MetaPropertiesWriter {
             configuration.setProperty(MetaProperties.BASE_PATH, properties.get(MetaProperties.BASE_PATH));
             configuration.setProperty(MetaProperties.BASE_PACKAGE, properties.get(MetaProperties.BASE_PACKAGE));
             configuration.setProperty(MetaProperties.FRAMEWORK, properties.get(MetaProperties.FRAMEWORK));
+            configuration.setProperty(MetaProperties.SCHEMA, properties.get(MetaProperties.SCHEMA));
 
             if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_LIQUIBASE))) {
                 configuration.setProperty(MetaProperties.ADD_LIQUIBASE, "true");

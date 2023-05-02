@@ -42,6 +42,7 @@ class SpringWebMvcProjectDescriptorTests {
     private static final String BASEPKG = "io.acme.petstore";
     private static final String APPNAME = "petstore";
     private static final String GROUPID = "io.acme.petstore";
+    private static final String SCHEMA = "petstore";
     private static Set<SpringIntegrations> FEATURES = new HashSet<>();
 
     @BeforeEach
@@ -76,6 +77,37 @@ class SpringWebMvcProjectDescriptorTests {
         assertThat(descriptor.getBasePackage()).isEqualTo(BASEPKG);
         assertThat(descriptor.getBasePath()).isEqualTo(BASEPATH);
         assertThat(descriptor.getGroupId()).isEqualTo(GROUPID);
+        assertThat(descriptor.getIntegrations()).containsExactlyElementsIn(expectedFeatures);
+
+        assertThat(descriptor.toString()).isNotEmpty();
+        assertThat(descriptor.equals(null)).isFalse();
+        assertThat(descriptor.equals(descriptor)).isTrue();
+        assertThat(descriptor.hashCode()).isEqualTo(descriptor.hashCode());
+    }
+
+    @Test
+    void shouldBuildWellFormedProjectWithSchema() {
+        var descriptor = RestProjectDescriptor.builder()
+                .applicationName(APPNAME)
+                .basePackage(BASEPKG)
+                .basePath(BASEPATH)
+                .groupId(GROUPID)
+                .schema(SCHEMA)
+                .framework(Framework.SPRING_WEBMVC)
+                .build();
+
+        descriptor.getIntegrations().add(SpringIntegrations.POSTGRES.name());
+        descriptor.getIntegrations().add(SpringIntegrations.TESTCONTAINERS.name());
+        String[] expectedFeatures = {
+                SpringIntegrations.POSTGRES.name(),
+                SpringIntegrations.TESTCONTAINERS.name()
+        };
+
+        assertThat(descriptor.getApplicationName()).isEqualTo(APPNAME);
+        assertThat(descriptor.getBasePackage()).isEqualTo(BASEPKG);
+        assertThat(descriptor.getBasePath()).isEqualTo(BASEPATH);
+        assertThat(descriptor.getGroupId()).isEqualTo(GROUPID);
+        assertThat(descriptor.getSchema()).isEqualTo(SCHEMA);
         assertThat(descriptor.getIntegrations()).containsExactlyElementsIn(expectedFeatures);
 
         assertThat(descriptor.toString()).isNotEmpty();

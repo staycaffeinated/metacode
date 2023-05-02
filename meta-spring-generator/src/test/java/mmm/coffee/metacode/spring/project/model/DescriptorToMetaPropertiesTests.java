@@ -20,6 +20,7 @@ import static com.google.common.truth.Truth.assertThat;
 class DescriptorToMetaPropertiesTests {
     static final String BASE_PACKAGE = "org.acme.petstore";
     static final String BASE_PATH = "/petstore";
+    static final String SCHEMA = "petstore";
 
     final DescriptorToMetaProperties converterUnderTest = new DescriptorToMetaProperties();
 
@@ -35,6 +36,22 @@ class DescriptorToMetaPropertiesTests {
         assertThat(map.get(MetaProperties.BASE_PACKAGE)).isEqualTo(BASE_PACKAGE);
         assertThat(map.get(MetaProperties.BASE_PATH)).isEqualTo(BASE_PATH);
         assertThat(map.get(MetaProperties.FRAMEWORK)).isEqualTo(Framework.SPRING_WEBMVC.frameworkName());
+    }
+
+    @Test
+    void shouldCopySchemaToMetaProperties() {
+        RestProjectDescriptor descriptor = RestProjectDescriptor.builder()
+                .basePackage(BASE_PACKAGE)
+                .basePath(BASE_PATH)
+                .schema(SCHEMA)
+                .framework(Framework.SPRING_WEBMVC).build();
+
+        Map<String, Object> map = converterUnderTest.convert(descriptor);
+
+        assertThat(map.get(MetaProperties.BASE_PACKAGE)).isEqualTo(BASE_PACKAGE);
+        assertThat(map.get(MetaProperties.BASE_PATH)).isEqualTo(BASE_PATH);
+        assertThat(map.get(MetaProperties.FRAMEWORK)).isEqualTo(Framework.SPRING_WEBMVC.frameworkName());
+        assertThat(map.get(MetaProperties.SCHEMA)).isEqualTo(SCHEMA);
     }
 
     @Test

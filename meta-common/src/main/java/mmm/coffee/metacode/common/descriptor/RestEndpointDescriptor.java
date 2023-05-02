@@ -52,6 +52,11 @@ public class RestEndpointDescriptor implements Descriptor {
      */
     private String framework;
 
+    /**
+     * Optional: the database schema
+     */
+    private String schema;
+
     private boolean withPostgres;
     private boolean withTestContainers;
     private boolean withLiquibase;

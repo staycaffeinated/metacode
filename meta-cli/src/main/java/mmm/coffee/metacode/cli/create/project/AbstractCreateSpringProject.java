@@ -51,6 +51,7 @@ public class AbstractCreateSpringProject extends AbstractCreateRestProject {
                 .basePath(basePath)
                 .groupId(groupId)
                 .framework(framework)
+                .schema(schema)
                 .build();
 
         // take note of any features/integrations

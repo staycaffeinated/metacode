@@ -16,6 +16,7 @@
 package mmm.coffee.metacode.cli.create.project;
 
 import com.google.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.annotations.guice.SpringWebMvc;
 import mmm.coffee.metacode.cli.validation.PackageNameValidator;
 import mmm.coffee.metacode.cli.validation.SpringIntegrationValidator;
@@ -37,6 +38,7 @@ import picocli.CommandLine;
         synopsisHeading = "%nUsage:%n",
         optionListHeading = "%nOptions:%n"
 )
+@Slf4j
 @SuppressWarnings({ "java:S1854", "java:S1481" } ) // S1854, S1481: allow  unused vars for now
 public class SubcommandCreateWebMvcProject extends AbstractCreateSpringProject {
     
@@ -64,9 +66,8 @@ public class SubcommandCreateWebMvcProject extends AbstractCreateSpringProject {
         PackageNameValidator pnv = PackageNameValidator.of(packageName);
         super.runValidations(pnv, siv);
 
-
-
         var descriptor = buildProjectDescriptor(Framework.SPRING_WEBMVC);
+        log.debug("[call] descriptor.schema: {}", descriptor.getSchema());
         return codeGenerator.doPreprocessing(descriptor).generateCode(descriptor);
     }
 }

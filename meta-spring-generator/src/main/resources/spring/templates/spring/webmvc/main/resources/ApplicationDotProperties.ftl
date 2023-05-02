@@ -43,25 +43,31 @@ management.endpoint.health.probes.enabled=true
 
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.id.new_generator_mappings=false
+<#if (project.isWithPostgres())>
+spring.jpa.database=POSTGRESQL
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.id.new_generator_mappings=false
+</#if>
 
-spring.datasource.username=root
-spring.datasource.password=secret
+
 <#-- define the jdbc driver -->
 <#if (project.isWithPostgres())>
 # POSTGRES
+spring.datasource.username=postgres
+spring.datasource.password=postgres
 spring.datasource.driver-class-name=org.postgresql.Driver
 <#else>
 # H2
+spring.datasource.username=root
+spring.datasource.password=secret
 spring.datasource.driver-class-name=org.h2.Driver
 </#if>
 <#-- define the jdbc url -->
 <#if (project.isWithPostgres())>
-    <#if (project.schema)??>
-spring.datasource.url=jdbc:postgresql://localhost:5432/${project.schema}
-    <#elseif (project.applicationName)??>
-spring.datasource.url=jdbc:postgresql://localhost:5432/${project.applicationName}
+    <#if project.schema?? && project.schema?has_content>
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=${project.schema}
     <#else>
-spring.datasource.url=jdbc:postgresql://localhost:5432/testdb
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
     </#if>
 <#else>
     <#if (project.schema)??>

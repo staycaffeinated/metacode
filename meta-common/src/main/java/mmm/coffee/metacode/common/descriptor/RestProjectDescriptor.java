@@ -38,6 +38,7 @@ public class RestProjectDescriptor implements Descriptor {
     private String applicationName;
     private String basePath;
     private String groupId;
+    private String schema;
 
     /*
      * Indicates the framework in play.

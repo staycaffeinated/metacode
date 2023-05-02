@@ -100,6 +100,11 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
     private String packagePath;
 
     /**
+     * This property sets the 'schema' attribute of the @Table annotation.
+     */
+    private String schema;
+
+    /**
      * JPA allows a TableName to be specified with an annotation, when the
      * default table name used by JPA isn't what's wanted. This property
      * sets the value used in the JPA annotation. 

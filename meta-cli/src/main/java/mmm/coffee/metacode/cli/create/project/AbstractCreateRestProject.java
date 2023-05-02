@@ -63,6 +63,14 @@ public abstract class AbstractCreateRestProject implements CallTrait {
             paramLabel = "BASE_PATH")
     String basePath; // visible for testing
 
+    /**
+     * This is the base URL to the running application.
+     */
+    @CommandLine.Option(names = {"-S", "--schema"},
+            description = "The database schema; for example: 'petstore'",
+            paramLabel = "SCHEMA")
+    String schema; // visible for testing
+
 
     /**
      * Verify the command line values

@@ -184,6 +184,7 @@ class MetaPropertiesWriterTests {
         map.put(MetaProperties.BASE_PACKAGE, TestValues.BASE_PACKAGE);
         map.put(MetaProperties.BASE_PATH, TestValues.BASE_PATH);
         map.put(MetaProperties.FRAMEWORK, TestValues.FRAMEWORK);
+        map.put(MetaProperties.SCHEMA, TestValues.SCHEMA);
 
         return map;
     }
@@ -217,5 +218,6 @@ class MetaPropertiesWriterTests {
         public static final String BASE_PACKAGE = "org.acme.petstore";
         public static final String BASE_PATH = "/petstore";
         public static final String FRAMEWORK = Framework.SPRING_WEBFLUX.frameworkName();
+        public static final String SCHEMA = "petstore";
     }
 }

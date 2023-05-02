@@ -34,6 +34,7 @@ class MetaPropertiesReaderTests {
     private static final String EXPECTED_PATH = MetaPropertiesWriterTests.TestValues.BASE_PATH;
     private static final String EXPECTED_PACKAGE = MetaPropertiesWriterTests.TestValues.BASE_PACKAGE;
     private static final String EXPECTED_FRAMEWORK = MetaPropertiesWriterTests.TestValues.FRAMEWORK;
+    private static final String EXPECTED_SCHEMA = MetaPropertiesWriterTests.TestValues.SCHEMA;
 
     @BeforeEach
     public void createTemporaryMetaPropertiesFile() throws IOException {
@@ -65,9 +66,7 @@ class MetaPropertiesReaderTests {
 
         // Expect: when any exception is thrown within the read() method, that exception is rethrown
         // as a RuntimeApplicationError
-        assertThrows(RuntimeApplicationError.class, () -> {
-            reader.read();
-        });
+        assertThrows(RuntimeApplicationError.class, reader::read);
     }
 
 
@@ -85,6 +84,7 @@ class MetaPropertiesReaderTests {
         assertThat(configuration.getString(MetaProperties.BASE_PATH)).isEqualTo(EXPECTED_PATH);
         assertThat(configuration.getString(MetaProperties.BASE_PACKAGE)).isEqualTo(EXPECTED_PACKAGE);
         assertThat(configuration.getString(MetaProperties.FRAMEWORK)).isEqualTo(EXPECTED_FRAMEWORK);
+        assertThat(configuration.getString(MetaProperties.SCHEMA)).isEqualTo(EXPECTED_SCHEMA);
     }
 
     @Test

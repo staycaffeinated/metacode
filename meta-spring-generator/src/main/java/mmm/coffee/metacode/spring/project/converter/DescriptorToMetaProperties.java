@@ -3,6 +3,7 @@
  */
 package mmm.coffee.metacode.spring.project.converter;
 
+import lombok.extern.slf4j.Slf4j;
 import mmm.coffee.metacode.common.descriptor.RestProjectDescriptor;
 import mmm.coffee.metacode.common.io.MetaProperties;
 import mmm.coffee.metacode.common.trait.ConvertTrait;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * DescriptorToMetaProperties
  */
+@Slf4j
 public class DescriptorToMetaProperties implements ConvertTrait<RestProjectDescriptor, Map<String,Object>> {
 
     public Map<String,Object> convert(RestProjectDescriptor descriptor) {
@@ -21,6 +23,9 @@ public class DescriptorToMetaProperties implements ConvertTrait<RestProjectDescr
         map.put(MetaProperties.BASE_PACKAGE, descriptor.getBasePackage());
         map.put(MetaProperties.BASE_PATH, descriptor.getBasePath());
         map.put(MetaProperties.FRAMEWORK, descriptor.getFramework());
+        map.put(MetaProperties.SCHEMA, descriptor.getSchema());
+
+        log.info("[convert] descriptor.schema: {}", descriptor.getSchema());
         
         if (descriptor.getIntegrations().contains(SpringIntegrations.POSTGRES.name())) {
             map.put(MetaProperties.ADD_POSTGRESQL, Boolean.TRUE);

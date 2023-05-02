@@ -64,6 +64,7 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         spec.setBasePackage(config.getString(MetaProperties.BASE_PACKAGE));
         spec.setBasePath(config.getString(MetaProperties.BASE_PATH));
         spec.setFramework(config.getString(MetaProperties.FRAMEWORK));
+        spec.setSchema(config.getString(MetaProperties.SCHEMA));
         spec.setWithLiquibase(config.getBoolean(MetaProperties.ADD_LIQUIBASE, false));
         spec.setWithPostgres(config.getBoolean(MetaProperties.ADD_POSTGRESQL, false));
         spec.setWithTestContainers(config.getBoolean(MetaProperties.ADD_TESTCONTAINERS, false));

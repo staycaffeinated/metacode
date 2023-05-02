@@ -34,6 +34,7 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
         final String resourceName = fromType.getResource();
         final String packageName = buildPackageName(fromType);
         final String packagePath = nameConverter.packageNameToPath(packageName);
+        final String schema = fromType.getSchema();
 
         resourceConstantsConverter.setResourceName(resourceName);
         // See the RouteConstants class for an explanation of why this is done
@@ -66,6 +67,7 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
                 .resource(fromType.getResource())
                 // ensure route begins with forward slash
                 .route(nameConverter.toBasePathUrl(fromType.getRoute()))
+                .schema(schema)
                 .tableName(nameConverter.toTableName(resourceName))
                 .isWebFlux(fromType.isWebFlux())
                 .isWebMvc(fromType.isWebMvc())

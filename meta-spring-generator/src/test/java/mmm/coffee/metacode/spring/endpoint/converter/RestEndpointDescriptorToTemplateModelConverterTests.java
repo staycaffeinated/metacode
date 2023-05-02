@@ -26,11 +26,53 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
     private static final String WEBFLUX = Framework.SPRING_WEBFLUX.frameworkName();
     private static final String RESOURCE = "Pet";
     private static final String ROUTE = "/pet";
+    private static final String SCHEMA = "petstore";
 
     final RestEndpointDescriptorToTemplateModelConverter converterUnderTest = new RestEndpointDescriptorToTemplateModelConverter(new NameConverter(), new RouteConstantsConverter());
 
     @Test
     void shouldDefineAllTemplateValues() {
+        var spec = RestEndpointDescriptor.builder()
+                .basePackage(BASE_PACKAGE)
+                .basePath(BASE_PATH)
+                .framework(WEBFLUX)
+                .resource(RESOURCE)
+                .route(ROUTE)
+                .schema(SCHEMA)
+                .build();
+
+        var model = converterUnderTest.convert(spec);
+
+        // Expect: all values that can come up w/in a template have some value defined
+        // The following values are known to be straight copies of the original values
+        assertThat(model.getBasePackage()).isEqualTo(BASE_PACKAGE);
+        assertThat(model.getResource()).isEqualTo(RESOURCE);
+        assertThat(model.getRoute()).isEqualTo(ROUTE);
+
+        // This test explicitly set the framework to webflux, so test the toggles
+        assertThat(model.isWebFlux()).isTrue();
+        assertThat(model.isWebMvc()).isFalse();
+
+        // The NameConverter determines _how_ names are converted, and tests of
+        // the NameConverter verify the results of the various conversions.
+        // Rather than repeat those tests, we've elected here to only check for
+        // non-empty values.
+        assertThat(model.getBasePackagePath()).isNotEmpty();
+        assertThat(model.getEjbName()).isNotEmpty();
+        assertThat(model.getEntityName()).isNotEmpty();
+        assertThat(model.getEntityVarName()).isNotEmpty();
+        assertThat(model.getLowerCaseEntityName()).isNotEmpty();
+        assertThat(model.getPojoName()).isNotEmpty();
+        assertThat(model.getTableName()).isNotEmpty();
+        assertThat(model.getTopLevelVariable()).isEqualTo(MetaTemplateModel.Key.ENDPOINT.value());
+    }
+
+    /**
+     * The schema property is optional. If it's not provided,
+     * the templates should recognize it's an undefined value.
+     */
+    @Test
+    void shouldSupportUndefinedSchema() {
         var spec = RestEndpointDescriptor.builder()
                 .basePackage(BASE_PACKAGE)
                 .basePath(BASE_PATH)
@@ -64,6 +106,7 @@ class RestEndpointDescriptorToTemplateModelConverterTests {
         assertThat(model.getTableName()).isNotEmpty();
         assertThat(model.getTopLevelVariable()).isEqualTo(MetaTemplateModel.Key.ENDPOINT.value());
     }
+
 
     @Test
     @Tag("coverage")

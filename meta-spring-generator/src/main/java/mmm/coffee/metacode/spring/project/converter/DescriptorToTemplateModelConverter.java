@@ -25,6 +25,7 @@ public class DescriptorToTemplateModelConverter implements ConvertTrait<RestProj
                 .isWebMvc(descriptor.getFramework().equals(Framework.SPRING_WEBMVC.frameworkName()))
                 .isSpringBatch(descriptor.getFramework().equals(Framework.SPRING_BATCH.frameworkName()))
                 .isSpringBoot(descriptor.getFramework().equals(Framework.SPRING_BOOT.frameworkName()))
+                .schema(descriptor.getSchema())
                 .withPostgres(descriptor.getIntegrations().contains(SpringIntegrations.POSTGRES.name()))
                 .withTestContainers(descriptor.getIntegrations().contains(SpringIntegrations.TESTCONTAINERS.name()))
                 .withLiquibase(descriptor.getIntegrations().contains(SpringIntegrations.LIQUIBASE.name()))

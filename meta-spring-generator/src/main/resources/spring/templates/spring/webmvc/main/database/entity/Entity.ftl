@@ -13,7 +13,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 @Entity
+<#if endpoint.schema?has_content>
+@Table(name="${endpoint.tableName}" scheme="${endpoint.schema}")
+<#else>
 @Table(name="${endpoint.tableName}")
+</#if>
 @EqualsAndHashCode(of = {"resourceId"})
 @Getter
 @Setter
@@ -27,7 +31,12 @@ public class ${endpoint.ejbName} {
      * database-generated Ids are commonly sequential values that a hacker can easily guess.
      */
     @Id
+    <#if (endpoint.isWithPostgres())>
+    @SequenceGenerator(name = "${endpoint.lowerCaseEntityName}_sequence", sequenceName = "${endpoint.lowerCaseEntityName}_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "${endpoint.lowerCaseEntityName}_sequence")
+    <#else>
     @GeneratedValue
+    </#if>
     private Long id;
 
     /**
