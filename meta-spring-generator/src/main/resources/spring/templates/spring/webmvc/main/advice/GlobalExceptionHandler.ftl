@@ -35,10 +35,10 @@ public class GlobalExceptionHandler implements ProblemHandling {
         return problemDescription("The request contains invalid data", exception);
     }
 
-    @ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
-    public ResponseEntity<Problem> handleConstraintViolationException(jakarta.validation.ConstraintViolationException ex) {
-        return problemDescription("Constraint violation", ex);
-    }
+<#--    @ExceptionHandler(jakarta.validation.ConstraintViolationException.class)-->
+<#--    public ResponseEntity<Problem> handleConstraintViolationException(jakarta.validation.ConstraintViolationException ex) {-->
+<#--        return problemDescription("Constraint violation", ex);-->
+<#--    }-->
 
     /**
      * Handles EntityNotFoundException. Created to encapsulate errors with more detail than jakarta.persistence.EntityNotFoundException.

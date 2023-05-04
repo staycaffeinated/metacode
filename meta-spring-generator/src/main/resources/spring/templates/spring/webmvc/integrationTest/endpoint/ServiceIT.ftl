@@ -6,6 +6,9 @@ import ${endpoint.basePackage}.common.AbstractIntegrationTest;
 import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import org.junit.jupiter.api.*;
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+import org.springframework.boot.test.context.SpringBootTest;
+</#if>
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -13,9 +16,16 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+</#if>
 
-public class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
-
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+class ${endpoint.entityName}ServiceIT extends PostgresContainerTests {
+<#else>
+class ${endpoint.entityName}ServiceIT extends AbstractIntegrationTest {
+</#if>
     @Autowired
     private ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
 

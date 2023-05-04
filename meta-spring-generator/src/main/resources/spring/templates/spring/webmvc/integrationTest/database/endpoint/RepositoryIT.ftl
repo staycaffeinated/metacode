@@ -5,7 +5,9 @@ package ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName};
 import ${endpoint.basePackage}.database.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.predicate.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
+
 import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,16 +18,22 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+</#if>
 /**
  * These tests verify custom queries added to the repository.
  * If the JPA queries are not modified, or not custom methods are added to the
  * Repository class, these tests may be deleted.
  */
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+class ${endpoint.entityName}RepositoryIT extends PostgresContainerTests {
+<#else>
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ${endpoint.entityName}RepositoryIT {
-
+class ${endpoint.entityName}RepositoryIT {
+</#if>
     @Autowired
     private ${endpoint.entityName}Repository repositoryUnderTest;
 

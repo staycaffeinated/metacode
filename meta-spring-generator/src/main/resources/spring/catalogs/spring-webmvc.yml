@@ -190,6 +190,11 @@ catalog:
       template: "/spring/webmvc/integrationTest/database/DatabaseInitFunction.ftl"
       destination: "src/integration/java/{{basePackagePath}}/database/DatabaseInitFunction.java"
       context: "project"
+  - entry:
+      template: "/spring/webmvc/integrationTest/database/PostgresContainerTests.ftl"
+      destination: "src/integration/java/{{basePackagePath}}/database/PostgresContainerTests.java"
+      context: "project"
+      feature: "postgres"
 #
 # Endpoint entries
 #

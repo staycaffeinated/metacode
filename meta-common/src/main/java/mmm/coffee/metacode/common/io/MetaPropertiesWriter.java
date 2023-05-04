@@ -26,7 +26,7 @@ public class MetaPropertiesWriter {
     private final PropertiesConfiguration configuration;
 
     public void saveProperties(Map<String, Object> properties) {
-        log.debug("[saveProperties]", new Exception("Who called me??"));
+        log.trace("[saveProperties]", new Exception("Who called me??"));
         try {
             // Only copy properties needed for endpoint generation.
             // The incoming {@code properties} could contain many values,

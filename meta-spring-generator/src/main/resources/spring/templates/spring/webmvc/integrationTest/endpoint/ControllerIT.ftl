@@ -8,6 +8,13 @@ import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.*;
 import ${endpoint.basePackage}.database.${endpoint.lowerCaseEntityName}.converter.*;
 import ${endpoint.basePackage}.math.SecureRandomSeries;
 import org.junit.jupiter.api.*;
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+</#if>
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertySource;
@@ -21,8 +28,24 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest {
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+import static acme.petstore.common.SpringProfiles.INTEGRATION_TEST;
+import static acme.petstore.common.SpringProfiles.TEST;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+</#if>
 
+<#if endpoint.isWithPostgres() && endpoint.isWithTestContainers()>
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+@AutoConfigureMockMvc
+class ${endpoint.entityName}ControllerIT extends PostgresContainerTests {
+    @Autowired
+    MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper objectMapper;
+<#else>
+class ${endpoint.entityName}ControllerIT extends AbstractIntegrationTest {
+</#if>
     @Autowired
     private ${endpoint.entityName}Repository ${endpoint.entityVarName}Repository;
 

@@ -9,10 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import ${project.basePackage}.common.AbstractIntegrationTest;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -23,9 +22,34 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 /**
  * Integration tests of the exception handling of the root controller
  */
+<#-- ======================================= -->
+<#-- When using Postgres with TestContainers -->
+<#-- ======================================= -->
+<#if project.isWithPostgres() && project.isWithTestContainers()>
+import ${project.basePackage}.database.PostgresContainerTests;
+
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+@AutoConfigureMockMvc
+public class RootExceptionHandlingIT extends PostgresContainerTests {
+    @Autowired
+    MockMvc mockMvc;
+<#-- ======================================= -->
+<#-- Vanilla                                 -->
+<#-- ======================================= -->
+<#else>
+import ${project.basePackage}.common.AbstractIntegrationTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 @ExtendWith(SpringExtension.class)
 class RootExceptionHandlingIT extends AbstractIntegrationTest {
-
+</#if>
     @MockBean
     private RootService mockService;  // this is used to initialize the controller
 

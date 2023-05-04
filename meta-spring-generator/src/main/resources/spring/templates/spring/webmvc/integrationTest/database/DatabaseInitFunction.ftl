@@ -49,15 +49,9 @@ public class DatabaseInitFunction {
         // The statements forgo the `if not exists` clause since we know these don't exist
         // in the temporary database of the container.
         final String createSchema = "create schema acme";
-        final String createTable = "create table acme.pet ("
-            + "pet_id serial primary key, "
-            + "public_id varchar(50) null, "
-            + "pet_name varchar(32), "
-            + "owner_id integer)";
 
         try {
             connection.createStatement().execute(createSchema);
-            connection.createStatement().execute(createTable);
         } catch (java.sql.SQLException ex) {
             log.error(ex.getMessage());
         }

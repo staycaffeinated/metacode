@@ -36,7 +36,7 @@ public class MetaPropertiesReader {
      * @return the content o
      */
     public Configuration read() {
-        log.debug("[read]", new Exception("Who called me?"));
+        log.trace("[read]", new Exception("Who called me?"));
         try {
             return configurations.properties(new File(propertyFileName));
         }

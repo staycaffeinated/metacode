@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 <#if endpoint.schema?has_content>
-@Table(name="${endpoint.tableName}" scheme="${endpoint.schema}")
+@Table(name="${endpoint.tableName}", schema="${endpoint.schema}")
 <#else>
 @Table(name="${endpoint.tableName}")
 </#if>
