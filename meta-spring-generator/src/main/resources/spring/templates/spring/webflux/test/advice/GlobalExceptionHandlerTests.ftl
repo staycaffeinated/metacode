@@ -3,8 +3,6 @@ package ${project.basePackage}.advice;
 
 import ${project.basePackage}.exception.ResourceNotFoundException;
 import ${project.basePackage}.exception.UnprocessableEntityException;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,29 +68,5 @@ class GlobalExceptionHandlerTests {
         var publisher = exceptionHandlerUnderTest.handle(serverWebExchange, new Throwable());
 
         assertThat(publisher).isNull();
-    }
-
-    @Test
-    void whenConstraintValidation_expectBadRequest() {
-        ConstraintViolationException exception = Mockito.mock(ConstraintViolationException.class);
-        Set<ConstraintViolation<?>> mockViolations = fakeViolations();
-        when(exception.getConstraintViolations()).thenReturn(mockViolations);
-
-        var publisher = exceptionHandlerUnderTest.handleJakartaConstraintViolationException(exception);
-
-        // then
-        StepVerifier.create(publisher).expectSubscription()
-            .consumeNextWith(p ->
-                assertThat(Objects.requireNonNull(p.getStatus())
-                   .getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST.value()))
-            .verifyComplete();
-    }
-
-    private Set<ConstraintViolation<?>> fakeViolations() {
-        ConstraintViolation<?> v1 = Mockito.mock(ConstraintViolation.class);
-        ConstraintViolation<?> v2 = Mockito.mock(ConstraintViolation.class);
-        when(v1.getMessage()).thenReturn("Violation One");
-        when(v2.getMessage()).thenReturn("Violation Two");
-        return Set.of(v1, v2);
     }
 }

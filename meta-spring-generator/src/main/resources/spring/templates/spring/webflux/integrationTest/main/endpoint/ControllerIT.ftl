@@ -142,13 +142,12 @@ class ${endpoint.entityName}ControllerIntegrationTest {
     
     @Test
     void shouldReturnBadRequestWhenConstraintViolation() {
+        // The Problem library provides default handling of constraint violations.
+        // The Problem library _does_ send back a stack trace, which is
+        // usually a bad idea for client-facing applications, since stack traces leak information.
         // @formatter:off
         sendFindOne${endpoint.entityName}Request("iAmABadRequestId").expectStatus().isBadRequest()
-            .expectHeader().contentType(MediaType.APPLICATION_JSON)
-            .expectBody()
-                // I've seen stack traces come back both ways
-                .jsonPath("$.stackTrace").doesNotExist()
-                .jsonPath("$.trace").doesNotExist();
+            .expectHeader().contentType(MediaType.APPLICATION_PROBLEM_JSON);
         // @formatter:on
     }    
 

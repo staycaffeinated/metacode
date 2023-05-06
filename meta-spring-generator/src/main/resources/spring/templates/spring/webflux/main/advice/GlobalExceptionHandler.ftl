@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import ${project.basePackage}.exception.ResourceNotFoundException;
 import ${project.basePackage}.exception.UnprocessableEntityException;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.http.HttpStatus;
@@ -32,23 +30,6 @@ import java.util.Set;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler implements ProblemHandling, ErrorWebExceptionHandler {
-
-    @ExceptionHandler(ConstraintViolationException.class)
-	  @ResponseStatus(HttpStatus.BAD_REQUEST)
-	  public Mono<Problem> handleJakartaConstraintViolationException(ConstraintViolationException exception) {
-		    Set<ConstraintViolation<?>> violations = exception.getConstraintViolations();
-		    StringBuilder stringBuilder = new StringBuilder();
-		    for (ConstraintViolation<?> violation : violations) {
-			      stringBuilder.append(violation.getMessage()).append("|");
-		    }
-		 // @formatter:off   
-		 return Mono.just(ProblemSummary.builder()
-		     .title("Constraint Violation")
-		     .detail(stringBuilder.toString())
-				 .status(Status.BAD_REQUEST)
-				 .build());
-		 // @formatter:on		 
-	}
 
     @ExceptionHandler(UnprocessableEntityException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
