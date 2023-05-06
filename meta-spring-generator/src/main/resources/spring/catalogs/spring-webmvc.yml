@@ -130,19 +130,19 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint-root/RootControllerIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/root/RootControllerIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/root/RootControllerIT.java"
       context:  "project"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint-root/RootExceptionHandlingIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/root/RootExceptionHandlingIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/root/RootExceptionHandlingIT.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/common/AbstractIntegrationTest.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/ApplicationIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/resources/ApplicationDotProperties.ftl"
@@ -188,11 +188,11 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/database/DatabaseInitFunction.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/DatabaseInitFunction.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/DatabaseInitFunction.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/database/PostgresContainerTests.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/PostgresContainerTests.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/PostgresContainerTests.java"
       context: "project"
       feature: "postgres"
 #
@@ -285,19 +285,19 @@ catalog:
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint/ExceptionHandlingIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ExceptionHandlingIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ExceptionHandlingIT.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint/ControllerIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint/ServiceIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIT.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/database/endpoint/RepositoryIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
       context: "endpoint"
 #
 # Test fixtures

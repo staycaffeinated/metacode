@@ -125,28 +125,28 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint-root/MongoRootControllerIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/root/RootControllerIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/root/RootControllerIT.java"
       context:  "project"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint-root/MongoRootExceptionHandlingIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/root/RootExceptionHandlingIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/root/RootExceptionHandlingIT.java"
       context: "project"
 #  - entry:
 #      template: "/spring/webmvc/integrationTest/common/AbstractIntegrationTest.ftl"
-#      destination: "src/integration/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
+#      destination: "src/integrationTest/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
 #      context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/MongoApplicationIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/integrationTest/database/MongoDbContainerTests.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/MongoDbContainerTests.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/MongoDbContainerTests.java"
       context: "project"
       feature: "testcontainers"
   - entry:
       template: "/spring/webmvc/integrationTest/database/MongoDatabaseConfiguration.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/DatabaseConfiguration.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/DatabaseConfiguration.java"
       context: "project"
   - entry:
       template: "/spring/webmvc/main/resources/MongoDbApplicationDotProperties.ftl"
@@ -269,19 +269,19 @@ catalog:
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint/MongoExceptionHandlerIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ExceptionHandlingIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ExceptionHandlingIT.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint/MongoControllerIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIT.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/endpoint/MongoServiceIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIT.java"
       context: "endpoint"
   - entry:
       template: "/spring/webmvc/integrationTest/database/endpoint/MongoRepositoryIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIT.java"
       context: "endpoint"
 #
 # Test fixtures

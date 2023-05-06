@@ -36,11 +36,11 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/batch/integrationTest/AbstractIntegrationTest.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/AbstractIntegrationTest.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/AbstractIntegrationTest.java"
       context: "project"
   - entry:
       template: "/spring/batch/integrationTest/ApplicationIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/ApplicationIntegrationTest.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/ApplicationIntegrationTest.java"
       context: "project"
   - entry:
       template: "/spring/batch/main/resources/ApplicationDotYaml.ftl"

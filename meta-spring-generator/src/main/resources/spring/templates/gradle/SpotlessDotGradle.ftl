@@ -28,5 +28,6 @@ spotless {
     }
 }
 
-// With this dependsOn, spotlessApply is auto-applied when the 'build' task runs
+// With this dependsOn, spotlessApply is auto-applied when the 'build' or 'check' task runs
 build.dependsOn 'spotlessApply'
+check.dependsOn 'spotlessApply'

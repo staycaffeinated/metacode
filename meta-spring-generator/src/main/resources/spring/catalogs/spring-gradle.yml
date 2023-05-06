@@ -47,6 +47,10 @@ catalog:
       destination: "gradle/spotless.gradle"
       context: "project"
   - entry:
+      template: "/gradle/TestingSuitesDotGradle.ftl"
+      destination: "gradle/testing-suites.gradle"
+      context: "project"
+  - entry:
       template: "/gradle/GradleDotProperties.ftl"
       destination: "gradle.properties"
       context: "project"

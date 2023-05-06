@@ -139,16 +139,16 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/webflux/integrationTest/database/DatabaseInitFunction.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/DatabaseInitFunction.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/DatabaseInitFunction.java"
       context: "project"
   - entry:
       template: "/spring/webflux/integrationTest/database/PostgresTestContainer.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/PostgresTestContainer.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/PostgresTestContainer.java"
       context: "project"
       feature: "postgres"
   - entry:
       template: "/spring/webflux/integrationTest/configuration/TestDatabaseConfiguration.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/configuration/TestDatabaseConfiguration.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/configuration/TestDatabaseConfiguration.java"
       context: "project"
   #
   # Endpoint entries
@@ -229,15 +229,15 @@ catalog:
       context: "endpoint"
   - entry:
       template: "/spring/webflux/integrationTest/main/endpoint/ControllerIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIntegrationTest.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ControllerIntegrationTest.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/integrationTest/main/endpoint/ServiceIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIntegrationTest.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/endpoint/{{lowerCaseEntityName}}/{{entityName}}ServiceIntegrationTest.java"
       context: "endpoint"
   - entry:
       template: "/spring/webflux/integrationTest/database/entity/EntityRepositoryIntegrationTest.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIntegrationTest.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/database/{{lowerCaseEntityName}}/{{entityName}}RepositoryIntegrationTest.java"
       context: "endpoint"
   #
   # -- resource files
@@ -298,5 +298,5 @@ catalog:
       context: "endpoint"
   - entry:
       template: "/spring/webflux/integrationTest/configuration/TestTableInitializer.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/configuration/{{entityName}}TestTableInitializer.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/configuration/{{entityName}}TestTableInitializer.java"
       context: "endpoint"

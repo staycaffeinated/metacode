@@ -29,7 +29,7 @@ public class PostgresContainerTests {
     // Note: the container is started as a singleton instead of using the @Container
     // annotation. When @Container is applied, multiple containers may get started.
     // When multiple containers are started, tests will hang from socket timeouts.
-    private static final PostgreSQLContainer<?> testContainer = (PostgreSQLContainer) new PostgreSQLContainer(IMAGE)
+    private static final PostgreSQLContainer<?> testContainer = (PostgreSQLContainer) new PostgreSQLContainer<>(IMAGE)
         .withReuse(true)
         .withStartupTimeout(Duration.ofMinutes(1))
         .waitingFor(Wait.forListeningPort());
@@ -53,7 +53,7 @@ public class PostgresContainerTests {
                 () -> "jdbc:tc:postgresql:15.1-alpine:///public?TC_INITFUNCTION=" + initFunction);
 <#else>
         registry.add("spring.datasource.url",
-                () -> "jdbc:tc:postgresql:15.1-alpine:///public);
+                () -> "jdbc:tc:postgresql:15.1-alpine:///public");
 </#if>
         registry.add("spring.datasource.driver-class-name", () -> "org.testcontainers.jdbc.ContainerDatabaseDriver");
         registry.add("spring.jpa.database-platform", () -> "org.hibernate.dialect.PostgreSQLDialect");

@@ -1,7 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '${project.springBootVersion}'
     id 'io.spring.dependency-management' version '${project.springDependencyManagementVersion}'
-    id 'com.coditory.integration-test' version '${project.coditoryPluginVersion}'
+    id 'jvm-test-suite'
     id 'java'
     id 'java-test-fixtures'
     id 'idea'

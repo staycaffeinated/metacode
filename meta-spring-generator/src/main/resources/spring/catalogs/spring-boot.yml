@@ -28,11 +28,11 @@ catalog:
       context: "project"
   - entry:
       template: "/spring/boot/integrationTest/ApplicationIT.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/ApplicationTests.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/ApplicationTests.java"
       context: "project"
   - entry:
       template: "/spring/boot/integrationTest/common/AbstractIntegrationTest.ftl"
-      destination: "src/integration/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
+      destination: "src/integrationTest/java/{{basePackagePath}}/common/AbstractIntegrationTest.java"
       context: "project"
   - entry:
       template: "/spring/boot/main/resources/ApplicationDotProperties.ftl"
