@@ -13,6 +13,12 @@ dependencies {
     implementation libs.problemSpringWebFlux
     implementation libs.problemJacksonDataType
     implementation libs.jakartaPersistenceApi
+<#if project.isWithOpenApi()>
+    implementation libs.openApiStarterWebfluxUI
+</#if>
+<#if (project.isWithLiquibase())>
+    implementation libs.liquibaseCore
+</#if>
 <#if (project.isWithPostgres())>
     implementation libs.r2dbcPostgres
     runtimeOnly libs.postgresql

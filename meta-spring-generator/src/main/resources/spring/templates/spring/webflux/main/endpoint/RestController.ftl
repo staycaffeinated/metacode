@@ -8,6 +8,13 @@ import ${endpoint.basePackage}.validation.OnCreate;
 import ${endpoint.basePackage}.validation.OnUpdate;
 import ${endpoint.basePackage}.validation.ResourceId;
 
+<#if endpoint.isWithOpenApi()>
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+</#if>
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +49,10 @@ public class ${endpoint.entityName}Controller {
     /*
      * Get all
      */
+<#if endpoint.isWithOpenApi()>
+    @Operation(summary = "Retrieve all ${endpoint.entityName}s")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Found all ${endpoint.entityName}s")})
+</#if>
     @GetMapping (value=${endpoint.entityName}Routes.${endpoint.routeConstants.findAll}, produces = MediaType.APPLICATION_JSON_VALUE )
     public Flux<${endpoint.pojoName}> getAll${endpoint.entityName}s() {
         return ${endpoint.entityVarName}Service.findAll${endpoint.entityName}s();
@@ -51,6 +62,13 @@ public class ${endpoint.entityName}Controller {
      * Get one by resourceId
      *
      */
+<#if endpoint.isWithOpenApi()>
+    @Operation(summary = "Retrieve a single${endpoint.entityName} based on its public identifier")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Found the ${endpoint.entityName}", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ${endpoint.pojoName}.class))}),
+        @ApiResponse(responseCode = "400", description = "An invalid ID was supplied")})
+</#if>
     @GetMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.findOne}, produces = MediaType.APPLICATION_JSON_VALUE )
     public Mono<${endpoint.pojoName}> get${endpoint.entityName}ById(@PathVariable @ResourceId String id) {
         return ${endpoint.entityVarName}Service.findByResourceId(id);
@@ -77,6 +95,13 @@ public class ${endpoint.entityName}Controller {
     /*
      * Create
      */
+<#if endpoint.isWithOpenApi()>
+    @Operation(summary = "Create a new ${endpoint.entityName} entry and persist it")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Add a ${endpoint.entityName}", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = ${endpoint.entityName}.class))}),
+    @ApiResponse(responseCode = "400", description = "An invalid ID was supplied")})
+</#if>
     @PostMapping (value=${endpoint.entityName}Routes.${endpoint.routeConstants.create}, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @Validated(OnCreate.class) 
@@ -88,6 +113,11 @@ public class ${endpoint.entityName}Controller {
     /*
      * Update by resourceId
      */
+<#if endpoint.isWithOpenApi()>
+    @Operation(summary = "Update an existing ${endpoint.entityName}")
+        @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Updated the ${endpoint.entityName}"),
+            @ApiResponse(responseCode = "400", description = "Incorrect data was submitted")})
+</#if>
     @PutMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.update}, produces = MediaType.APPLICATION_JSON_VALUE )
     @Validated(OnUpdate.class) 
     public Mono<${endpoint.entityName}> update${endpoint.entityName}(@PathVariable @ResourceId String id, @RequestBody ${endpoint.pojoName} ${endpoint.entityVarName}) {
@@ -101,6 +131,11 @@ public class ${endpoint.entityName}Controller {
     /*
      * Delete one
      */
+<#if endpoint.isWithOpenApi()>
+    @Operation(summary = "Delete an existing ${endpoint.entityName}")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Removed the ${endpoint.entityName}"),
+        @ApiResponse(responseCode = "400", description = "An incorrect identifier was submitted")})
+</#if>
     @DeleteMapping(value=${endpoint.entityName}Routes.${endpoint.routeConstants.delete})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete${endpoint.entityName}(@PathVariable @ResourceId String id) {
