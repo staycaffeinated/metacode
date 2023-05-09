@@ -9,6 +9,8 @@ ext {
         lombok                 : '${project.lombokVersion}',              // Lombok annotation processor
         log4j                  : '${project.log4jVersion}',               // Logging
         mockito                : '${project.mockitoVersion}',             // Mocking library
+        openApiStarterWebMvc   : '${project.openApiStarterWebMvcVersion}',
+        openApiStarterWebflux  : '${project.openApiStarterWebfluxVersion}',
         postgresql             : '${project.postgresqlVersion}',          // PostgreSQL library
         r2dbcH2                : '${project.r2dbc_h2Version}',            // r2dbc-h2
         r2dbcPostgres          : '${project.r2dbc_postgresVersion}',      // r2dbc-postgres
@@ -45,6 +47,8 @@ ext {
         liquibaseCore                   : "org.liquibase:liquibase-core:$versions.liquibase",
         mockito                         : "org.mockito:mockito-core:$versions.mockito",
         mongoDbDriverSync               : "org.mongodb:mongodb-driver-sync",
+        openApiStarterWebMvcUI          : "org.springdoc:springdoc-openapi-starter-webmvc-ui:$versions.openApiStarterWebMvc",
+        openApiStarterWebfluxUI         : "org.springdoc:springdoc-openapi-starter-webflux-ui:$versions.openApiStarterWebflux",
         r2dbcH2                         : "io.r2dbc:r2dbc-h2:$versions.r2dbcH2",
         r2dbcPostgres                   : "io.r2dbc:r2dbc-postgresql:$versions.r2dbcPostgres",
         r2dbcSpi                        : "io.r2dbc:r2dbc-spi:$versions.r2dbcSpi",

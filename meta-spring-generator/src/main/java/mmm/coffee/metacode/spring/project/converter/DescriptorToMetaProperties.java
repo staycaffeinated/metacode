@@ -39,7 +39,9 @@ public class DescriptorToMetaProperties implements ConvertTrait<RestProjectDescr
         if (descriptor.getIntegrations().contains(SpringIntegrations.MONGODB.name())) {
             map.put(MetaProperties.ADD_MONGODB, Boolean.TRUE);
         }
-
+        if (descriptor.getIntegrations().contains(SpringIntegrations.OPENAPI.name())) {
+            map.put(MetaProperties.ADD_OPENAPI, Boolean.TRUE);
+        }
         return map;
     }
 }

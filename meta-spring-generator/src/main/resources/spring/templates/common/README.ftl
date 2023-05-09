@@ -59,6 +59,22 @@ This plugin checks for new versions of any dependencies. To check, run
 ```[shell]
 ./gradlew dependencyUpdates
 ```
+<#if project.isWithOpenApi()>
+==== OpenAPI Documentation
+
+This project was generated with OpenAPI documentation enabled, which enables
+viewing the OpenAPI documents for this application in your browser.  Simply
+start the application locally (e.g., ```./gradlew bootRun```), then open
+either of these links in your browser:
+
+```[bash]
+http://localhost:8080${project.basePath}/swagger-ui/index.html
+
+http://localhost:8080${project.basePath}/v3/api-docs
+```
+
+</#if>
+
 
 ==== Setting Up SonarQube
 

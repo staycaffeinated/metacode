@@ -18,6 +18,9 @@ dependencies {
     implementation libs.problemJacksonDataType
     implementation libs.jakartaPersistenceApi
 </#if>
+<#if project.isWithOpenApi()>
+    implementation libs.openApiStarterWebMvcUI
+</#if>
 <#if (project.isWithLiquibase())>
     implementation libs.liquibaseCore
 </#if>

@@ -21,4 +21,5 @@ public class MetaProperties {
     public static final String ADD_POSTGRESQL = "add.postgres";
     public static final String ADD_LIQUIBASE = "add.liquibase";
     public static final String ADD_MONGODB = "add.mongodb";
+    public static final String ADD_OPENAPI = "add.openapi";
 }

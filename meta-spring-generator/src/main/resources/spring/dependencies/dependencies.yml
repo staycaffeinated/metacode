@@ -59,6 +59,11 @@ dependencies:
   # Mockito
   - name: "mockito"
     version: "4.4.0"
+  # Swagger/OpenAPI
+  - name: "openApiStarterWebMvc"
+    version: "2.1.0"
+  - name: "openApiStarterWebflux"
+    version: "2.1.0"
   # Postres
   - name: "postgresql"
     version: "42.6.0"
@@ -83,6 +88,7 @@ dependencies:
   # Sonarqube
   - name: "sonarqube"
     version: "4.0.0.2929"
+
   # Spotless code formatter gradle plugin
   - name: "spotless"
     version: "6.18.0"

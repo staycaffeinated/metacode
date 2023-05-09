@@ -26,7 +26,7 @@ public class MetaPropertiesWriter {
     private final PropertiesConfiguration configuration;
 
     public void saveProperties(Map<String, Object> properties) {
-        log.trace("[saveProperties]", new Exception("Who called me??"));
+        log.debug("[saveProperties]", new Exception("Who called me??"));
         try {
             // Only copy properties needed for endpoint generation.
             // The incoming {@code properties} could contain many values,
@@ -49,6 +49,9 @@ public class MetaPropertiesWriter {
             }
             if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_MONGODB))) {
                 configuration.setProperty(MetaProperties.ADD_MONGODB, "true");
+            }
+            if (ObjectUtils.isNotEmpty(properties.get(MetaProperties.ADD_OPENAPI))) {
+                configuration.setProperty(MetaProperties.ADD_OPENAPI, "true");
             }
 
             writeConfiguration(configuration);

@@ -66,6 +66,8 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private boolean withLiquibase;
     @Setter
     private boolean withMongoDb;
+    @Setter
+    private boolean withOpenApi;
     
     /*
      * Library versions
@@ -81,11 +83,13 @@ public class RestProjectTemplateModel extends SpringTemplateModel {
     private String springBootVersion;
     private String springCloudVersion;
     private String springDependencyManagementVersion;
+    private String openApiStarterWebMvcVersion;
+    private String openApiStarterWebfluxVersion;
     private String problemJacksonDataTypeVersion;
     private String problemSpringWebVersion;
     private String assertJVersion;
     private String benManesPluginVersion;
-    private String coditoryPluginVersion;
+    private String coditoryPluginVersion;   // deprecated; gradle's built-in plugin is used since 8.0.0
     private String junitSystemRulesVersion;
     private String junitVersion;
     private String jibPluginVersion;

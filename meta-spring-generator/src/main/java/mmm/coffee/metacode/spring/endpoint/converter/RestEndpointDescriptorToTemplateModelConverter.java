@@ -74,6 +74,7 @@ public class RestEndpointDescriptorToTemplateModelConverter implements ConvertTr
                 .withPostgres(fromType.isWithPostgres())
                 .withTestContainers(fromType.isWithTestContainers())
                 .withLiquibase(fromType.isWithLiquibase())
+                .withOpenApi(fromType.isWithOpenApi())
                 .routeConstants(constants)
                 .build();
     }

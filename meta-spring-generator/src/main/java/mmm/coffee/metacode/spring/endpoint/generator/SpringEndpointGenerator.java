@@ -69,6 +69,7 @@ public class SpringEndpointGenerator implements ICodeGenerator<RestEndpointDescr
         spec.setWithPostgres(config.getBoolean(MetaProperties.ADD_POSTGRESQL, false));
         spec.setWithTestContainers(config.getBoolean(MetaProperties.ADD_TESTCONTAINERS, false));
         spec.setWithMongoDb(config.getBoolean(MetaProperties.ADD_MONGODB, false));
+        spec.setWithOpenApi(config.getBoolean(MetaProperties.ADD_OPENAPI, false));
 
         return this;
     }

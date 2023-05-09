@@ -61,6 +61,7 @@ public class RestEndpointDescriptor implements Descriptor {
     private boolean withTestContainers;
     private boolean withLiquibase;
     private boolean withMongoDb;
+    private boolean withOpenApi;
 
 
     public final String getFramework() {

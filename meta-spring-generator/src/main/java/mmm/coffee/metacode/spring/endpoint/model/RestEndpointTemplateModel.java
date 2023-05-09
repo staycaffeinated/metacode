@@ -131,6 +131,9 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
     @Setter(AccessLevel.PUBLIC)
     private boolean withMongoDB;
 
+    @Setter(AccessLevel.PUBLIC)
+    private boolean withOpenApi;
+
     //
     // These get methods are added because Freemarker templates
     // can get confused by Lombok naming conventions
@@ -141,5 +144,7 @@ public class RestEndpointTemplateModel extends SpringTemplateModel {
     public boolean getLiquibaseFlag() { return withLiquibase; }
 
     public boolean getMongoDbFlag() { return withMongoDB; }
+
+    public boolean getOpenApiFlag() { return withOpenApi; }
 
 }

@@ -22,7 +22,8 @@ public enum SpringIntegrations {
     POSTGRES ("postgres"),
     LIQUIBASE ("liquibase"),
     TESTCONTAINERS ("testcontainers"),
-    MONGODB ("mongodb")
+    MONGODB ("mongodb"),
+    OPENAPI("openapi")
             ;
 
     // This is the value an end-user enters on the command line.
