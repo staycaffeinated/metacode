@@ -1,5 +1,5 @@
 
-rootProject.name='metacode'
+rootProject.name='MetaCode'
 
 include 'meta-cli'
 include 'meta-common'
