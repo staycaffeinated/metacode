@@ -8,8 +8,9 @@ ext {
             commonsText:        '1.9',
             freemarker:         '2.3.32',
             guava:              '31.1-jre',
-            guice:              '5.1.0',
+            guice:              '7.0.0',
             jacksonYaml:        '2.15.0',
+            jakartaInject:      '2.0.1',
             jmustache:          '1.15',
             junit:              '5.9.2',
             log4j:              '2.18.0',
@@ -38,6 +39,7 @@ ext {
             junitBillOfMaterial         : "org.junit:junit-bom:$versions.junit",
             junitJupiter                : "org.junit.jupiter:junit-jupiter:$versions.junit",
             junitPlatformRunner         : "org.junit.platform:junit-platform-runner",
+            jakartaInject               : "jakarta.inject:jakarta.inject-api:$versions.jakartaInject",
             
             // See https://stefanbirkner.github.io/system-rules/
             junitSystemRules            : "com.github.stefanbirkner:system-rules:$versions.systemRules",

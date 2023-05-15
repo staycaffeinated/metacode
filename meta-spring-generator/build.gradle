@@ -22,6 +22,7 @@ dependencies {
     implementation libs.guice
     implementation libs.jacksonYaml
     implementation libs.slf4jApi
+    implementation libs.jakartaInject
 
     testImplementation project (path: ':meta-common' )
     testImplementation project (path: ':meta-annotations')
