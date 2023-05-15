@@ -10,6 +10,7 @@ ext {
             guava:              '31.1-jre',
             guice:              '7.0.0',
             jacksonYaml:        '2.15.0',
+            jakartaAnnotations: '2.1.1',
             jakartaInject:      '2.0.1',
             jmustache:          '1.15',
             junit:              '5.9.2',
@@ -39,6 +40,7 @@ ext {
             junitBillOfMaterial         : "org.junit:junit-bom:$versions.junit",
             junitJupiter                : "org.junit.jupiter:junit-jupiter:$versions.junit",
             junitPlatformRunner         : "org.junit.platform:junit-platform-runner",
+            jakartaAnnotations          : "jakarta.annotation:jakarta.annotation-api:$versions.jakartaAnnotations",
             jakartaInject               : "jakarta.inject:jakarta.inject-api:$versions.jakartaInject",
             
             // See https://stefanbirkner.github.io/system-rules/

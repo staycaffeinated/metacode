@@ -17,11 +17,10 @@ package mmm.coffee.metacode.common.catalog;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
+import jakarta.annotation.Nullable;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Set;
 
 import static com.google.common.truth.Truth.assertThat;
