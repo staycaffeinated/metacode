@@ -7,7 +7,7 @@ apply plugin: 'application'
 
 application {
     //mainClass.set("mmm.coffee.zen.cli.CodeZenApplication")
-    mainClassName = "mmm.coffee.metacode.cli.Application" // shadowJar needs this syntax
+    setMainClass("mmm.coffee.metacode.cli.Application" ) // shadowJar needs this syntax
     applicationName = 'metacode'
 }
 
@@ -23,7 +23,7 @@ shadowJar {
         // note: ManifestVersionProvider has a dependency on the impl-title's value
         attributes "Implementation-Title": "MetaCode"
         // note: the 'version' is defined in this component's gradle.properties
-        attributes "Implementation-Version": version
+        attributes "Implementation-Version": archiveVersion
     }
 }
 
@@ -40,7 +40,7 @@ shadowJar {
 jar {
     manifest {
         attributes "Implementation-Title": "MetaCode"
-        attributes "Implementation-Version": version
+        attributes "Implementation-Version": archiveVersion
     }
 }
 

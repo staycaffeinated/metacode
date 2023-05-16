@@ -18,8 +18,8 @@ jacocoTestReport {
     // with JvmTestSuite plugin, this is now an unknown property
     // dependsOn integrationTest
     reports {
-        xml.enabled(true)   // sonarqube needs xml format
-        html.enabled(true)  // for our local viewing pleasure
+        xml.required   // sonarqube needs xml format
+        html.required  // for our local viewing pleasure
     }
 }
 
