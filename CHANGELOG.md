@@ -1,46 +1,57 @@
 
 ## [Unreleased]
 
+## [8.0.0] - 2023-05-15
+
 ### Added
-* Previous versions used the Coditory plugin to configure integration tests.
-  That plugin has been replaced with Gradle's 'jvm-test-suite' plugin. With
-  this change, integration tests are now found in the 'src/integrationTest/java'
-  folder.  A suite was also added for performance tests, if you want to leverage that.
 
-* Support for database schemas has been added. If your tables need to be contained
-  within a specific schema, use the command line option '-S [schema] or --schema [schema]'.
-  If you use schemas, its suggested to also use TestContainers, since Metacode will
-  create the schema within the test container (Hibernate does not do that automatically),
-  so integration tests will make queries against the table within the schema.
+* Gradle jvm-test-suite Plugin Support
 
-* Support for OpenAPI has been added for Spring WebMVC and Spring Webflux projects. 
-  When creating the project, include the command line parameter ```--openapi```
-  to enable the OpenAPI features.
+  * Previous versions used the Coditory plugin to configure integration tests.
+        That plugin has been replaced with Gradle's 'jvm-test-suite' plugin. With
+        this change, integration tests are now found in the 'src/integrationTest/java'
+        folder.  A suite was also added for performance tests, if you want to leverage that.
+
+* Database Schema Support
+
+  * Support for database schemas has been added. If your tables need to be contained
+        within a specific schema, use the command line option '-S [schema] or --schema [schema]'.
+        If you use schemas, its suggested to also use TestContainers, since Metacode will
+        create the schema within the test container (Hibernate does not do that automatically),
+        so integration tests will make queries against the table within the schema.
+
+* OpenAPI Support
+
+  * Support for OpenAPI has been added for Spring WebMVC and Spring Webflux projects.
+  When creating the project, include the command line option ```--openapi```
+  to generate the OpenAPI artifacts.
 
 
 ### Fixed
+
 * When generating Spring WebMVC projects that used Postgres and TestContainers,
-  the integration tests were not always behaving as expected.  Those generated tests
-  have been refactored to use an explicity PostgresContainerTests class which, so far,
-  has proven to be more dependable.
+      the integration tests were not always behaving as expected.  Those generated tests
+      have been refactored to use an explicity PostgresContainerTests class which, so far,
+      has proven to be more dependable.
 
 * With the updated Problem library, the generated GlobalExceptionHandler
-  does not need a handler for jakarta.validjation.ConstraintViolation; the Problem library
-  now supports it.  Its worth noting the Problem library's handler _will_ return
-  a stack trace in the response, which is a bad practice for client-facing applications,
-  since stack traces are considered an information leak.
+      does not need a handler for jakarta.validjation.ConstraintViolation; the Problem library
+      now supports it.  Its worth noting the Problem library's handler _will_ return
+      a stack trace in the response, which is a bad practice for client-facing applications,
+      since stack traces are considered an information leak.
 
 * The Spotless plugin is used for code formatting. In the Gradle files, a dependency was
-  added between the 'check' task and the 'spotlessApply' task, so that running 'gradlew check'
-  automatically triggers 'spotlessApply'.
+      added between the 'check' task and the 'spotlessApply' task, so that running 'gradlew check'
+      automatically triggers 'spotlessApply'.
 
 ### Maintenance
+
 * Updated various libraries and plugins:
-** Spring Boot
-** Lombok
-** JUnit Jupiter
-** Problem Spring Web
-** TestContainers
+  * Spring Boot
+  * Lombok
+  * JUnit Jupiter
+  * Problem Spring Web
+  * TestContainers
 
 
 ## [7.0.0] - 2023-03-28
@@ -64,14 +75,14 @@
 ### Maintenance
 
 * Updated these libraries and plugins:
-  ** AssertJ
-  ** Ben Manes gradle plugin
-  ** Lombok
-  ** PostgreSQL driver
-  ** SonarQube plugin
-  ** Spotless plugin
-  ** Spring Boot
-  ** Spring Cloud
+    * AssertJ
+    * Ben Manes gradle plugin
+    * Lombok
+    * PostgreSQL driver
+    * SonarQube plugin
+    * Spotless plugin
+    * Spring Boot
+    * Spring Cloud
 
 ## [6.1.0] - 2023-01-21
 
