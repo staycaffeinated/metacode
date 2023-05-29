@@ -69,7 +69,7 @@ Be aware that MetaCode creates everything in the current working directory, so c
 ----
 $ mkdir petstore-webflux
 $ cd petstore-webflux
-$ metacode create project spring-webflux --name petstore --package acme.petstore --base-path /petstore
+$ metacode create project spring-webflux --name petstore --package acme.petstore --base-path /petstore 
 ----
 
 .Step 2: Create an endpoint for pets
@@ -131,7 +131,7 @@ This example shows using Spring WebMvc, which uses synchronous communication.
 ----
 $ mkdir petstore-webmvc
 $ cd petstore-webmvc
-$ metacode create project spring-webmvc --name petstore --package acme.petstore --base-path /petstore
+$ metacode create project spring-webmvc --name petstore --package acme.petstore --base-path /petstore --add openapi
 ----
 
 .Step 2: Create an endpoint for pets
@@ -166,15 +166,34 @@ $ ./gradlew build
 $ ./gradlew bootRun
 ----
 
-Try these URLs in your browser to see what happens
+Try these URLs with the Httpie command, or in your browser to see what happens
 [source,bash]
 ----
+# Renders the OpenAPI page for the Pet Store
+$ http localhost:8080/petstore/swagger-ui/index.html
+
+# Renders the OpenAPI documentation
+$ http localhost:8080/petstore/v3/api-docs
+
+# Lists all pets 
 $ http localhost:8080/petstore/pets/findAll
+
+# Lists all stores
 $ http localhost:8080/petstore/stores/findAll
+
+# Lists all owners
 $ http localhost:8080/petstore/owners/findAll
+
+# Returns an error because the pet ID is not given
 $ http localhost:8080/petstore/pets
+
+# Returns the given Pet
 $ http localhost:8080/petstore/pets/[resourceId]
+
+# Shows the health of the application
 $ http localhost:8080/petstore/_internal/health
+
+# Shows the liveness of the application
 $ http localhost:8080/petstore/_internal/health/liveness
 
 # Because the question mark has a special meaning in bash and zsh,
